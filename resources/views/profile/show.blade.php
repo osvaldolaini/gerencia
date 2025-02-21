@@ -22,9 +22,6 @@
                 <x-section-border />
             @endif
 
-            <div class="mt-10 sm:mt-0">
-                @livewire('admin.users.user-key-create-form')
-            </div>
 
             <x-section-border />
 

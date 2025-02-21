@@ -35,27 +35,6 @@
                         <div class="text-xl font-black text-gray-800 uppercase ">
                             {{ env('APP_NAME') }}
                         </div>
-                        <div class="flex items-center">
-                            <nav class="items-center hidden uppercase text-md font-sen lg:flex">
-                                <a href="#about" class="flex px-3 py-2">
-                                    Sobre
-                                </a>
-                                {{-- <a href="#documentation" class="flex px-3 py-2">
-                                    Documentação
-                                </a> --}}
-                                <a href="#contact" class="flex px-3 py-2">
-                                    Contato
-                                </a>
-                            </nav>
-                            <button class="flex flex-col ml-4 lg:hidden">
-                                <span class="w-6 h-1 mb-1 bg-gray-800 ">
-                                </span>
-                                <span class="w-6 h-1 mb-1 bg-gray-800 ">
-                                </span>
-                                <span class="w-6 h-1 mb-1 bg-gray-800 ">
-                                </span>
-                            </button>
-                        </div>
                     </div>
                 </header>
                 <div class="z-20 flex items-center dark:bg-gray-800">
@@ -64,14 +43,14 @@
                             <span class="w-20 h-2 mb-12 bg-blue-800 ">
                             </span>
                             <h1
-                                class="flex flex-col font-black leading-none text-gray-800 uppercase text-7xl font-bebas-neue sm:text-8xl ">
-                                Sistema
-                                <span class="text-6xl text-blue-800 sm:text-7xl">
-                                    Aero
+                                class="flex flex-col font-black leading-none text-blue-800 uppercase text-7xl font-bebas-neue sm:text-8xl ">
+                                Gerên
+                                <span class="text-6xl text-red-800 sm:text-7xl">
+                                    Cia
                                 </span>
                             </h1>
                             <p class="text-lg text-black sm:text-base ">
-                                Ferramenta destinada auxiliar na gestão de aeroclubes.
+                                Ferramenta destinada auxiliar na gestão de colégios militares.
                             </p>
                             <div class="flex mt-8">
                                 <a href="{{ route('login') }}"
@@ -85,17 +64,14 @@
                             </div>
                         </div>
                         <div class="relative hidden sm:block sm:w-1/3 lg:w-3/5">
-                            <img src="{{ url('storage/logos/logo-sistema-aero.png') }}"
-                                class="max-w-xs m-auto md:max-w-sm" />
+                            <img src="{{ url('storage/logos/logo.png') }}" class="max-w-xs m-auto md:max-w-sm" />
                         </div>
                     </div>
                 </div>
             </div>
-            @livewire('site.about')
             <div class="items-center py-0 my-0 bg-black divider divider-neutral">
-                <img src="{{ url('storage/logos/logo-sistema-aero-2.png') }}" class="w-10 mx-auto" />
+                <img src="{{ url('storage/logos/logo.png') }}" class="w-10 mx-auto" />
             </div>
-            @livewire('site.contact')
 
             {{-- @livewire('page.teste') --}}
         </main>

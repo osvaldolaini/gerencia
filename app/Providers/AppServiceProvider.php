@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Providers\Lg\LgTableServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use Modules\People\Providers\PeopleServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        PeopleServiceProvider::class;
     }
 }

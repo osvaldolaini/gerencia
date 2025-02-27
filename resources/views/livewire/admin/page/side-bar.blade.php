@@ -51,6 +51,71 @@
                         </x-slot>
                     </x-layout.side-bar-nav-link>
                 </div>
+                <div x-show="openDropdown === 1" x-collapse>
+                    <x-layout.side-bar-nav-link url="student-list" active="*alunos*" access_page="students">
+                        <x-slot name="svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="ml-2 size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </x-slot>
+                        <x-slot name="title">
+                            Alunos
+                        </x-slot>
+                    </x-layout.side-bar-nav-link>
+                </div>
+            </div>
+            {{-- COMPANIAS --}}
+            <div x-init="if (window.location.href.includes('companias')) { openDropdown = 3; }">
+                <button @click="openDropdown === 3 ? openDropdown = null : openDropdown = 3"
+                    class="flex items-center justify-between w-full px-2 py-1 text-left text-gray-700 transition dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <span class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2 text-gray-500 dark:text-gray-300"
+                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                        </svg>
+                        Companias
+                    </span>
+                    <svg :class="openDropdown === 3 ? 'rotate-180' : ''" xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 text-gray-500 transition-transform duration-500" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <div x-show="openDropdown === 3" x-collapse>
+                    <x-layout.side-bar-nav-link url="companies-list" active="*usuários*" access_page="companies">
+                        <x-slot name="svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="ml-2 size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </x-slot>
+                        <x-slot name="title">
+                            Criar compania
+                        </x-slot>
+                    </x-layout.side-bar-nav-link>
+                </div>
+                <div x-show="openDropdown === 3" x-collapse>
+                    <x-layout.side-bar-nav-link url="student-list" active="*alunos*" access_page="students">
+                        <x-slot name="svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="ml-2 size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                        </x-slot>
+                        <x-slot name="title">
+                            Criar batalhão
+                        </x-slot>
+                    </x-layout.side-bar-nav-link>
+                </div>
             </div>
 
             {{-- ADMINISTRAÇÃO --}}
@@ -58,8 +123,9 @@
                 <button @click="openDropdown === 2 ? openDropdown = null : openDropdown = 2"
                     class="flex items-center justify-between w-full px-2 py-1 text-left text-gray-700 transition dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                     <span class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6 mr-2 text-gray-500 dark:text-gray-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor"
+                            class="w-6 h-6 mr-2 text-gray-500 dark:text-gray-300">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
                         </svg>
@@ -74,7 +140,8 @@
                     </svg>
                 </button>
                 <div x-show="openDropdown === 2" x-collapse>
-                    <x-layout.side-bar-nav-link url="settings" active="*configurações-gerais*" access_page="settings">
+                    <x-layout.side-bar-nav-link url="settings" active="*configurações-gerais*"
+                        access_page="settings">
                         <x-slot name="svg">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="ml-2 size-6">

@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Settings;
 
-use App\Livewire\Settings\SchoolClasses\SchoolClassesStudents;
-use App\Models\Settings\SchoolClassesStudent;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,18 +9,16 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
-class Peoples extends Model
+class SchoolGrades extends Model
 {
     use HasFactory, LogsActivity, HasAttributeConversions;
 
-    protected $table = 'peoples';
+    protected $table = 'school_grades';
 
     protected $fillable = [
         'active',
         'name',
         'nick',
-        'number',
-        'type',
         'code',
         'updated_by',
         'created_by',
@@ -66,13 +62,10 @@ class Peoples extends Model
             ->logOnly($this->fillable);
     }
 
-    public function getStudentTitleAttribute()
+    public function classes($school_classes_year_id)
     {
-        return $this->number . ' - ' . $this->nick;
-    }
-    public function getPeopleClassAttribute()
-    {
-        $studentClass = SchoolClassesStudent::where('active', 1)->where('people_id', $this->id)->first();
-        return $studentClass;
+        $classes = SchoolClasses::where('active', 1)->where('school_classes_year_id', $school_classes_year_id)
+            ->where('school_grade_id', $this->id)->get();
+        return $classes;
     }
 }

@@ -1,38 +1,36 @@
 <?php
 
-namespace App\Livewire\Settings\Companies;
+namespace App\Livewire\Settings\SchoolClassesYears;
 
-use App\Models\Settings\Companies;
+use App\Models\Settings\SchoolClassesYears;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 
 use Illuminate\Support\Str;
 
-class CompanyForm extends Component
+class SchoolClassesYearForm extends Component
 {
     public $rules;
 
-    public $back = 'companies-list';
-    public $route = 'company';
+    public $back = 'school-classes-years-list';
+    public $route = 'school-classes-years';
 
-    public $breadcrumb = 'Companhias';
+    public $breadcrumb = 'Turmas / Ano';
     //Fields
     public $id;
-    public $name;
-    public $nick;
+    public $year;
 
-    public function mount(Companies $companies)
+    public function mount(SchoolClassesYears $school_classes_years)
     {
-        if ($companies->getAttributes()) {
-            $this->id           = $companies->id;
-            $this->name         = $companies->name;
-            $this->nick         = $companies->nick;
+        if ($school_classes_years->getAttributes()) {
+            $this->id           = $school_classes_years->id;
+            $this->year         = $school_classes_years->year;
         }
     }
 
     public function render()
     {
-        return view('livewire.settings.companies.company-form');
+        return view('livewire.settings.school-classes-years.school-classes-year-form');
     }
 
     public function save()
@@ -45,33 +43,32 @@ class CompanyForm extends Component
     public function save_out()
     {
         $this->real_save();
-        redirect()->route('companies-list')->with('success', 'Registro criado com sucesso.');
+        redirect()->route($this->route . '-list')->with('success', 'Registro criado com sucesso.');
     }
 
     public function real_save()
     {
         $this->rules = [
-            'name' => 'required|' . Rule::unique('companies')->ignore($this->id),
+            'year' => 'min:4|max:4|
+            required|' . Rule::unique('school_classes_years')->ignore($this->id),
         ];
         $this->validate();
         if ($this->id) {
-            Companies::updateOrCreate([
+            SchoolClassesYears::updateOrCreate([
                 'id'    => $this->id,
             ], [
-                'name' => $this->name,
-                'nick' => $this->nick,
+                'year' => $this->year,
             ]);
 
             $id = false;
             $msg = 'Registro editado com sucesso.';
         } else {
-            $companies = Companies::create([
+            $school_classes_years = SchoolClassesYears::create([
                 'active'    => 1,
-                'name'      => $this->name,
-                'nick'      => $this->nick,
+                'year'      => $this->year,
                 'code'      => Str::uuid(),
             ]);
-            $id = $companies->id;
+            $id = $school_classes_years->id;
             $msg = 'Registro criado com sucesso.';
         }
 

@@ -1,36 +1,36 @@
 <?php
 
-namespace App\Livewire\Settings\Companies;
+namespace App\Livewire\Settings\SchoolClassesYears;
 
-use App\Models\Settings\Companies;
+use App\Models\Settings\SchoolClassesYears;
 use App\Services\LaiGuz\TableService;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Companylist extends Component
+class SchoolClassesYearList extends Component
 {
     use WithPagination;
-    public $breadcrumb = 'Companhias';
+    public $breadcrumb = 'Turmas / Ano';
     public $modal = true;
     public $showJetModal = false;
     public $showModalForm = false;
 
     public $rules;
     public $detail;
-    public $companies;
+    public $school_classes_years;
     public $id;
 
     //Dados da tabela
     protected $queryService;
-    public $model = "App\Models\Settings\Companies"; //Model principal
+    public $model = "App\Models\Settings\SchoolClassesYears"; //Model principal
     public $modelId = "id"; //Ex: 'table.id' or 'id'
     public $search;
-    public $sorts = ['name' => 'asc'];
+    public $sorts = ['year' => 'desc'];
     public $relationTables; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'name,nick,active as status';
-    public $searchable = 'name,nick'; //Colunas pesquisadas no banco de dados
+    public $columnsInclude = 'year,active as status';
+    public $searchable = 'year'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
     public $active = 'active';
@@ -53,7 +53,7 @@ class Companylist extends Component
             ])
             ->getData();
         return view(
-            'livewire.settings.companies.company-list',
+            'livewire.settings.school-classes-years.school-classes-year-list',
             compact('dataTable')
         );
     }
@@ -74,9 +74,9 @@ class Companylist extends Component
     {
         if ($this->modal) {
             $this->showModalForm = true;
-            $this->companies = '';
+            $this->school_classes_years = '';
         } else {
-            redirect()->route('company-create');
+            redirect()->route('school-classes-years-create');
         }
     }
 
@@ -86,9 +86,9 @@ class Companylist extends Component
 
         if ($this->modal) {
             $this->showModalForm = true;
-            $this->companies = Companies::find($id);
+            $this->school_classes_years = SchoolClassesYears::find($id);
         } else {
-            redirect()->route('company-edit', $id);
+            redirect()->route('school-classes-years-edit', $id);
         }
     }
 
@@ -104,7 +104,7 @@ class Companylist extends Component
     }
     public function delete($id)
     {
-        $data = Companies::where('id', $id)->first();
+        $data = SchoolClassesYears::where('id', $id)->first();
         $data->active = 0;
         $data->save();
 
@@ -115,7 +115,7 @@ class Companylist extends Component
     //ACTIVE
     public function buttonActive($id)
     {
-        $data = Companies::where('id', $id)->first();
+        $data = SchoolClassesYears::where('id', $id)->first();
         if ($data->active == 1) {
             $data->active = 0;
             $data->save();

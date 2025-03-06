@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Settings;
 
-use App\Livewire\Settings\SchoolClasses\SchoolClassesStudents;
-use App\Models\Settings\SchoolClassesStudent;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,18 +9,18 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
-class Peoples extends Model
+class SchoolClasses extends Model
 {
     use HasFactory, LogsActivity, HasAttributeConversions;
 
-    protected $table = 'peoples';
+    protected $table = 'school_classes';
 
     protected $fillable = [
         'active',
-        'name',
-        'nick',
-        'number',
-        'type',
+        'title',
+        'school_classes_year_id',
+        'school_grade_id',
+        'order',
         'code',
         'updated_by',
         'created_by',
@@ -35,8 +33,6 @@ class Peoples extends Model
 
         static::saving(function ($model) {
             $model->setUpperCaseAttributes([
-                'name',
-                'nick',
                 'updated_by',
                 'created_by',
             ]);
@@ -66,13 +62,20 @@ class Peoples extends Model
             ->logOnly($this->fillable);
     }
 
-    public function getStudentTitleAttribute()
+
+    public function setActiveAttribute($value)
     {
-        return $this->number . ' - ' . $this->nick;
-    }
-    public function getPeopleClassAttribute()
-    {
-        $studentClass = SchoolClassesStudent::where('active', 1)->where('people_id', $this->id)->first();
-        return $studentClass;
+        $this->attributes['active'] = $value;
+        if ($value == 0) {
+            $this->order = 99999;
+            $this->save();
+        } else {
+            if ($this->school_classes_year_id) {
+                $last = $this->where('school_classes_year_id', $this->school_classes_year_id)->orderBy('order', 'desc')
+                    ->first();
+                $this->order = $last->order + 1;
+                $this->save();
+            }
+        }
     }
 }

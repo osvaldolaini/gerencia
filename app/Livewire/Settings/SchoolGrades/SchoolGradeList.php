@@ -1,32 +1,32 @@
 <?php
 
-namespace App\Livewire\Settings\Companies;
+namespace App\Livewire\Settings\SchoolGrades;
 
-use App\Models\Settings\Companies;
+use App\Models\Settings\SchoolGrades;
 use App\Services\LaiGuz\TableService;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Companylist extends Component
+class SchoolGradeList extends Component
 {
     use WithPagination;
-    public $breadcrumb = 'Companhias';
+    public $breadcrumb = 'Ano escolar';
     public $modal = true;
     public $showJetModal = false;
     public $showModalForm = false;
 
     public $rules;
     public $detail;
-    public $companies;
+    public $school_grades;
     public $id;
 
     //Dados da tabela
     protected $queryService;
-    public $model = "App\Models\Settings\Companies"; //Model principal
+    public $model = "App\Models\Settings\SchoolGrades"; //Model principal
     public $modelId = "id"; //Ex: 'table.id' or 'id'
     public $search;
-    public $sorts = ['name' => 'asc'];
+    public $sorts = ['nick' => 'asc'];
     public $relationTables; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
     public $columnsInclude = 'name,nick,active as status';
@@ -53,7 +53,7 @@ class Companylist extends Component
             ])
             ->getData();
         return view(
-            'livewire.settings.companies.company-list',
+            'livewire.settings.school-grades.school-grade-list',
             compact('dataTable')
         );
     }
@@ -74,9 +74,9 @@ class Companylist extends Component
     {
         if ($this->modal) {
             $this->showModalForm = true;
-            $this->companies = '';
+            $this->school_grades = '';
         } else {
-            redirect()->route('company-create');
+            redirect()->route('school-grades-create');
         }
     }
 
@@ -86,9 +86,9 @@ class Companylist extends Component
 
         if ($this->modal) {
             $this->showModalForm = true;
-            $this->companies = Companies::find($id);
+            $this->school_grades = SchoolGrades::find($id);
         } else {
-            redirect()->route('company-edit', $id);
+            redirect()->route('school-grades-edit', $id);
         }
     }
 
@@ -104,7 +104,7 @@ class Companylist extends Component
     }
     public function delete($id)
     {
-        $data = Companies::where('id', $id)->first();
+        $data = SchoolGrades::where('id', $id)->first();
         $data->active = 0;
         $data->save();
 
@@ -115,7 +115,7 @@ class Companylist extends Component
     //ACTIVE
     public function buttonActive($id)
     {
-        $data = Companies::where('id', $id)->first();
+        $data = SchoolGrades::where('id', $id)->first();
         if ($data->active == 1) {
             $data->active = 0;
             $data->save();

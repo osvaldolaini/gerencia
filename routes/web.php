@@ -10,6 +10,13 @@ use App\Livewire\Peoples\PeopleForm;
 use App\Livewire\Peoples\PeopleList;
 use App\Livewire\Settings\Companies\CompanyForm;
 use App\Livewire\Settings\Companies\Companylist;
+use App\Livewire\Settings\SchoolClasses\SchoolClassesForm;
+use App\Livewire\Settings\SchoolClasses\SchoolClassesList;
+use App\Livewire\Settings\SchoolClasses\SchoolClassesStudents;
+use App\Livewire\Settings\SchoolClassesYears\SchoolClassesYearForm;
+use App\Livewire\Settings\SchoolClassesYears\SchoolClassesYearList;
+use App\Livewire\Settings\SchoolGrades\SchoolGradeForm;
+use App\Livewire\Settings\SchoolGrades\SchoolGradelist;
 use App\Livewire\Students\StudentForm;
 use App\Livewire\Students\StudentList;
 use Illuminate\Support\Facades\Route;
@@ -84,4 +91,49 @@ Route::middleware([
         ->name('companies-create');
     Route::get('/companias/compania/{companies}/editar', CompanyForm::class)
         ->name('companies-edit');
+});
+//Ano escolar
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:school_grades' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/companias/ano-escolar', SchoolGradelist::class)
+        ->name('school-grades-list');
+    Route::get('/companias/ano-escolar/novo', CompanyForm::class)
+        ->name('school-grades-create');
+    Route::get('/companias/ano-escolar/{school_grades}/editar', CompanyForm::class)
+        ->name('school-grades-edit');
+});
+
+//Turmas
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:school_classes_years' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/companias/anos', SchoolClassesYearList::class)
+        ->name('school-classes-years-list');
+    Route::get('/companias/anos/novo', SchoolClassesYearForm::class)
+        ->name('school-classes-years-create');
+    Route::get('/companias/anos/{school_classes_years}/editar', SchoolClassesYearForm::class)
+        ->name('school-classes-years-edit');
+});
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:school_classes_years' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/companias/anos/{school_classes_years}/turmas', SchoolClassesList::class)
+        ->name('school-classes-year-list');
+    Route::get('/companias/turmas/{school_classes}/editar', SchoolClassesForm::class)
+        ->name('school-classes-edit');
+    Route::get('/companias/turmas/{school_classes}/alunos', SchoolClassesStudents::class)
+        ->name('school-classes-students');
 });

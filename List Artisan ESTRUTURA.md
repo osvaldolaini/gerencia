@@ -1,11 +1,17 @@
-php artisan make:model Admin\DIRETORIO\Title (plural) -m
+php artisan make:model Peoples -m
 
 php artisan make:livewire Admin\DIRETORIO (plural)\Grupo (plural)\TitleList
 php artisan make:livewire Admin\DIRETORIO(plural)\Grupo (plural)\TitleForm
 php artisan make:livewire Admin\DIRETORIO (plural)\Grupo (plural)\TitlePage
 
-php artisan make:model Admin\Operational\FlightDatas -m
+php artisan make:model Settings\Classes -m
 
-php artisan make:livewire Admin\Operational\Plane\Treinaments\PlaneTreinamentList
-php artisan make:livewire Admin\Operational\Plane\Treinaments\PlaneTreinamentForm
-php artisan make:livewire Admin\Operational\Plane\Treinaments\PlaneTreinamentPage
+php artisan make:livewire Settings\Classes\Classlist
+php artisan make:livewire Settings\Classes\ClassForm
+php artisan make:livewire Settings\Classes\ClassPage
+
+php artisan make:model Settings\SchoolGrades -m
+
+php artisan make:livewire Settings\SchoolGrades\SchoolGradelist
+php artisan make:livewire Settings\SchoolGrades\SchoolGradeForm
+php artisan make:livewire Settings\SchoolGrades\SchoolGradePage

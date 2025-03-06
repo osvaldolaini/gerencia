@@ -6,6 +6,8 @@ namespace App\Livewire\Students;
 use App\Models\Peoples;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
+
 
 class StudentForm extends Component
 {
@@ -73,6 +75,7 @@ class StudentForm extends Component
                 'nick'      => $this->nick,
                 'number'    => $this->number,
                 'type'      => 1,
+                'code'      => Str::uuid(),
             ]);
             $id = $students->id;
             $msg = 'Registro criado com sucesso.';

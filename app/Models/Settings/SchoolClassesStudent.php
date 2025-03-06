@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Settings;
 
-use App\Livewire\Settings\SchoolClasses\SchoolClassesStudents;
-use App\Models\Settings\SchoolClassesStudent;
+use App\Models\Peoples;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
-class Peoples extends Model
+class SchoolClassesStudent extends Model
 {
+
     use HasFactory, LogsActivity, HasAttributeConversions;
 
-    protected $table = 'peoples';
+    protected $table = 'school_classes_students';
 
     protected $fillable = [
         'active',
-        'name',
-        'nick',
-        'number',
-        'type',
+        'people_id',
+        'school_classes_id',
+        'order',
         'code',
         'updated_by',
         'created_by',
@@ -35,8 +35,6 @@ class Peoples extends Model
 
         static::saving(function ($model) {
             $model->setUpperCaseAttributes([
-                'name',
-                'nick',
                 'updated_by',
                 'created_by',
             ]);
@@ -66,13 +64,13 @@ class Peoples extends Model
             ->logOnly($this->fillable);
     }
 
-    public function getStudentTitleAttribute()
+    public function students(): BelongsTo
     {
-        return $this->number . ' - ' . $this->nick;
+        return $this->belongsTo(Peoples::class, 'people_id', 'id');
     }
-    public function getPeopleClassAttribute()
+
+    public function class(): BelongsTo
     {
-        $studentClass = SchoolClassesStudent::where('active', 1)->where('people_id', $this->id)->first();
-        return $studentClass;
+        return $this->belongsTo(SchoolClasses::class, 'school_classes_id', 'id');
     }
 }

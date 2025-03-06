@@ -1,38 +1,38 @@
 <?php
 
-namespace App\Livewire\Settings\Companies;
+namespace App\Livewire\Settings\SchoolGrades;
 
-use App\Models\Settings\Companies;
+use App\Models\Settings\SchoolGrades;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 
 use Illuminate\Support\Str;
 
-class CompanyForm extends Component
+class SchoolGradeForm extends Component
 {
     public $rules;
 
-    public $back = 'companies-list';
-    public $route = 'company';
+    public $back = 'school-grades-list';
+    public $route = 'school-grades';
 
-    public $breadcrumb = 'Companhias';
+    public $breadcrumb = 'Ano escolar';
     //Fields
     public $id;
     public $name;
     public $nick;
 
-    public function mount(Companies $companies)
+    public function mount(SchoolGrades $school_grades)
     {
-        if ($companies->getAttributes()) {
-            $this->id           = $companies->id;
-            $this->name         = $companies->name;
-            $this->nick         = $companies->nick;
+        if ($school_grades->getAttributes()) {
+            $this->id           = $school_grades->id;
+            $this->name         = $school_grades->name;
+            $this->nick         = $school_grades->nick;
         }
     }
 
     public function render()
     {
-        return view('livewire.settings.companies.company-form');
+        return view('livewire.settings.school-grades.school-grade-form');
     }
 
     public function save()
@@ -45,17 +45,18 @@ class CompanyForm extends Component
     public function save_out()
     {
         $this->real_save();
-        redirect()->route('companies-list')->with('success', 'Registro criado com sucesso.');
+        redirect()->route($this->route . '-list')->with('success', 'Registro criado com sucesso.');
     }
 
     public function real_save()
     {
         $this->rules = [
-            'name' => 'required|' . Rule::unique('companies')->ignore($this->id),
+            'name' => 'required|' . Rule::unique('school_grades')->ignore($this->id),
+            'nick' => 'required|' . Rule::unique('school_grades')->ignore($this->id),
         ];
         $this->validate();
         if ($this->id) {
-            Companies::updateOrCreate([
+            SchoolGrades::updateOrCreate([
                 'id'    => $this->id,
             ], [
                 'name' => $this->name,
@@ -65,13 +66,13 @@ class CompanyForm extends Component
             $id = false;
             $msg = 'Registro editado com sucesso.';
         } else {
-            $companies = Companies::create([
+            $school_grades = SchoolGrades::create([
                 'active'    => 1,
                 'name'      => $this->name,
                 'nick'      => $this->nick,
                 'code'      => Str::uuid(),
             ]);
-            $id = $companies->id;
+            $id = $school_grades->id;
             $msg = 'Registro criado com sucesso.';
         }
 

@@ -5,6 +5,7 @@ namespace App\Models\Settings;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -57,5 +58,10 @@ class SchoolClassesYears extends Model
     {
         return LogOptions::defaults()
             ->logOnly($this->fillable);
+    }
+
+    public function classes(): HasMany
+    {
+        return $this->hasMany(SchoolClasses::class, 'school_classes_year_id', 'id');
     }
 }

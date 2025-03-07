@@ -22,6 +22,7 @@ class StudentList extends Component
     public $detail;
     public $students;
     public $id;
+    public $sex;
 
     //Dados da tabela
     protected $queryService;
@@ -31,8 +32,8 @@ class StudentList extends Component
     public $sorts = ['number' => 'asc'];
     public $relationTables; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'name,nick,number,active as status';
-    public $searchable = 'name,nick,number'; //Colunas pesquisadas no banco de dados
+    public $columnsInclude = 'name,nick,sex,number,active as status';
+    public $searchable = 'name,nick,sex,number'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
     public $active = 'active';

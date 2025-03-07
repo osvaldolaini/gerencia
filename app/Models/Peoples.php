@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Livewire\Settings\SchoolClasses\SchoolClassesStudents;
+use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolClassesStudent;
+use App\Models\Settings\SchoolClassesYears;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -21,6 +24,7 @@ class Peoples extends Model
         'active',
         'name',
         'nick',
+        'sex',
         'number',
         'type',
         'code',
@@ -37,6 +41,7 @@ class Peoples extends Model
             $model->setUpperCaseAttributes([
                 'name',
                 'nick',
+                'sex',
                 'updated_by',
                 'created_by',
             ]);
@@ -72,7 +77,24 @@ class Peoples extends Model
     }
     public function getPeopleClassAttribute()
     {
-        $studentClass = SchoolClassesStudent::where('active', 1)->where('people_id', $this->id)->first();
-        return $studentClass;
+        $studentClass = SchoolClassesStudent::where('active', 1)
+            ->orderBy('created_at', 'asc')
+            ->where('people_id', $this->id)->first();
+        return $studentClass->class->title . ' / ' . $studentClass->class->classYears->year;
+    }
+
+    public function classT($school_classes)
+    {
+        $school_classes_year_id = SchoolClasses::find($school_classes)->classYears->id;
+        $years = SchoolClassesYears::find($school_classes_year_id);
+        $array = json_encode($years->classes->pluck('id'));
+        $people_classes = SchoolClassesStudent::where('people_id', $this->id)->where('active', 1)->get();
+        foreach ($people_classes as $class) {
+            if (in_array($class->class->id, json_decode($array))) {
+                $return = SchoolClasses::find($class->class->id);
+                return $return->title;
+            }
+        }
+        return false;
     }
 }

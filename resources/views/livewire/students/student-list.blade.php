@@ -59,17 +59,23 @@
                 @foreach ($dataTable as $item)
                     <tr>
                         <td class="px-4 py-1 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
-                            {{ $item->number }}
+                            <span class="{{ $item->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
+                                {{ $item->number }}
+                            </span>
                         </td>
                         <td class="w-2/5 px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
-                            {{ $item->name }}
+                            <span class="{{ $item->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
+                                {{ $item->name }}
+                            </span>
                         </td>
                         <td class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
-                            {{ $item->nick }}
+                            <span class="{{ $item->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
+                                {{ $item->nick }}
+                            </span>
                         </td>
                         <td
                             class="w-2/5 px-4 py-1 text-sm font-normal text-center text-gray-500 justify-stretch dark:text-gray-400">
-
+                            {{ $item->people_class }}
                         </td>
 
                         <td class="w-1/6 px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">

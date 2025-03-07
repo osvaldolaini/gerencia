@@ -20,6 +20,11 @@ return new class extends Migration
                 ->constrained('school_classes')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreignId('school_classes_year_id')
+                ->nullable()
+                ->constrained('school_classes_years')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreignId('people_id')
                 ->nullable()
                 ->constrained('peoples')

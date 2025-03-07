@@ -3,6 +3,7 @@
 namespace App\Livewire\Settings\SchoolClasses;
 
 use App\Models\Settings\SchoolClasses;
+use App\Models\Settings\SchoolClassesStudent;
 use App\Models\Settings\SchoolClassesYears;
 use App\Models\Settings\SchoolGrades;
 use Livewire\Attributes\On;
@@ -22,6 +23,7 @@ class SchoolClassesList extends Component
     public $modal = true;
     public $showJetModal = false;
     public $showModalForm = false;
+    public $showModalStudent = false;
 
     public $school_classes;
 
@@ -33,9 +35,12 @@ class SchoolClassesList extends Component
     public $id;
     public $school_classes_year_id;
     public $school_grades;
+    public $class;
 
 
     public $dataTable;
+
+    public $list_students;
 
     public function mount(SchoolClassesYears $school_classes_years)
     {
@@ -120,7 +125,12 @@ class SchoolClassesList extends Component
             ->where('school_grade_id', $this->school_grade_id)
             ->orderBy('order', 'desc')
             ->first();
-        $order = $last->order + 1;
+        if ($last) {
+            $order = $last->order + 1;
+        } else {
+            $order = 1;
+        }
+
         SchoolClasses::create([
             'active'                 => 1,
             'order'                  => $order,
@@ -132,16 +142,17 @@ class SchoolClassesList extends Component
         $this->reOrder();
         $this->loadItems();
     }
-    // //CREATE
-    // public function showCreate()
-    // {
-    //     if ($this->modal) {
-    //         $this->showModalForm = true;
-    //         $this->school_classes = '';
-    //     } else {
-    //         redirect()->route('school_classes-create', ['courses' => $this->school_classes_year_id]);
-    //     }
-    // }
+    //CREATE
+    public function showStudents($id)
+    {
+        if ($this->modal) {
+            $this->showModalStudent = true;
+            $this->class = SchoolClasses::find($id)->title;
+            $this->list_students = SchoolClassesStudent::where('active', 1)->where('school_classes_id', $id)->get();
+        } else {
+            redirect()->route('school_classes-create', ['courses' => $this->school_classes_year_id]);
+        }
+    }
     #[On('closeModal')]
     public function closeModal()
     {

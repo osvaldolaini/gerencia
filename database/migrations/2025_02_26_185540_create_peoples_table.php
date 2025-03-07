@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('number')->nullable();
             $table->string('name')->nullable();
             $table->string('nick')->nullable();
+            $table->string('sex')->nullable();
             $table->string('code')->nullable();
             /*Log */
             $table->timestamps();

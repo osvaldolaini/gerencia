@@ -22,6 +22,7 @@ class SchoolClassesStudent extends Model
         'active',
         'people_id',
         'school_classes_id',
+        'school_classes_year_id',
         'order',
         'code',
         'updated_by',

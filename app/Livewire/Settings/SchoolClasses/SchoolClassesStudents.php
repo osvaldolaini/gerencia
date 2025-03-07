@@ -7,17 +7,19 @@ use App\Models\Settings\SchoolClassesStudent;
 use App\Services\LaiGuz\TableService;
 use Livewire\Component;
 
+use Livewire\Attributes\On;
+
 class SchoolClassesStudents extends Component
 {
     public $breadcrumb = 'Turma: ';
-    //Fields
+
     public $school_classes;
+    //Fields
+    public $school_classes_id;
     public $title;
     public $year;
 
-    public $addSelected = false;
-    public $removeSelected = false;
-
+    public $addSelected = [];
 
     //Dados da tabela
     protected $queryService;
@@ -27,26 +29,26 @@ class SchoolClassesStudents extends Component
     public $sorts = ['number' => 'asc'];
     public $relationTables; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'name,nick,number,active as status';
+    public $columnsInclude = 'name,nick,number,sex,active as status';
     public $searchable = 'name,nick,number'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
     public $active = 'active';
-
-
 
     public $class;
 
     public function mount(SchoolClasses $school_classes)
     {
         if ($school_classes->getAttributes()) {
-            $this->school_classes           = $school_classes->id;
+            $this->school_classes = $school_classes;
+            $this->school_classes_id = $school_classes->id;
             $this->title        = $school_classes->title;
             $this->year         = $school_classes->school_classes_year_id;
-            $this->breadcrumb .= $this->title;
-            $this->class = SchoolClassesStudent::where('active', 1)->where('school_classes_id', $this->school_classes)->get();
+            $this->breadcrumb .= $this->title . ' / ' . $school_classes->classYears->year;
+            $this->class = SchoolClassesStudent::where('active', 1)->where('school_classes_id', $this->school_classes_id)->get();
         }
     }
+    #[On('update_list')]
     public function render(TableService $queryService)
     {
 
@@ -76,44 +78,32 @@ class SchoolClassesStudents extends Component
 
     public function selectAddStudent($id)
     {
-        $this->removeSelected = false;
-        $this->addSelected = $id;
-    }
-    public function selectRemoveStudent($id)
-    {
-        $this->removeSelected = $id;
-        $this->addSelected = '';
+        $index = array_search($id, $this->addSelected);
+        if ($index !== false) {
+            unset($this->addSelected[$index]);
+        } else {
+            $this->addSelected[] = $id;
+        }
     }
     public function addStudent()
     {
-        if ($this->addSelected) {
-            SchoolClassesStudent::create([
-                'active'         => 1,
-                'school_classes_id' => $this->school_classes,
-                'people_id'      => $this->addSelected,
-            ]);
-        } else {
-
-            $this->openAlert('error', 'Nenhum aluno selecionado');
-        }
-
-        $this->addSelected = '';
-        $this->removeSelected = false;
-        $this->class = SchoolClassesStudent::where('active', 1)->where('school_classes_id', $this->school_classes)->get();
-    }
-    public function removeStudent()
-    {
-        if ($this->removeSelected) {
-            $data = SchoolClassesStudent::find($this->removeSelected);
-            $data->active = 0;
-            $data->save();
+        if (!empty($this->addSelected)) {
+            foreach ($this->addSelected as $key => $value) {
+                SchoolClassesStudent::updateOrCreate([
+                    'school_classes_year_id' => $this->school_classes->classYears->id,
+                    'people_id'      => $value,
+                ], [
+                    'school_classes_id' => $this->school_classes_id,
+                    'active'         => 1,
+                ]);
+            }
         } else {
             $this->openAlert('error', 'Nenhum aluno selecionado');
         }
 
-        $this->addSelected = '';
-        $this->removeSelected = '';
-        $this->class = SchoolClassesStudent::where('active', 1)->where('school_classes_id', $this->school_classes)->get();
+        $this->addSelected = [];
+        $this->dispatch('update_list');
+        $this->openAlert('success', 'Inclusão na turma realizada com sucesso');
     }
 
     public function openAlert($status, $msg)

@@ -106,21 +106,17 @@
                                                                     stroke-linecap="round" stroke-linejoin="round" />
                                                             </svg>
                                                         </button>
-                                                        {{-- <button x-show="!('{{ $search }}' !== '')"
-                                                        class="btn btn-outline dark:btn-accent btn-sm">
-                                                        Ordenar
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 "
-                                                            viewBox="0 0 24 24" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M4 7L7 7M20 7L11 7" stroke="currentColor"
-                                                                stroke-width="1.5" stroke-linecap="round" />
-                                                            <path d="M20 17H17M4 17L13 17" stroke="currentColor"
-                                                                stroke-width="1.5" stroke-linecap="round" />
-                                                            <path d="M4 12H7L20 12" stroke="currentColor"
-                                                                stroke-width="1.5" stroke-linecap="round" />
-                                                        </svg>
-                                                    </button> --}}
-
+                                                        <button @click="$wire.showStudents(item.id)"
+                                                            class="btn btn-outline dark:btn-accent btn-sm">
+                                                            Ver alunos
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 "
+                                                                fill="none" viewBox="0 0 24 24"
+                                                                stroke="currentColor" stroke-width="2">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                                                                </path>
+                                                            </svg>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -164,6 +160,32 @@
 
         </x-slot>
     </x-layout.tabs>
+
+    {{-- MODAL RECEIVABLE --}}
+    <x-confirmation-modal wire:model="showModalStudent">
+        <x-slot name="title">
+            Alunos da turma {{ $class }}
+        </x-slot>
+        <x-slot name="content">
+            @if ($list_students)
+                <div class="grid grid-cols-3 gap-4 mt-4">
+                    @foreach ($list_students as $item)
+                        <div class="p-2 text-center bg-gray-100 rounded-md">
+                            <span class="{{ $item->students->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
+                                {{ $item->students->student_title }}
+                            </span>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        </x-slot>
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$toggle('showModalStudent')" wire:loading.attr="disabled">
+                Cancelar
+            </x-secondary-button>
+        </x-slot>
+    </x-confirmation-modal>
+
     {{-- MODAL FORM --}}
 
     <x-dialog-modal wire:model="showModalForm" maxWidth="4xl">

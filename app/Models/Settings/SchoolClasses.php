@@ -5,6 +5,7 @@ namespace App\Models\Settings;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -77,5 +78,10 @@ class SchoolClasses extends Model
                 $this->save();
             }
         }
+    }
+
+    public function classYears(): BelongsTo
+    {
+        return $this->belongsTo(SchoolClassesYears::class, 'school_classes_year_id', 'id');
     }
 }

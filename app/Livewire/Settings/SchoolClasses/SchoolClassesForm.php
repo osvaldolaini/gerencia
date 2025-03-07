@@ -54,8 +54,7 @@ class SchoolClassesForm extends Component
     public function real_save()
     {
         $this->rules = [
-            'title' => 'min:3|max:3|
-            required|' . Rule::unique('school_classes')->ignore($this->id),
+            'title' => 'min:3|max:3|required',
         ];
         $this->validate();
         if ($this->id) {

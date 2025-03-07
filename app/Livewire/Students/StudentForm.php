@@ -22,14 +22,16 @@ class StudentForm extends Component
     public $name;
     public $nick;
     public $number;
+    public $sex;
 
-    public function mount(Peoples $peoples)
+    public function mount(Peoples $students)
     {
-        if ($peoples->getAttributes()) {
-            $this->id           = $peoples->id;
-            $this->name         = $peoples->name;
-            $this->nick         = $peoples->nick;
-            $this->number       = $peoples->number;
+        if ($students->getAttributes()) {
+            $this->id           = $students->id;
+            $this->name         = $students->name;
+            $this->nick         = $students->nick;
+            $this->number       = $students->number;
+            $this->sex          = $students->sex;
         }
     }
 
@@ -55,6 +57,9 @@ class StudentForm extends Component
     {
         $this->rules = [
             'number' => 'max:5|required|' . Rule::unique('peoples')->ignore($this->id),
+            'sex'   => 'required',
+            'name'   => 'required',
+            'nick'   => 'required',
         ];
         $this->validate();
         if ($this->id) {
@@ -64,6 +69,7 @@ class StudentForm extends Component
                 'name' => $this->name,
                 'nick' => $this->nick,
                 'number' => $this->number,
+                'sex' => $this->sex,
             ]);
 
             $id = false;
@@ -73,6 +79,7 @@ class StudentForm extends Component
                 'active'    => 1,
                 'name'      => $this->name,
                 'nick'      => $this->nick,
+                'sex'       => $this->sex,
                 'number'    => $this->number,
                 'type'      => 1,
                 'code'      => Str::uuid(),

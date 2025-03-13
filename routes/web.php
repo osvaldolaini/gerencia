@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\ReadmeView;
 use App\Http\Middleware\RegisterLogging;
 use App\Livewire\Admin\Page\Panel;
 use App\Livewire\Admin\Settings\Logs;
@@ -38,6 +39,7 @@ Route::middleware([
     RegisterLogging::class
 ])->group(function () {
     Route::get('/admin/dashboard', Panel::class)->name('dashboard');
+    Route::get('/versoes', ReadmeView::class)->name('versions');
 });
 Route::middleware([
     'auth:sanctum',

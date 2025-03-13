@@ -1,4 +1,4 @@
-<div>
+<div x-init>
 
     <x-layout.breadcrumb>
         <x-slot name="left">
@@ -55,24 +55,55 @@
             </thead>
         </x-slot>
         <x-slot name="body">
-            <tbody class="p-0 m-0 bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+            <tbody class="relative p-0 m-0 bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                 @foreach ($dataTable as $item)
                     <tr>
-                        <td class="px-4 py-1 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
+                        <td x-data="{ show: false, x: 0, y: 0 }"
+                            class="relative flex items-center px-4 py-1 space-x-2 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
+
+                            @if ($item->code_image)
+                                <div class="avatar">
+                                    <div class="relative w-8 rounded-full cursor-pointer">
+                                        <!-- Avatar pequeno -->
+                                        <img @mouseleave="show = false"
+                                            @mouseover="show = true; x = $event.clientX; y = $event.clientY"
+                                            src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_list.png') }}"
+                                            alt="{{ $item->name }}">
+                                    </div>
+                                </div>
+
+                                <!-- Foto maior ao passar o mouse -->
+                                <div x-show="show" x-transition.opacity
+                                    class="fixed z-50 w-32 h-32 p-1 bg-white border-2 border-gray-300 rounded-lg shadow-lg"
+                                    :style="'top: ' + (y + 10) + 'px; left: ' + (x + 10) + 'px;'">
+                                    <img src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_small.png') }}"
+                                        alt="Foto grande" class="w-full h-full rounded-lg">
+                                </div>
+                            @else
+                                <div class="avatar">
+                                    <div class="relative w-8 rounded-full cursor-pointer">
+                                        <x-application-logo width="h-12"></x-application-logo>
+                                    </div>
+                                </div>
+                            @endif
+
                             <span class="{{ $item->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
                                 {{ $item->number }}
                             </span>
                         </td>
+
                         <td class="w-2/5 px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                             <span class="{{ $item->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
                                 {{ $item->name }}
                             </span>
                         </td>
+
                         <td class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                             <span class="{{ $item->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
                                 {{ $item->nick }}
                             </span>
                         </td>
+
                         <td
                             class="w-2/5 px-4 py-1 text-sm font-normal text-center text-gray-500 justify-stretch dark:text-gray-400">
                             {{ $item->people_class }}

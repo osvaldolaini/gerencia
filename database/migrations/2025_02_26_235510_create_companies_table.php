@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('nick')->nullable();
             $table->string('code')->nullable();
+            $table->string('logo_path', 100)->nullable();
+
             /*Log */
             $table->timestamps();
             $table->string('updated_by', 50)->nullable();

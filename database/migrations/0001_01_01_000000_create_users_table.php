@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('accesses');
             $table->json('activities');
             $table->string('panel');
+            $table->boolean('see_excluded');
             $table->boolean('dark');
             $table->string('email')->unique();
             $table->string('cpf_cnpj')->unique();

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Settings\SchoolGrades;
 
+use App\Models\Settings\Companies;
 use App\Models\Settings\SchoolGrades;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
@@ -20,6 +21,8 @@ class SchoolGradeForm extends Component
     public $id;
     public $name;
     public $nick;
+    public $company_id;
+    public $companies;
 
     public function mount(SchoolGrades $school_grades)
     {
@@ -27,7 +30,9 @@ class SchoolGradeForm extends Component
             $this->id           = $school_grades->id;
             $this->name         = $school_grades->name;
             $this->nick         = $school_grades->nick;
+            $this->company_id   = $school_grades->company_id;
         }
+        $this->companies = Companies::where('active', 1)->get();
     }
 
     public function render()
@@ -51,8 +56,9 @@ class SchoolGradeForm extends Component
     public function real_save()
     {
         $this->rules = [
+            'company_id' => 'required',
             'name' => 'required|' . Rule::unique('school_grades')->ignore($this->id),
-            'nick' => 'required|' . Rule::unique('school_grades')->ignore($this->id),
+            'nick' => 'min:3|max:3|required|' . Rule::unique('school_grades')->ignore($this->id),
         ];
         $this->validate();
         if ($this->id) {
@@ -61,6 +67,7 @@ class SchoolGradeForm extends Component
             ], [
                 'name' => $this->name,
                 'nick' => $this->nick,
+                'company_id' => $this->company_id,
             ]);
 
             $id = false;
@@ -70,6 +77,7 @@ class SchoolGradeForm extends Component
                 'active'    => 1,
                 'name'      => $this->name,
                 'nick'      => $this->nick,
+                'company_id'      => $this->company_id,
                 'code'      => Str::uuid(),
             ]);
             $id = $school_grades->id;

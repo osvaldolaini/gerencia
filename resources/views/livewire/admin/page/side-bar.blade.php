@@ -67,7 +67,7 @@
                 </div>
             </div>
             {{-- COMPANIAS --}}
-            <div x-init="if (window.location.href.includes('companias')) { openDropdown = 3; }">
+            <div x-init="if (window.location.href.includes('companias') || window.location.href.includes('batalhao')) { openDropdown = 3; }">
                 <button @click="openDropdown === 3 ? openDropdown = null : openDropdown = 3"
                     class="flex items-center justify-between w-full px-2 py-1 text-left text-gray-700 transition dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                     <span class="flex items-center">
@@ -133,7 +133,8 @@
                     </x-layout.side-bar-nav-link>
                 </div>
                 <div x-show="openDropdown === 3" x-collapse>
-                    <x-layout.side-bar-nav-link url="student-list" active="*alunos*" access_page="students">
+                    <x-layout.side-bar-nav-link url="school-battalion-list" active="*batalhao*"
+                        access_page="school_battalion">
                         <x-slot name="svg">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="ml-2 size-6">

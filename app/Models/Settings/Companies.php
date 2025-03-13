@@ -5,6 +5,7 @@ namespace App\Models\Settings;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -20,6 +21,7 @@ class Companies extends Model
         'name',
         'nick',
         'code',
+        'logo_path',
         'updated_by',
         'created_by',
         'deleted_by',
@@ -60,5 +62,17 @@ class Companies extends Model
     {
         return LogOptions::defaults()
             ->logOnly($this->fillable);
+    }
+    public function getCodeImageAttribute()
+    {
+        // return $this->logo_path;
+        if ($this->logo_path) {
+            $code = explode('.', $this->logo_path);
+            return $code[0];
+        }
+    }
+    public function grade(): HasMany
+    {
+        return $this->hasMany(SchoolGrades::class, 'company_id', 'id');
     }
 }

@@ -14,7 +14,13 @@ return new class extends Migration
         Schema::create('school_grades', function (Blueprint $table) {
             $table->id();
             $table->boolean('active');
+            $table->foreignId('company_id')
+                ->nullable()
+                ->constrained('companies')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->string('name')->nullable();
+            $table->string('logo_path', 100)->nullable();
             $table->string('nick')->nullable();
             $table->string('code')->nullable();
             /*Log */

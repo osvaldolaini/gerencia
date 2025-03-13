@@ -4,6 +4,7 @@ namespace App\Livewire\Settings\SchoolClasses;
 
 use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolClassesStudent;
+use App\Models\Settings\SchoolClassesYears;
 use App\Services\LaiGuz\TableService;
 use Livewire\Component;
 
@@ -29,13 +30,15 @@ class SchoolClassesStudents extends Component
     public $sorts = ['number' => 'asc'];
     public $relationTables; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'name,nick,number,sex,active as status';
+    public $columnsInclude = 'name,nick,number,sex,logo_path,active as status';
     public $searchable = 'name,nick,number'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
     public $active = 'active';
 
     public $class;
+
+    public $otherClasses;
 
     public function mount(SchoolClasses $school_classes)
     {
@@ -45,7 +48,10 @@ class SchoolClassesStudents extends Component
             $this->title        = $school_classes->title;
             $this->year         = $school_classes->school_classes_year_id;
             $this->breadcrumb .= $this->title . ' / ' . $school_classes->classYears->year;
-            $this->class = SchoolClassesStudent::where('active', 1)->where('school_classes_id', $this->school_classes_id)->get();
+
+            $school_classes_year_id = $school_classes->classYears->id;
+            $this->otherClasses = SchoolClassesYears::find($school_classes_year_id)->classes
+                ->where('school_grade_id', $school_classes->school_grade_id);
         }
     }
     #[On('update_list')]

@@ -10,6 +10,11 @@ use App\Livewire\Peoples\PeopleForm;
 use App\Livewire\Peoples\PeopleList;
 use App\Livewire\Settings\Companies\CompanyForm;
 use App\Livewire\Settings\Companies\Companylist;
+use App\Livewire\Settings\SchoolBattalion\SchoolBattalionForm;
+use App\Livewire\Settings\SchoolBattalion\SchoolBattalionList;
+use App\Livewire\Settings\SchoolBattalionStudents\SchoolBattalionStudentForm;
+use App\Livewire\Settings\SchoolBattalionStudents\SchoolBattalionStudentGrade;
+use App\Livewire\Settings\SchoolBattalionStudents\SchoolBattalionStudentList;
 use App\Livewire\Settings\SchoolClasses\SchoolClassesForm;
 use App\Livewire\Settings\SchoolClasses\SchoolClassesList;
 use App\Livewire\Settings\SchoolClasses\SchoolClassesStudents;
@@ -136,4 +141,37 @@ Route::middleware([
         ->name('school-classes-edit');
     Route::get('/companias/turmas/{school_classes}/alunos', SchoolClassesStudents::class)
         ->name('school-classes-students');
+});
+
+//Batalhão
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:school_battalion' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/batalhao/anos', SchoolBattalionList::class)
+        ->name('school-battalion-list');
+    Route::get('/batalhao/anos/novo', SchoolBattalionForm::class)
+        ->name('school-battalion-create');
+    Route::get('/batalhao/anos/{school_battalion}/editar', SchoolBattalionForm::class)
+        ->name('school-battalion-edit');
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:school_battalion' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/batalhao/montar/{school_battalions}', SchoolBattalionStudentGrade::class)
+        ->name('school-battalion-students-grade');
+    Route::get('/batalhao/montar/{school_battalions}/ano/{school_grades}/serie', SchoolBattalionStudentList::class)
+        ->name('school-battalion-students-mount');
+    // Route::get('/batalhao/montar/novo', SchoolBattalionStudentForm::class)
+    //     ->name('school-battalion-students-create');
+    // Route::get('/batalhao/montar/{school_battalion}/editar', SchoolBattalionForm::class)
+    //     ->name('school-battalion-students-edit');
 });

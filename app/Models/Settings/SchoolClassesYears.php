@@ -34,6 +34,10 @@ class SchoolClassesYears extends Model
                 'updated_by',
                 'created_by',
             ]);
+            if ($model->active) {
+                // Define todos os outros registros como inativos
+                static::where('id', '!=', $model->id)->update(['active' => false]);
+            }
         });
         static::creating(function ($transaction) {
             $transaction->created_by = Auth::user()->name;

@@ -10,8 +10,8 @@ php artisan make:livewire Settings\Classes\Classlist
 php artisan make:livewire Settings\Classes\ClassForm
 php artisan make:livewire Settings\Classes\ClassPage
 
-php artisan make:model Settings\SchoolClassesStudents -m
+php artisan make:model Settings\SchoolBattalionStudents -m
 
-php artisan make:livewire Settings\SchoolClasses\SchoolClassesList
-php artisan make:livewire Settings\SchoolClasses\SchoolClassesForm
-php artisan make:livewire Settings\SchoolClasses\SchoolClassesStudents
+php artisan make:livewire Settings\SchoolBattalionStudents\SchoolBattalionStudentList
+php artisan make:livewire Settings\SchoolBattalionStudents\SchoolBattalionStudentForm
+php artisan make:livewire Settings\SchoolBattalionStudents\SchoolBattalionStudentPage

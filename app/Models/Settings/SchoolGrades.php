@@ -5,6 +5,7 @@ namespace App\Models\Settings;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -18,8 +19,10 @@ class SchoolGrades extends Model
     protected $fillable = [
         'active',
         'name',
+        'company_id',
         'nick',
         'code',
+        'logo_path',
         'updated_by',
         'created_by',
         'deleted_by',
@@ -67,5 +70,17 @@ class SchoolGrades extends Model
         $classes = SchoolClasses::where('active', 1)->where('school_classes_year_id', $school_classes_year_id)
             ->where('school_grade_id', $this->id)->get();
         return $classes;
+    }
+    public function getCodeImageAttribute()
+    {
+        // return $this->logo_path;
+        if ($this->logo_path) {
+            $code = explode('.', $this->logo_path);
+            return $code[0];
+        }
+    }
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Companies::class, 'company_id', 'id');
     }
 }

@@ -28,9 +28,20 @@
                         d="M1582.2,1488.7a44.9,44.9,0,0,1-36.4-18.5l-75.7-103.9A431.7,431.7,0,0,0,1121.4,1189h-60.1v64c0,59.8-33.5,112.9-87.5,138.6a152.1,152.1,0,0,1-162.7-19.4l-331.5-269a153.5,153.5,0,0,1,0-238.4l331.5-269a152.1,152.1,0,0,1,162.7-19.4c54,25.7,87.5,78.8,87.5,138.6v98.3l161,19.6a460.9,460.9,0,0,1,404.9,457.4v153.4a45,45,0,0,1-45,45Z" />
                 </svg>
             </a>
+
+
         </x-slot>
         <x-slot name="content">
-
+            <div class="flex justify-end w-full space-x-1">
+                @foreach ($otherClasses as $item)
+                    <a href="{{ route('school-classes-students', $item->id) }}"
+                        class='btn {{ $item->id == $school_classes_id ? ' btn-info' : 'btn-outline btn-info' }}'>
+                        <span>
+                            {{ $item->title }}
+                        </span>
+                    </a>
+                @endforeach
+            </div>
             <div class="grid w-full grid-cols-2 gap-0 px-0 mx-0">
                 <div class="grid w-full grid-cols-3 gap-0 px-0 mx-0">
                     <div class="col-span-2 px-0 mx-0">
@@ -45,7 +56,7 @@
                                     <tr scope="col" class="text-gray-500 dark:text-gray-400">
                                         <th scope="col"
                                             class="px-4 py-1 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
-                                            Aluno
+                                            Alunos
                                         </th>
                                     </tr>
                                 </thead>
@@ -59,27 +70,62 @@
                                             <td
                                                 class="{{ in_array($item->id, $addSelected) ?? 'bg-gray-200' }} px-4 py-1 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
                                                 <span class="flex ">
-                                                    <span
-                                                        class="{{ $item->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
-                                                        {{ $item->student_title }}
-                                                    </span>
-                                                    @if ($item->classT($school_classes_id))
+
+                                                    <div x-data="{ show: false, x: 0, y: 0 }"
+                                                        class="relative flex items-center px-4 py-1 space-x-2 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
+                                                        @if (in_array($item->id, $addSelected))
+                                                            <svg class="w-5 h-5 text-green-500" viewBox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path opacity="0.5"
+                                                                    d="M12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22Z"
+                                                                    fill="currentColor" />
+                                                                <path
+                                                                    d="M16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z"
+                                                                    fill="currentColor" />
+                                                            </svg>
+                                                        @endif
+                                                        @if ($item->code_image)
+                                                            <div class="avatar">
+                                                                <div class="relative w-8 rounded-full cursor-pointer">
+                                                                    <!-- Avatar pequeno -->
+                                                                    <img @mouseleave="show = false"
+                                                                        @mouseover="show = true; x = $event.clientX; y = $event.clientY"
+                                                                        src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_list.png') }}"
+                                                                        alt="{{ $item->name }}">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Foto maior ao passar o mouse -->
+                                                            <div x-show="show" x-transition.opacity
+                                                                class="fixed z-50 w-32 h-32 p-1 bg-white border-2 border-gray-300 rounded-lg shadow-lg"
+                                                                :style="'top: ' + (y + 10) + 'px; left: ' + (x + 10) + 'px;'">
+                                                                <img src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_small.png') }}"
+                                                                    alt="Foto grande" class="w-full h-full rounded-lg">
+                                                            </div>
+                                                        @else
+                                                            <div class="avatar">
+                                                                <div class="relative w-8 rounded-full cursor-pointer">
+                                                                    <x-application-logo
+                                                                        width="h-12"></x-application-logo>
+                                                                </div>
+                                                            </div>
+                                                        @endif
+
                                                         <span
-                                                            class="ml-2 badge {{ $item->classT($school_classes_id) == $title ? 'badge-success' : 'badge-neutral' }}">
-                                                            {{ $item->classT($school_classes_id) }}
+                                                            class="{{ $item->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
+                                                            {{ $item->student_title }}
                                                         </span>
-                                                    @endif
-                                                    @if (in_array($item->id, $addSelected))
-                                                        <svg class="w-5 h-5 text-green-500" viewBox="0 0 24 24"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path opacity="0.5"
-                                                                d="M12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22Z"
-                                                                fill="currentColor" />
-                                                            <path
-                                                                d="M16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z"
-                                                                fill="currentColor" />
-                                                        </svg>
-                                                    @endif
+                                                        @if ($item->classT($school_classes_id))
+                                                            <span
+                                                                class="ml-2 badge {{ $item->classT($school_classes_id) == $title ? 'badge-success' : 'badge-neutral' }}">
+                                                                {{ $item->classT($school_classes_id) }}
+                                                            </span>
+                                                        @endif
+
+
+                                                    </div>
+
+
                                                 </span>
                                             </td>
                                         </tr>

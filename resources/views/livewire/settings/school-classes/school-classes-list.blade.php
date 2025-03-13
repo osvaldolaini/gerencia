@@ -13,9 +13,9 @@
                 <x-slot name="title">{{ $breadcrumb }}</x-slot>
             </x-layout.tabs-nav>
             <x-layout.button-back route="{{ $back }}"></x-layout.button-back>
+
         </x-slot>
         <x-slot name="content">
-
             @if ($school_grade_id)
                 <div role="tabpanel"
                     class="p-6 mt-4 border-2 rounded-r-lg rounded-bl-lg bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100">
@@ -129,32 +129,57 @@
                     </div>
                 </div>
             @else
-                <div class="flex flex-wrap sm:justify-center">
-                    <div class="w-full">
-                        <div class="w-full py-4 space-x-4">
-                            <h1 class="grid grid-cols-2 space-x-1 text-5xl font-extrabold text-center sm:grid-cols-4 ">
-                                @foreach ($school_grades as $item)
-                                    <div class="flex items-center justify-center col-span-1 mt-5 ">
-                                        <div wire:click="select_grade({{ $item->id }})"
-                                            class="items-center w-56 mr-4 shadow-xl cursor-pointer h-60 drop-shadow-xl rounded-box hover:bg-gray-900 hover:text-gray-100">
-                                            <div class="items-center text-center card-body ">
-                                                <h2 class="card-title">{{ $item->name }}</h2>
-                                            </div>
-                                            <ul class="text-sm text-center">
-                                                @forelse ($item->classes($school_classes_year_id) as $class)
-                                                    <li>{{ $class->title }}</li>
-                                                @empty
-                                                    <li>Nenhuma turma cadastradas</li>
-                                                @endforelse
-                                            </ul>
+                @foreach ($companies as $company)
+                    <div class="flex flex-wrap sm:justify-center">
+                        <div class="w-full">
+                            <div class="w-full py-4 space-x-4">
+                                <small
+                                    class="ml-2 space-x-1 text-5xl font-extrabold text-gray-500 col-span-full dark:text-gray-100">
+                                    {{ $company->name }}
+                                </small>
+                                <h1
+                                    class="grid grid-cols-2 space-x-1 text-3xl font-extrabold text-center sm:grid-cols-4 dark:text-gray-100">
+                                    @foreach ($company->grade as $item)
+                                        <div class="flex items-center justify-center col-span-1 mt-5 ">
+                                            <div wire:click="select_grade({{ $item->id }})"
+                                                class="items-center w-56 mr-4 shadow-xl cursor-pointer h-60 drop-shadow-xl rounded-box hover:bg-gray-900 hover:text-gray-100">
+                                                <div class="items-center text-center card-body ">
+                                                    <h2 class="card-title">
+                                                        @if ($item->code_image)
+                                                            <picture>
+                                                                <source
+                                                                    srcset="{{ url('storage/schoolGrades/' . $item->id . '/' . $item->code_image . '_list.png') }}" />
+                                                                <source
+                                                                    srcset="{{ url('storage/schoolGrades/' . $item->id . '/' . $item->code_image . '_list.webp') }}" />
+                                                                <img src="{{ url('storage/schoolGrades/' . $item->id . '/' . $item->code_image . '._list.png') }}"
+                                                                    alt="{{ $item->name }}">
+                                                            </picture>
+                                                        @else
+                                                            <x-application-logo width="h-12"></x-application-logo>
+                                                        @endif
 
+                                                        <span>
+
+                                                            {{ $item->name }}
+                                                        </span>
+                                                    </h2>
+                                                </div>
+                                                <ul class="text-sm text-center">
+                                                    @forelse ($item->classes($school_classes_year_id) as $class)
+                                                        <li>{{ $class->title }}</li>
+                                                    @empty
+                                                        <li>Nenhuma turma cadastradas</li>
+                                                    @endforelse
+                                                </ul>
+
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                            </h1>
+                                    @endforeach
+                                </h1>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
             @endif
 
 

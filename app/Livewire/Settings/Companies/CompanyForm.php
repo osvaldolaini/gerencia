@@ -21,6 +21,8 @@ class CompanyForm extends Component
     public $name;
     public $nick;
 
+    public $newImg = '';
+
     public function mount(Companies $companies)
     {
         if ($companies->getAttributes()) {
@@ -38,9 +40,9 @@ class CompanyForm extends Component
     public function save()
     {
         $id = $this->real_save();
-        if ($id) {
-            redirect()->route($this->route . '-edit', $id)->with('success', 'Registro criado com sucesso.');
-        }
+        // if ($id) {
+        //     redirect()->route($this->route . '-edit', $id)->with('success', 'Registro criado com sucesso.');
+        // }
     }
     public function save_out()
     {

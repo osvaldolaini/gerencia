@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Settings\SchoolClasses;
 
+use App\Models\Settings\Companies;
 use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolClassesStudent;
 use App\Models\Settings\SchoolClassesYears;
@@ -37,6 +38,8 @@ class SchoolClassesList extends Component
     public $school_grades;
     public $class;
 
+    public $companies;
+
 
     public $dataTable;
 
@@ -44,6 +47,8 @@ class SchoolClassesList extends Component
 
     public function mount(SchoolClassesYears $school_classes_years)
     {
+
+        $this->companies = Companies::where('active', 1)->get();
         if ($school_classes_years->getAttributes()) {
             $this->school_classes_year_id           = $school_classes_years->id;
             $this->year         = $school_classes_years->year;

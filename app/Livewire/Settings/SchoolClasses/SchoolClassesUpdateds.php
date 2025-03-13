@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Settings\SchoolClasses;
 
+use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolClassesStudent;
 use App\Services\LaiGuz\TableService;
 use Livewire\Component;
@@ -18,7 +19,7 @@ class SchoolClassesUpdateds extends Component
     public $sorts = ['peoples.number' => 'asc'];
     public $relationTables =  "peoples,peoples.id,school_classes_students.people_id"; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'peoples.name,peoples.number,peoples.nick,peoples.sex,school_classes_students.active as status';
+    public $columnsInclude = 'peoples.id,peoples.name,peoples.number,peoples.nick,peoples.logo_path,peoples.sex,school_classes_students.active as status';
     public $searchable = 'peoples.name,peoples.number,peoples.nick'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
@@ -27,10 +28,13 @@ class SchoolClassesUpdateds extends Component
 
     public $removeSelected = [];
     public $school_classes_id;
+    public $class;
+
 
     public function mount($school_classes_id)
     {
         $this->school_classes_id = $school_classes_id;
+        $this->class = SchoolClasses::find($this->school_classes_id)->title;
     }
 
     #[On('update_list')]

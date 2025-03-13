@@ -29,7 +29,7 @@ class SchoolGradeList extends Component
     public $sorts = ['nick' => 'asc'];
     public $relationTables; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'name,nick,active as status';
+    public $columnsInclude = 'name,nick,logo_path,company_id,active as status';
     public $searchable = 'name,nick'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página

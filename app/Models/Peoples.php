@@ -26,6 +26,7 @@ class Peoples extends Model
         'nick',
         'sex',
         'number',
+        'logo_path',
         'type',
         'code',
         'updated_by',
@@ -80,7 +81,11 @@ class Peoples extends Model
         $studentClass = SchoolClassesStudent::where('active', 1)
             ->orderBy('created_at', 'asc')
             ->where('people_id', $this->id)->first();
-        return $studentClass->class->title . ' / ' . $studentClass->class->classYears->year;
+        if ($studentClass) {
+            return $studentClass->class->title . ' / ' . $studentClass->class->classYears->year;
+        } else {
+            return false;
+        }
     }
 
     public function classT($school_classes)
@@ -96,5 +101,17 @@ class Peoples extends Model
             }
         }
         return false;
+    }
+    public function getCodeImageAttribute()
+    {
+        // return $this->logo_path;
+        if ($this->logo_path) {
+            $code = explode('.', $this->logo_path);
+            return $code[0];
+        }
+    }
+    public function setTitle()
+    {
+        return $this->nick . ' (Turma ' . $this->people_class . ')';
     }
 }

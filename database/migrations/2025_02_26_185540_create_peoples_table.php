@@ -17,6 +17,7 @@ return new class extends Migration
             $table->boolean('type');
             $table->integer('number')->nullable();
             $table->string('name')->nullable();
+            $table->string('logo_path', 100)->nullable();
             $table->string('nick')->nullable();
             $table->string('sex')->nullable();
             $table->string('code')->nullable();

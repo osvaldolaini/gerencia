@@ -28,6 +28,7 @@
                     <th scope="col" wire:click="addSort('name')"
                         class="px-4 py-1 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
                         <x-layout.table-sort-button :sorts='$sorts' field="name">
+
                             Nome
                         </x-layout.table-sort-button>
                     </th>
@@ -48,8 +49,25 @@
             <tbody class="p-0 m-0 bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                 @foreach ($dataTable as $item)
                     <tr>
-                        <td class="px-4 py-1 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
-                            {{ $item->name }}
+                        <td
+                            class="flex items-center px-4 py-1 space-x-2 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
+                            @if ($item->code_image)
+                                <picture>
+                                    <source
+                                        srcset="{{ url('storage/companies/' . $item->id . '/' . $item->code_image . '_list.png') }}" />
+                                    <source
+                                        srcset="{{ url('storage/companies/' . $item->id . '/' . $item->code_image . '_list.webp') }}" />
+                                    <img src="{{ url('storage/companies/' . $item->id . '/' . $item->code_image . '._list.png') }}"
+                                        alt="{{ $item->name }}">
+                                </picture>
+                            @else
+                                <x-application-logo width="h-12"></x-application-logo>
+                            @endif
+
+                            <span>
+
+                                {{ $item->name }}
+                            </span>
                         </td>
                         <td class="w-2/5 px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                             {{ $item->nick }}

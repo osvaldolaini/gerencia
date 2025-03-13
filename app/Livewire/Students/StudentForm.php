@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Livewire\Students;
 
 use App\Models\Peoples;
@@ -16,7 +15,7 @@ class StudentForm extends Component
     public $back = 'student-list';
     public $route = 'student';
 
-    public $breadcrumb = 'Estudantes';
+    public $breadcrumb = 'Estudante';
     //Fields
     public $id;
     public $name;

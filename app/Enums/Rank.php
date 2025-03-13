@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use Illuminate\Support\Facades\Storage;
+
 enum Rank: string
 {
     case Cabo = 'cabo';
@@ -51,5 +53,17 @@ enum Rank: string
             self::TenenteCoronel => 'Tenente-Coronel',
             self::Coronel => 'Coronel',
         };
+    }
+    public static function fromDb(string $dbValue): ?self
+    {
+        return self::tryFrom($dbValue);
+    }
+    public function image(): string
+    {
+        return Storage::url("ranks/fundo/{$this->value}.png");
+    }
+    public function imageBg(): string
+    {
+        return Storage::url("ranks/remove_bg/{$this->value}-removebg-preview.png");
     }
 }

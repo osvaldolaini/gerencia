@@ -2,8 +2,8 @@
 
 ## Versão santos dumont (beta)
 
-> Novo
-> Configurações
+> > Novo
+> > Configurações
 
     ->Cadastro de escola
     ->Cadastro de companhias

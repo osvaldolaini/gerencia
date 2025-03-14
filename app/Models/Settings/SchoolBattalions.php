@@ -37,6 +37,12 @@ class SchoolBattalions extends Model
             if ($model->active) {
                 // Define todos os outros registros como inativos
                 static::where('id', '!=', $model->id)->update(['active' => false]);
+
+                // Desativar todos os registros da tabela pivot
+                SchoolBattalionStudents::query()->update(['active' => false]);
+
+                // Ativar apenas os registros da pivot relacionados à grade ativa
+                SchoolBattalionStudents::where('school_battalions_id', $model->id)->update(['active' => true]);
             }
         });
         static::creating(function ($transaction) {
@@ -67,5 +73,9 @@ class SchoolBattalions extends Model
     public function classes(): HasMany
     {
         return $this->hasMany(SchoolClasses::class, 'school_classes_year_id', 'id');
+    }
+    public function ranks(): HasMany
+    {
+        return $this->hasMany(SchoolBattalionStudents::class, 'school_battalions_id', 'id');
     }
 }

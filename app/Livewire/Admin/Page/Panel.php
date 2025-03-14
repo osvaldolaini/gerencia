@@ -12,9 +12,12 @@ class Panel extends Component
     public $school_years;
     public $school_grade;
     public $companies;
+    public $school_classes_year_id;
+
     public function mount()
     {
         $this->school_years = SchoolClassesYears::where('active', 1)->first();
+        $this->school_classes_year_id           = $this->school_years->id;
         $this->school_grade = SchoolGrades::where('active', 1)->orderby('nick', 'desc')->get();
         $this->companies = Companies::where('active', 1)->get();
     }

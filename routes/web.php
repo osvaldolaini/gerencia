@@ -13,6 +13,7 @@ use App\Livewire\Settings\Companies\CompanyForm;
 use App\Livewire\Settings\Companies\Companylist;
 use App\Livewire\Settings\SchoolBattalion\SchoolBattalionForm;
 use App\Livewire\Settings\SchoolBattalion\SchoolBattalionList;
+use App\Livewire\Settings\SchoolBattalion\SchoolBattalionView;
 use App\Livewire\Settings\SchoolBattalionStudents\SchoolBattalionStudentForm;
 use App\Livewire\Settings\SchoolBattalionStudents\SchoolBattalionStudentGrade;
 use App\Livewire\Settings\SchoolBattalionStudents\SchoolBattalionStudentList;
@@ -159,6 +160,8 @@ Route::middleware([
         ->name('school-battalion-create');
     Route::get('/batalhao/anos/{school_battalion}/editar', SchoolBattalionForm::class)
         ->name('school-battalion-edit');
+    Route::get('/batalhao/anos/{school_battalion}/visualizar', SchoolBattalionView::class)
+        ->name('school-battalion-view');
 });
 
 Route::middleware([

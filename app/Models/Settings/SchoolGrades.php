@@ -6,6 +6,7 @@ use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -82,5 +83,9 @@ class SchoolGrades extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Companies::class, 'company_id', 'id');
+    }
+    public function battalion(): HasMany
+    {
+        return $this->hasMany(SchoolBattalionStudents::class, 'school_grades_id', 'id');
     }
 }

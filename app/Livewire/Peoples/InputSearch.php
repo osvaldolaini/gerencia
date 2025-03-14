@@ -41,16 +41,20 @@ class InputSearch extends Component
         }
         if ($field) {
             $this->field = $field;
+            // dd($this->field);
         }
     }
 
     public function render()
     {
         if ($this->inputSearch != '') {
-            $this->results = Peoples::select('id', 'name', 'number')
+            $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
                 ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
                 ->limit(5)
                 ->get();
+            if ($this->field) {
+                # code...
+            }
         }
 
         return view('livewire.peoples.input-search');

@@ -5,7 +5,7 @@
                 <h1
                     class="grid grid-cols-1 space-x-1 text-5xl font-extrabold text-center sm:grid-cols-4 dark:text-white">
                     <small class="ml-2 font-semibold text-gray-500 col-span-full dark:text-gray-400">
-                        Turmas de {{ $school_battalions->year }}
+                        Anos de {{ $school_battalions->year }}
                     </small>
                     @foreach ($school_grade as $grade)
                         <div class="flex items-center justify-center col-span-1 mt-5 dark:text-gray-900">

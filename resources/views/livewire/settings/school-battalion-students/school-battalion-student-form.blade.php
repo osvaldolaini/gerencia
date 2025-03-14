@@ -40,8 +40,8 @@
                                 <div class="col-span-full">
                                     <label class="block text-sm font-medium text-gray-900 dark:text-white"
                                         for="title">
-                                        Aluno</label>
-                                    @livewire('peoples.input-search', ['id' => $people_id])
+                                        Aluno </label>
+                                    @livewire('peoples.input-search', ['id' => $people_id, 'field' => $school_grades])
                                 </div>
                             </div>
 

@@ -47,7 +47,6 @@ class SchoolClassesList extends Component
 
     public function mount(SchoolClassesYears $school_classes_years)
     {
-
         $this->companies = Companies::where('active', 1)->get();
         if ($school_classes_years->getAttributes()) {
             $this->school_classes_year_id           = $school_classes_years->id;

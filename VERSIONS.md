@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/laiguz" target="_blank"><img src="https://avatars.githubusercontent.com/u/138938048?v=4" width="100" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
 ## Versão santos dumont (beta)
 
@@ -11,6 +11,7 @@
     ->Cadastro de séries
     ->Cadastro de turmas
     ->inclusão e exclusão de alunos na turma
+    ->inclusão e exclusão de alunos no batalhão
 
 > Cadastros
 

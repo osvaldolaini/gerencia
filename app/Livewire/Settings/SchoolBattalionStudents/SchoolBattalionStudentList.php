@@ -215,9 +215,8 @@ class SchoolBattalionStudentList extends Component
     }
     public function delete($id)
     {
-        $data = SchoolBattalionStudents::where('id', $id)->first();
-        $data->active = 0;
-        $data->save();
+        $data = SchoolBattalionStudents::find($id);
+        $data->delete();
         $this->loadItems();
         $this->openAlert('success', 'Registro excluido com sucesso.');
 

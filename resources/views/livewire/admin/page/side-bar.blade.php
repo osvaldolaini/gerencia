@@ -118,7 +118,7 @@
                     </x-layout.side-bar-nav-link>
                 </div>
                 <div x-show="openDropdown === 3" x-collapse>
-                    <x-layout.side-bar-nav-link url="school-classes-years-list" active="*/anos*"
+                    <x-layout.side-bar-nav-link url="school-classes-years-list" active="*companias/anos*"
                         access_page="school_classes_years">
                         <x-slot name="svg">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

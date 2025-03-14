@@ -23,15 +23,16 @@ class SchoolBattalionStudentForm extends Component
 
 
     public $people;
+    public $school_grades;
 
     public function mount(SchoolBattalionStudents $school_battalion_student)
     {
         if ($school_battalion_student->getAttributes()) {
             $this->id           = $school_battalion_student->id;
             $this->people_id    = $school_battalion_student->people_id;
-            $this->posto_grad    = $school_battalion_student->posto_grad;
-            $this->breadcrumb .= $school_battalion_student->grade->name;
-            // dd($school_battalion_student);
+            $this->posto_grad   = $school_battalion_student->posto_grad;
+            $this->breadcrumb   .= $school_battalion_student->grade->name;
+            $this->school_grades = $school_battalion_student->grade->id;
         }
     }
     #[On('updatePeople')]

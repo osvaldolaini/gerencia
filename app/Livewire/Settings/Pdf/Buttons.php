@@ -4,6 +4,7 @@ namespace App\Livewire\Settings\Pdf;
 
 use App\Models\Admin\Settings\Settings;
 use App\Models\Settings\Companies;
+use App\Models\Settings\SchoolBattalions;
 use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolClassesStudent;
 use App\Models\Settings\SchoolGrades;
@@ -15,10 +16,12 @@ class Buttons extends Component
 {
     public $print_classes   = false;
     public $print_call      = false;
-
+    public $print_battalion = false;
 
     public $school_classes;
     public $grade;
+
+    public $battalion_id;
 
     public function mount($button, $year, $grade)
     {
@@ -29,6 +32,9 @@ class Buttons extends Component
         $this->grade = SchoolGrades::find($grade);
         $this->print_classes    = $button == 'print_classes' ?? true;
         $this->print_call       = $button == 'print_call' ?? true;
+        $this->print_battalion  = $button == 'print_battalion' ?? true;
+
+        $this->battalion_id = SchoolBattalions::where('active', 1)->first();
     }
     public function render()
     {

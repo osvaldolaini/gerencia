@@ -87,6 +87,17 @@ class Peoples extends Model
             return false;
         }
     }
+    public function getPeopleGradeAttribute()
+    {
+        $studentClass = SchoolClassesStudent::where('active', 1)
+            ->orderBy('created_at', 'asc')
+            ->where('people_id', $this->id)->first();
+        if ($studentClass) {
+            return $studentClass->class->school_grade_id;
+        } else {
+            return false;
+        }
+    }
 
     public function classT($school_classes)
     {

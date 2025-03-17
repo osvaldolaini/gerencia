@@ -55,12 +55,21 @@
                     <div role="tabpanel"
                         class="p-6 border-2 rounded-r-lg rounded-bl-lg bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100">
                         <div class="grid grid-cols-2 gap-2 mb-1 sm:grid-cols-6 sm:gap-3 sm:mb-5">
-                            <div class="col-span-3">
+                            <div class="col-span-4">
                                 <label for="name" class="block text-sm font-medium text-gray-900 dark:text-white">
                                     Nome</label>
                                 <input type="text" wire:model="name" placeholder="Nome" required
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 @error('name')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-span-1">
+                                <label for="nick" class="block text-sm font-medium text-gray-900 dark:text-white">
+                                    Sigla</label>
+                                <input type="text" wire:model="nick" placeholder="Sigla"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                @error('nick')
                                     <span class="error">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -71,13 +80,13 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     maxlength="10" placeholder="CEP" wire:model.lazy="postalCode">
                             </div>
-                            <div class="col-span-2 ">
+                            {{-- <div class="col-span-2 ">
                                 <label class="block text-sm font-medium text-gray-900 dark:text-white"
                                     for="cpf_cnpj">CNPJ</label>
                                 <input x-mask="99.999.999/9999-99"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     maxlength="20" placeholder="00.000.000/0000-00" wire:model.lazy="cpf_cnpj">
-                            </div>
+                            </div> --}}
 
 
                             <div class="col-span-full sm:col-span-3">

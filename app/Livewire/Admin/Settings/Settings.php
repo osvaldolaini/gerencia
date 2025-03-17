@@ -19,6 +19,7 @@ class Settings extends Component
     public $configs;
     public $id;
     public $name;
+    public $nick;
     public $cpf_cnpj;
     public $postalCode;
     public $number;
@@ -51,6 +52,7 @@ class Settings extends Component
         // if (isset($this->configs->logo_path)) {
         $this->logo = 'logos-school/' . $this->configs->logo_path;
         $this->name = $this->configs->name;
+        $this->nick = $this->configs->nick;
         $this->id = $this->configs->id;
         $this->cpf_cnpj = $this->configs->cpf_cnpj;
         $this->postalCode = $this->configs->postalCode;
@@ -97,6 +99,7 @@ class Settings extends Component
             'id'        => $this->id,
         ], [
             'name' => $this->name,
+            'nick' => $this->nick,
             'cpf_cnpj' => $this->cpf_cnpj,
             'postalCode' => $this->postalCode,
             'number' => $this->number,

@@ -14,6 +14,7 @@ class Settings extends Model
 
     protected $fillable = [
         'name',
+        'nick',
         'slug',
         'cpf_cnpj',
         'postalCode',

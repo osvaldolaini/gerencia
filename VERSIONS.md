@@ -7,6 +7,7 @@
     ->Cadastro do efetivo
     ->imagem do aluno na lista
     ->Novos campos cadastro alunos (sexo, grau de comportamento)
+    ->Novo campo cadastro colégio (sigla)
     ->inclusão do nome do CMT da cia no cadastro da CIA
 
 > Correções

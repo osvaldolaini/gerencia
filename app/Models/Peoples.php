@@ -28,6 +28,10 @@ class Peoples extends Model
         'number',
         'logo_path',
         'type',
+        'user_id',
+        'posto_grad',
+        'function',
+        'grau',
         'code',
         'updated_by',
         'created_by',
@@ -83,6 +87,17 @@ class Peoples extends Model
             ->where('people_id', $this->id)->first();
         if ($studentClass) {
             return $studentClass->class->title . ' / ' . $studentClass->class->classYears->year;
+        } else {
+            return false;
+        }
+    }
+    public function getAlClassAttribute()
+    {
+        $studentClass = SchoolClassesStudent::where('active', 1)
+            ->orderBy('created_at', 'asc')
+            ->where('people_id', $this->id)->first();
+        if ($studentClass) {
+            return $studentClass->class;
         } else {
             return false;
         }

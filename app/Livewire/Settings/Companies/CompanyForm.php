@@ -2,9 +2,12 @@
 
 namespace App\Livewire\Settings\Companies;
 
+use App\Models\Peoples;
 use App\Models\Settings\Companies;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\On;
+
 
 use Illuminate\Support\Str;
 
@@ -20,6 +23,9 @@ class CompanyForm extends Component
     public $id;
     public $name;
     public $nick;
+    public $people_id;
+
+    public $people;
 
     public $newImg = '';
 
@@ -35,6 +41,12 @@ class CompanyForm extends Component
     public function render()
     {
         return view('livewire.settings.companies.company-form');
+    }
+    #[On('updatePeople')]
+    public function updatePeople($id)
+    {
+        $this->people_id = $id;
+        $this->people = Peoples::find($id)->name;
     }
 
     public function save()
@@ -62,6 +74,7 @@ class CompanyForm extends Component
             ], [
                 'name' => $this->name,
                 'nick' => $this->nick,
+                'people_id' => $this->people_id,
             ]);
 
             $id = false;
@@ -71,6 +84,8 @@ class CompanyForm extends Component
                 'active'    => 1,
                 'name'      => $this->name,
                 'nick'      => $this->nick,
+                'people_id' => $this->people_id,
+
                 'code'      => Str::uuid(),
             ]);
             $id = $companies->id;

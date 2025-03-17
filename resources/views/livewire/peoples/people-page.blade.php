@@ -1,3 +1,3 @@
 <div>
-    {{-- Knowing others is intelligence; knowing yourself is true wisdom. --}}
+    @livewire('peoples.people-form', ['peoples' => $peoples], key($peoples->id))
 </div>

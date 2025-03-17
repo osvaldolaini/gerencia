@@ -1,4 +1,8 @@
 <div>
+    @php
+        use App\Enums\MilitaryRank;
+        use App\Enums\FunctionsObserver;
+    @endphp
     <fieldset class="w-full col-span-1 space-y-1 dark:text-gray-100" wire:click="openModalSearch()" wire:ignore>
         <label for="Search" class="hidden">Pesquisar</label>
         <div class="relative w-full">
@@ -44,7 +48,7 @@
                                 @if ($results)
                                     @foreach ($results as $item)
                                         @if ($item->people_grade == $field)
-                                            <tr class="hover:bg-gray-200 dark:hover:bg-gray-500">
+                                            <tr class="hover:bg-gray-200 dark:hover:bg-gray-800">
                                                 <td>
                                                     <div class="flex items-center gap-3 cursor-pointer "
                                                         wire:click="selectPeople({{ $item->id }})">
@@ -84,9 +88,11 @@
                                                         </div>
                                                         <div>
                                                             <div class="font-bold">
-                                                                {{ $item->setTitle() }}
+                                                                {{ MilitaryRank::fromDb($item->posto_grad)?->label() ?? '' }}
+                                                                {{ $item->nick }}
                                                             </div>
-                                                            <div class="text-sm opacity-50">Al. {{ $item->student_title }}
+                                                            <div class="text-sm opacity-50">
+                                                                {{ FunctionsObserver::fromDb($item->function)?->label() ?? '' }}
                                                             </div>
                                                         </div>
                                                 </td>

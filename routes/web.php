@@ -7,6 +7,11 @@ use App\Livewire\Admin\Settings\Logs;
 use App\Livewire\Admin\Settings\Settings;
 use App\Livewire\Admin\Users\UserForm;
 use App\Livewire\Admin\Users\UserList;
+use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineEdit;
+use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineForm;
+use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineList;
+use App\Livewire\Discipline\Settings\Faults\FaultForm;
+use App\Livewire\Discipline\Settings\Faults\FaultList;
 use App\Livewire\Peoples\PeopleForm;
 use App\Livewire\Peoples\PeopleList;
 use App\Livewire\Settings\Companies\CompanyForm;
@@ -68,6 +73,21 @@ Route::middleware([
 
 
 //CADASTRO DE PESSOAS //
+//Efetivo
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:peoples' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/cadastros/efetivo', PeopleList::class)
+        ->name('peoples-list');
+    Route::get('/cadastros/efetivo/novo', PeopleForm::class)
+        ->name('peoples-create');
+    Route::get('/cadastros/efetivo/{peoples}/editar', PeopleForm::class)
+        ->name('peoples-edit');
+});
 //Estudantes//
 Route::middleware([
     'auth:sanctum',
@@ -93,11 +113,11 @@ Route::middleware([
     RegisterLogging::class,
     'checkAccess:companies' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
 ])->group(function () {
-    Route::get('/companias/compania', Companylist::class)
+    Route::get('/companhias/compania', Companylist::class)
         ->name('companies-list');
-    Route::get('/companias/compania/novo', CompanyForm::class)
+    Route::get('/companhias/compania/novo', CompanyForm::class)
         ->name('companies-create');
-    Route::get('/companias/compania/{companies}/editar', CompanyForm::class)
+    Route::get('/companhias/compania/{companies}/editar', CompanyForm::class)
         ->name('companies-edit');
 });
 //Ano escolar
@@ -108,11 +128,11 @@ Route::middleware([
     RegisterLogging::class,
     'checkAccess:school_grades' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
 ])->group(function () {
-    Route::get('/companias/ano-escolar', SchoolGradelist::class)
+    Route::get('/companhias/ano-escolar', SchoolGradelist::class)
         ->name('school-grades-list');
-    Route::get('/companias/ano-escolar/novo', CompanyForm::class)
+    Route::get('/companhias/ano-escolar/novo', CompanyForm::class)
         ->name('school-grades-create');
-    Route::get('/companias/ano-escolar/{school_grades}/editar', CompanyForm::class)
+    Route::get('/companhias/ano-escolar/{school_grades}/editar', CompanyForm::class)
         ->name('school-grades-edit');
 });
 
@@ -124,11 +144,11 @@ Route::middleware([
     RegisterLogging::class,
     'checkAccess:school_classes_years' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
 ])->group(function () {
-    Route::get('/companias/anos', SchoolClassesYearList::class)
+    Route::get('/companhias/anos', SchoolClassesYearList::class)
         ->name('school-classes-years-list');
-    Route::get('/companias/anos/novo', SchoolClassesYearForm::class)
+    Route::get('/companhias/anos/novo', SchoolClassesYearForm::class)
         ->name('school-classes-years-create');
-    Route::get('/companias/anos/{school_classes_years}/editar', SchoolClassesYearForm::class)
+    Route::get('/companhias/anos/{school_classes_years}/editar', SchoolClassesYearForm::class)
         ->name('school-classes-years-edit');
 });
 Route::middleware([
@@ -138,11 +158,11 @@ Route::middleware([
     RegisterLogging::class,
     'checkAccess:school_classes_years' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
 ])->group(function () {
-    Route::get('/companias/anos/{school_classes_years}/turmas', SchoolClassesList::class)
+    Route::get('/companhias/anos/{school_classes_years}/turmas', SchoolClassesList::class)
         ->name('school-classes-year-list');
-    Route::get('/companias/turmas/{school_classes}/editar', SchoolClassesForm::class)
+    Route::get('/companhias/turmas/{school_classes}/editar', SchoolClassesForm::class)
         ->name('school-classes-edit');
-    Route::get('/companias/turmas/{school_classes}/alunos', SchoolClassesStudents::class)
+    Route::get('/companhias/turmas/{school_classes}/alunos', SchoolClassesStudents::class)
         ->name('school-classes-students');
 });
 
@@ -179,4 +199,36 @@ Route::middleware([
     //     ->name('school-battalion-students-create');
     // Route::get('/batalhao/montar/{school_battalion}/editar', SchoolBattalionForm::class)
     //     ->name('school-battalion-students-edit');
+});
+
+//DISCIPLINA
+//FAFD
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:fault_discipline' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/disciplina/falta-disciplinar', FaultDisciplineList::class)
+        ->name('fault-discipline-list');
+    Route::get('/disciplina/falta-disciplinarnovo', FaultDisciplineForm::class)
+        ->name('fault-discipline-create');
+    Route::get('/disciplina/falta-disciplinar/{fault_discipline}/editar', FaultDisciplineEdit::class)
+        ->name('fault-discipline-edit');
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:disciplinary_fault' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/disciplina/configs/falta', FaultList::class)
+        ->name('faults-list');
+    Route::get('/batalhao/configs/falta/novo', FaultForm::class)
+        ->name('faults-create');
+    Route::get('/batalhao/configs/falta/{faults}/editar', FaultForm::class)
+        ->name('faults-edit');
 });

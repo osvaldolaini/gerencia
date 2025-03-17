@@ -1,0 +1,175 @@
+<?php
+
+namespace App\Models\Discipline;
+
+use App\Models\Peoples;
+use App\Traits\HasAttributeConversions;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
+
+class FaultDiscipline extends Model
+{
+    use HasFactory, LogsActivity, HasAttributeConversions;
+
+    protected $table = 'fault_disciplines';
+
+
+    protected $fillable = [
+        'active',
+        'number',
+        'year',
+        'cia',
+        'company_id',
+        'cmt_cia',
+        'cmt_cia_posto',
+        'people_id',
+        'al_number',
+        'al_nick',
+        'student_id',
+        'al_class',
+        'school_classes_id',
+        'fact',
+        'fact_hour',
+        'fact_date',
+        'fact_type',
+        'faults',
+        'fact_observer',
+        'fact_observer_function',
+        'fact_observer_id',
+        'solution',
+        'solution_date',
+        'aggravating',
+        'mitigating',
+        'decision',
+        'bi_date',
+        'bi_text',
+        'code',
+        'updated_by',
+        'created_by',
+        'deleted_by',
+        'deleted_at'
+    ];
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($model) {
+            $model->setUpperCaseAttributes([
+                'cmt_cia',
+                'al_nick',
+                'fact_observer',
+                'updated_by',
+                'created_by',
+            ]);
+        });
+        static::creating(function ($transaction) {
+            $transaction->created_by = Auth::user()->name;
+            $transaction->updated_by = Auth::user()->name;
+
+            // Obtém o ano atual
+            $anoAtual = now()->year;
+
+            // Busca o maior número existente para o ano
+            $ultimoNumero = static::where('year', $anoAtual)->max('number');
+
+            // Define o próximo número (se não houver, começa em 1)
+            $transaction->number = $ultimoNumero ? $ultimoNumero + 1 : 1;
+
+            // Define o ano na transação
+            $transaction->year = $anoAtual;
+        });
+
+        static::updating(function ($transaction) {
+            $transaction->updated_by = Auth::user()->name;
+        });
+    }
+    public function setUpperCaseAttributes(array $attributes)
+    {
+        foreach ($attributes as $attribute) {
+            if (isset($this->attributes[$attribute])) {
+                $this->attributes[$attribute] = mb_strtoupper($this->attributes[$attribute]);
+            }
+        }
+    }
+
+    //Register Log
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly($this->fillable);
+    }
+    public function getFactNumberAttribute()
+    {
+        return $this->number . '/' . $this->year;
+    }
+
+
+    //Json
+    public function getJsonFaultsAttribute()
+    {
+        return json_decode($this->faults);
+    }
+    public function setFaultsAttribute($value)
+    {
+        $this->attributes['faults'] = json_encode($value);
+    }
+    public function getJsonAggravatingAttribute()
+    {
+        return json_decode($this->aggravating);
+    }
+    public function setAggravatingAttribute($value)
+    {
+        $this->attributes['aggravating'] = json_encode($value);
+    }
+    public function getJsonMitigatingAttribute()
+    {
+        return json_decode($this->mitigating);
+    }
+    public function setMitigatingAttribute($value)
+    {
+        $this->attributes['mitigating'] = json_encode($value);
+    }
+
+    //dates ('bi_date', 'solution_date','fact_date')
+    public function setBiDateAttribute($value)
+    {
+        $this->attributes['bi_date'] = $this->dbDate($value);
+    }
+    public function getBiDateAttribute($value)
+    {
+        if ($value != "") {
+            return $this->viewDate($value);
+        }
+    }
+    public function setSolutionDateAttribute($value)
+    {
+        $this->attributes['solution_date'] = $this->dbDate($value);
+    }
+    public function getSolutionDateAttribute($value)
+    {
+        if ($value != "") {
+            return $this->viewDate($value);
+        }
+    }
+    public function setFactDateAttribute($value)
+    {
+        $this->attributes['fact_date'] = $this->dbDate($value);
+    }
+    public function getFDateAttribute()
+    {
+        return $this->viewDate($this->fact_date);
+    }
+    public function students(): BelongsTo
+    {
+        return $this->belongsTo(Peoples::class, 'student_id', 'id');
+    }
+    public function observers(): BelongsTo
+    {
+        return $this->belongsTo(Peoples::class, 'fact_observer_id', 'id');
+    }
+}

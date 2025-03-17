@@ -2,9 +2,11 @@
 
 namespace App\Models\Settings;
 
+use App\Models\Peoples;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -18,6 +20,7 @@ class Companies extends Model
 
     protected $fillable = [
         'active',
+        'people_id',
         'name',
         'nick',
         'code',
@@ -74,5 +77,9 @@ class Companies extends Model
     public function grade(): HasMany
     {
         return $this->hasMany(SchoolGrades::class, 'company_id', 'id');
+    }
+    public function comandant(): BelongsTo
+    {
+        return $this->belongsTo(Peoples::class, 'people_id', 'id');
     }
 }

@@ -1,5 +1,20 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão santos dumont 1.0.0
+
+> Melhorias
+
+    ->Cadastro do efetivo
+    ->imagem do aluno na lista
+    ->Novos campos cadastro alunos (sexo, grau de comportamento)
+    ->inclusão do nome do CMT da cia no cadastro da CIA
+
+> Correções
+
+    ->somente um batalhao ativo
+    ->somente um ano escolar ativo
+    ->só aparecem os alunos do ano para compor o batalhão
+
 ## Versão santos dumont (beta)
 
 > Novo

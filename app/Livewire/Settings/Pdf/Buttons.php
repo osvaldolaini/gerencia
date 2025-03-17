@@ -71,6 +71,7 @@ class Buttons extends Component
                 'responsible'       => Auth::user()->name,
             ]
         )->render();
+        // dd($html);
 
 
         // Adicione o conteúdo HTML ao PDF

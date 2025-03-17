@@ -4,6 +4,7 @@ namespace App\Livewire\Peoples;
 
 use Livewire\Component;
 use App\Models\Peoples;
+use App\Enums\MilitaryRank;
 
 class InputSearch extends Component
 {
@@ -36,7 +37,8 @@ class InputSearch extends Component
         if ($id) {
             $people = Peoples::find($id);
             if ($people) {
-                $this->people = $people->student_title;
+                $this->people = (MilitaryRank::fromDb($people->posto_grad)?->label() ?? '')
+                    . ' ' . $people->nick;
             }
         }
         if ($field) {
@@ -48,7 +50,7 @@ class InputSearch extends Component
     public function render()
     {
         if ($this->inputSearch != '') {
-            $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
+            $this->results = Peoples::select('id', 'name', 'nick', 'sex', 'function', 'posto_grad', 'logo_path')
                 ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
                 ->limit(5)
                 ->get();

@@ -40,6 +40,10 @@
                     </th>
                     <th scope="col"
                         class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
+                        Cmt
+                    </th>
+                    <th scope="col"
+                        class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                         Opções
                     </th>
                 </tr>
@@ -65,12 +69,14 @@
                             @endif
 
                             <span>
-
                                 {{ $item->name }}
                             </span>
                         </td>
-                        <td class="w-2/5 px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
+                        <td class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                             {{ $item->nick }}
+                        </td>
+                        <td class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
+                            {{ $item->cmt_name }}
                         </td>
                         <td class="w-1/6 px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                             <x-layout.table-options id='{{ $item->id }}' active='{{ $item->status }}'>

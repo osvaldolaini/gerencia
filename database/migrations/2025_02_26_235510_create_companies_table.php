@@ -18,6 +18,11 @@ return new class extends Migration
             $table->string('nick')->nullable();
             $table->string('code')->nullable();
             $table->string('logo_path', 100)->nullable();
+            $table->foreignId('people_id')
+                ->nullable()
+                ->constrained('peoples')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             /*Log */
             $table->timestamps();

@@ -24,16 +24,16 @@ class Companylist extends Component
     //Dados da tabela
     protected $queryService;
     public $model = "App\Models\Settings\Companies"; //Model principal
-    public $modelId = "id"; //Ex: 'table.id' or 'id'
+    public $modelId = "companies.id"; //Ex: 'table.id' or 'id'
     public $search;
-    public $sorts = ['name' => 'asc'];
-    public $relationTables; //Relacionamentos ( table , key , foreingKey )
+    public $sorts = ['companies.name' => 'asc'];
+    public $relationTables =  "peoples,peoples.id,companies.people_id"; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'name,nick,logo_path,active as status';
-    public $searchable = 'name,nick'; //Colunas pesquisadas no banco de dados
+    public $columnsInclude = 'companies.name,companies.nick,companies.logo_path,peoples.name as cmt_name,companies.active as status';
+    public $searchable = 'companies.name,companies.nick'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
-    public $active = 'active';
+    public $active = 'companies.active';
 
     #[On('see_excluded')]
     public function render(TableService $queryService)

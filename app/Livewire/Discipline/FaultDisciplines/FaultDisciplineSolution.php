@@ -1,0 +1,140 @@
+<?php
+
+namespace App\Livewire\Discipline\FaultDisciplines;
+
+use App\Models\Discipline\FaultDiscipline;
+use Livewire\Component;
+
+use App\Models\Peoples;
+use Illuminate\Support\Facades\Storage;
+use Livewire\WithFileUploads;
+
+use App\Models\Admin\Settings\Settings;
+use App\Models\Settings\Companies;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Str;
+
+class FaultDisciplineSolution extends Component
+{
+    use WithFileUploads;
+
+    public $uploadPdf;
+    public $fafd;
+    public $doc;
+    public $rules;
+    public $fault_discipline;
+    public $paste;
+
+    public function mount(FaultDiscipline $fault_discipline)
+    {
+        $this->fault_discipline = $fault_discipline;
+        if ($fault_discipline->id) {
+            $this->fafd = Peoples::find($fault_discipline->id);
+            $this->paste = Storage::fileExists('public/fafd/' . $fault_discipline->id . '/fafd_n_solucao_' . $fault_discipline->id . '.pdf');
+            // dd($this->doc);
+        }
+    }
+    public function render()
+    {
+        return view('livewire.discipline.fault-disciplines.fault-discipline-solution');
+    }
+    //Turmas
+    public function print()
+    {
+
+        $config = Settings::find(1);
+        $companies = Companies::where('active', 1)->first();
+        // dd($this->fault_discipline);
+        // Crie uma instância do mPDF
+        $mpdf = new \Mpdf\Mpdf([
+            'mode'          => 'utf-8',
+            // 'orientation'        => 'P', //[P,L]
+            'format' => 'A4-P',
+            'margin_left'   => 10,
+            'margin_top'    => 10,
+            'default_font_size'  => 9,
+            'default_font'  => 'arial',
+        ]);
+        // dd($mpdf);
+
+        // Renderize a view do Livewire
+        $html = view(
+            'livewire.discipline.fault-disciplines.pdfs.solution-pdf',
+            [
+                'fault_discipline'  => $this->fault_discipline,
+                'config'            => $config,
+                'companies'         => $companies,
+                'title_postfix'     => 'SOLUÇÃO DA FAFD Nº ' . $this->fault_discipline->number . '/' . $this->fault_discipline->year,
+                'subtext'           => 'SOLUÇÃO DA FAFD Nº ' . $this->fault_discipline->number . '/' . $this->fault_discipline->year,
+                'responsible'       => Auth::user()->name,
+            ]
+        )->render();
+        // dd($html);
+
+
+        // Adicione o conteúdo HTML ao PDF
+        $mpdf->WriteHTML($html);
+        $mpdf->SetHTMLFooter('
+             <table width="100%">
+                 <tr>
+                     <td width="66%">Impressão realizada em {DATE j/m/Y} às {DATE H:i:s}</td>
+                     <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
+                 </tr>
+             </table>');
+
+        $tmp = Str::uuid();
+        // Salve o PDF temporariamente
+        $down = storage_path('app/public/livewire-tmp/' . $tmp . '.pdf');
+        $pdfPath = url('storage/livewire-tmp/' . $tmp . '.pdf');
+
+        $mpdf->Output($down, 'F');
+
+        $this->dispatch('openPdfInNewTab', pdfPath: $pdfPath);
+    }
+
+
+    public function changeDoc()
+    {
+        $this->dispatch('submitForm');
+    }
+    public function updated($property)
+    // public function uploaddoc()
+    {
+        if ($property === 'uploadPdf') {
+            $this->rules = [
+                'uploadPdf'   => ['nullable', 'mimes:pdf', 'max:1024'],
+            ];
+
+            $this->validate();
+            if (Storage::directoryMissing('public/fafd/' . $this->fault_discipline->id)) {
+                Storage::makeDirectory('public/fafd/' . $this->fault_discipline->id);
+            }
+            Storage::delete('public/fafd/' . $this->fault_discipline->id . '/fafd_n_solucao_' . $this->fault_discipline->id . '.pdf');
+            if (isset($this->uploadPdf)) {
+                $ext = $this->uploadPdf->getClientOriginalExtension();
+                $new_name = 'fafd_n_solucao_' . $this->fault_discipline->id . '.pdf';
+
+                $this->uploadPdf->storeAs('public/fafd/' . $this->fault_discipline->id, $new_name);
+            }
+        }
+        $this->paste = true;
+    }
+    public function excluirTemp()
+    {
+        $this->uploadPdf = '';
+    }
+    public function excluirDoc()
+    {
+        if (Storage::directoryMissing('public/fafd/' . $this->fault_discipline->id)) {
+            Storage::makeDirectory('public/fafd/' . $this->fault_discipline->id);
+        }
+        Storage::delete('public/fafd/' . $this->fault_discipline->id . '/fafd_n_solucao_' . $this->fault_discipline->id . '.pdf');
+        $this->paste = false;
+    }
+    //pega o status do registro
+    public function openAlert($status, $msg)
+    {
+        $this->dispatch('openAlert', $status, $msg);
+    }
+}

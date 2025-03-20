@@ -21,7 +21,7 @@ enum Penalty: string
         };
     }
 
-    public function degree(): int
+    public function degree(): float
     {
         return match ($this) {
             self::Advertencia => 0.0,
@@ -29,6 +29,26 @@ enum Penalty: string
             self::AOE => 0.5,
             self::RetiradaCM => 0.8,
             self::ExclusaoDisciplinar => 0.0,
+        };
+    }
+    public function days(): int
+    {
+        return match ($this) {
+            self::Advertencia => 0,
+            self::Repreensao => 0,
+            self::AOE => 1,
+            self::RetiradaCM => 1,
+            self::ExclusaoDisciplinar => 0,
+        };
+    }
+    public function sugestion($days): string
+    {
+        return match ($this) {
+            self::Advertencia           => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a) com uma advertência publicada em BI',
+            self::Repreensao            => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a) com repreenção publicada em BI',
+            self::AOE                   => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a) com ' . $days . ' dia' . ($days > 1 ? 's' : '') . ' de Atividade de Orientação Educacional (AOE)',
+            self::RetiradaCM            => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a) com ' . $days . ' dia' . ($days > 1 ? 's' : '') . ' de retirada',
+            self::ExclusaoDisciplinar   => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido excluir o(a) aluno(a) do ...',
         };
     }
 }

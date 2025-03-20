@@ -17,7 +17,7 @@
             </div>
             <div class="rounded-md col-span-full">
                 @foreach ($selectedFaults as $number => $title)
-                    <div class="flex-wrap gap-2 badge badge-error w-[10rem] truncate">
+                    <div class="flex-wrap gap-2 badge badge-error ">
                         {{ $number }}) {{ mb_strimwidth($title, 0, 40, '...') }}
                         <svg wire:click="removeFaults({{ $number }})" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24"

@@ -32,6 +32,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->integer('al_number')->nullable();
             $table->string('al_nick')->nullable();
+            $table->string('al_name')->nullable();
             $table->foreignId('student_id')
                 ->nullable()
                 ->constrained('peoples')
@@ -46,9 +47,6 @@ return new class extends Migration
             $table->mediumText('fact')->nullable();
             $table->time('fact_hour')->nullable();
             $table->date('fact_date')->nullable();
-            $table->date('delivered_date')->nullable();
-
-
             $table->string('fact_type')->nullable();
             $table->string('faults')->nullable();
             $table->string('fact_observer')->nullable();
@@ -58,13 +56,27 @@ return new class extends Migration
                 ->constrained('peoples')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->date('delivered_date')->nullable();
+            $table->date('justification_date')->nullable();
+            $table->boolean('repeat')->nullable();
+            $table->integer('repeat_number')->nullable();
+            $table->string('solution')->nullable();
+
             $table->string('solution')->nullable();
             $table->date('solution_date')->nullable();
             $table->string('aggravating')->nullable();
             $table->string('mitigating')->nullable();
             $table->string('decision')->nullable();
+            $table->integer('decision_days')->nullable();
+            $table->decimal('grau', $precision = 10, $scale = 2)->nullable();
+
             $table->date('bi_date')->nullable();
+            $table->date('bi_number')->nullable();
             $table->string('bi_text')->nullable();
+
+            $table->date('sincomil_date')->nullable();
+
 
             $table->string('code')->nullable();
             /*Log */

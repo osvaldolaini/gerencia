@@ -9,6 +9,9 @@ use App\Enums\MilitaryRank;
 
 use Livewire\Attributes\On;
 
+use App\Enums\Penalty;
+use App\Models\Discipline\Settings\Faults;
+
 class FaultDisciplineEdit extends Component
 {
     public $rules;
@@ -28,6 +31,7 @@ class FaultDisciplineEdit extends Component
     public $people_id;
     public $al_number;
     public $al_nick;
+    public $al_name;
     public $student_id;
     public $al_class;
     public $school_classes_id;
@@ -39,15 +43,38 @@ class FaultDisciplineEdit extends Component
     public $fact_observer_function;
     public $fact_observer_id;
 
+    public $delivered_date;
+    public $justification_date;
+    public $repeat;
+    public $repeat_number;
+    public $solution;
+    public $solution_date;
+    public $decision;
+    public $dacision_days = 0.0;
+    public $grau;
+
+    public $sim_date;
+    public $sincomil_date;
+    public $bi_text;
+    public $bi_number;
+    public $b_date;
+    public $bi_date;
+    public $s_date;
+
     public $mitigating;
     public $aggravating;
     public $faults;
 
     public $students;
 
+    public $sugestion;
+    public $days;
+    public $f_date;
+
     public function mount(FaultDiscipline $fault_discipline)
     {
         if ($fault_discipline->getAttributes()) {
+
             $this->students                 = $fault_discipline->students;
             $this->id                       = $fault_discipline->id;
             $this->number                   = $fault_discipline->number;
@@ -59,6 +86,7 @@ class FaultDisciplineEdit extends Component
             $this->people_id                = $fault_discipline->people_id;
             $this->al_number                = $fault_discipline->al_number;
             $this->al_nick                  = $fault_discipline->al_nick;
+            $this->al_name                  = $fault_discipline->al_name;
             $this->student_id               = $fault_discipline->student_id;
             $this->al_class                 = $fault_discipline->al_class;
             $this->school_classes_id        = $fault_discipline->school_classes_id;
@@ -69,15 +97,46 @@ class FaultDisciplineEdit extends Component
             $this->fact_observer            = $fault_discipline->fact_observer;
             $this->fact_observer_function   = $fault_discipline->fact_observer_function;
             $this->fact_observer_id         = $fault_discipline->fact_observer_id;
+            $this->delivered_date           = $fault_discipline->delivered_date;
+            $this->justification_date       = $fault_discipline->justification_date;
 
+            $this->decision                 = $fault_discipline->decision;
+            $this->dacision_days            = $fault_discipline->dacision_days;
+            $this->repeat                   = $fault_discipline->repeat;
+            $this->repeat_number            = $fault_discipline->repeat_number;
+            $this->solution                 = $fault_discipline->solution;
+            $this->solution_date            = $fault_discipline->solution_date;
+            $this->grau                     = $fault_discipline->grau;
 
             $this->mitigating         = $fault_discipline->json_mitigating;
             $this->aggravating        = $fault_discipline->json_aggravating;
             $this->faults             = $fault_discipline->json_faults;
 
+            $this->f_date           = $fault_discipline->f_date;
+
+            $this->sim_date         = $fault_discipline->sim_date;
+            $this->sincomil_date    = $fault_discipline->sincomil_date;
+            $this->bi_text          = $fault_discipline->bi_text;
+            $this->bi_number        = $fault_discipline->bi_number;
+
+            $this->b_date           = $fault_discipline->b_date;
+            $this->bi_date          = $fault_discipline->bi_date;
+            $this->s_date           = $fault_discipline->s_date;
+
+
+
+            if ($this->decision) {
+                $this->days = Penalty::from($this->decision)->days();
+                $this->grau = Penalty::from($this->decision)->degree();
+            }
+
+            if ($this->solution) {
+                $this->sugestion = $fault_discipline->solution;
+            }
             $this->breadcrumb = 'Faltas disciplinar nº ' . $this->number . '/' . $this->year;
         }
     }
+
 
     public function render()
     {
@@ -133,7 +192,7 @@ class FaultDisciplineEdit extends Component
             'fact_observer'            => 'required',
             'fact_observer_function'   => 'required',
         ];
-        // dd($this->mitigating);
+
         $this->validate();
         FaultDiscipline::updateOrCreate([
             'id'    => $this->id,
@@ -146,8 +205,21 @@ class FaultDisciplineEdit extends Component
             'fact_observer'            => $this->fact_observer,
             'fact_observer_function'   => $this->fact_observer_function,
             'fact_observer_id'         => $this->fact_observer_id,
+            'delivered_date'           => $this->delivered_date,
+            'justification_date'       => $this->justification_date,
             'aggravating'              => $this->aggravating,
             'mitigating'               => $this->mitigating,
+            'repeat'                   => $this->repeat,
+            'repeat_number'            => $this->repeat_number,
+            'solution'                 => $this->solution,
+            'solution_date'            => $this->solution_date,
+            'decision'                 => $this->decision,
+            'dacision_days'            => $this->dacision_days,
+            'grau'                     => $this->grau,
+            'bi_date'                  => $this->bi_date,
+            'bi_text'                  => $this->bi_text,
+            'bi_number'                => $this->bi_number,
+            'sincomil_date'            => $this->sincomil_date,
         ]);
 
         $id = false;
@@ -159,5 +231,33 @@ class FaultDisciplineEdit extends Component
     public function openAlert($status, $msg)
     {
         $this->dispatch('openAlert', $status, $msg);
+    }
+    //Decision
+    public function updated($property)
+    {
+        if ($property === 'decision') {
+            $this->days = Penalty::from($this->decision)->days();
+            if ($this->days == 0.0) {
+                $this->grau = Penalty::from($this->decision)->degree();
+                $this->dacision_days = 0.0;
+            } else {
+                $this->grau = Penalty::from($this->decision)->degree() * floatval($this->dacision_days);
+            }
+        }
+        if ($property === 'dacision_days') {
+            $this->grau = Penalty::from($this->decision)->degree() * floatval($this->dacision_days);
+        }
+    }
+    public function sugestionText()
+    {
+        $this->sugestion = 'Diante do exposto, o(a) Aluno(a) em tela incidiu em falta disciplinar por, ';
+        foreach ($this->faults as $key => $value) {
+            $this->sugestion .= strtolower(Faults::find($value)->title) . ' ';
+        }
+        $this->sugestion .= $this->fact . '.';
+
+        // $this->sugestion .= ' não sendo reincidente em falta desta natureza, de acordo com o Regimento Interno dos Colégios Militares (RICM)';
+
+        $this->solution = $this->sugestion;
     }
 }

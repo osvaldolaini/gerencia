@@ -28,6 +28,7 @@ class FaultDisciplineForm extends Component
     public $people_id;
     public $al_number;
     public $al_nick;
+    public $al_name;
     public $student_id;
     public $al_class;
     public $school_classes_id;
@@ -56,6 +57,7 @@ class FaultDisciplineForm extends Component
         $this->student_id       = $id;
         $people                 = Peoples::find($id);
         $this->al_nick          = $people->nick;
+        $this->al_name          = $people->name;
         $this->al_number        = $people->number;
         $this->al_class         = $people->al_class->title;
         $this->cia              = $people->al_class->classGrade->company->name;

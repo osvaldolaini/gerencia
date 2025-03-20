@@ -2,6 +2,7 @@
 
 namespace App\Models\Discipline;
 
+use App\Models\Discipline\Settings\Faults;
 use App\Models\Peoples;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,6 +31,7 @@ class FaultDiscipline extends Model
         'people_id',
         'al_number',
         'al_nick',
+        'al_name',
         'student_id',
         'al_class',
         'school_classes_id',
@@ -41,13 +43,21 @@ class FaultDiscipline extends Model
         'fact_observer',
         'fact_observer_function',
         'fact_observer_id',
+        'delivered_date',
+        'justification_date',
+        'repeat',
+        'repeat_number',
         'solution',
         'solution_date',
         'aggravating',
         'mitigating',
         'decision',
+        'dacision_days',
+        'grau',
         'bi_date',
         'bi_text',
+        'bi_number',
+        'sincomil_date',
         'code',
         'updated_by',
         'created_by',
@@ -135,12 +145,22 @@ class FaultDiscipline extends Model
         $this->attributes['mitigating'] = json_encode($value);
     }
 
-    //dates ('bi_date', 'solution_date','fact_date')
+    //dates ('bi_date', 'solution_date','fact_date','sincomil_date')
     public function setBiDateAttribute($value)
     {
         $this->attributes['bi_date'] = $this->dbDate($value);
     }
-    public function getBiDateAttribute($value)
+    public function getBDateAttribute($value)
+    {
+        if ($value != "") {
+            return $this->viewDate($value);
+        }
+    }
+    public function setSincomilDateAttribute($value)
+    {
+        $this->attributes['sincomil_date'] = $this->dbDate($value);
+    }
+    public function getSimDateAttribute($value)
     {
         if ($value != "") {
             return $this->viewDate($value);
@@ -150,7 +170,7 @@ class FaultDiscipline extends Model
     {
         $this->attributes['solution_date'] = $this->dbDate($value);
     }
-    public function getSolutionDateAttribute($value)
+    public function getSDateAttribute($value)
     {
         if ($value != "") {
             return $this->viewDate($value);
@@ -164,6 +184,22 @@ class FaultDiscipline extends Model
     {
         return $this->viewDate($this->fact_date);
     }
+    public function setDeliveredDateAttribute($value)
+    {
+        $this->attributes['delivered_date'] = $this->dbDate($value);
+    }
+    public function getDelivDateAttribute()
+    {
+        return $this->viewDate($this->delivered_date);
+    }
+    public function setJustificationDateAttribute($value)
+    {
+        $this->attributes['justification_date'] = $this->dbDate($value);
+    }
+    public function getjustDateAttribute()
+    {
+        return $this->viewDate($this->justification_date);
+    }
     public function students(): BelongsTo
     {
         return $this->belongsTo(Peoples::class, 'student_id', 'id');
@@ -171,5 +207,9 @@ class FaultDiscipline extends Model
     public function observers(): BelongsTo
     {
         return $this->belongsTo(Peoples::class, 'fact_observer_id', 'id');
+    }
+    public function fault(): BelongsTo
+    {
+        return $this->belongsTo(Faults::class, 'fault_id', 'id');
     }
 }

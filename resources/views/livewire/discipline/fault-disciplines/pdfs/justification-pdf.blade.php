@@ -2,6 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <x-favicons></x-favicons>
     <style>
         body {
             font-family: Arial, sans-serif;

@@ -1,6 +1,6 @@
-<div wire:ignore>
+<div>
     <div class="flex items-center justify-center w-full mb-5 space-x-1">
-        <span wire:ignore wire:click="print()" class="btn btn-info">
+        <span wire:click="print()" class="btn btn-info">
             Imprimir FAFD (em branco)
             <svg class="w-6 h-6 mr-0 lg:mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -19,7 +19,7 @@
                 </svg>
             </span>
             <a class="btn btn-outline" download
-                href="{{ url('storage/fafd/' . $fault_discipline->id . '/fafd_n_' . $fault_discipline->id . '.pdf') }}">
+                href="{{ url('storage/fafd/' . $fault_discipline->id . '/fafd_n_' . $fault_discipline->number . '.pdf') }}">
                 Baixar PDF (preenchida)
                 <svg class="w-6 h-6 mr-0 lg:mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -33,7 +33,7 @@
         <div>
             @if ($paste)
                 <object
-                    data="{{ url('storage/fafd/' . $fault_discipline->id . '/fafd_n_' . $fault_discipline->id . '.pdf') }}"
+                    data="{{ url('storage/fafd/' . $fault_discipline->id . '/fafd_n_' . $fault_discipline->number . '.pdf') }}"
                     type="application/pdf" class="w-full" height="600">
                     <p>Seu navegador não suporta visualização de PDF.</p>
                 </object>

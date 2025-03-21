@@ -10,6 +10,9 @@
             <h3 class="text-2xl font-bold tracki dark:text-gray-50">
                 {{ $breadcrumb }}
             </h3>
+            <div>
+                @livewire('discipline.fault-disciplines.fault-discipline-link', [$id])
+            </div>
         </div>
     </div>
     <form>
@@ -471,6 +474,11 @@
                                 </code>
                             </div>
                         </div>
+                        @if ($solution_date && $decision)
+                            <div class="col-span-full">
+                                @livewire('discipline.fault-disciplines.fault-discipline-note', [$id])
+                            </div>
+                        @endif
 
                     </div>
 

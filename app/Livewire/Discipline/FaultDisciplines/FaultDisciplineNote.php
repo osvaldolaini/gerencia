@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Str;
 
-class FaultDisciplineSolution extends Component
+class FaultDisciplineNote extends Component
 {
     use WithFileUploads;
 
@@ -31,14 +31,14 @@ class FaultDisciplineSolution extends Component
         $this->fault_discipline = $fault_discipline;
         if ($fault_discipline->id) {
             $this->fafd = Peoples::find($fault_discipline->id);
-            $this->paste = Storage::fileExists('public/fafd/' . $fault_discipline->id . '/fafd_n_solucao_' . $fault_discipline->number . '.pdf');
+            $this->paste = Storage::fileExists('public/fafd/' . $fault_discipline->id . '/fafd_n_nota_' . $fault_discipline->number . '.pdf');
             // dd($this->doc);
         }
     }
     public function render()
     {
-        $this->paste = Storage::fileExists('public/fafd/' . $this->fault_discipline->id . '/fafd_n_solucao_' . $this->fault_discipline->number . '.pdf');
-        return view('livewire.discipline.fault-disciplines.fault-discipline-solution');
+        $this->paste = Storage::fileExists('public/fafd/' . $this->fault_discipline->id . '/fafd_n_nota_' . $this->fault_discipline->number . '.pdf');
+        return view('livewire.discipline.fault-disciplines.fault-discipline-note');
     }
     //Turmas
     public function print()
@@ -61,13 +61,13 @@ class FaultDisciplineSolution extends Component
 
         // Renderize a view do Livewire
         $html = view(
-            'livewire.discipline.fault-disciplines.pdfs.solution-pdf',
+            'livewire.discipline.fault-disciplines.pdfs.note-pdf',
             [
                 'fault_discipline'  => $this->fault_discipline,
                 'config'            => $config,
                 'companies'         => $companies,
-                'title_postfix'     => 'SOLUÇÃO DA FAFD Nº ' . $this->fault_discipline->number . '/' . $this->fault_discipline->year,
-                'subtext'           => 'SOLUÇÃO DA FAFD Nº ' . $this->fault_discipline->number . '/' . $this->fault_discipline->year,
+                'title_postfix'     => 'NOTA DA FAFD Nº ' . $this->fault_discipline->number . '/' . $this->fault_discipline->year,
+                'subtext'           => 'NOTA DA FAFD Nº ' . $this->fault_discipline->number . '/' . $this->fault_discipline->year,
                 'responsible'       => Auth::user()->name,
             ]
         )->render();
@@ -111,10 +111,10 @@ class FaultDisciplineSolution extends Component
             if (Storage::directoryMissing('public/fafd/' . $this->fault_discipline->id)) {
                 Storage::makeDirectory('public/fafd/' . $this->fault_discipline->id);
             }
-            Storage::delete('public/fafd/' . $this->fault_discipline->id . '/fafd_n_solucao_' . $this->fault_discipline->number . '.pdf');
+            Storage::delete('public/fafd/' . $this->fault_discipline->id . '/fafd_n_nota_' . $this->fault_discipline->number . '.pdf');
             if (isset($this->uploadPdf)) {
                 $ext = $this->uploadPdf->getClientOriginalExtension();
-                $new_name = 'fafd_n_solucao_' . $this->fault_discipline->number . '.pdf';
+                $new_name = 'fafd_n_nota_' . $this->fault_discipline->number . '.pdf';
 
                 $this->uploadPdf->storeAs('public/fafd/' . $this->fault_discipline->id, $new_name);
             }
@@ -130,7 +130,7 @@ class FaultDisciplineSolution extends Component
         if (Storage::directoryMissing('public/fafd/' . $this->fault_discipline->id)) {
             Storage::makeDirectory('public/fafd/' . $this->fault_discipline->id);
         }
-        Storage::delete('public/fafd/' . $this->fault_discipline->id . '/fafd_n_solucao_' . $this->fault_discipline->number . '.pdf');
+        Storage::delete('public/fafd/' . $this->fault_discipline->id . '/fafd_n_nota_' . $this->fault_discipline->number . '.pdf');
         $this->paste = false;
     }
     //pega o status do registro

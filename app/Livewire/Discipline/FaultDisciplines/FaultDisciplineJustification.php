@@ -31,12 +31,13 @@ class FaultDisciplineJustification extends Component
         $this->fault_discipline = $fault_discipline;
         if ($fault_discipline->id) {
             $this->fafd = Peoples::find($fault_discipline->id);
-            $this->paste = Storage::directoryExists('public/fafd/' . $fault_discipline->id);
+            $this->paste = Storage::fileExists('public/fafd/' . $this->fault_discipline->id . '/fafd_n_' . $this->fault_discipline->number . '.pdf');
             // dd($this->doc);
         }
     }
     public function render()
     {
+        $this->paste = Storage::fileExists('public/fafd/' . $this->fault_discipline->id . '/fafd_n_' . $this->fault_discipline->number . '.pdf');
         return view('livewire.discipline.fault-disciplines.fault-discipline-justification');
     }
     //Turmas
@@ -110,10 +111,10 @@ class FaultDisciplineJustification extends Component
             if (Storage::directoryMissing('public/fafd/' . $this->fault_discipline->id)) {
                 Storage::makeDirectory('public/fafd/' . $this->fault_discipline->id);
             }
-            Storage::deleteDirectory('public/fafd/' . $this->fault_discipline->id);
+            Storage::delete('public/fafd/' . $this->fault_discipline->id . '/fafd_n_' . $this->fault_discipline->number . '.pdf');
             if (isset($this->uploadPdf)) {
                 $ext = $this->uploadPdf->getClientOriginalExtension();
-                $new_name = 'fafd_n_' . $this->fault_discipline->id . '.pdf';
+                $new_name = 'fafd_n_' . $this->fault_discipline->number . '.pdf';
 
                 $this->uploadPdf->storeAs('public/fafd/' . $this->fault_discipline->id, $new_name);
             }
@@ -129,7 +130,7 @@ class FaultDisciplineJustification extends Component
         if (Storage::directoryMissing('public/fafd/' . $this->fault_discipline->id)) {
             Storage::makeDirectory('public/fafd/' . $this->fault_discipline->id);
         }
-        Storage::deleteDirectory('public/fafd/' . $this->fault_discipline->id);
+        Storage::delete('public/fafd/' . $this->fault_discipline->id . '/fafd_n_' . $this->fault_discipline->number . '.pdf');
         $this->paste = false;
     }
     //pega o status do registro

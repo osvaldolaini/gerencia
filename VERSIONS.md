@@ -1,8 +1,12 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
-## Versão santos dumont 1.0.0
+## Versão santos dumont 1.1.0 - disciplina
 
+> Melhorias
 
+    ->Processo de FAFD
+    ->Cadastro de faltas disciplinares
+    ->Selects (atenuante, agravante, observadores, punições)
 
 ## Versão santos dumont 1.0.0
 

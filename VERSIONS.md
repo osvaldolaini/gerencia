@@ -1,8 +1,18 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
-## Versão santos dumont 1.1.0 - disciplina
+## Versão santos dumont 1.2.0 - disciplina
+
+> Novidades
+
+    ->Lançamento de FO
 
 > Melhorias
+
+    ->Criar FAFD a partir do FO
+
+## Versão santos dumont 1.1.0 - disciplina
+
+> Novidades
 
     ->Processo de FAFD
     ->Cadastro de faltas disciplinares
@@ -20,9 +30,9 @@
 
 > Correções
 
-    ->somente um batalhao ativo
-    ->somente um ano escolar ativo
-    ->só aparecem os alunos do ano para compor o batalhão
+    ->Somente um batalhao ativo
+    ->Somente um ano escolar ativo
+    ->Só aparecem os alunos do ano para compor o batalhão
 
 ## Versão santos dumont (beta)
 
@@ -34,10 +44,10 @@
     ->Cadastro de batalhão
     ->Cadastro de séries
     ->Cadastro de turmas
-    ->inclusão e exclusão de alunos na turma
-    ->inclusão e exclusão de alunos no batalhão
+    ->Inclusão e exclusão de alunos na turma
+    ->Inclusão e exclusão de alunos no batalhão
 
 > Cadastros
 
     ->Cadastro de alunos (nome,sexo,nome de guerra,número)
-    ->usuários
+    ->Usuários

@@ -10,10 +10,8 @@ php artisan make:livewire Settings\Classes\Classlist
 php artisan make:livewire Settings\Classes\ClassForm
 php artisan make:livewire Settings\Classes\ClassPage
 
-php artisan make:model Discipline\Settings\FaultDiscipline -m
+php artisan make:model Discipline\FactObserved -m
 
-php artisan make:livewire Discipline\Settings\FaultDisciplines\FaultDisciplineList
-php artisan make:livewire Discipline\Settings\FaultDisciplines\FaultDisciplineForm
-php artisan make:livewire Discipline\Settings\FaultDisciplines\FaultDisciplinePage
-
-active,number,year,cia,cmt_cia,cmt_cia_posto,al_number,al_nick,al_class,fact,fact_hour,fact_date,fact_type,faults,fact_observer,fact_observer_function
+php artisan make:livewire Discipline\FactObserveds\FactObservedList
+php artisan make:livewire Discipline\FactObserveds\FactObservedForm
+php artisan make:livewire Discipline\FactObserveds\FactObservedPage

@@ -23,7 +23,8 @@ class InputSearch extends Component
     public function selectPeople($id)
     {
         $people = Peoples::find($id);
-        $this->people = $people->setTitle();
+        $this->people = (MilitaryRank::fromDb($people->posto_grad)?->label() ?? '')
+            . ' ' . $people->nick;
 
         $this->inputSearch = '';
         $this->results = '';

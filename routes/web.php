@@ -7,6 +7,9 @@ use App\Livewire\Admin\Settings\Logs;
 use App\Livewire\Admin\Settings\Settings;
 use App\Livewire\Admin\Users\UserForm;
 use App\Livewire\Admin\Users\UserList;
+use App\Livewire\Discipline\FactObserveds\FactObservedEdit;
+use App\Livewire\Discipline\FactObserveds\FactObservedForm;
+use App\Livewire\Discipline\FactObserveds\FactObservedList;
 use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineEdit;
 use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineForm;
 use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineList;
@@ -227,8 +230,23 @@ Route::middleware([
 ])->group(function () {
     Route::get('/disciplina/configs/falta', FaultList::class)
         ->name('faults-list');
-    Route::get('/batalhao/configs/falta/novo', FaultForm::class)
+    Route::get('/disciplina/configs/falta/novo', FaultForm::class)
         ->name('faults-create');
-    Route::get('/batalhao/configs/falta/{faults}/editar', FaultForm::class)
+    Route::get('/disciplina/configs/falta/{faults}/editar', FaultForm::class)
         ->name('faults-edit');
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:fact_observed' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/disciplina/fato-observado', FactObservedList::class)
+        ->name('fact-observed-list');
+    Route::get('/disciplina/fato-observado/novo', FactObservedForm::class)
+        ->name('fact-observed-create');
+    Route::get('/disciplina/fato-observado/{fact_observed}/editar', FactObservedEdit::class)
+        ->name('fact-observed-edit');
 });

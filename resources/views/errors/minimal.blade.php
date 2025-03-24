@@ -38,8 +38,21 @@
             </div>
             <div
                 class="items-center justify-center hidden p-6 mt-8 sm:flex lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128 ">
-                <img src="{{ url('storage/logos/logo-sistema-aero-2.png') }}" alt=""
-                    class="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
+                @if (Storage::directoryMissing('public/logos-school'))
+                    <picture>
+                        <source srcset="{{ url('storage/logos/logo-gerencia.png') }}" />
+                        <source srcset="{{ url('storage/logos/logo-gerencia.webp') }}" />
+                        <img class="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128"
+                            src="{{ url('storage/logos/logo-gerencia.png') }}" alt="api-gerencia">
+                    </picture>
+                @else
+                    <picture class="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
+                        <source srcset="{{ url('storage/logos-school/logo.png') }}" />
+                        <source srcset="{{ url('storage/logos-school/logo.webp') }}" />
+                        <img class="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128"
+                            src="{{ url('storage/logos-school/logo.png') }}" alt="api-gerencia">
+                    </picture>
+                @endif
             </div>
         </div>
     </section>

@@ -28,12 +28,6 @@ return new class extends Migration
 
             $table->string('board')->nullable();
 
-            $table->string('airfield_codigoOaci')->nullable();
-            $table->string('airfield_ciad')->nullable();
-            $table->string('airfield_name')->nullable();
-            $table->string('airfield_city')->nullable();
-            $table->string('airfield_state')->nullable();
-
             $table->string('logo_path', 100)->nullable();
 
             $table->string('emails')->nullable();

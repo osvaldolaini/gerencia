@@ -17,10 +17,13 @@ class Panel extends Component
 
     public function mount()
     {
-        $this->school_years = SchoolClassesYears::where('active', 1)->first();
-        $this->school_classes_year_id           = $this->school_years->id;
-        $this->school_grade = SchoolGrades::where('active', 1)->orderby('nick', 'desc')->get();
-        $this->companies = Companies::where('active', 1)->get();
+        if (SchoolClassesYears::where('active', 1)->first()) {
+            $this->school_years = SchoolClassesYears::where('active', 1)->first();
+            $this->school_classes_year_id           = $this->school_years->id;
+            $this->school_grade = SchoolGrades::where('active', 1)->orderby('nick', 'desc')->get();
+            $this->companies = Companies::where('active', 1)->get();
+        }
+
         if (Auth::user()->panel == 'user') {
             $this->redirect('app');
         }

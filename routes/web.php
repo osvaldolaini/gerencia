@@ -32,7 +32,7 @@ use App\Livewire\Settings\SchoolClasses\SchoolClassesStudents;
 use App\Livewire\Settings\SchoolClassesYears\SchoolClassesYearForm;
 use App\Livewire\Settings\SchoolClassesYears\SchoolClassesYearList;
 use App\Livewire\Settings\SchoolGrades\SchoolGradeForm;
-use App\Livewire\Settings\SchoolGrades\SchoolGradelist;
+use App\Livewire\Settings\SchoolGrades\SchoolGradeList;
 use App\Livewire\Students\StudentForm;
 use App\Livewire\Students\StudentList;
 use Illuminate\Support\Facades\Route;
@@ -133,7 +133,7 @@ Route::middleware([
     RegisterLogging::class,
     'checkAccess:school_grades' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
 ])->group(function () {
-    Route::get('/companhias/ano-escolar', SchoolGradelist::class)
+    Route::get('/companhias/ano-escolar', SchoolGradeList::class)
         ->name('school-grades-list');
     Route::get('/companhias/ano-escolar/novo', CompanyForm::class)
         ->name('school-grades-create');

@@ -16,8 +16,7 @@ class ConfigSeeder extends Seeder
     public function run()
     {
         DB::table('configs')->insert([
-            'name' => 'Aeroclube',
-            'payment_form' => [""],
+            'name' => 'Colégio Militar',
         ]);
     }
 }

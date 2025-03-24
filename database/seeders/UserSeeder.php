@@ -22,7 +22,8 @@ class UserSeeder extends Seeder
             'panel'             => 'admin',
             'dark'              => 1,
             'groups'            => json_encode([
-                'admin', 'user'
+                'admin',
+                'user'
             ]),
             'accesses'            => json_encode([
                 'all'

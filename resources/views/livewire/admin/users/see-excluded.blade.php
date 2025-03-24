@@ -1,5 +1,5 @@
 <div>
-    @if (in_array('active', auth()->user()->jsonActivities))
+    @if (in_array('active', auth()->user()->json_activities))
         @if ($see_excluded)
             <button wire:click="buttonSee()" class="text-green-500 btn btn-outline btn-success btn-sm">
                 Mostrar excluídos

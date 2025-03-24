@@ -63,7 +63,6 @@ return new class extends Migration
             $table->integer('repeat_number')->nullable();
             $table->string('solution')->nullable();
 
-            $table->string('solution')->nullable();
             $table->date('solution_date')->nullable();
             $table->string('aggravating')->nullable();
             $table->string('mitigating')->nullable();

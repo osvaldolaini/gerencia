@@ -7,11 +7,14 @@ namespace App\Models;
 use App\Enums\UserGroups;
 use App\Models\Admin\AlertsUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+
 
 class User extends Authenticatable
 {
@@ -158,5 +161,9 @@ class User extends Authenticatable
     public function alerts()
     {
         return $this->hasMany(AlertsUser::class, 'user_id', 'id');
+    }
+    public function people(): HasOne
+    {
+        return $this->hasOne(Peoples::class, 'user_id', 'id');
     }
 }

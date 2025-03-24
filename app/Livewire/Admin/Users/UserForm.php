@@ -3,12 +3,15 @@
 namespace App\Livewire\Admin\Users;
 
 use App\Enums\UserGroups;
+use App\Models\Peoples;
 use App\Models\User;
 use Livewire\Component;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use PHPUnit\Framework\Constraint\Count;
+
+use Illuminate\Support\Str;
 
 class UserForm extends Component
 {
@@ -27,10 +30,21 @@ class UserForm extends Component
     public $userGroups = [];
     public $activities = [];
     public $user = false;
+    public $people;
+
+
+    //People fields
+    public $nick;
+    public $posto_grad;
+    public $function;
+    public $sex;
 
     public function mount(User $user)
     {
+
         if ($user) {
+            // dd($user->people);
+            $this->people = $user->people;
             $this->id               = $user->id;
             $this->name             = $user->name;
             $this->email            = $user->email;
@@ -40,6 +54,12 @@ class UserForm extends Component
 
             $this->user = $user;
             $this->breadcrumb .= $user->name;
+
+            $this->name = $user->name;
+            $this->nick = $user->people->nick;
+            $this->posto_grad = $user->people->posto_grad;
+            $this->function = $user->people->function;
+            $this->sex = $user->people->sex;
         }
         $this->groups = UserGroups::cases();
 
@@ -84,6 +104,8 @@ class UserForm extends Component
 
         $this->validate();
         if ($this->id) {
+
+            // dd($this->people);
             User::updateOrCreate([
                 'id' => $this->id,
             ], [
@@ -99,6 +121,12 @@ class UserForm extends Component
                     'password'  => Hash::make($this->password),
                 ]);
             }
+            $this->people->name         = $this->name;
+            $this->people->nick         = $this->nick;
+            $this->people->posto_grad   = $this->posto_grad;
+            $this->people->function     = $this->function;
+            $this->people->sex          = $this->sex;
+            $this->people->save();
             $id = false;
         } else {
             $user = User::create([
@@ -113,6 +141,14 @@ class UserForm extends Component
                 'password'  => Hash::make($this->password),
             ]);
             $id = $user->id;
+            Peoples::create([
+                'active'    => 1,
+                'name'      => $user->name,
+                'nick'      => null,
+                'user_id'   => $user->id,
+                'type'      => 0,
+                'code'      => Str::uuid(),
+            ]);
         }
         $this->openAlert('success', 'Registro salvo com sucesso.');
         return $id;

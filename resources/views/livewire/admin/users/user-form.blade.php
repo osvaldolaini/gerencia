@@ -1,4 +1,8 @@
 <div>
+    @php
+        use App\Enums\MilitaryRank;
+        use App\Enums\FunctionsObserver;
+    @endphp
     <x-layout.breadcrumb>
         <x-slot name="left">
             <h3 class="text-2xl font-bold cursor-pointer tracki dark:text-gray-50">
@@ -34,9 +38,20 @@
                             </g>
                         </svg>
                     </x-slot>
-                    <x-slot name="title">Dados Gerais</x-slot>
+                    <x-slot name="title">Dados usuário</x-slot>
                 </x-layout.tabs-nav>
                 @if ($id)
+                    <x-layout.tabs-nav tab="tab6">
+                        <x-slot name="svg">
+                            <svg fill="currentColor"
+                                class="w-5 h-5 transition duration-75 shrink-0 text-primary-600 dark:text-primary-400"
+                                xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 16 16"
+                                version="1.1" id="svg8">
+                                <path d="M8 1C3 1 3 7 3 7H2v8h12V7h-1s0-6-5-6zm0 2c3 0 3 4 3 4H5s0-4 3-4z" />
+                            </svg>
+                        </x-slot>
+                        <x-slot name="title">Dados pessoais</x-slot>
+                    </x-layout.tabs-nav>
                     <x-layout.tabs-nav tab="tab2">
                         <x-slot name="svg">
                             <svg class="w-5 h-5 transition duration-75 shrink-0 text-primary-600 dark:text-primary-400"
@@ -132,6 +147,69 @@
                     </div>
                 </div>
                 @if ($id)
+                    <div id="tab6" x-show="activeTab === '#tab6'">
+                        <div role="tabpanel"
+                            class="p-6 border-2 rounded-r-lg rounded-bl-lg bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100">
+                            <div class="grid grid-cols-2 gap-2 mb-1 sm:grid-cols-6 sm:gap-3 sm:mb-5">
+
+                                <div class="col-span-full sm:col-span-2 ">
+                                    <label class="block text-sm font-medium text-gray-900 dark:text-white"
+                                        for="title">
+                                        Posto / Graduação</label>
+                                    <select wire:model="posto_grad"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option value="">Selecione...</option>
+                                        @foreach (MilitaryRank::cases() as $item)
+                                            <option value="{{ $item->value }}">{{ $item->label() }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('posto_grad')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-span-full sm:col-span-3">
+                                    <label class="block text-sm font-medium text-gray-900 dark:text-white"
+                                        for="title">
+                                        Nome guerra</label>
+                                    <input type="text" wire:model="nick"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    @error('nick')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-span-full sm:col-span-1 ">
+                                    <label class="block text-sm font-medium text-gray-900 dark:text-white"
+                                        for="sex">
+                                        Sexo</label>
+                                    <select wire:model="sex"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option value="Selecione">...</option>
+                                        <option value="M">M</option>
+                                        <option value="F">F</option>
+                                    </select>
+                                    @error('sex')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-span-full sm:col-span-2 ">
+                                    <label class="block text-sm font-medium text-gray-900 dark:text-white"
+                                        for="title">
+                                        Função</label>
+                                    <select wire:model="function"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option value="">Selecione...</option>
+                                        @foreach (FunctionsObserver::cases() as $item)
+                                            <option value="{{ $item->value }}">{{ $item->label() }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('function')
+                                        <span class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div id="tab2" x-show="activeTab === '#tab2'" class="block">
                         <div role="tabpanel"
                             class="p-6 border-2 rounded-r-lg rounded-bl-lg bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100">

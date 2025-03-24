@@ -6,7 +6,6 @@ namespace App\Models;
 
 use App\Enums\UserGroups;
 use App\Models\Admin\AlertsUser;
-use App\Models\Admin\Registrations\Enrollments;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -61,6 +60,16 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($transaction) {
+            $transaction->see_excluded  = 0;
+            $transaction->accesses      = ["fact_observed"];
+            $transaction->activities    = [null];
+        });
+    }
 
     /**
      * Get the attributes that should be cast.

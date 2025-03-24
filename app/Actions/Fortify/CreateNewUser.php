@@ -46,8 +46,6 @@ class CreateNewUser implements CreatesNewUsers
             'dark'      => 0,
             'panel'     => 'user',
             'groups'    => ['user'],
-            'accesses'  => [null],
-            'activities'  => [null],
             'name'      => $input['name'],
             'email'     => $input['email'],
             'password'  => Hash::make($input['password']),

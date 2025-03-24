@@ -13,7 +13,7 @@
             </ul>
         </div>
     </x-user-accesses-section>
-    <x-user-accesses-section title="Cadastros" description="Cadastros gerais (Usuários, aeronaves, etc)">
+    <x-user-accesses-section title="Cadastros" description="Cadastros gerais (Usuários, alunos, etc)">
         <div class="col-span-full lg:col-span-3">
             <ul
                 class="grid items-center w-full grid-cols-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg col-span-full lg:col-span-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white ">

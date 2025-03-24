@@ -16,13 +16,13 @@ return new class extends Migration
             $table->string('name');
             $table->boolean('active');
             $table->string('groups');
-            $table->string('accesses');
-            $table->json('activities');
+            $table->string('accesses')->nullable();
+            $table->json('activities')->nullable();
             $table->string('panel');
             $table->boolean('see_excluded');
             $table->boolean('dark');
             $table->string('email')->unique();
-            $table->string('cpf_cnpj')->unique();
+            $table->string('cpf_cnpj')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

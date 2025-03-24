@@ -25,6 +25,7 @@ class CheckAccess
             $url = $request->fullUrl();
             $method = $request->getMethod();
             $user = Auth::user()->name;
+
             $log = "{$user} tentou acessar área que seu perfil não tem acesso {$method}@{$url}";
             Log::notice($log);
             abort(403, 'Unauthorized');

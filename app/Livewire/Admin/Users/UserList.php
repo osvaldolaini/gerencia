@@ -32,9 +32,13 @@ class UserList extends Component
     public function render()
     {
         $currentUser = Auth::user();
-        $users = User::all()->filter(function ($user) use ($currentUser) {
-            return $currentUser->hasCommonAccessWith($user);
-        });
+        // if ) {
+        //     # code...
+        // }
+        // $users = User::all()->filter(function ($user) use ($currentUser) {
+        //     return $currentUser->hasCommonAccessWith($user);
+        // });
+        $users = User::where('active', 1)->get();
         return view('livewire.admin.users.user-list', [
             'users' => $users,
         ]);

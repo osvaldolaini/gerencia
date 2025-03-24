@@ -12,7 +12,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="api,aeronaves,aeroportos,aplicativos">
+    <meta name="keywords" content="api,colegios,aplicativos">
     <meta name="description"
         content="Sistema de Gerenciamento destinado a Centros de Instrução de Aviação Civil - CIAC.">
 
@@ -36,31 +36,12 @@
     </style>
 </head>
 
-<body class="{{ auth()->user()->dark ? 'dark' : '' }} font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @livewire('admin.page.nav-bar')
-
+<body class="{{ auth()->user()->dark ? 'dark' : '' }} font-sans antialiased p-0 m-0 dark:text-white dark:bg-gray-800">
+    <div class="min-h-screen p-0 m-0 bg-gray-100 dark:bg-gray-900">
         @livewire('message-alert')
-
         <!-- Page Content -->
-        <main>
-            <div class="drawer lg:drawer-open">
-                <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
-                <div class="drawer-content">
-                    <!-- Page content here -->
-                    <div class="m-3 bg-white sm:m-4 sm:p-5 rounded-2xl dark:bg-gray-700">
-                        {{ $slot }}
-                    </div>
-                </div>
-                <div class="drawer-side">
-                    <label for="my-drawer-3" class="drawer-overlay"></label>
-                    @if (auth()->user()->panel == 'user')
-                        @livewire('user.side-bar')
-                    @else
-                        @livewire('admin.page.side-bar')
-                    @endif
-                </div>
-            </div>
+        <main class="p-0 m-0 bg-gray-100 dark:bg-gray-900">
+            {{ $slot }}
         </main>
     </div>
 
@@ -68,8 +49,6 @@
 
     @livewireScripts
 
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script> --}}
-    <script src="{{ asset('js/vanilla-masker.min.js') }}"></script>
     @yield('scripts')
     @yield('push')
 </body>

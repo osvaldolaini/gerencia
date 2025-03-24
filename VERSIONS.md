@@ -1,5 +1,11 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão santos dumont 1.3.0 - APP
+
+> Novidades
+
+    ->Página do usuário
+
 ## Versão santos dumont 1.2.0 - disciplina
 
 > Novidades

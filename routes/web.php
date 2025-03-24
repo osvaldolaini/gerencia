@@ -7,6 +7,7 @@ use App\Livewire\Admin\Settings\Logs;
 use App\Livewire\Admin\Settings\Settings;
 use App\Livewire\Admin\Users\UserForm;
 use App\Livewire\Admin\Users\UserList;
+use App\Livewire\App\Dashboard as App;
 use App\Livewire\Discipline\FactObserveds\FactObservedEdit;
 use App\Livewire\Discipline\FactObserveds\FactObservedForm;
 use App\Livewire\Discipline\FactObserveds\FactObservedList;
@@ -50,6 +51,7 @@ Route::middleware([
     Route::get('/admin/dashboard', Panel::class)->name('dashboard');
     Route::get('/versoes', ReadmeView::class)->name('versions');
 });
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -249,4 +251,15 @@ Route::middleware([
         ->name('fact-observed-create');
     Route::get('/disciplina/fato-observado/{fact_observed}/editar', FactObservedEdit::class)
         ->name('fact-observed-edit');
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:fact_observed' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/app', App::class)
+        ->name('app');
 });

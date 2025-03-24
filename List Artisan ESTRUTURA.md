@@ -12,6 +12,5 @@ php artisan make:livewire Settings\Classes\ClassPage
 
 php artisan make:model Discipline\FactObserved -m
 
-php artisan make:livewire Discipline\FactObserveds\FactObservedList
-php artisan make:livewire Discipline\FactObserveds\FactObservedForm
-php artisan make:livewire Discipline\FactObserveds\FactObservedPage
+php artisan make:livewire App\FactObserveds\AppFactObservedList
+php artisan make:livewire App\FactObserveds\AppFactObservedForm

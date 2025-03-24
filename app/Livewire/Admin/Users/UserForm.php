@@ -41,6 +41,7 @@ class UserForm extends Component
 
     public function mount(User $user)
     {
+        dd($user);
         if ($user) {
             // dd($user->people);
             $this->people = $user->people;

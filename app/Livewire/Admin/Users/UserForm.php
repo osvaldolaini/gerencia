@@ -29,7 +29,7 @@ class UserForm extends Component
     public $accesses = [];
     public $userGroups = [];
     public $activities = [];
-    public $user = false;
+    public $user;
     public $people;
 
 
@@ -41,7 +41,6 @@ class UserForm extends Component
 
     public function mount(User $user)
     {
-
         if ($user) {
             // dd($user->people);
             $this->people = $user->people;

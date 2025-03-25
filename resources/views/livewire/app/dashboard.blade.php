@@ -35,7 +35,7 @@
                 @livewire('app.user-profile')
             </div>
             <div id="tab4" x-show="activeTab === '#tab3'">
-                @livewire('read-me')
+                @livewire('readme-view')
             </div>
         </x-slot>
         <x-slot name="nav">

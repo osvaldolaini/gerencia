@@ -9,8 +9,8 @@
     <x-app.tabs>
         <x-slot name="content">
             <div id="tab1" x-show="activeTab === '#tab1'">
-                <div class="grid grid-cols-3 gap-4 py-10">
-                    <div class="flex items-center justify-center">
+                <div class="grid grid-cols-3 gap-0 py-10 mx-4">
+                    <div class="flex items-center justify-center p-0 m-0">
                         <a href="#tab2" @click="activeTab = '#tab2'" class="relative inline-flex ">
                             <div class="flex w-24 overflow-hidden rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300">
                                 <img src="{{ url('storage/buttons/fo-.png') }}" alt="fo" />

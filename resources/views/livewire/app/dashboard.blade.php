@@ -35,7 +35,7 @@
                 @livewire('app.user-profile')
             </div>
             <div id="tab4" x-show="activeTab === '#tab4'">
-                <div class="prose max-w-none dark:prose-invert">
+                <div class="mx-5 prose max-w-none dark:prose-invert">
                     {!! $readmeContent !!}
                 </div>
             </div>

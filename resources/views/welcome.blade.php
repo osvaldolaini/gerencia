@@ -23,8 +23,7 @@
 
 {{-- <body class="font-sans antialiased"> --}}
 
-<body class="relative h-screen antialiased text-white bg-gray-400 bg-cover"
-    style="background-image: url({{ url('storage/logos/error-background-20-white.png') }});">
+<body class="relative h-screen antialiased text-white bg-gray-400 bg-cover">
     <div class="h-screen dark:bg-black">
         {{-- @livewire('navigation-menu') --}}
         <!-- Page Content -->
@@ -81,6 +80,13 @@
     @stack('modals')
 
     @livewireScripts
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('Service Worker registrado'))
+                .catch((error) => console.log('Erro ao registrar Service Worker', error));
+        }
+    </script>
 </body>
 
 </html>

@@ -28,14 +28,20 @@
     @livewireStyles
 </head>
 
-<body class="relative h-screen overflow-hidden antialiased text-black bg-black bg-cover"
-    style="background-image: url({{ url('storage/logos/error-background-20-color.png') }});">
+<body class="relative h-screen overflow-hidden antialiased text-black bg-black bg-cover">
     <div class="font-sans antialiased ">
         {{ $slot }}
     </div>
 
     @livewireScripts
     <script src="{{ asset('js/vanilla-masker.min.js') }}"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('Service Worker registrado'))
+                .catch((error) => console.log('Erro ao registrar Service Worker', error));
+        }
+    </script>
 </body>
 
 </html>

@@ -35,7 +35,6 @@
         }
     </style>
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
-    <link rel="manifest" href="/manifest.json" />
 </head>
 
 <body class="{{ auth()->user()->dark ? 'dark' : '' }} font-sans antialiased">
@@ -79,6 +78,13 @@
 
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script> --}}
     <script src="{{ asset('js/vanilla-masker.min.js') }}"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('Service Worker registrado'))
+                .catch((error) => console.log('Erro ao registrar Service Worker', error));
+        }
+    </script>
     @yield('scripts')
     @yield('push')
 </body>

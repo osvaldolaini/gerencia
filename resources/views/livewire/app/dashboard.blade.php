@@ -32,7 +32,10 @@
                 @livewire('app.fact-observeds.app-fact-observed-form')
             </div>
             <div id="tab5" x-show="activeTab === '#tab5'">
-                <x-under-construction />
+                <div class="mx-5">
+
+                    <x-under-construction />
+                </div>
             </div>
             <div id="tab3" x-show="activeTab === '#tab3'">
                 @livewire('app.user-profile')

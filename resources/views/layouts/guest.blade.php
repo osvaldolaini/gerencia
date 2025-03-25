@@ -16,6 +16,7 @@
     <meta name="description" content="SISTEMA.AERO Ferramenta destinada auxiliar na gestão de aeroclubes">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
     <x-favicons></x-favicons>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -34,12 +35,15 @@
     </div>
 
     @livewireScripts
+
     <script src="{{ asset('js/vanilla-masker.min.js') }}"></script>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(() => console.log('Service Worker registrado'))
-                .catch((error) => console.log('Erro ao registrar Service Worker', error));
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register("{{ asset('sw.js') }}")
+                    .then(reg => console.log("Service Worker registrado:", reg.scope))
+                    .catch(err => console.error("Erro ao registrar Service Worker:", err));
+            });
         }
     </script>
 </body>

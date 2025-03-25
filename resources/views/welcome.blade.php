@@ -17,6 +17,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
     <!-- Styles -->
     @livewireStyles
 </head>
@@ -80,7 +81,9 @@
     @stack('modals')
 
     @livewireScripts
+
     <script>
+        console.log("Testando Service Worker...");
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js')
                 .then(() => console.log('Service Worker registrado'))

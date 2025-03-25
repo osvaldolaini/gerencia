@@ -18,7 +18,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <x-favicons></x-favicons>
-
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -50,7 +50,15 @@
     @stack('modals')
 
     @livewireScripts
-
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register("{{ asset('sw.js') }}")
+                    .then(reg => console.log("Service Worker registrado:", reg.scope))
+                    .catch(err => console.error("Erro ao registrar Service Worker:", err));
+            });
+        }
+    </script>
     @yield('scripts')
     @yield('push')
 </body>

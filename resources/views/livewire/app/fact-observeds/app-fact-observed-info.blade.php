@@ -3,9 +3,8 @@
     <form>
         <div role="tabpanel" class="">
             <div class="grid grid-cols-1">
-
                 <div class="col-span-full" wire:ignore>
-                    @livewire('discipline.fact-observeds.fact-observed-students')
+                    @livewire('app.settings.select-students')
                 </div>
                 <div class="col-span-full ">
                     <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">

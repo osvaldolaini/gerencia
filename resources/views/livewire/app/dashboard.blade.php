@@ -20,7 +20,7 @@
                         </a>
                     </div>
                     <div class="flex items-center justify-center col-span-1">
-                        <a href="#tab3" class="avatar" @click="activeTab = '#tab3'">
+                        <a href="#tab5" class="avatar" @click="activeTab = '#tab5'">
                             <div class="w-32 shadow-lg dark:bg-blue-300 rounded-tr-2xl rounded-bl-2xl ">
                                 <img src="{{ url('storage/buttons/falta.png') }}" alt="faltas" />
                             </div>
@@ -30,6 +30,9 @@
             </div>
             <div id="tab2" x-show="activeTab === '#tab2'">
                 @livewire('app.fact-observeds.app-fact-observed-form')
+            </div>
+            <div id="tab5" x-show="activeTab === '#tab5'">
+                <x-under-construction />
             </div>
             <div id="tab3" x-show="activeTab === '#tab3'">
                 @livewire('app.user-profile')

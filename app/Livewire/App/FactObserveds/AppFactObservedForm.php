@@ -2,6 +2,20 @@
 
 namespace App\Livewire\App\FactObserveds;
 
+use App\Enums\Penalty;
+use App\Models\Discipline\FactObserved;
+use App\Models\Discipline\Settings\Faults;
+use App\Models\Peoples;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+
+use App\Enums\MilitaryRank;
+use App\Enums\FunctionsObserver;
+
+
+use Livewire\Attributes\On;
+
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class AppFactObservedForm extends Component
@@ -33,9 +47,20 @@ class AppFactObservedForm extends Component
 
     public $faults;
     public $students;
+
     public function render()
     {
         return view('livewire.app.fact-observeds.app-fact-observed-form');
+    }
+    #[On('updateFaults')]
+    public function updateFaults($faults)
+    {
+        $this->faults = $faults;
+    }
+    #[On('updateStudents')]
+    public function updateStudents($students)
+    {
+        $this->students = $students;
     }
 
     public function save()
@@ -52,7 +77,7 @@ class AppFactObservedForm extends Component
         ];
 
         $this->validate();
-
+        $user = Auth::user();
         foreach ($this->students as $key => $value) {
             $this->student_id       = $value['id'];
             $people                 = Peoples::find($this->student_id);
@@ -77,9 +102,9 @@ class AppFactObservedForm extends Component
                 'fact_date'                => $this->fact_date,
                 'fact_type'                => $this->fact_type,
                 'faults'                   => $this->faults,
-                'fact_observer'            => $this->fact_observer,
-                'fact_observer_function'   => $this->fact_observer_function,
-                'fact_observer_id'         => $this->fact_observer_id,
+                'fact_observer'            => MilitaryRank::from($user->people->posto_grad)->label . ' ' . $user->people->nick,
+                'fact_observer_function'   => FunctionsObserver::from($user->people->function)->label,
+                'fact_observer_id'         => $user->people->id,
                 'code'      => Str::uuid(),
             ]);
             $id = $fo->id;

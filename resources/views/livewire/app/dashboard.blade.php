@@ -1,5 +1,5 @@
-<div>olá mundo
-    {{-- <div class="top-0 left-0 w-full p-3 text-center bg-white border-b shadow-md dark:text-white dark:bg-gray-800 ">
+<div>
+    <div class="top-0 left-0 w-full p-3 text-center bg-white border-b shadow-md dark:text-white dark:bg-gray-800 ">
         <div class="flex items-center justify-center space-x-2 dark:text-white dark:bg-gray-800">
             <x-application-logo width="h-8"></x-application-logo>
             <h1 class="text-lg font-bold ">{{ $this->config->nick ?? 'GerenCia' }}</h1>
@@ -77,7 +77,7 @@
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7">
                             </path>
-                        </svg> --}}
+                        </svg>
     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
         stroke="currentColor" class="ml-2 size-6">
         <path stroke-linecap="round" stroke-linejoin="round"

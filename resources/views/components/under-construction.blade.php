@@ -3,7 +3,6 @@
         <div class="flex justify-center mb-4 text-5xl text-yellow-500 animate-bounce">
 
             <img class="w-10" src="{{ url('storage/logos/ovelha.png') }}" alt="api-gerencia">
-
         </div>
         <h1 class="flex justify-center mb-2 text-2xl font-bold text-gray-800">Página em Construção!</h1>
         <p class="flex justify-center text-gray-600">Estamos trabalhando duro para trazer algo incrível.

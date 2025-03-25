@@ -17,8 +17,7 @@
         content="Sistema de Gerenciamento destinado a Centros de Instrução de Aviação Civil - CIAC.">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <x-favicons></x-favicons>
-    <link rel="manifest" href="{{ asset('/manifest.json') }}">
+    <x-app.favicons></x-app.favicons>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />

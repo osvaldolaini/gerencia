@@ -57,14 +57,9 @@ class AppFactObservedPositive extends Component
     public function save()
     {
         $this->rules = [
-
             'fact'                     => 'required',
             'fact_hour'                => 'required',
             'fact_date'                => 'required',
-            'fact_type'                => 'required',
-            'faults'                   => 'required',
-            'fact_observer'            => 'required',
-            'fact_observer_function'   => 'required',
         ];
 
         $this->validate();
@@ -72,15 +67,17 @@ class AppFactObservedPositive extends Component
         foreach ($this->students as $key => $value) {
             $this->student_id       = $value['id'];
             $people                 = Peoples::find($this->student_id);
+
             $this->al_nick          = $people->nick;
             $this->al_name          = $people->name;
             $this->al_number        = $people->number;
             $this->al_class         = $people->al_class->title;
-            $this->cmt_cia_posto    = MilitaryRank::from($people->al_class->classGrade->company->comandant->posto_grad);
+            $this->cmt_cia_posto    = MilitaryRank::from(intval($people->al_class->classGrade->company->comandant->posto_grad))->label();
             $this->cmt_cia          = $people->al_class->classGrade->company->comandant->name;
             $this->cia              = $people->al_class->classGrade->company->name;
             $this->company_id       = $people->al_class->classGrade->company->id;
 
+            // dd($people->al_class->classGrade->company->comandant->posto_grad);
             $fo = FactObserved::create([
                 'active'    => 1,
                 'cia'                      => $this->cia,
@@ -96,8 +93,8 @@ class AppFactObservedPositive extends Component
                 'fact_date'                => $this->fact_date,
                 'fact_type'                => 'positivo',
                 // 'faults'                   => $this->faults,
-                'fact_observer'            => MilitaryRank::from($user->people->posto_grad)->label . ' ' . $user->people->nick,
-                'fact_observer_function'   => FunctionsObserver::from($user->people->function)->label,
+                'fact_observer'            => MilitaryRank::from($user->people->posto_grad)->label() . ' ' . $user->people->nick,
+                'fact_observer_function'   => FunctionsObserver::from($user->people->function)->label(),
                 'fact_observer_id'         => $user->people->id,
                 'code'      => Str::uuid(),
             ]);
@@ -106,8 +103,8 @@ class AppFactObservedPositive extends Component
             $msg = 'Registro criado com sucesso.';
         }
 
-
-        $this->openAlert('success', $msg);
+        $this->redirect('app', 'success', $msg);
+        // $this->openAlert('success', $msg);
         return $id;
     }
     public function openAlert($status, $msg)

@@ -112,7 +112,7 @@ class AppFactObservedNegative extends Component
             $msg = 'Registro criado com sucesso.';
         }
 
-        $this->redirect('app','success', $msg)
+        $this->redirect('app', 'success', $msg);
         // $this->openAlert('success', $msg);
         return $id;
     }

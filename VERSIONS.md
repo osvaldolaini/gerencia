@@ -1,18 +1,18 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
-## Versão santos dumont 1.3.1 - APP
+## Versão Santos Dumont 1.3.1 - APP
 
 > Novidades
 
     ->Editar perfil do usuário
 
-## Versão santos dumont 1.3.0 - APP
+## Versão Santos Dumont 1.3.0 - APP
 
 > Novidades
 
     ->Página do usuário
 
-## Versão santos dumont 1.2.0 - disciplina
+## Versão Santos Dumont 1.2.0 - disciplina
 
 > Novidades
 
@@ -22,7 +22,7 @@
 
     ->Criar FAFD a partir do FO
 
-## Versão santos dumont 1.1.0 - disciplina
+## Versão Santos Dumont 1.1.0 - disciplina
 
 > Novidades
 
@@ -30,7 +30,7 @@
     ->Cadastro de faltas disciplinares
     ->Selects (atenuante, agravante, observadores, punições)
 
-## Versão santos dumont 1.0.0
+## Versão Santos Dumont 1.0.0
 
 > Melhorias
 
@@ -46,7 +46,7 @@
     ->Somente um ano escolar ativo
     ->Só aparecem os alunos do ano para compor o batalhão
 
-## Versão santos dumont (beta)
+## Versão Santos Dumont (beta)
 
 > Novo
 > Configurações

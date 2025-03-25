@@ -1,28 +1,19 @@
 const CACHE_NAME = "pwa-cache-v1";
+const urlsToCache = [
+    "/",
+    "/offline"
+];
 
-self.addEventListener('install', (event) => {
-    const urlsToCache = [
-      '/',
-      '/index.html',
-      '/style.css',
-      '/script.js',
-    ];
-
+self.addEventListener("install", event => {
     event.waitUntil(
-      caches.open('meu-cache').then((cache) => {
-        return Promise.all(urlsToCache.map(url => {
-          return fetch(url)
-            .then(response => {
-              if (!response.ok) {
-                throw new Error(`Falha ao buscar ${url}`);
-              }
-              return cache.put(url, response);
-            })
-            .catch(error => {
-              console.error(error);
-            });
-        }));
-      })
+        caches.open(CACHE_NAME)
+            .then(cache => cache.addAll(urlsToCache))
     );
-  });
+});
 
+self.addEventListener("fetch", event => {
+    event.respondWith(
+        caches.match(event.request)
+            .then(response => response || fetch(event.request))
+    );
+});

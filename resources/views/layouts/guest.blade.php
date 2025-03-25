@@ -39,11 +39,9 @@
     <script src="{{ asset('js/vanilla-masker.min.js') }}"></script>
     <script>
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register("{{ asset('sw.js') }}")
-                    .then(reg => console.log("Service Worker registrado:", reg.scope))
-                    .catch(err => console.error("Erro ao registrar Service Worker:", err));
-            });
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log('Service Worker registrado'))
+                .catch((error) => console.log('Erro ao registrar Service Worker', error));
         }
     </script>
 </body>

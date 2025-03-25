@@ -51,7 +51,7 @@ class AppFactObservedInfo extends Component
         return view('livewire.app.fact-observeds.app-fact-observed-info');
     }
 
-    #[On('updateStudents')]
+    #[On('foUpdateStudents')]
     public function updateStudents($students)
     {
         $this->students = $students;

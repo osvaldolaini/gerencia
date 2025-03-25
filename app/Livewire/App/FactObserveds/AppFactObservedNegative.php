@@ -57,9 +57,10 @@ class AppFactObservedNegative extends Component
         $this->faults = $faults;
     }
 
-    #[On('updateStudents')]
+    #[On('foUpdateStudents')]
     public function updateStudents($students)
     {
+        // dd($this->students);
         $this->students = $students;
     }
 

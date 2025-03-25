@@ -34,6 +34,8 @@
             min-height: 400px;
         }
     </style>
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
+    <link rel="manifest" href="/manifest.json" />
 </head>
 
 <body class="{{ auth()->user()->dark ? 'dark' : '' }} font-sans antialiased">

@@ -11,7 +11,7 @@
             <div id="tab1" x-show="activeTab === '#tab1'" class="block">
                 <div class="grid items-center justify-between w-full h-full grid-cols-3 pb-10 mt-10 space-y-5">
 
-                    <div class="flex items-center justify-center col-span-1 mt-5">
+                    <div class="flex items-center justify-center col-span-1 ">
                         <a href="#tab2" class="avatar " @click="activeTab = '#tab2'">
                             <div class="w-24 rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300 ">
                                 <img src="{{ url('storage/buttons/fo-.png') }}" alt="fo" />

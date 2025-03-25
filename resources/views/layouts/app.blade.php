@@ -13,8 +13,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="api,colegios,aplicativos">
-    <meta name="description"
-        content="Sistema de Gerenciamento destinado a Centros de Instrução de Aviação Civil - CIAC.">
+    <meta name="description" content="Sistema de Gerenciamento de companhias de colégios militares.">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <x-app.favicons></x-app.favicons>

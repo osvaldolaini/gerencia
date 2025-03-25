@@ -8,31 +8,31 @@
     </div>
     <x-app.tabs>
         <x-slot name="content">
-            <div id="tab1" x-show="activeTab === '#tab1'" class="block">
-                <div class="grid items-center justify-between w-full h-full grid-cols-3 pb-10 mt-10 space-y-5">
-
-                    <div class="flex items-center justify-center col-span-1 ">
-                        <a href="#tab2" class="avatar " @click="activeTab = '#tab2'">
-                            <div class="w-24 rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300 ">
+            <div id="tab1" x-show="activeTab === '#tab1'">
+                <div class="grid grid-cols-3 gap-4 py-10">
+                    <div class="flex items-center justify-center">
+                        <a href="#tab2" @click="activeTab = '#tab2'" class="relative inline-flex ">
+                            <div class="flex w-24 overflow-hidden rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300">
                                 <img src="{{ url('storage/buttons/fo-.png') }}" alt="fo" />
                             </div>
                         </a>
                     </div>
-                    <div class="flex items-center justify-center col-span-1 ">
-                        <a href="#tab21" class="avatar " @click="activeTab = '#tab21'">
-                            <div class="w-24 rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300 ">
+                    <div class="flex items-center justify-center">
+                        <a href="#tab21" @click="activeTab = '#tab21'" class="relative inline-flex ">
+                            <div class="flex w-24 overflow-hidden rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300">
+
                                 <img src="{{ url('storage/buttons/fo+.png') }}" alt="fo" />
                             </div>
                         </a>
                     </div>
-                    <div class="flex items-center justify-center col-span-1 ">
-                        <a href="#tab22" class="avatar " @click="activeTab = '#tab22'">
-                            <div class="w-24 rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300 ">
+                    <div class="flex items-center justify-center">
+                        <a href="#tab22" @click="activeTab = '#tab22'" class="relative inline-flex ">
+                            <div class="flex w-24 overflow-hidden rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300">
                                 <img src="{{ url('storage/buttons/fo!.png') }}" alt="fo" />
                             </div>
                         </a>
                     </div>
-                    <div class="flex items-center justify-center col-span-full">
+                    <div class="col-span-3 flex items-center justify-center mt-10">
                         <a href="#tab5" @click="activeTab = '#tab5'" class="relative inline-flex ">
                             <div class="flex w-full overflow-hidden rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300">
                                 <img class="w-full cover" src="{{ url('storage/buttons/faltas.png') }}"

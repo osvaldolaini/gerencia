@@ -6,6 +6,10 @@ use App\Models\Admin\Settings\Settings;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
+
+use Illuminate\Support\Facades\File;
+use Parsedown;
+
 class Dashboard extends Component
 {
     public $fo = false;
@@ -15,11 +19,17 @@ class Dashboard extends Component
 
     public $config;
     public $darkMode;
+    public $readmeContent;
 
     public function mount()
     {
         $this->config = Settings::find(1);
         $this->darkMode = Auth::user()->dark;
+
+        $path = base_path('VERSIONS.md'); // Caminho do arquivo
+        $this->readmeContent = File::exists($path)
+            ? (new Parsedown())->text(File::get($path))
+            : 'Arquivo README.md não encontrado.';
     }
     public function render()
     {

@@ -35,7 +35,9 @@
                 @livewire('app.user-profile')
             </div>
             <div id="tab4" x-show="activeTab === '#tab3'">
-                @livewire('readme-view')
+                <div class="prose max-w-none dark:prose-invert">
+                    {!! $readmeContent !!}
+                </div>
             </div>
         </x-slot>
         <x-slot name="nav">

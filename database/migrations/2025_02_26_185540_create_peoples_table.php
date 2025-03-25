@@ -16,7 +16,7 @@ return new class extends Migration
             $table->boolean('active');
             $table->foreignId('user_id')
                 ->nullable()
-                ->constrained('peoples')
+                ->constrained('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->boolean('type');

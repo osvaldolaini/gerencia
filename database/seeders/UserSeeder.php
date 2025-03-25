@@ -22,6 +22,12 @@ class UserSeeder extends Seeder
             'panel'             => 'admin',
             'dark'              => 1,
             'see_excluded'      => 0,
+            'activities'        => json_encode([
+                'create',
+                'delete',
+                'update',
+                'active'
+            ]),
             'groups'            => json_encode([
                 'admin',
                 'user'

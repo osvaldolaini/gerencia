@@ -11,6 +11,7 @@ class SelectFaults extends Component
 {
     public array $selectedFaults = [];
     public array $faultsOptions;
+    public $selectOption;
 
     public function mount($faults)
     {
@@ -38,7 +39,7 @@ class SelectFaults extends Component
             $this->selectedFaults[$value] = $this->faultsOptions[$value];
             unset($this->faultsOptions[$value]); // Remove da select
         }
-
+        $this->selectOption = '';
         ksort($this->selectedFaults); // Reordena a lista selecionada$chaves = array_keys($array);
         $this->dispatch('updateFaults', array_keys($this->selectedFaults));
     }

@@ -1,4 +1,8 @@
 <div>
+    @php
+        use App\Enums\MilitaryRank;
+        use App\Enums\FunctionsObserver;
+    @endphp
     <fieldset class="w-full col-span-1 space-y-1 dark:text-gray-100" wire:click="openModalSearch()" wire:ignore>
         <label for="Search" class="hidden">Pesquisar</label>
         <div class="relative w-full">
@@ -43,48 +47,57 @@
                             <tbody>
                                 @if ($results)
                                     @foreach ($results as $item)
-                                        <tr class="hover:bg-gray-200 dark:hover:bg-gray-500">
-                                            <td>
-                                                <div class="flex items-center gap-3 cursor-pointer "
-                                                    wire:click="selectPeople({{ $item->id }})">
-                                                    <div class="avatar">
-                                                        <div class="h-24 w-18">
-                                                            @if ($item->code_image)
-                                                                <div class="avatar">
-                                                                    <div class="relative w-8 rounded-full cursor-pointer">
-                                                                        <!-- Avatar pequeno -->
-                                                                        <img @mouseleave="show = false"
-                                                                            @mouseover="show = true; x = $event.clientX; y = $event.clientY"
-                                                                            src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_list.png') }}"
-                                                                            alt="{{ $item->name }}">
+                                        @if ($item->people_grade == $field)
+                                            <tr class="hover:bg-gray-200 dark:hover:bg-gray-800">
+                                                <td>
+                                                    <div class="flex items-center gap-3 cursor-pointer "
+                                                        wire:click="selectPeople({{ $item->id }})">
+                                                        <div class="avatar">
+                                                            <div class="h-24 w-18">
+                                                                @if ($item->code_image)
+                                                                    <div class="avatar">
+                                                                        <div
+                                                                            class="relative w-8 rounded-full cursor-pointer">
+                                                                            <!-- Avatar pequeno -->
+                                                                            <img @mouseleave="show = false"
+                                                                                @mouseover="show = true; x = $event.clientX; y = $event.clientY"
+                                                                                src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_list.png') }}"
+                                                                                alt="{{ $item->name }}">
+                                                                        </div>
                                                                     </div>
-                                                                </div>
 
-                                                                <!-- Foto maior ao passar o mouse -->
-                                                                <div x-show="show" x-transition.opacity
-                                                                    class="fixed z-50 w-32 h-32 p-1 bg-white border-2 border-gray-300 rounded-lg shadow-lg"
-                                                                    :style="'top: ' + (y + 10) + 'px; left: ' + (x + 10) +
-                                                                    'px;'">
-                                                                    <img src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_big.png') }}"
-                                                                        alt="Foto grande" class="w-full h-full rounded-lg">
-                                                                </div>
-                                                            @else
-                                                                <div class="avatar">
-                                                                    <div class="relative w-8 rounded-full cursor-pointer">
-                                                                        <x-application-logo
-                                                                            width="h-12"></x-application-logo>
+                                                                    <!-- Foto maior ao passar o mouse -->
+                                                                    <div x-show="show" x-transition.opacity
+                                                                        class="fixed z-50 w-32 h-32 p-1 bg-white border-2 border-gray-300 rounded-lg shadow-lg"
+                                                                        :style="'top: ' + (y + 10) + 'px; left: ' + (x + 10) +
+                                                                        'px;'">
+                                                                        <img src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_big.png') }}"
+                                                                            alt="Foto grande"
+                                                                            class="w-full h-full rounded-lg">
                                                                     </div>
-                                                                </div>
-                                                            @endif
+                                                                @else
+                                                                    <div class="avatar">
+                                                                        <div
+                                                                            class="relative w-8 rounded-full cursor-pointer">
+                                                                            <x-application-logo
+                                                                                width="h-12"></x-application-logo>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="font-bold">
-                                                            {{ $item->setTitle() }}
+                                                        <div>
+                                                            <div class="font-bold">
+                                                                {{ MilitaryRank::fromDb($item->posto_grad)?->label() ?? '' }}
+                                                                {{ $item->nick }}
+                                                            </div>
+                                                            <div class="text-sm opacity-50">
+                                                                {{ FunctionsObserver::fromDb($item->function)?->label() ?? '' }}
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 @endif
                             </tbody>

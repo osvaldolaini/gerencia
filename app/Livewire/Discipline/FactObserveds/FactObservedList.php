@@ -30,7 +30,7 @@ class FactObservedList extends Component
     public $model = "App\Models\Discipline\FactObserved"; //Model principal
     public $modelId = "fact_observeds.id"; //Ex: 'table.id' or 'id'
     public $search;
-    public $sorts = ['fact_observeds.number' => 'asc'];
+    public $sorts = ['fact_observeds.number' => 'desc'];
     public $relationTables =  "peoples,peoples.id,fact_observeds.student_id"; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
     public $columnsInclude = 'peoples.logo_path as path,fact_observeds.updated_at,fafd,fafd_id,fact_observer,fact_observer_function,year,al_number,al_nick,al_class,student_id,fact_type,fact_hour,fact_date,fact_observeds.number,fact,sincomil_date,fact_observeds.active as status';

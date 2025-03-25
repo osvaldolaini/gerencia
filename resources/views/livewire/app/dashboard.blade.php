@@ -9,31 +9,50 @@
     <x-app.tabs>
         <x-slot name="content">
             <div id="tab1" x-show="activeTab === '#tab1'" class="block">
+                <div class="grid items-center justify-between w-full h-full grid-cols-3 pb-10 mt-10 space-y-5">
 
-                <div class="grid items-center justify-between w-full h-full grid-cols-2 pb-10 mt-10 space-y-2">
-
-                    <div class="flex items-center justify-center col-span-1 ">
+                    <div class="flex items-center justify-center col-span-1 mt-5">
                         <a href="#tab2" class="avatar " @click="activeTab = '#tab2'">
-                            <div class="w-32 rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300 ">
-                                <img src="{{ url('storage/buttons/fo.png') }}" alt="fo" />
+                            <div class="w-24 rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300 ">
+                                <img src="{{ url('storage/buttons/fo-.png') }}" alt="fo" />
                             </div>
                         </a>
                     </div>
-                    <div class="flex items-center justify-center col-span-1">
-                        <a href="#tab5" class="avatar" @click="activeTab = '#tab5'">
-                            <div class="w-32 shadow-lg dark:bg-blue-300 rounded-tr-2xl rounded-bl-2xl ">
-                                <img src="{{ url('storage/buttons/falta.png') }}" alt="faltas" />
+                    <div class="flex items-center justify-center col-span-1 ">
+                        <a href="#tab21" class="avatar " @click="activeTab = '#tab21'">
+                            <div class="w-24 rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300 ">
+                                <img src="{{ url('storage/buttons/fo+.png') }}" alt="fo" />
+                            </div>
+                        </a>
+                    </div>
+                    <div class="flex items-center justify-center col-span-1 ">
+                        <a href="#tab22" class="avatar " @click="activeTab = '#tab22'">
+                            <div class="w-24 rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300 ">
+                                <img src="{{ url('storage/buttons/fo!.png') }}" alt="fo" />
+                            </div>
+                        </a>
+                    </div>
+                    <div class="flex items-center justify-center col-span-full">
+                        <a href="#tab5" @click="activeTab = '#tab5'" class="relative inline-flex ">
+                            <div class="flex w-full overflow-hidden rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300">
+                                <img class="w-full cover" src="{{ url('storage/buttons/faltas.png') }}"
+                                    alt="faltas" />
                             </div>
                         </a>
                     </div>
                 </div>
             </div>
             <div id="tab2" x-show="activeTab === '#tab2'">
-                @livewire('app.fact-observeds.app-fact-observed-form')
+                @livewire('app.fact-observeds.app-fact-observed-negative')
+            </div>
+            <div id="tab21" x-show="activeTab === '#tab21'">
+                @livewire('app.fact-observeds.app-fact-observed-positive')
+            </div>
+            <div id="tab22" x-show="activeTab === '#tab22'">
+                @livewire('app.fact-observeds.app-fact-observed-info')
             </div>
             <div id="tab5" x-show="activeTab === '#tab5'">
                 <div class="mx-5">
-
                     <x-under-construction />
                 </div>
             </div>
@@ -105,7 +124,6 @@
                     </x-slot>
                     <x-slot name="title">Versão</x-slot>
                 </x-app.tab-nav>
-
             </footer>
         </x-slot>
     </x-app.tabs>

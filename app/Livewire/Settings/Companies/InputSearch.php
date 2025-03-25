@@ -4,6 +4,7 @@ namespace App\Livewire\Settings\Companies;
 
 use Livewire\Component;
 use App\Models\Peoples;
+use App\Enums\MilitaryRank;
 
 class InputSearch extends Component
 {
@@ -13,6 +14,7 @@ class InputSearch extends Component
     public $inputSearch;
     public $results;
     public $people;
+    public $field;
 
     public function openModalSearch()
     {
@@ -21,33 +23,41 @@ class InputSearch extends Component
     public function selectPeople($id)
     {
         $people = Peoples::find($id);
-        $this->people = $people->setTitle();
+        $this->people = (MilitaryRank::fromDb($people->posto_grad)?->label() ?? '')
+            . ' ' . $people->nick;
 
         $this->inputSearch = '';
         $this->results = '';
 
         $this->modalSearch = false;
         //envia a id
-        $this->dispatch('updatePeople', $people->id);
+        $this->dispatch('updatePeople', $people->id, $this->field);
     }
-    public function mount($id = null)
+    public function mount($id = null, $field = null)
     {
         if ($id) {
             $people = Peoples::find($id);
             if ($people) {
-                $this->people = $people->student_title;
+                $this->people = (MilitaryRank::fromDb($people->posto_grad)?->label() ?? '')
+                    . ' ' . $people->nick;
             }
+        }
+        if ($field) {
+            $this->field = $field;
+            // dd($this->field);
         }
     }
 
     public function render()
     {
         if ($this->inputSearch != '') {
-            $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
+            $this->results = Peoples::select('id', 'name', 'nick', 'sex', 'function', 'posto_grad', 'logo_path')
                 ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
-                ->where('type', 1)
                 ->limit(5)
                 ->get();
+            if ($this->field) {
+                # code...
+            }
         }
 
         return view('livewire.settings.companies.input-search');

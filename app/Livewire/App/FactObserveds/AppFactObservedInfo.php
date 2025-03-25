@@ -18,7 +18,7 @@ use Livewire\Attributes\On;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
-class AppFactObservedForm extends Component
+class AppFactObservedInfo extends Component
 {
 
     public $rules;
@@ -43,20 +43,14 @@ class AppFactObservedForm extends Component
     public $fact_observer;
     public $fact_observer_function;
     public $fact_observer_id;
-    public $student;
 
-    public $faults;
     public $students;
 
     public function render()
     {
-        return view('livewire.app.fact-observeds.app-fact-observed-form');
+        return view('livewire.app.fact-observeds.app-fact-observed-info');
     }
-    #[On('updateFaults')]
-    public function updateFaults($faults)
-    {
-        $this->faults = $faults;
-    }
+
     #[On('updateStudents')]
     public function updateStudents($students)
     {
@@ -85,6 +79,8 @@ class AppFactObservedForm extends Component
             $this->al_name          = $people->name;
             $this->al_number        = $people->number;
             $this->al_class         = $people->al_class->title;
+            $this->cmt_cia_posto    = MilitaryRank::from($people->al_class->classGrade->company->comandant->posto_grad);
+            $this->cmt_cia          = $people->al_class->classGrade->company->comandant->name;
             $this->cia              = $people->al_class->classGrade->company->name;
             $this->company_id       = $people->al_class->classGrade->company->id;
 
@@ -92,6 +88,7 @@ class AppFactObservedForm extends Component
                 'active'    => 1,
                 'cia'                      => $this->cia,
                 'company_id'               => $this->company_id,
+                'cmt_cia_posto'            => $this->cmt_cia_posto,
                 'cmt_cia'                  => $this->cmt_cia,
                 'student_id'               => $this->student_id,
                 'al_nick'                  => $this->al_nick,
@@ -100,8 +97,8 @@ class AppFactObservedForm extends Component
                 'fact'                     => $this->fact,
                 'fact_hour'                => $this->fact_hour,
                 'fact_date'                => $this->fact_date,
-                'fact_type'                => $this->fact_type,
-                'faults'                   => $this->faults,
+                'fact_type'                => 'informativo',
+                // 'faults'                   => $this->faults,
                 'fact_observer'            => MilitaryRank::from($user->people->posto_grad)->label . ' ' . $user->people->nick,
                 'fact_observer_function'   => FunctionsObserver::from($user->people->function)->label,
                 'fact_observer_id'         => $user->people->id,

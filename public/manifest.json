@@ -2,7 +2,7 @@
     "name": "Gerencia",
     "short_name": "Gerencia",
     "id": "/index.php",
-    "start_url": "/index.php",
+    "start_url": "/",
     "background_color": "#ffffff",
     "description": "Sistema de gestão de companhias de colégios militares",
     "display": "fullscreen",

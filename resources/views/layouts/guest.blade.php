@@ -35,8 +35,6 @@
     </div>
 
     @livewireScripts
-
-    <script src="{{ asset('js/vanilla-masker.min.js') }}"></script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js')
@@ -44,6 +42,8 @@
                 .catch((error) => console.log('Erro ao registrar Service Worker', error));
         }
     </script>
+    <script src="{{ asset('js/vanilla-masker.min.js') }}"></script>
+
 </body>
 
 </html>

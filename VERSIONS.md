@@ -6,6 +6,11 @@
 
     ->Editar perfil do usuário
 
+> Melhorias
+
+    ->Baixar planilha modelo para importar alunos em lote
+    ->importar alunos em lote
+
 ## Versão Santos Dumont 1.3.0 - APP
 
 > Novidades

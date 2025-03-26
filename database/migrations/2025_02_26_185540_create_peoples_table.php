@@ -23,6 +23,7 @@ return new class extends Migration
             $table->decimal('grau', $precision = 10, $scale = 2)->nullable();
             $table->integer('number')->nullable();
             $table->string('name')->nullable();
+            $table->date('birthday')->nullable();
             $table->string('logo_path', 100)->nullable();
             $table->string('nick')->nullable();
             $table->string('sex')->nullable();

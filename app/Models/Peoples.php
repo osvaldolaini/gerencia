@@ -27,6 +27,7 @@ class Peoples extends Model
         'sex',
         'number',
         'logo_path',
+        'birthday',
         'type',
         'user_id',
         'posto_grad',
@@ -74,6 +75,16 @@ class Peoples extends Model
     {
         return LogOptions::defaults()
             ->logOnly($this->fillable);
+    }
+    public function setBirthdayAttribute($value)
+    {
+        $this->attributes['birthday'] = $this->dbDate($value);
+    }
+    public function getBirthAttribute($value)
+    {
+        if ($value != "") {
+            return $this->viewDate($value);
+        }
     }
 
     public function getStudentTitleAttribute()

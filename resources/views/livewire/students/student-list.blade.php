@@ -8,6 +8,8 @@
         </x-slot>
 
     </x-layout.breadcrumb>
+    <x-layout.table-buttons-import-export :import="true" :export="true">
+    </x-layout.table-buttons-import-export>
     <x-layout.search>
         <x-slot name="button">
             <button wire:click="showCreate()"

@@ -39,6 +39,7 @@ class StudentList extends Component
     public $active = 'active';
 
     #[On('see_excluded')]
+    #[On('importUpdateStudents')]
     public function render(TableService $queryService)
     {
         $dataTable = $queryService

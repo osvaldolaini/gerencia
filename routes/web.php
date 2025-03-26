@@ -29,6 +29,7 @@ use App\Livewire\Settings\SchoolBattalionStudents\SchoolBattalionStudentList;
 use App\Livewire\Settings\SchoolClasses\SchoolClassesForm;
 use App\Livewire\Settings\SchoolClasses\SchoolClassesList;
 use App\Livewire\Settings\SchoolClasses\SchoolClassesStudents;
+use App\Livewire\Settings\SchoolClasses\SchoolClassesView;
 use App\Livewire\Settings\SchoolClassesYears\SchoolClassesYearForm;
 use App\Livewire\Settings\SchoolClassesYears\SchoolClassesYearList;
 use App\Livewire\Settings\SchoolGrades\SchoolGradeForm;
@@ -155,6 +156,8 @@ Route::middleware([
         ->name('school-classes-years-create');
     Route::get('/companhias/anos/{school_classes_years}/editar', SchoolClassesYearForm::class)
         ->name('school-classes-years-edit');
+    Route::get('/companhias/anos/{school_grades}/visualizar', SchoolClassesView::class)
+        ->name('school-classes-view');
 });
 Route::middleware([
     'auth:sanctum',

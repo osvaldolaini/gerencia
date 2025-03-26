@@ -22,9 +22,11 @@ class Buttons extends Component
     public $grade;
 
     public $battalion_id;
+    public $school_classes_year_id;
 
     public function mount($button, $year, $grade)
     {
+        $this->school_classes_year_id = $year;
         $this->school_classes = SchoolClasses::where('active', 1)
             ->where('school_classes_year_id', $year)
             ->where('school_grade_id', $grade)

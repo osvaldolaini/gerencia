@@ -62,7 +62,7 @@
                                         srcset="{{ url('storage/schoolGrades/' . $item->id . '/' . $item->code_image . '_list.png') }}" />
                                     <source
                                         srcset="{{ url('storage/schoolGrades/' . $item->id . '/' . $item->code_image . '_list.webp') }}" />
-                                    <img src="{{ url('storage/schoolGrades/' . $item->id . '/' . $item->code_image . '._list.png') }}"
+                                    <img src="{{ url('storage/schoolGrades/' . $item->id . '/' . $item->code_image . '_list.png') }}"
                                         alt="{{ $item->name }}">
                                 </picture>
                             @else

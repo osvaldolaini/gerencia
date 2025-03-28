@@ -45,7 +45,7 @@ class UploadImage extends Component
 
             $this->validate();
             if (Storage::directoryMissing('public/companies/' . $this->companies->id)) {
-                Storage::makeDirectory('public/companies/' . $this->companies->id);
+                Storage::makeDirectory('public/companies/' . $this->companies->id, 0755, true, true);
             }
             Storage::deleteDirectory('public/companies/' . $this->companies->id);
             if (isset($this->uploadimage)) {
@@ -74,7 +74,7 @@ class UploadImage extends Component
         $this->companies->logo_path = '';
         $this->companies->save();
         if (Storage::directoryMissing('public/companies/' . $this->companies->id)) {
-            Storage::makeDirectory('public/companies/' . $this->companies->id);
+            Storage::makeDirectory('public/companies/' . $this->companies->id, 0755, true, true);
         }
         Storage::deleteDirectory('public/companies/' . $this->companies->id);
         $this->photo = $this->companies->logo_path;

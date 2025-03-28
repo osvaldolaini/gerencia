@@ -179,8 +179,9 @@ class Settings extends Component
         $header->toPng()->save('storage/logos-school/logo-header.png');
         $header->toWebp()->save('storage/logos-school/logo-header.webp');
 
+
         if (Storage::directoryMissing('public/favicons-school')) {
-            Storage::makeDirectory('public/favicons-school');
+            Storage::makeDirectory('public/favicons-school', 0755, true, true);
         }
         // Favicons
         $sizes = [

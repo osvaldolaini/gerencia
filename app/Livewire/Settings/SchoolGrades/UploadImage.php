@@ -38,6 +38,9 @@ class UploadImage extends Component
     public function updated($property)
     // public function uploadPhoto()
     {
+        if (Storage::directoryMissing('public/schoolGrades')) {
+            Storage::makeDirectory('public/schoolGrades', 0755, true, true);
+        }
         if ($property === 'uploadimage') {
             $this->rules = [
                 'uploadimage'   => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
@@ -81,7 +84,7 @@ class UploadImage extends Component
         $this->school_gredes->logo_path = '';
         $this->school_gredes->save();
         if (Storage::directoryMissing('public/schoolGrades/' . $this->school_gredes->id)) {
-            Storage::makeDirectory('public/schoolGrades/' . $this->school_gredes->id);
+            Storage::makeDirectory('public/schoolGrades/' . $this->school_gredes->id, 0755, true, true);
         }
         Storage::deleteDirectory('public/schoolGrades/' . $this->school_gredes->id);
         $this->photo = $this->school_gredes->logo_path;

@@ -117,14 +117,14 @@ class SchoolClassesView extends Component
 
         // Salve o PDF temporariamente
         $file = 'chamada_' . $this->title . '_' . Str::uuid() . '.pdf';
-        $directoryPath = dirname('app/livewire-tmp'); // Obtém o caminho do diretório (sem o nome do arquivo)
+        $directoryPath = dirname('app/public/pdf-tmp'); // Obtém o caminho do diretório (sem o nome do arquivo)
 
         if (!is_dir($directoryPath)) {
             mkdir($directoryPath, 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário
         }
 
-        $down = storage_path('app/livewire-tmp/' . $file);
-        $pdfPath = url('storage/livewire-tmp/' . $file);
+        $down = storage_path('app/pdf-tmp/' . $file);
+        $pdfPath = url('storage/pdf-tmp/' . $file);
         // dd($file);
         // $mpdf->Output($file, '');
         $mpdf->Output($down, 'F');

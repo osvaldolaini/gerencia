@@ -116,6 +116,7 @@ class Settings extends Component
             if (Storage::directoryMissing('public/logos-school')) {
                 Storage::makeDirectory('public/logos-school');
             }
+
             Storage::deleteDirectory('public/logos-school');
             $ext = $this->uploadimage->getClientOriginalExtension();
             $code = $this->configs->slug;

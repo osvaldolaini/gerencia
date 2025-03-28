@@ -53,6 +53,14 @@ class UploadImage extends Component
                 $code = Str::uuid();
                 $new_name = $code . '.jpg';
 
+                $path = storage_path('app/public/companies/' . $this->companies->id);
+
+                // Verifica se o diretório existe e, se não, cria com permissão 755
+                if (!file_exists($path)) {
+                    mkdir($path, 0755, true);
+                }
+
+
                 $this->uploadimage->storeAs('public/companies/' . $this->companies->id, $new_name);
                 $this->companies->logo_path = $new_name;
                 $this->companies->save();

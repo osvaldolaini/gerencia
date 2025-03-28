@@ -46,6 +46,14 @@ class AppFactObservedInfo extends Component
 
     public $students;
 
+    public function mount()
+    {
+        $user = Auth::user();
+        $this->fact_observer = MilitaryRank::from($user->people->posto_grad)->label() . ' ' . $user->people->nick;
+        $this->fact_observer_function = $user->people->function;
+        $this->fact_observer_id = $user->people->id;
+    }
+
     public function render()
     {
         return view('livewire.app.fact-observeds.app-fact-observed-info');
@@ -66,7 +74,7 @@ class AppFactObservedInfo extends Component
         ];
 
         $this->validate();
-        $user = Auth::user();
+
         foreach ($this->students as $key => $value) {
             $this->student_id       = $value['id'];
             $people                 = Peoples::find($this->student_id);
@@ -96,9 +104,9 @@ class AppFactObservedInfo extends Component
                 'fact_date'                => $this->fact_date,
                 'fact_type'                => 'informativo',
                 // 'faults'                   => $this->faults,
-                'fact_observer'            => MilitaryRank::from($user->people->posto_grad)->label() . ' ' . $user->people->nick,
-                'fact_observer_function'   => FunctionsObserver::from($user->people->function)->label(),
-                'fact_observer_id'         => $user->people->id,
+                'fact_observer'            => $this->fact_observer,
+                'fact_observer_function'   => $this->fact_observer_function,
+                'fact_observer_id'         => $this->fact_observer_id,
                 'code'      => Str::uuid(),
             ]);
             $id = $fo->id;

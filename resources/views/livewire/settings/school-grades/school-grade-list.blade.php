@@ -70,7 +70,6 @@
                             @endif
 
                             <span>
-
                                 {{ $item->name }}
                             </span>
                         </td>

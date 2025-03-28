@@ -57,10 +57,10 @@
                                     class="px-4 py-2 mr-4 text-white uppercase bg-blue-800 border-2 border-transparent rounded-lg text-md hover:bg-blue-400">
                                     Entre
                                 </a>
-                                <a href="{{ route('register') }}"
+                                {{-- <a href="{{ route('register') }}"
                                     class="px-4 py-2 text-blue-800 uppercase bg-transparent border-2 border-blue-800 rounded-lg hover:bg-blue-800 hover:text-white text-md">
                                     Registre-se
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                         <div class="relative hidden sm:block sm:w-1/3 lg:w-3/5">

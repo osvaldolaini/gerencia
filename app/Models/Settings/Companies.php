@@ -78,6 +78,10 @@ class Companies extends Model
     {
         return $this->hasMany(SchoolGrades::class, 'company_id', 'id');
     }
+    public function grade_school(): BelongsTo
+    {
+        return $this->belongsTo(SchoolGrades::class,  'id', 'company_id');
+    }
     public function comandant(): BelongsTo
     {
         return $this->belongsTo(Peoples::class, 'people_id', 'id');

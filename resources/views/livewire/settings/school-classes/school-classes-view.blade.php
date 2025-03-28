@@ -21,7 +21,7 @@
     <div class="grid w-full grid-cols-2">
         <div class='flex justify-center col-span-2 text-right'>
             <div class="p-0 tooltip tooltip-top" data-tip="imprimir chamada">
-                <button class="btn btn-outline btn-success">
+                <a class="btn btn-outline btn-success" wire:click='printClasses()' target="_blank">
                     imprimir <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor"
                         viewBox="0 0 512 512" xml:space="preserve">
                         <g>
@@ -64,10 +64,10 @@
                 C153.605,158.15,154.965,157.927,156.139,157.481z" />
                         </g>
                     </svg>
-                </button>
+                </a>
             </div>
         </div>
-        @foreach ($classes as $class)
+        @foreach ($classes as $key => $value)
             <div class="col-span-1">
                 <table class="flex justify-center mx-10 mb-10 rounded-md">
                     <tr class="w-full py-5">
@@ -75,12 +75,16 @@
                             <small
                                 class="flex items-center justify-center w-full ml-2 space-x-1 text-5xl font-extrabold text-center text-gray-500 dark:text-gray-100">
                                 <span class="w-10 h-10 border rounded-md cursor-pointer"
-                                    wire:click.live='removeClass({{ $class->id }})'>
-                                    @if (in_array($class->id, $print))
-                                        check
+                                    wire:click='changeClass({{ $key }},{{ $value->id }})'>
+                                    @if (in_array($value->id, $print))
+                                        <svg class="w-10 h-10 text-green-600" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4 12.6111L8.92308 17.5L20 6.5" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
                                     @endif
                                 </span>
-                                <span>{{ $class->title }}</span>
+                                <span>{{ $value->title }}</span>
                             </small>
                         </th>
                     </tr>
@@ -93,7 +97,7 @@
                         <th class="w-10 text-center border">5ªf</th>
                         <th class="w-10 text-center border">6ªf</th>
                     </tr>
-                    @foreach ($class->studentsPivot as $pivot)
+                    @foreach ($value->studentsPivot as $pivot)
                         <tr class="border">
                             <td class="text-left border">{{ $pivot->students->nick }}</td>
                             <td class="text-left border">{{ $pivot->students->number }}</td>
@@ -108,4 +112,15 @@
             </div>
         @endforeach
     </div>
+    @section('scripts')
+        <script>
+            document.addEventListener('livewire:init', () => {
+                Livewire.on('openPdfInNewTab', ({
+                    pdfPath
+                }) => {
+                    window.open(pdfPath, '_blank');
+                })
+            })
+        </script>
+    @endsection
 </div>

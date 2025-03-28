@@ -5,111 +5,120 @@
     <meta charset="UTF-8">
     <title>Turmas do {{ $grade }}</title>
     <style>
+        .container {
+            margin-top: 50px;
+            padding-top: 70px;
+        }
+
+        .class {
+            width: 100%;
+            font-size: 10pt;
+        }
+
+        .border {
+            border: solid thin #000;
+        }
+
+        .w-20 {
+            min-width: 20%;
+        }
+
+        .w-10 {
+            min-width: 10%;
+        }
+
+        .header {
+            font-size: 20px;
+        }
+
         .turma-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            /* gap: 20px; */
-            /* Espaço entre as tabelas */
+            width: 100%;
+        }
+
+        .text-center {
+            text-align: center;
         }
 
         .turmas-table {
             width: 100%;
-            /* Cada tabela ocupará metade da largura */
-            margin-bottom: 20px;
+
             border-collapse: collapse;
-        }
-
-        .turmas-table-un {
-            /* margin-bottom: 20px; */
-            padding: 1px;
-            border-collapse: collapse;
-        }
-
-        .turmas-table-un th,
-        .turmas-table-un td {
-            border: 1px solid #ddd;
-            padding: 2px;
-            margin: 2px;
-            text-align: center;
-        }
-
-        .turmas-table th,
-        .turmas-table td {
-            /* border: 1px solid #ddd; */
-            padding: 0px;
-            text-align: center;
-        }
-
-        .turmas-table th {
-            background-color: #f4f4f4;
-            font-weight: bold;
-        }
-
-        /* Evitar quebra de página dentro das tabelas */
-        .turmas-table {
-            page-break-inside: avoid;
         }
     </style>
+    <x-app.favicons></x-app.favicons>
 
 </head>
 
 <body>
-    <div class="receipt-container">
-        <!-- Cabeçalho com Informações da Empresa e Logo -->
-        <div class="header">
-            <table class="header-info" width="100%">
-                <tr width="100%">
-                    <td style="text-align: left;">
-                        @if (Storage::directoryMissing('public/logos-school'))
-                            <img width="50" src="{{ url('storage/logos/logo.png') }}" alt="api-sistema-aero">
-                        @else
-                            <img width="50" src="{{ url('storage/logos-school/logo.png') }}" alt="api-sistema-aero">
-                        @endif
-                    </td>
-                    <td style="text-align: right;">
-                        <div class="company-info">
-                            <p><strong>{{ $config->name }}</strong></p>
-                            <p>{{ $companies->name }}</p>
-                            <p>Turmas do {{ $grade }}</p>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <!-- Tabela de Turmas -->
-        <div class="turma-wrapper">
-            <table class="turmas-table">
-                <tr class="padding: 2px;">
-                    @foreach ($school_classes as $class)
-                        <td>
-                            <table class="turmas-table-un" width="100%">
-                                <tbody>
-                                    <tr>
-                                        <td colspan="3" style="text-align: center; font-weight: bold;">
-                                            {{ $class->title }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>Número</th>
-                                        <th>Inglês</th>
-                                    </tr>
-                                    @foreach ($class->studentsPivot as $student)
-                                        <tr>
-                                            <td>{{ $student->students->name }}</td>
-                                            <td>{{ $student->students->number }}</td>
-                                            <td></td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </td>
-                    @endforeach
-                </tr>
-            </table>
-        </div>
 
+    <div class="container">
+        @foreach ($school_classes as $class)
+            <div class="turma-wrapper">
+                <!-- Primeira Tabela -->
+                <table class="turmas-table">
+                    <tr class="w-full py-5">
+                        <th colspan="7" class="border header">
+                            <small>
+                                <span>{{ $class->title }}</span>
+                            </small>
+                        </th>
+                        <th>
+                            &nbsp;
+                            &nbsp;
+                            &nbsp;
+                        </th>
+                        <th colspan="7" class="border header">
+                            <small>
+                                <span>{{ $class->title }}</span>
+                            </small>
+                        </th>
+                    </tr>
+                    <tr class="w-full ">
+                        <th class="w-20 text-center border">Aluno</th>
+                        <th class="w-20 text-center border">Nr</th>
+                        <th class="w-10 text-center border">2ªf</th>
+                        <th class="w-10 text-center border">3ªf</th>
+                        <th class="w-10 text-center border">4ªf</th>
+                        <th class="w-10 text-center border">5ªf</th>
+                        <th class="w-10 text-center border">6ªf</th>
+                        <th></th>
+                        <th class="w-20 text-center border">Aluno</th>
+                        <th class="w-20 text-center border">Nr</th>
+                        <th class="w-10 text-center border">2ªf</th>
+                        <th class="w-10 text-center border">3ªf</th>
+                        <th class="w-10 text-center border">4ªf</th>
+                        <th class="w-10 text-center border">5ªf</th>
+                        <th class="w-10 text-center border">6ªf</th>
+                    </tr>
+                    @foreach ($class->studentsPivot as $pivot)
+                        <tr class="">
+                            <td class="text-left border">{{ $pivot->students->nick }}</td>
+                            <td class="text-left border">{{ $pivot->students->number }}</td>
+                            <td class="text-center border"></td>
+                            <td class="text-center border"></td>
+                            <td class="text-center border"></td>
+                            <td class="text-center border"></td>
+                            <td class="text-center border"></td>
+                            <td></td>
+                            <td class="text-left border">{{ $pivot->students->nick }}</td>
+                            <td class="text-left border">{{ $pivot->students->number }}</td>
+                            <td class="text-center border"></td>
+                            <td class="text-center border"></td>
+                            <td class="text-center border"></td>
+                            <td class="text-center border"></td>
+                            <td class="text-center border"></td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+            @if (!$loop->last)
+                <pagebreak />
+            @endif
+        @endforeach
     </div>
+
+
 </body>
+
 
 </html>

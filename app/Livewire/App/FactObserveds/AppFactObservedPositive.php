@@ -40,8 +40,20 @@ class AppFactObservedPositive extends Component
     public $fact_hour;
     public $fact_date;
 
+    public $fact_observer;
+    public $fact_observer_function;
+    public $fact_observer_id;
+
 
     public $students;
+
+    public function mount()
+    {
+        $user = Auth::user();
+        $this->fact_observer = MilitaryRank::from($user->people->posto_grad)->label() . ' ' . $user->people->nick;
+        $this->fact_observer_function = $user->people->function;
+        $this->fact_observer_id = $user->people->id;
+    }
 
     public function render()
     {
@@ -93,9 +105,9 @@ class AppFactObservedPositive extends Component
                 'fact_date'                => $this->fact_date,
                 'fact_type'                => 'positivo',
                 // 'faults'                   => $this->faults,
-                'fact_observer'            => MilitaryRank::from($user->people->posto_grad)->label() . ' ' . $user->people->nick,
-                'fact_observer_function'   => FunctionsObserver::from($user->people->function)->label(),
-                'fact_observer_id'         => $user->people->id,
+                'fact_observer'            => $this->fact_observer,
+                'fact_observer_function'   => $this->fact_observer_function,
+                'fact_observer_id'         => $this->fact_observer_id,
                 'code'      => Str::uuid(),
             ]);
             $id = $fo->id;

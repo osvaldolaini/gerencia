@@ -1,5 +1,8 @@
 <div
     class="min-h-screen px-6 pt-6 pb-20 border-2 rounded-r-lg rounded-bl-lg bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100">
+    @php
+        use App\Enums\FunctionsObserver;
+    @endphp
     <form>
         <div role="tabpanel" class="">
             <div class="grid grid-cols-1">
@@ -8,6 +11,29 @@
                 </div>
                 <div class="col-span-full" wire:ignore>
                     @livewire('app.settings.select-students')
+                </div>
+                <div class="col-span-full">
+                    <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                        Observador
+                    </label>
+                    <input type="text" wire:model="fact_observer"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+
+                </div>
+                <div class="col-span-full">
+                    <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                        Função do observador
+                    </label>
+                    <select wire:model="fact_observer_function"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <option value="">Selecione...</option>
+                        @foreach (FunctionsObserver::cases() as $item)
+                            <option value="{{ $item->value }}">{{ $item->label() }}</option>
+                        @endforeach
+                    </select>
+                    @error('fact_observer_function')
+                        <span class="error">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="col-span-full ">
                     <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">

@@ -45,13 +45,20 @@ class UploadImage extends Component
 
             $this->validate();
             if (Storage::directoryMissing('public/schoolGrades/' . $this->school_gredes->id)) {
-                Storage::makeDirectory('public/schoolGrades/' . $this->school_gredes->id);
+                Storage::makeDirectory('public/schoolGrades/' . $this->school_gredes->id, 0755, true, true);
             }
             Storage::deleteDirectory('public/schoolGrades/' . $this->school_gredes->id);
             if (isset($this->uploadimage)) {
                 $ext = $this->uploadimage->getClientOriginalExtension();
                 $code = Str::uuid();
                 $new_name = $code . '.jpg';
+
+                $path = storage_path('app/public/schoolGrades/' . $this->school_gredes->id);
+
+                // Verifica se o diretório existe e, se não, cria com permissão 755
+                if (!file_exists($path)) {
+                    mkdir($path, 0755, true);
+                }
 
                 $this->uploadimage->storeAs('public/schoolGrades/' . $this->school_gredes->id, $new_name);
                 $this->school_gredes->logo_path = $new_name;

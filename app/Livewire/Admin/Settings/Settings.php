@@ -114,13 +114,21 @@ class Settings extends Component
 
         if (isset($this->uploadimage)) {
             if (Storage::directoryMissing('public/logos-school')) {
-                Storage::makeDirectory('public/logos-school');
+                Storage::makeDirectory('public/logos-school', 0755, true, true);
             }
 
             Storage::deleteDirectory('public/logos-school');
             $ext = $this->uploadimage->getClientOriginalExtension();
             $code = $this->configs->slug;
             $new_name = $code . '.' . $ext;
+
+            $path = storage_path('app/public/logos-school/' . $new_name);
+
+            // Verifica se o diretório existe e, se não, cria com permissão 755
+            if (!file_exists($path)) {
+                mkdir($path, 0755, true);
+            }
+
             $this->uploadimage->storeAs('public/logos-school', $new_name);
             $this->configs->logo_path = $new_name;
             $this->configs->save();

@@ -117,7 +117,7 @@ class SchoolClassesView extends Component
 
         // Salve o PDF temporariamente
         $file = 'chamada_' . $this->title . '_' . Str::uuid() . '.pdf';
-        $down = storage_path('app/public/livewire-tmp/' . $file);
+        $down = storage_path('storage/livewire-tmp/' . $file);
         $pdfPath = url('storage/livewire-tmp/' . $file);
         // dd($file);
         // $mpdf->Output($file, '');

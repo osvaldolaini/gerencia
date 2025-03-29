@@ -135,9 +135,9 @@ class Settings extends Component
 
             $this->validate();
 
-            // if (Storage::directoryMissing('public/logos-school')) {
-            //     Storage::makeDirectory('public/logos-school', 0755, true, true);
-            // }
+            if (Storage::directoryMissing('public/logos-school')) {
+                Storage::makeDirectory('public/logos-school', 0755, true, true);
+            }
             // Storage::deleteDirectory('public/logos-school');
 
             $code = Str::uuid();

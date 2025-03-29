@@ -118,11 +118,13 @@ class Settings extends Component
                 Storage::makeDirectory('public/logos-school', 0755, true, true);
             }
             Storage::deleteDirectory('public/logos-school');
+
             $ext = $this->uploadimage->getClientOriginalExtension();
             $code = $this->configs->slug;
             $new_name = $code . '.' . $ext;
 
-            $path = storage_path('app/public/logos-school/' . $new_name);
+
+            $path = storage_path('app/public/logos-school');
 
             // Verifica se o diretório existe e, se não, cria com permissão 755
             if (!file_exists($path)) {
@@ -182,6 +184,13 @@ class Settings extends Component
 
         if (Storage::directoryMissing('public/favicons-school')) {
             Storage::makeDirectory('public/favicons-school', 0755, true, true);
+        }
+
+        $path = storage_path('app/public/favicons-school');
+
+        // Verifica se o diretório existe e, se não, cria com permissão 755
+        if (!file_exists($path)) {
+            mkdir($path, 0755, true);
         }
         // Favicons
         $sizes = [

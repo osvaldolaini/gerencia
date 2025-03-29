@@ -125,8 +125,63 @@ class Settings extends Component
         $this->logo = $this->configs->logo_path;
     }
 
+    //BUSCAR CEP
+    public function updated($property)
+    {
+        if ($property === 'uploadimage') {
+            $this->rules = [
+                'uploadimage'   => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
+            ];
+
+            $this->validate();
+
+            if (Storage::directoryMissing('public/logos-school')) {
+                Storage::makeDirectory('public/logos-school', 0755, true, true);
+            }
+            // Storage::deleteDirectory('public/logos-school');
+
+            $code = Str::uuid();
+            $new_name = $code . '.jpg';
+
+            // $path = storage_path('app/public/logos-school');
+
+            // // Verifica se o diretório existe e, se não, cria com permissão 755
+            // if (!file_exists($path)) {
+            //     mkdir($path, 0755, true);
+            // }
+
+            $this->uploadimage->storeAs('public/logos-school', $new_name);
+
+            $this->configs->logo_path = $new_name;
+
+            $this->configs->save();
+            // Storage::delete('public/logos/' . $this->logo);
+            $this->logo = $new_name;
+
+            $this->logo('logos-school/', $new_name);
+        }
+        if ($property === 'postalCode') {
+            $cep = str_replace('-', '', $this->postalCode);
+            // dd($cep);
+            $ch = curl_init("https://viacep.com.br/ws/" . $cep . "/json/");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $result = json_decode(curl_exec($ch));
+            curl_close($ch);
+            if ($result) {
+                $this->address = $result->logradouro;
+                $this->city = $result->localidade;
+                $this->district = $result->bairro;
+                $this->state = $result->uf;
+            }
+        }
+    }
+
     public static function logo($path, $file)
     {
+        if (Storage::directoryMissing($path)) {
+            Storage::makeDirectory($path, 0755, true, true);
+        }
+
         $path_file = 'storage/' . $path . '/' . $file;
         // create image manager with desired driver
         $manager = new ImageManager(new Driver());
@@ -197,56 +252,7 @@ class Settings extends Component
             $favicon->toPng()->save('storage/favicons-school/' . $fav[1] . '.png');
         }
     }
-    //BUSCAR CEP
-    public function updated($property)
-    {
-        if ($property === 'uploadimage') {
-            $this->rules = [
-                'uploadimage'   => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
-            ];
 
-            $this->validate();
-
-            if (Storage::directoryMissing('public/logos-school')) {
-                Storage::makeDirectory('public/logos-school', 0755, true, true);
-            }
-            Storage::deleteDirectory('public/logos-school');
-
-            $code = Str::uuid();
-            $new_name = $code . '.jpg';
-
-            $path = storage_path('app/public/logos-school');
-
-            // Verifica se o diretório existe e, se não, cria com permissão 755
-            if (!file_exists($path)) {
-                mkdir($path, 0755, true);
-            }
-
-            $this->uploadimage->storeAs('public/logos-school', $new_name);
-
-            $this->configs->logo_path = $new_name;
-
-            $this->configs->save();
-            // Storage::delete('public/logos/' . $this->logo);
-            $this->logo = $new_name;
-
-            $this->logo('logos-school/', $new_name);
-        }
-        if ($property === 'postalCode') {
-            $cep = str_replace('-', '', $this->postalCode);
-            // dd($cep);
-            $ch = curl_init("https://viacep.com.br/ws/" . $cep . "/json/");
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $result = json_decode(curl_exec($ch));
-            curl_close($ch);
-            if ($result) {
-                $this->address = $result->logradouro;
-                $this->city = $result->localidade;
-                $this->district = $result->bairro;
-                $this->state = $result->uf;
-            }
-        }
-    }
 
     public function closeAlert()
     {

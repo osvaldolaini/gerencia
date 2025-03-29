@@ -51,8 +51,9 @@ class Settings extends Component
     public function mount()
     {
         $this->configs = Configs::find(1);
+        $this->logo = Storage::directoryExists('public/public/logos-school');
         // if (isset($this->configs->logo_path)) {
-        $this->logo = 'logos-school/' . $this->configs->logo_path;
+        // $this->logo = 'logos-school/' . $this->configs->logo_path;
         $this->name = $this->configs->name;
         $this->nick = $this->configs->nick;
         $this->id = $this->configs->id;
@@ -106,34 +107,6 @@ class Settings extends Component
             'logo_path' => $this->logo_path,
             'updated_by ' => Auth::user()->name,
         ]);
-
-        if (isset($this->uploadimage)) {
-
-            if (Storage::directoryMissing('public/logos-school')) {
-                Storage::makeDirectory('public/logos-school', 0755, true, true);
-            }
-            // Storage::deleteDirectory('public/logos-school');
-
-            dd(Storage::directoryMissing('public/logos-school'));
-            $code = Str::uuid();
-            $new_name = $code . '.jpg';
-
-
-            $path = storage_path('app/public/logos-school');
-
-            // Verifica se o diretório existe e, se não, cria com permissão 755
-            if (!file_exists($path)) {
-                mkdir($path, 0755, true);
-            }
-
-            $this->uploadimage->storeAs('public/logos-school', $new_name);
-            $this->configs->logo_path = $new_name;
-            $this->configs->save();
-            // Storage::delete('public/logos/' . $this->logo);
-            $this->logo = $new_name;
-
-            $this->logo('logos-school/' . $new_name);
-        }
 
         $this->openAlert('success', 'Registro atualizado com sucesso.');
     }
@@ -234,7 +207,9 @@ class Settings extends Component
             ];
 
             $this->validate();
+
             if (Storage::directoryMissing('public/logos-school')) {
+                dd('aqui');
                 Storage::makeDirectory('public/logos-school', 0755, true, true);
             }
             Storage::deleteDirectory('public/logos-school');

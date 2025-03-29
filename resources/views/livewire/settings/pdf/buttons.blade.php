@@ -1,5 +1,5 @@
 <div>
-    @if ($print_battalion)
+    {{-- @if ($print_battalion)
         <div class="p-0 tooltip tooltip-top" data-tip="Batalhão" wire:ignore>
             <a href="{{ route('school-battalion-view', $battalion_id) }}"
                 class="flex px-3 py-2 transition-colors duration-200 rounded-sm hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
@@ -48,7 +48,7 @@
                 </svg>
             </a>
         </div>
-    @endif
+    @endif --}}
     @if ($print_classes)
         <div class="p-0 tooltip tooltip-top" data-tip="Turmas" wire:ignore>
             <button wire:click="classes()"

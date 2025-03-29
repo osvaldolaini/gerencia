@@ -7,7 +7,6 @@ use App\Models\Settings\SchoolBattalions;
 use Livewire\Component;
 
 use App\Models\Admin\Settings\Settings;
-use App\Models\Settings\SchoolGrades;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;

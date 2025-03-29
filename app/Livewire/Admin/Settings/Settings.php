@@ -155,7 +155,7 @@ class Settings extends Component
     public static function logo($path)
     {
         $path = 'storage/' . $path;
-        // dd($path);
+        dd($path);
         // create image manager with desired driver
         $manager = new ImageManager(new Driver());
 
@@ -248,7 +248,6 @@ class Settings extends Component
             if (!file_exists($path)) {
                 mkdir($path, 0755, true);
             }
-
 
             $this->uploadimage->storeAs('public/logos-school', $new_name);
 

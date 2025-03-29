@@ -221,7 +221,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/disciplina/falta-disciplinar', FaultDisciplineList::class)
         ->name('fault-discipline-list');
-    Route::get('/disciplina/falta-disciplinarnovo', FaultDisciplineForm::class)
+    Route::get('/disciplina/falta-disciplinar/novo', FaultDisciplineForm::class)
         ->name('fault-discipline-create');
     Route::get('/disciplina/falta-disciplinar/{fault_discipline}/editar', FaultDisciplineEdit::class)
         ->name('fault-discipline-edit');

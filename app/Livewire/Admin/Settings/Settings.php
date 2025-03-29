@@ -51,7 +51,7 @@ class Settings extends Component
     public function mount()
     {
         $this->configs = Configs::find(1);
-        $this->logo = Storage::directoryExists('public/public/logos-school');
+        $this->logo = Storage::directoryExists('public/logos-school');
         // if (isset($this->configs->logo_path)) {
         // $this->logo = 'logos-school/' . $this->configs->logo_path;
         $this->name = $this->configs->name;
@@ -177,7 +177,7 @@ class Settings extends Component
     public static function logo($path, $file)
     {
         if (Storage::directoryMissing($path)) {
-            Storage::makeDirectory($path, 0755, true, true);
+            Storage::makeDirectory('public/' . $path, 0755, true, true);
         }
 
         $path_file = 'storage/' . $path . '/' . $file;

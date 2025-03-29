@@ -1,4 +1,5 @@
 <div>
+
     <x-breadcrumb>
         <div class="grid grid-cols-8 gap-4 text-gray-600 ">
             <div class="col-span-6 justify-items-start">
@@ -131,7 +132,7 @@
                 <div id="tab2" x-show="activeTab === '#tab2'" class="block">
                     <div role="tabpanel"
                         class="p-6 border-2 rounded-r-lg rounded-bl-lg bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100">
-                        {{-- @livewire('admin.settings.upload-logo') --}}
+                        <x-layout.action-loading></x-layout.action-loading>
                         <div class="col-span-full sm:col-span-3">
                             <label for="acronym">Logo e Favicon (500 x 500)</label>
                             @if ($uploadimage)
@@ -210,53 +211,6 @@
                                     </form>
                                 </div>
                             @endif
-                        </div>
-                    </div>
-                </div>
-                <div id="tab3" x-show="activeTab === '#tab3'" class="block">
-                    <div role="tabpanel"
-                        class="p-6 border-2 rounded-r-lg rounded-bl-lg bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100">
-
-                        <div class="grid grid-cols-2 gap-2 mb-1 sm:grid-cols-6 sm:gap-3 sm:mb-5">
-                            <div class="col-span-2 ">
-                                <label for="airfield_codigoOaci"
-                                    class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    Código OACI</label>
-                                <input type="text" wire:model.lazy="airfield_codigoOaci" placeholder="Código OACI"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-
-                            </div>
-                            <div class="col-span-3">
-                                <label for="airfield_name"
-                                    class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    Nome do aeródromo</label>
-                                <input type="text" wire:model="airfield_name" placeholder="Nome"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-
-                            </div>
-                            <div class="col-span-1 ">
-                                <label for="airfield_ciad"
-                                    class="block text-sm font-medium text-gray-900 dark:text-white">
-                                    CIAD</label>
-                                <input type="text" wire:model="airfield_ciad" placeholder="CIAD"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-
-                            </div>
-                            <div class="col-span-full sm:col-span-3">
-                                <label class="block text-sm font-medium text-gray-900 dark:text-white"
-                                    for="airfield_city">Cidade</label>
-                                <input
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Cidade" wire:model="airfield_city">
-                            </div>
-
-                            <div class="col-span-full sm:col-span-3">
-                                <label class="block text-sm font-medium text-gray-900 dark:text-white"
-                                    for="airfield_state">Estado</label>
-                                <input
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="UF" wire:model="airfield_state">
-                            </div>
                         </div>
                     </div>
                 </div>

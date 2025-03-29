@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
+
 
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -86,13 +88,6 @@ class Settings extends Component
             'name'         => 'required|min:4|max:255',
         ];
 
-        if ($this->contacts) {
-            $this->rules['contacts.*.contact'] = 'required';
-        }
-        // if ($this->chart_categories) {
-        //     $this->rules['contacts.*.field'] = 'required|unique';
-        // }
-
         $this->validate();
 
         $this->configs = Configs::updateOrCreate([
@@ -117,11 +112,11 @@ class Settings extends Component
             if (Storage::directoryMissing('public/logos-school')) {
                 Storage::makeDirectory('public/logos-school', 0755, true, true);
             }
-            Storage::deleteDirectory('public/logos-school');
+            // Storage::deleteDirectory('public/logos-school');
 
-            $ext = $this->uploadimage->getClientOriginalExtension();
-            $code = $this->configs->slug;
-            $new_name = $code . '.' . $ext;
+            dd(Storage::directoryMissing('public/logos-school'));
+            $code = Str::uuid();
+            $new_name = $code . '.jpg';
 
 
             $path = storage_path('app/public/logos-school');
@@ -142,6 +137,7 @@ class Settings extends Component
 
         $this->openAlert('success', 'Registro atualizado com sucesso.');
     }
+
     /**Logo e favicons */
     public function excluirTemp()
     {
@@ -232,6 +228,37 @@ class Settings extends Component
     //BUSCAR CEP
     public function updated($property)
     {
+        if ($property === 'uploadimage') {
+            $this->rules = [
+                'uploadimage'   => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
+            ];
+
+            $this->validate();
+            if (Storage::directoryMissing('public/logos-school')) {
+                Storage::makeDirectory('public/logos-school', 0755, true, true);
+            }
+            // Storage::deleteDirectory('public/logos-school');
+
+            dd(Storage::directoryMissing('public/logos-school'));
+            $code = Str::uuid();
+            $new_name = $code . '.jpg';
+
+
+            $path = storage_path('app/public/logos-school');
+
+            // Verifica se o diretório existe e, se não, cria com permissão 755
+            if (!file_exists($path)) {
+                mkdir($path, 0755, true);
+            }
+
+            $this->uploadimage->storeAs('public/logos-school', $new_name);
+            $this->configs->logo_path = $new_name;
+            $this->configs->save();
+            // Storage::delete('public/logos/' . $this->logo);
+            $this->logo = $new_name;
+
+            $this->logo('logos-school/' . $new_name);
+        }
         if ($property === 'postalCode') {
             $cep = str_replace('-', '', $this->postalCode);
             // dd($cep);

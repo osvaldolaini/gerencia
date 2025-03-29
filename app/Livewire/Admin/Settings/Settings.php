@@ -125,41 +125,40 @@ class Settings extends Component
         $this->logo = $this->configs->logo_path;
     }
 
-    public static function logo($path)
+    public static function logo($path, $file)
     {
-        $path = 'storage/' . $path;
-        dd($path);
+        $path_file = 'storage/' . $path . '/' . $file;
         // create image manager with desired driver
         $manager = new ImageManager(new Driver());
 
         // read image from file system
-        $image = $manager->read($path);
+        $image = $manager->read($path_file);
+
         // $image = ImageManager::imagick()->read('images/example.jpg');
         // save modified image in new format
         $image->toPng()->save('storage/logos-school/logo.png');
         $image->toWebp()->save('storage/logos-school/logo.webp');
         $image->scale(width: 300);
         // Logos footer e Header
-        $footer = $manager->read($path);
+        $footer = $manager->read($path_file);
         $footer->scale(width: 300);
         $footer->toPng()->save('storage/logos-school/logo-footer.png');
         $footer->toWebp()->save('storage/logos-school/logo-footer.webp');
 
-        $header = $manager->read($path);
+        $header = $manager->read($path_file);
         $header->scale(width: 130);
         $header->toPng()->save('storage/logos-school/logo-header.png');
         $header->toWebp()->save('storage/logos-school/logo-header.webp');
-
 
         if (Storage::directoryMissing('public/favicons-school')) {
             Storage::makeDirectory('public/favicons-school', 0755, true, true);
         }
 
-        $path = storage_path('app/public/favicons-school');
+        $path_fav = storage_path('app/public/favicons-school');
 
         // Verifica se o diretório existe e, se não, cria com permissão 755
-        if (!file_exists($path)) {
-            mkdir($path, 0755, true);
+        if (!file_exists($path_fav)) {
+            mkdir($path_fav, 0755, true);
         }
         // Favicons
         $sizes = [
@@ -193,7 +192,7 @@ class Settings extends Component
             [180, 'apple-touch-icon'],
         ];
         foreach ($sizes as $fav) {
-            $favicon = $manager->read($path);
+            $favicon = $manager->read($path_file);
             $favicon->scale(width: $fav[0]);
             $favicon->toPng()->save('storage/favicons-school/' . $fav[1] . '.png');
         }
@@ -209,7 +208,6 @@ class Settings extends Component
             $this->validate();
 
             if (Storage::directoryMissing('public/logos-school')) {
-                dd('aqui');
                 Storage::makeDirectory('public/logos-school', 0755, true, true);
             }
             Storage::deleteDirectory('public/logos-school');
@@ -226,12 +224,13 @@ class Settings extends Component
 
             $this->uploadimage->storeAs('public/logos-school', $new_name);
 
-            $this->companies->logo_path = $new_name;
-            $this->companies->save();
+            $this->configs->logo_path = $new_name;
+
+            $this->configs->save();
             // Storage::delete('public/logos/' . $this->logo);
             $this->logo = $new_name;
 
-            $this->logo('logos-school/' . $new_name);
+            $this->logo('logos-school/', $new_name);
         }
         if ($property === 'postalCode') {
             $cep = str_replace('-', '', $this->postalCode);

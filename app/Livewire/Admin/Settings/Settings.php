@@ -245,7 +245,7 @@ class Settings extends Component
 
             $path = storage_path('app/public/logos-school');
 
-            dd($path);
+
             // Verifica se o diretório existe e, se não, cria com permissão 755
             if (!file_exists($path)) {
                 mkdir($path, 0755, true);

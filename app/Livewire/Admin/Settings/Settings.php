@@ -141,7 +141,7 @@ class Settings extends Component
             if (isset($this->uploadimage)) {
                 $ext = $this->uploadimage->getClientOriginalExtension();
                 $code = Str::uuid();
-                $new_name = $code . '.jpg';
+                $new_name = $code . '.png';
 
                 $path = storage_path('app/public/logos-school');
 

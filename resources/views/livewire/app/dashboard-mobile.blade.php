@@ -40,6 +40,9 @@
                             </div>
                         </a>
                     </div>
+                    <div class="flex items-center justify-center col-span-3 mt-10">
+                        @livewire('app.classes')
+                    </div>
                 </div>
             </div>
             <div id="tab2" x-show="activeTab === '#tab2'">

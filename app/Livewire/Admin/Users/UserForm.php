@@ -56,10 +56,12 @@ class UserForm extends Component
             $this->breadcrumb .= $user->name;
 
             $this->name = $user->name;
-            $this->nick = $user->people->nick;
-            $this->posto_grad = $user->people->posto_grad;
-            $this->function = $user->people->function;
-            $this->sex = $user->people->sex;
+            if ($user->people) {
+                $this->nick = $user->people->nick;
+                $this->posto_grad = $user->people->posto_grad;
+                $this->function = $user->people->function;
+                $this->sex = $user->people->sex;
+            }
         }
         $this->groups = UserGroups::cases();
 

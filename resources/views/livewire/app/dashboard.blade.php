@@ -30,34 +30,23 @@
                                                         @else
                                                             <x-application-logo width="h-12"></x-application-logo>
                                                         @endif
-
                                                         <span>
-
                                                             {{ $item->name }}
                                                         </span>
                                                     </h2>
                                                 </div>
-                                                {{-- <ul class="text-sm text-center">
-                                            @forelse ($item->classes($school_classes_year_id) as $class)
-                                                <li>{{ $class->title }}</li>
-                                            @empty
-                                                <li>Nenhuma turma cadastradas</li>
-                                            @endforelse
-                                        </ul> --}}
                                                 <div class="w-full mt-auto">
                                                     @if (count($item->classes($school_years->id)) > 0)
                                                         <div class="flex justify-center font-medium duration-200">
                                                             {{-- Opções visíveis em telas grandes --}}
                                                             <div class="space-x-1 md:flex">
-                                                                {{-- @livewire('settings.pdf.buttons', ['print_battalion', $school_years->id, $item->id]) --}}
                                                                 @livewire('settings.pdf.buttons', ['print_classes', $school_years->id, $item->id])
                                                                 @livewire('settings.pdf.buttons', ['print_call', $school_years->id, $item->id])
+                                                                @livewire('settings.pdf.buttons', ['print_battalion', $school_years->id, $item->id])
                                                             </div>
                                                         </div>
                                                     @endif
-
                                                 </div>
-
                                             </div>
                                         </div>
                                     @endforeach

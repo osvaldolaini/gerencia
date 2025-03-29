@@ -74,16 +74,16 @@
                         </th>
                     </tr>
                     <tr class="w-full ">
-                        <th class="w-20 text-center border">Aluno</th>
                         <th class="w-20 text-center border">Nr</th>
+                        <th class="w-20 text-center border">Aluno</th>
                         <th class="w-10 text-center border">2ªf</th>
                         <th class="w-10 text-center border">3ªf</th>
                         <th class="w-10 text-center border">4ªf</th>
                         <th class="w-10 text-center border">5ªf</th>
                         <th class="w-10 text-center border">6ªf</th>
                         <th></th>
-                        <th class="w-20 text-center border">Aluno</th>
                         <th class="w-20 text-center border">Nr</th>
+                        <th class="w-20 text-center border">Aluno</th>
                         <th class="w-10 text-center border">2ªf</th>
                         <th class="w-10 text-center border">3ªf</th>
                         <th class="w-10 text-center border">4ªf</th>
@@ -92,16 +92,16 @@
                     </tr>
                     @foreach ($class->studentsPivot as $pivot)
                         <tr class="">
-                            <td class="text-left border">{{ $pivot->students->nick }}</td>
                             <td class="text-left border">{{ $pivot->students->number }}</td>
+                            <td class="text-left border">{{ $pivot->students->nick }}</td>
                             <td class="text-center border"></td>
                             <td class="text-center border"></td>
                             <td class="text-center border"></td>
                             <td class="text-center border"></td>
                             <td class="text-center border"></td>
                             <td></td>
-                            <td class="text-left border">{{ $pivot->students->nick }}</td>
                             <td class="text-left border">{{ $pivot->students->number }}</td>
+                            <td class="text-left border">{{ $pivot->students->nick }}</td>
                             <td class="text-center border"></td>
                             <td class="text-center border"></td>
                             <td class="text-center border"></td>

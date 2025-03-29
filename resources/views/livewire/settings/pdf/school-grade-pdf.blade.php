@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Turmas do </title>
+    <title>{{ $subtext }}</title>
     <style>
         .container {
             margin-top: 50px;
@@ -41,8 +41,26 @@
 
         .turmas-table {
             width: 100%;
-
             border-collapse: collapse;
+        }
+
+        .turmas-table-un {
+            font-size: 8px;
+            margin-top: 0px;
+        }
+
+        .mt-0 {
+            margin-top: 0;
+        }
+
+        .turmas-table td {
+            vertical-align: top;
+            /* Alinha o conteúdo no topo da célula */
+        }
+
+        .turma-wrapper {
+            min-height: 300px;
+            /* Ajuste a altura mínima conforme necessário */
         }
     </style>
     <x-app.favicons></x-app.favicons>
@@ -50,35 +68,37 @@
 </head>
 
 <body>
-
     <div class="container">
         <!-- Tabela de Turmas -->
         <div class="turma-wrapper">
-            <table class="turmas-table">
-                <tr class="padding: 2px;">
+            <table class="mt-0 turmas-table">
+                <tr class="mt-0">
                     @foreach ($school_classes as $class)
-                        <td style="margin: 10px;">
-                            <table class="turmas-table-un" width="100%">
-                                <tbody>
-                                    <tr>
-                                        <td colspan="3" style="text-align: center; font-weight: bold;">
-                                            {{ $class->title }}
-                                        </td>
+                        <td class="mt-0">
+                            <div class="mt-0 turma-wrapper">
+                                <!-- Primeira Tabela -->
+                                <table class="mt-0 turmas-table turmas-table-un">
+                                    <tr class="w-full mt-0">
+                                        <th colspan="3" class="mt-0 border header">
+                                            <small>
+                                                <span>{{ $class->title }}</span>
+                                            </small>
+                                        </th>
                                     </tr>
-                                    <tr>
-                                        <th class="text-center border">Nome</th>
-                                        <th class="text-center border">Número</th>
-                                        <th class="text-center border">Inglês</th>
+                                    <tr class="w-full mt-0">
+                                        <th class="w-20 text-center border">Número</th>
+                                        <th class="w-20 text-center border">Nome</th>
+                                        <th class="w-20 text-center border">Inglês</th>
                                     </tr>
                                     @foreach ($class->studentsPivot as $student)
-                                        <tr>
-                                            <td class="text-center border">{{ $student->students->name }}</td>
+                                        <tr class="mt-0">
                                             <td class="text-center border">{{ $student->students->number }}</td>
+                                            <td class="text-center border">{{ $student->students->nick }}</td>
                                             <td class="text-center border"></td>
                                         </tr>
                                     @endforeach
-                                </tbody>
-                            </table>
+                                </table>
+                            </div>
                         </td>
                     @endforeach
                 </tr>

@@ -3,10 +3,8 @@
 namespace App\Livewire\Settings\Pdf;
 
 use App\Models\Admin\Settings\Settings;
-use App\Models\Settings\Companies;
 use App\Models\Settings\SchoolBattalions;
 use App\Models\Settings\SchoolClasses;
-use App\Models\Settings\SchoolClassesStudent;
 use App\Models\Settings\SchoolGrades;
 use Livewire\Component;
 
@@ -38,6 +36,7 @@ class Buttons extends Component
             ->where('school_grade_id', $grade)
             ->get();
         $this->grade = SchoolGrades::find($grade);
+
         $this->print_classes    = $button == 'print_classes' ?? true;
         $this->print_call       = $button == 'print_call' ?? true;
         $this->print_battalion  = $button == 'print_battalion' ?? true;
@@ -52,8 +51,6 @@ class Buttons extends Component
     //Turmas
     public function classes()
     {
-
-        // dd($school_classes);
         $config = Settings::find(1);
 
         $logoPath = Storage::exists('public/logos-school/logo-header.png')
@@ -78,8 +75,7 @@ class Buttons extends Component
                 'grade'             => $this->grade->name,
                 'config'            => $config,
                 'companies'         => $this->company,
-                'title_postfix'     => 'Turmas do ' . $this->company,
-                'subtext'           => 'Turmas do ' . $this->company,
+                'subtext'           => 'Turmas do ' . $this->grade->name,
                 'responsible'       => Auth::user()->name,
             ]
         )->render();
@@ -109,7 +105,7 @@ class Buttons extends Component
         $mpdf->WriteHTML($html);
 
         // Salve o PDF temporariamente
-        $file = 'chamada_' . $this->grade->name . '_' . Str::uuid() . '.pdf';
+        $file = trim('chamada_' . $this->grade->name . '_' . Str::uuid() . '.pdf');
 
         if (!is_dir(storage_path('app/public/pdf-tmp'))) {
             mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário
@@ -120,6 +116,6 @@ class Buttons extends Component
 
         $mpdf->Output($down, 'F');
 
-        $this->dispatch('openPdfInNewTab', pdfPath: $pdfPath);
+        $this->dispatch('openPdfInNewTabClasses', pdfPath: $pdfPath);
     }
 }

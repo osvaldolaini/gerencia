@@ -7,7 +7,7 @@
                         <div class="w-full">
                             <div class="w-full py-4 space-x-4">
                                 <small
-                                    class="flex justify-center w-full space-x-1 text-xl font-extrabold text-center text-gray-500 sm:text-5xl col-span-full dark:text-gray-100">
+                                    class="flex justify-center space-x-1 text-xl font-extrabold text-center text-gray-500 sm:text-5xl col-span-full dark:text-gray-100">
                                     {{ $company->name }}
                                 </small>
                                 <h1
@@ -30,9 +30,7 @@
                                                         @else
                                                             <x-application-logo width="h-12"></x-application-logo>
                                                         @endif
-
                                                         <span>
-
                                                             {{ $item->name }}
                                                         </span>
                                                     </h2>
@@ -42,15 +40,13 @@
                                                         <div class="flex justify-center font-medium duration-200">
                                                             {{-- Opções visíveis em telas grandes --}}
                                                             <div class="space-x-1 md:flex">
-                                                                @livewire('settings.pdf.buttons', ['print_battalion', $school_years->id, $item->id])
                                                                 @livewire('settings.pdf.buttons', ['print_classes', $school_years->id, $item->id])
-                                                                @livewire('settings.pdf.buttons', ['print_call', $school_years->id, $item->id])
+                                                                {{-- @livewire('settings.pdf.buttons', ['print_call', $school_years->id, $item->id]) --}}
+                                                                {{-- @livewire('settings.pdf.buttons', ['print_battalion', $school_years->id, $item->id]) --}}
                                                             </div>
                                                         </div>
                                                     @endif
-
                                                 </div>
-
                                             </div>
                                         </div>
                                     @endforeach

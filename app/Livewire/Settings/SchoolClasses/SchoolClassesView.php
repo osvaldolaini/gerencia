@@ -3,14 +3,11 @@
 namespace App\Livewire\Settings\SchoolClasses;
 
 use App\Models\Admin\Settings\Settings;
-use App\Models\Settings\Companies;
 use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolGrades;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
-
-
 
 use Illuminate\Support\Str;
 
@@ -81,43 +78,42 @@ class SchoolClassesView extends Component
 
         // Adicione o conteúdo HTML ao PDF
         $mpdf->SetHTMLHeader('
-        <table width="100%">
-            <tr >
-                <td width="22%">
-                    <img width="50" src="' . $logoPath . '" alt="Logo">
-                </td>
-                <td width="25%" style="text-align: right;">
-                    <strong>' . $config->name . '</strong><br>
-                    ' . $this->company->name . '<br>
-                    Turmas do ' . $this->title . '
-                </td>
-                 <td width="6%">
+            <table width="100%">
+                <tr >
+                    <td width="22%">
+                        <img width="50" src="' . $logoPath . '" alt="Logo">
+                    </td>
+                    <td width="25%" style="text-align: right;">
+                        <strong>' . $config->name . '</strong><br>
+                        ' . $this->company->name . '<br>
+                        Turmas do ' . $this->title . '
+                    </td>
+                    <td width="6%">
 
-                </td>
+                    </td>
 
-                <td width="22%">
-                    <img width="50" src="' . $logoPath . '" alt="Logo">
-                </td>
-                <td width="25%" style="text-align: right;">
-                    <strong>' . $config->name . '</strong><br>
-                    ' . $this->company->name . '<br>
-                    Turmas do ' . $this->title . '
-                </td>
-            </tr>
-        </table>
-    ');
+                    <td width="22%">
+                        <img width="50" src="' . $logoPath . '" alt="Logo">
+                    </td>
+                    <td width="25%" style="text-align: right;">
+                        <strong>' . $config->name . '</strong><br>
+                        ' . $this->company->name . '<br>
+                        Turmas do ' . $this->title . '
+                    </td>
+                </tr>
+            </table>
+        ');
         $mpdf->SetHTMLFooter('
-     <table width="100%">
-         <tr>
-             <td width="66%">Impressão realizada em {DATE j/m/Y} às {DATE H:i:s}</td>
-             <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
-         </tr>
-     </table>');
+            <table width="100%">
+                <tr>
+                    <td width="66%">Impressão realizada em {DATE j/m/Y} às {DATE H:i:s}</td>
+                    <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
+                </tr>
+            </table>');
         $mpdf->WriteHTML($html);
 
         // Salve o PDF temporariamente
         $file = 'chamada_' . $this->title . '_' . Str::uuid() . '.pdf';
-
 
         if (!is_dir(storage_path('app/public/pdf-tmp'))) {
             mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário
@@ -125,8 +121,7 @@ class SchoolClassesView extends Component
 
         $down = storage_path('app/public/pdf-tmp/' . $file);
         $pdfPath = url('storage/pdf-tmp/' . $file);
-        // dd($file);
-        // $mpdf->Output($file, '');
+
         $mpdf->Output($down, 'F');
 
         $this->dispatch('openPdfInNewTab', pdfPath: $pdfPath);

@@ -15,7 +15,6 @@
         @endif
         <span class="ml-5">
             {{ $company->name }}
-
         </span>
     </small>
     <div class="grid w-full grid-cols-2">
@@ -68,12 +67,12 @@
             </div>
         </div>
         @foreach ($classes as $key => $value)
-            <div class="col-span-1">
-                <table class="flex justify-center mx-10 mb-10 rounded-md">
+            <div class="col-span-2 sm:col-span-1">
+                <table class="flex justify-center mx-10 mb-10 rounded-md ">
                     <tr class="w-full py-5">
                         <th colspan="7">
                             <small
-                                class="flex items-center justify-center w-full ml-2 space-x-1 text-5xl font-extrabold text-center text-gray-500 dark:text-gray-100">
+                                class="flex items-center justify-center w-full mx-2 space-x-1 text-5xl font-extrabold text-center text-gray-500 sm:text-md dark:text-gray-100">
                                 <span class="w-10 h-10 border rounded-md cursor-pointer"
                                     wire:click='changeClass({{ $key }},{{ $value->id }})'>
                                     @if (in_array($value->id, $print))

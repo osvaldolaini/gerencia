@@ -150,7 +150,7 @@
     @section('scripts')
         <script>
             document.addEventListener('livewire:init', () => {
-                Livewire.on('openPdfInNewTab', ({
+                Livewire.on('openPdfInNewTabClasses', ({
                     pdfPath
                 }) => {
                     window.open(pdfPath, '_blank');

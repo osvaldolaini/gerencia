@@ -39,6 +39,11 @@ class Dashboard extends Component
         $this->school_classes_year_id           = $this->school_years->id;
         $this->school_grade = SchoolGrades::where('active', 1)->orderby('nick', 'desc')->get();
         $this->companies = Companies::where('active', 1)->get();
+
+        $path = base_path('VERSIONS.md'); // Caminho do arquivo
+        $this->readmeContent = File::exists($path)
+            ? (new Parsedown())->text(File::get($path))
+            : 'Arquivo README.md não encontrado.';
     }
     public function render()
     {

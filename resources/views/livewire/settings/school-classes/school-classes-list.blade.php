@@ -68,38 +68,56 @@
                                                 <div class="col-span-full sm:col-span-3">
                                                     <div
                                                         class="justify-start block space-x-2 space-y-2 font-medium duration-200 ">
+                                                        @if (in_array('update', auth()->user()->jsonActivities))
+                                                            <button @click="$wire.showUpdate(item.id)"
+                                                                class="btn btn-outline dark:btn-accent btn-sm">
+                                                                Editar
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 "
+                                                                    fill="none" viewBox="0 0 24 24"
+                                                                    stroke="currentColor" stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                                                                    </path>
+                                                                </svg>
+                                                            </button>
+                                                        @endif
 
-                                                        <button @click="$wire.showUpdate(item.id)"
-                                                            class="btn btn-outline dark:btn-accent btn-sm">
-                                                            Editar
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 "
-                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                                                stroke-width="2">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
-                                                                </path>
-                                                            </svg>
-                                                        </button>
-
-                                                        <button x-show="item.active === 1"
-                                                            @click="$wire.showModalDelete(item.id)"
-                                                            class="btn btn-outline dark:btn-accent btn-sm">
-                                                            Apagar
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
-                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                                                stroke-width="2">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                                                </path>
-                                                            </svg>
-                                                            <!-- SVG de Apagar -->
-                                                        </button>
+                                                        @if (in_array('delete', auth()->user()->jsonActivities))
+                                                            <button x-show="item.active === 1"
+                                                                @click="$wire.showModalDelete(item.id)"
+                                                                class="btn btn-outline dark:btn-accent btn-sm">
+                                                                Apagar
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
+                                                                    fill="none" viewBox="0 0 24 24"
+                                                                    stroke="currentColor" stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                                    </path>
+                                                                </svg>
+                                                                <!-- SVG de Apagar -->
+                                                            </button>
+                                                        @endif
+                                                        @if (in_array('active', auth()->user()->jsonActivities))
+                                                            <button x-show="item.active === 1"
+                                                                @click="$wire.showModalDelete(item.id)"
+                                                                class="btn btn-outline dark:btn-accent btn-sm">
+                                                                Apagar
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
+                                                                    fill="none" viewBox="0 0 24 24"
+                                                                    stroke="currentColor" stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                                    </path>
+                                                                </svg>
+                                                                <!-- SVG de Apagar -->
+                                                            </button>
+                                                        @endif
 
                                                         <button @click="$wire.addStudent(item.id)"
                                                             class="btn btn-outline dark:btn-accent btn-sm">
                                                             Montar turma
-                                                            <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
+                                                            <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24"
+                                                                fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path
                                                                     d="M4 19V6.2C4 5.0799 4 4.51984 4.21799 4.09202C4.40973 3.71569 4.71569 3.40973 5.09202 3.21799C5.51984 3 6.0799 3 7.2 3H16.8C17.9201 3 18.4802 3 18.908 3.21799C19.2843 3.40973 19.5903 3.71569 19.782 4.09202C20 4.51984 20 5.0799 20 6.2V17H6C4.89543 17 4 17.8954 4 19ZM4 19C4 20.1046 4.89543 21 6 21H20M9 7H15M9 11H15M19 17V21"
                                                                     stroke="currentColor" stroke-width="2"

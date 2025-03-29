@@ -1,6 +1,6 @@
 <div>
     @if ($print_battalion)
-        <div class="p-0 tooltip tooltip-top" data-tip="Batalhão">
+        <div class="p-0 tooltip tooltip-top" data-tip="Batalhão" wire:ignore>
             <a href="{{ route('school-battalion-view', $battalion_id) }}"
                 class="flex px-3 py-2 transition-colors duration-200 rounded-sm hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 512 512"
@@ -50,7 +50,7 @@
         </div>
     @endif
     @if ($print_classes)
-        <div class="p-0 tooltip tooltip-top" data-tip="Turmas">
+        <div class="p-0 tooltip tooltip-top" data-tip="Turmas" wire:ignore>
             <button wire:click="classes()"
                 class="px-3 py-2 transition-colors duration-200 rounded-sm hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 512 512"
@@ -100,7 +100,7 @@
         </div>
     @endif
     @if ($print_call)
-        <div class="p-0 tooltip tooltip-top" data-tip="Chamada">
+        <div class="p-0 tooltip tooltip-top" data-tip="Chamada" wire:ignore>
             <a href="{{ route('school-classes-view', $grade->id) }}"
                 class="flex px-3 py-2 transition-colors duration-200 rounded-sm hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 512 512"
@@ -147,17 +147,15 @@
             </a>
         </div>
     @endif
-    <div wire:ignore>
-        @section('scripts')
-            <script>
-                document.addEventListener('livewire:init', () => {
-                    Livewire.on('openPdfInNewTab', ({
-                        pdfPath
-                    }) => {
-                        window.open(pdfPath, '_blank');
-                    })
+    @section('scripts')
+        <script>
+            document.addEventListener('livewire:init', () => {
+                Livewire.on('openPdfInNewTab', ({
+                    pdfPath
+                }) => {
+                    window.open(pdfPath, '_blank');
                 })
-            </script>
-        @endsection
-    </div>
+            })
+        </script>
+    @endsection
 </div>

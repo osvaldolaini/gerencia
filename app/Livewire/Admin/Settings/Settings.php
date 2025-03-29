@@ -118,8 +118,6 @@ class Settings extends Component
                 Storage::makeDirectory('public/logos-school', 0755, true, true);
             }
 
-
-
             $ext = $this->uploadimage->getClientOriginalExtension();
             $code = $this->configs->slug;
             $new_name = $code . '.' . $ext;

@@ -11,6 +11,10 @@ use App\Models\Settings\SchoolGrades;
 use Livewire\Component;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
+
+use Illuminate\Support\Str;
 
 class Buttons extends Component
 {
@@ -23,9 +27,11 @@ class Buttons extends Component
 
     public $battalion_id;
     public $school_classes_year_id;
+    public $company;
 
     public function mount($button, $year, $grade)
     {
+
         $this->school_classes_year_id = $year;
         $this->school_classes = SchoolClasses::where('active', 1)
             ->where('school_classes_year_id', $year)
@@ -37,6 +43,7 @@ class Buttons extends Component
         $this->print_battalion  = $button == 'print_battalion' ?? true;
 
         $this->battalion_id = SchoolBattalions::where('active', 1)->first();
+        $this->company = $this->grade->getCompany;
     }
     public function render()
     {
@@ -45,50 +52,71 @@ class Buttons extends Component
     //Turmas
     public function classes()
     {
-        $school_classes = $this->school_classes;
+
+        // dd($school_classes);
         $config = Settings::find(1);
-        $companies = Companies::where('active', 1)->first();
+
+        $logoPath = Storage::exists('public/logos-school/logo-header.png')
+            ? url('storage/logos-school/logo-header.png')
+            : url('storage/logos/logo-pdf.png');
         // Crie uma instância do mPDF
         $mpdf = new \Mpdf\Mpdf([
             'mode'          => 'utf-8',
             // 'orientation'        => 'P', //[P,L]
             'format' => 'A4-L',
-            'margin_left'   => 10,
-            'margin_top'    => 10,
+            'margin_left'   => 15,
+            'margin_top'    => 15,
             'default_font_size'  => 9,
             'default_font'  => 'arial',
         ]);
         // dd($mpdf);
-
-        // Renderize a view do Livewire
         $html = view(
-            'livewire.settings.pdf.school-classes-pdf',
+            'livewire.settings.pdf.school-grade-pdf',
             [
-                'school_classes'    => $school_classes,
+                'logoPath'          => $logoPath,
+                'school_classes'    => $this->school_classes,
                 'grade'             => $this->grade->name,
                 'config'            => $config,
-                'companies'         => $companies,
-                'title_postfix'     => 'Comprovante',
-                'subtext'           => 'Turmas do ' . $this->grade->name,
+                'companies'         => $this->company,
+                'title_postfix'     => 'Turmas do ' . $this->company,
+                'subtext'           => 'Turmas do ' . $this->company,
                 'responsible'       => Auth::user()->name,
             ]
         )->render();
-        // dd($html);
-
 
         // Adicione o conteúdo HTML ao PDF
-        $mpdf->WriteHTML($html);
-        $mpdf->SetHTMLFooter('
+        $mpdf->SetHTMLHeader('
             <table width="100%">
-                <tr>
-                    <td width="66%">Impressão realizada em {DATE j/m/Y} às {DATE H:i:s}</td>
-                    <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
+                <tr >
+                    <td width="50%">
+                        <img width="50" src="' . $logoPath . '" alt="Logo">
+                    </td>
+                    <td width="50%" style="text-align: right;">
+                        <strong>' . $config->name . '</strong><br>
+                        ' . $this->company->name . '<br>
+                        Turmas do ' . $this->grade->name . '
+                    </td>
                 </tr>
-            </table>');
+            </table>
+            ');
+        $mpdf->SetHTMLFooter('
+     <table width="100%">
+         <tr>
+             <td width="66%">Impressão realizada em {DATE j/m/Y} às {DATE H:i:s}</td>
+             <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
+         </tr>
+     </table>');
+        $mpdf->WriteHTML($html);
 
         // Salve o PDF temporariamente
-        $down = storage_path('app/public/livewire-tmp/recibo.pdf');
-        $pdfPath = url('storage/livewire-tmp/recibo.pdf');
+        $file = 'chamada_' . $this->grade->name . '_' . Str::uuid() . '.pdf';
+
+        if (!is_dir(storage_path('app/public/pdf-tmp'))) {
+            mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário
+        }
+
+        $down = storage_path('app/public/pdf-tmp/' . $file);
+        $pdfPath = url('storage/pdf-tmp/' . $file);
 
         $mpdf->Output($down, 'F');
 

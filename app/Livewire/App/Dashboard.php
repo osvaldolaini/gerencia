@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 
+use App\Models\Settings\Companies;
+use App\Models\Settings\SchoolClassesYears;
+use App\Models\Settings\SchoolGrades;
+
 use Illuminate\Support\Facades\File;
 use Parsedown;
 
@@ -21,19 +25,28 @@ class Dashboard extends Component
     public $darkMode;
     public $readmeContent;
 
+    public $school_years;
+    public $school_grade;
+    public $companies;
+    public $school_classes_year_id;
+
     public function mount()
     {
         $this->config = Settings::find(1);
         $this->darkMode = Auth::user()->dark;
 
-        $path = base_path('VERSIONS.md'); // Caminho do arquivo
-        $this->readmeContent = File::exists($path)
-            ? (new Parsedown())->text(File::get($path))
-            : 'Arquivo README.md não encontrado.';
+        $this->school_years = SchoolClassesYears::where('active', 1)->first();
+        $this->school_classes_year_id           = $this->school_years->id;
+        $this->school_grade = SchoolGrades::where('active', 1)->orderby('nick', 'desc')->get();
+        $this->companies = Companies::where('active', 1)->get();
     }
     public function render()
     {
-        return view('livewire.app.dashboard')->layout('layouts.' . $this->layout);
+        if (request()->userAgent() && str_contains(request()->userAgent(), 'Mobile')) {
+            return view('livewire.app.dashboard-mobile')->layout('layouts.' . $this->layout . '-mobile');
+        } else {
+            return view('livewire.app.dashboard')->layout('layouts.' . $this->layout);
+        }
     }
     public function fo_form()
     {

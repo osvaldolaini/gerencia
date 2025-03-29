@@ -12,13 +12,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="api,aeronaves,aeroportos,aplicativos">
-    <meta name="description"
-        content="Sistema de Gerenciamento destinado a Centros de Instrução de Aviação Civil - CIAC.">
+    <meta name="keywords" content="api,colegios,aplicativos">
+    <meta name="description" content="Sistema de Gerenciamento de companhias de colégios militares.">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <x-favicons></x-favicons>
-
+    <x-app.favicons></x-app.favicons>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -35,39 +33,21 @@
         }
     </style>
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
+    <link rel="manifest" href="/manifest.json" />
 </head>
 
-<body class="{{ auth()->user()->dark ? 'dark' : '' }} font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @livewire('admin.page.nav-bar')
-
+<body class="{{ auth()->user()->dark ? 'dark' : '' }} font-sans antialiased p-0 m-0 dark:text-white dark:bg-gray-800">
+    <div class="min-h-screen p-0 m-0 bg-gray-100 dark:bg-gray-900">
         @livewire('message-alert')
-
         <!-- Page Content -->
-        <main>
-            <div class="drawer lg:drawer-open">
-                <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
-                <div class="drawer-content">
-                    <!-- Page content here -->
-                    <div class="m-3 sm:m-4 sm:p-5 rounded-2xl ">
-                        {{ $slot }}
-                    </div>
-                </div>
-                <div class="drawer-side">
-                    <label for="my-drawer-3" class="drawer-overlay"></label>
-                    @livewire('app.side-bar')
-
-                </div>
-            </div>
+        <main class="p-0 m-0 bg-gray-100 dark:bg-gray-900">
+            {{ $slot }}
         </main>
     </div>
 
     @stack('modals')
 
     @livewireScripts
-
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script> --}}
-    <script src="{{ asset('js/vanilla-masker.min.js') }}"></script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js')

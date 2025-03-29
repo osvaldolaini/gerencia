@@ -242,18 +242,18 @@ class Settings extends Component
             $code = Str::uuid();
             $new_name = $code . '.jpg';
 
-
             $path = storage_path('app/public/logos-school');
-
 
             // Verifica se o diretório existe e, se não, cria com permissão 755
             if (!file_exists($path)) {
                 mkdir($path, 0755, true);
             }
 
+
             $this->uploadimage->storeAs('public/logos-school', $new_name);
-            $this->configs->logo_path = $new_name;
-            $this->configs->save();
+
+            $this->companies->logo_path = $new_name;
+            $this->companies->save();
             // Storage::delete('public/logos/' . $this->logo);
             $this->logo = $new_name;
 

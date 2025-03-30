@@ -150,7 +150,7 @@
                                     </button>
                                 </div>
                             @elseif ($logo)
-                                <img src="{{ url('storage/logos-school' . $this->logo_path) }}"
+                                <img src="{{ url('storage/logos-school/' . $this->logo_path) }}"
                                     wire:model="logo_path">
                                 <div class="flex justify-end space-x-1">
                                     <button wire:click="excluirLogo()" type="button"

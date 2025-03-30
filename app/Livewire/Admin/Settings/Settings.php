@@ -66,7 +66,7 @@ class Settings extends Component
         $this->state = $this->configs->state;
         $this->complement = $this->configs->complement;
         $this->logo_path = $this->configs->logo_path;
-        dd($this->configs->logo_path);
+        // dd($this->configs->logo_path);
         // }
     }
     public function render()

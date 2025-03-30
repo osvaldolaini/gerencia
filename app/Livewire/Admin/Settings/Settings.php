@@ -206,6 +206,7 @@ class Settings extends Component
         if (Storage::directoryMissing('public/favicons-school')) {
             Storage::makeDirectory('public/favicons-school', 0755, true, true);
         }
+        Storage::deleteDirectory('public/favicons-school');
 
         $path_fav = storage_path('app/public/favicons-school');
 

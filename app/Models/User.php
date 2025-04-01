@@ -166,7 +166,7 @@ class User extends Authenticatable
     {
         return match ((int)$this->panelId) {
             1 => '/admin/dashboard',
-            2 => 'app',
+            2 => '/aplicativo',
         };
     }
     public function alerts()

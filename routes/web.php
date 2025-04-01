@@ -261,8 +261,7 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    RegisterLogging::class,
-    'checkAccess:fact_observed' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+    RegisterLogging::class //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
 ])->group(function () {
     Route::get('/app', App::class)
         ->name('app');

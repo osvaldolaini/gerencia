@@ -263,8 +263,8 @@ Route::middleware([
     'verified',
     RegisterLogging::class //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
 ])->group(function () {
-    Route::get('/app', App::class)
-        ->name('app');
+    Route::get('/aplicativo', App::class)
+        ->name('aplicativo');
     Route::get('/disciplina/fato-observado/meus-fatos-observados', MyFosList::class)
         ->name('my-fact-observed');
 });

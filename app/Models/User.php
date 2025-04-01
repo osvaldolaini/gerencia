@@ -37,6 +37,7 @@ class User extends Authenticatable
         'groups',
         'accesses',
         'activities',
+        'companies',
         'panel',
         'dark',
         'cpf_cnpj',
@@ -71,6 +72,7 @@ class User extends Authenticatable
             $transaction->see_excluded  = 0;
             $transaction->accesses      = ["fact_observed"];
             // $transaction->activities    = [null];
+            // $transaction->companies     = [null];
         });
     }
 
@@ -134,6 +136,15 @@ class User extends Authenticatable
     public function setActivitiesAttribute($value)
     {
         $this->attributes['activities'] = json_encode($value);
+    }
+    //Companhias
+    public function getJsonCompaniesAttribute()
+    {
+        return json_decode($this->companies);
+    }
+    public function setCompaniesAttribute($value)
+    {
+        $this->attributes['companies'] = json_encode($value);
     }
     public function getPanelIdAttribute()
     {

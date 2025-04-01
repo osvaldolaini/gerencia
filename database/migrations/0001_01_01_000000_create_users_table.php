@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('groups');
             $table->string('accesses')->nullable();
             $table->string('activities')->nullable();
+            $table->string('companies')->nullable();
             $table->string('panel');
             $table->boolean('see_excluded')->nullable();
             $table->boolean('dark');

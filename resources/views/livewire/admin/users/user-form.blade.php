@@ -89,6 +89,18 @@
                         </x-slot>
                         <x-slot name="title">Autorizações</x-slot>
                     </x-layout.tabs-nav>
+                    <x-layout.tabs-nav tab="tab5">
+                        <x-slot name="svg">
+                            <svg fill="currentColor"
+                                class="w-5 h-5 transition duration-75 shrink-0 text-primary-600 dark:text-primary-400"
+                                xmlns="http://www.w3.org/2000/svg" stroke="currentColor" viewBox="0 0 16 16"
+                                version="1.1" id="svg8">
+
+                                <path d="M8 1C3 1 3 7 3 7H2v8h12V7h-1s0-6-5-6zm0 2c3 0 3 4 3 4H5s0-4 3-4z" />
+                            </svg>
+                        </x-slot>
+                        <x-slot name="title">Companhias</x-slot>
+                    </x-layout.tabs-nav>
                 @endif
             </x-slot>
             <x-slot name="content">
@@ -226,6 +238,12 @@
                         <div role="tabpanel"
                             class="p-6 border-2 rounded-r-lg rounded-bl-lg bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100">
                             @livewire('admin.users.user-crud', ['user' => $user], key($user->id))
+                        </div>
+                    </div>
+                    <div id="tab5" x-show="activeTab === '#tab5'" class="block">
+                        <div role="tabpanel"
+                            class="p-6 border-2 rounded-r-lg rounded-bl-lg bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100">
+                            @livewire('admin.users.user-companies', ['user' => $user], key($user->id))
                         </div>
                     </div>
                 @endif

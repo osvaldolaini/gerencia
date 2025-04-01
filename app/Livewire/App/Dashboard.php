@@ -38,7 +38,12 @@ class Dashboard extends Component
         $this->school_years = SchoolClassesYears::where('active', 1)->first();
         $this->school_classes_year_id           = $this->school_years->id;
         $this->school_grade = SchoolGrades::where('active', 1)->orderby('nick', 'desc')->get();
-        $this->companies = Companies::where('active', 1)->get();
+        $companiesAccess = Auth::user()->json_companies;
+        if (in_array('all', $companiesAccess)) {
+            $this->companies = Companies::where('active', 1)->get();
+        } else {
+            $this->companies = Companies::where('active', 1)->whereIn('id', Auth::user()->json_companies)->get();
+        }
 
         $path = base_path('VERSIONS.md'); // Caminho do arquivo
         $this->readmeContent = File::exists($path)

@@ -1,0 +1,151 @@
+<?php
+
+namespace App\Livewire\Faults;
+
+use App\Models\Fault\SchoolFaults;
+use App\Models\Peoples;
+use App\Models\Settings\Companies;
+use App\Models\Settings\school_faults;
+use App\Models\Settings\SchoolClassesYears;
+use App\Models\Settings\SchoolGrades;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
+use Illuminate\Validation\Rule;
+use Livewire\Attributes\On;
+use Illuminate\Support\Str;
+
+class SchoolFaultForm extends Component
+{
+    public $rules;
+
+    public $back = 'school-faults-list';
+    public $route = 'school-faults';
+
+    public $breadcrumb = 'Faltas';
+    //Fields
+    public $id;
+    public $student_id;
+    public $date;
+    public $companies_id;
+    public $school_grades_id;
+    public $school_classes_id;
+    public $school_classes_year_id;
+    public $qtd;
+
+    public $people;
+
+    public $companies;
+    public $grades;
+    public $classes;
+
+
+    public function mount(SchoolFaults $school_faults)
+    {
+        $companiesAccess = Auth::user()->json_companies;
+        if (in_array('all', $companiesAccess)) {
+            $this->companies = Companies::where('active', 1)->get();
+        } else {
+            $this->companies = Companies::where('active', 1)->whereIn('id', Auth::user()->json_companies)->get();
+        }
+
+        if ($school_faults->getAttributes()) {
+            $this->id                       = $school_faults->id;
+            $this->student_id               = $school_faults->student_id;
+            $this->date                     = $school_faults->date_view;
+            $this->companies_id             = $school_faults->companies_id;
+            $this->school_grades_id         = $school_faults->school_grades_id;
+            $this->school_classes_id        = $school_faults->school_classes_id;
+            $this->school_classes_year_id   = $school_faults->school_classes_year_id;
+            $this->qtd                      = $school_faults->qtd;
+        }
+    }
+    public function render()
+    {
+        return view('livewire.faults.school-fault-form');
+    }
+    #[On('updateStudent')]
+    public function updateStudent($id)
+    {
+        $this->student_id = $id;
+        $this->people = Peoples::find($id)->name;
+    }
+    public function updated($property)
+    {
+        if ($property === 'companies_id') {
+            $this->grades = Companies::find($this->companies_id)->grade->sortBy('nick');
+        }
+        if ($property === 'school_grades_id') {
+            $this->classes = SchoolGrades::find($this->school_grades_id)->getClasses->sortBy('order');
+        }
+        if ($property === 'school_classes_id') {
+            // $this->classes = SchoolGrades::find($this->school_grades_id)->getClasses;
+            $this->school_classes_year_id = SchoolClassesYears::where('active', 1)->first()->id;
+            dd($this->school_classes_year_id);
+        }
+    }
+
+
+    public function save()
+    {
+        $id = $this->real_save();
+        if ($id) {
+            redirect()->route($this->route . '-edit', $id)->with('success', 'Registro criado com sucesso.');
+        }
+    }
+    public function save_out()
+    {
+        $this->real_save();
+        redirect()->route($this->route . '-list')->with('success', 'Registro criado com sucesso.');
+    }
+
+
+    public function real_save()
+    {
+        $this->rules = [
+            'student_id' => 'required',
+            'date'      => 'required',
+        ];
+        $this->validate();
+        if ($this->id) {
+            SchoolFaults::updateOrCreate([
+                'id'    => $this->id,
+            ], [
+                'name'                  => $this->name,
+                'id'                    => $this->id,
+                'student_id'            => $this->student_id,
+                'date'                  => $this->date_view,
+                'companies_id'          => $this->companies_id,
+                'school_grades_id'      => $this->school_grades_id,
+                'school_classes_id'     => $this->school_classes_id,
+                'school_classes_year_id' => $this->school_classes_year_id,
+                'qtd'                   => $this->qtd,
+            ]);
+
+            $id = false;
+            $msg = 'Registro editado com sucesso.';
+        } else {
+            $school_faults = SchoolFaults::create([
+                'active'                => 1,
+                'name'                  => $this->name,
+                'id'                    => $this->id,
+                'student_id'            => $this->student_id,
+                'date'                  => $this->date_view,
+                'companies_id'          => $this->companies_id,
+                'school_grades_id'      => $this->school_grades_id,
+                'school_classes_id'     => $this->school_classes_id,
+                'school_classes_year_id' => $this->school_classes_year_id,
+                'qtd'                   => $this->qtd,
+                'code'                  => Str::uuid(),
+            ]);
+            $id = $school_faults->id;
+            $msg = 'Registro criado com sucesso.';
+        }
+
+        $this->openAlert('success', $msg);
+        return $id;
+    }
+    public function openAlert($status, $msg)
+    {
+        $this->dispatch('openAlert', $status, $msg);
+    }
+}

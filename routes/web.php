@@ -17,6 +17,8 @@ use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineForm;
 use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineList;
 use App\Livewire\Discipline\Settings\Faults\FaultForm;
 use App\Livewire\Discipline\Settings\Faults\FaultList;
+use App\Livewire\Faults\SchoolFaultForm;
+use App\Livewire\Faults\SchoolFaultList;
 use App\Livewire\Peoples\PeopleForm;
 use App\Livewire\Peoples\PeopleList;
 use App\Livewire\Settings\Companies\CompanyForm;
@@ -255,6 +257,21 @@ Route::middleware([
         ->name('fact-observed-create');
     Route::get('/disciplina/fato-observado/{fact_observed}/editar', FactObservedEdit::class)
         ->name('fact-observed-edit');
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:school_faults' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/faltas-escolares', SchoolFaultList::class)
+        ->name('school-faults-list');
+    Route::get('/faltas-escolares/novo', SchoolFaultForm::class)
+        ->name('school-faults-create');
+    Route::get('/faltas-escolares/{school_faults}/editar', SchoolFaultForm::class)
+        ->name('school-faults-edit');
 });
 
 Route::middleware([

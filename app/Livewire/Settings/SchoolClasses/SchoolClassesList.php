@@ -7,11 +7,10 @@ use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolClassesStudent;
 use App\Models\Settings\SchoolClassesYears;
 use App\Models\Settings\SchoolGrades;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
-
-use Illuminate\Validation\Rule;
 
 use Illuminate\Support\Str;
 
@@ -40,14 +39,18 @@ class SchoolClassesList extends Component
 
     public $companies;
 
-
     public $dataTable;
 
     public $list_students;
 
     public function mount(SchoolClassesYears $school_classes_years)
     {
-        $this->companies = Companies::where('active', 1)->get();
+        $companiesAccess = Auth::user()->json_companies;
+        if (in_array('all', $companiesAccess)) {
+            $this->companies = Companies::where('active', 1)->get();
+        } else {
+            $this->companies = Companies::where('active', 1)->whereIn('id', Auth::user()->json_companies)->get();
+        }
         if ($school_classes_years->getAttributes()) {
             $this->school_classes_year_id           = $school_classes_years->id;
             $this->year         = $school_classes_years->year;

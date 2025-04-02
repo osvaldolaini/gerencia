@@ -118,10 +118,10 @@
                     <tr class="border">
                     <tr class="">
                         <td colspan="6" class="text-right border">Total</td>
-                        <td class="text-left border">{{ $c }}</td>
+                        <td class="text-center border">{{ $c }}</td>
                         <td></td>
                         <td colspan="6" class="text-right border">Total</td>
-                        <td class="text-left border">{{ $c }}</td>
+                        <td class="text-centerborder">{{ $c }}</td>
                     </tr>
 
                     </tr>

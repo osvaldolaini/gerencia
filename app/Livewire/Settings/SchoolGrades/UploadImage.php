@@ -24,7 +24,7 @@ class UploadImage extends Component
     {
         if ($id) {
             $this->school_gredes = SchoolGrades::find($id);
-            $this->photo = Storage::directoryExists('public/schoolGrades/' . $this->school_gredes->id);
+            $this->photo = $this->school_gredes->id . '/' . $this->school_gredes->logo_path;
         }
     }
     public function render()

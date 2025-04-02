@@ -48,6 +48,7 @@ class UploadImage extends Component
                 Storage::makeDirectory('public/student/' . $this->student->id, 0755, true, true);
             }
             Storage::deleteDirectory('public/student/' . $this->student->id);
+
             if (isset($this->uploadimage)) {
                 $ext = $this->uploadimage->getClientOriginalExtension();
                 $code = Str::uuid();
@@ -55,10 +56,7 @@ class UploadImage extends Component
 
                 $path = storage_path('app/public/student/' . $this->student->id);
 
-                // Verifica se o diretório existe e, se não, cria com permissão 755
-                if (!file_exists($path)) {
-                    mkdir($path, 0755, true);
-                }
+                Storage::makeDirectory($path, 0755, true, true);
 
                 $this->uploadimage->storeAs('public/student/' . $this->student->id, $new_name);
                 $this->student->logo_path = $new_name;

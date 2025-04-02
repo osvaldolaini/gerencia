@@ -43,6 +43,7 @@ class UploadImage extends Component
             ]);
 
             $directory = 'public/student/' . $this->student->id;
+            $fullPath = storage_path('app/' . $directory);
 
             // Apaga apenas a imagem anterior, se existir
             if ($this->student->logo_path) {
@@ -54,11 +55,12 @@ class UploadImage extends Component
                 $code = Str::uuid();
                 $new_name = $code . '.jpg';
 
-                // Criar o diretório com permissões corretas, se necessário
-                if (!Storage::exists($directory)) {
-                    Storage::makeDirectory($directory, 0755, true);
-                    chmod(storage_path('app/' . $directory), 0755); // Ajusta permissão
+                // Criar diretório com permissões forçadas
+                if (!file_exists($fullPath)) {
+                    umask(0); // Remove restrições do sistema
+                    mkdir($fullPath, 0755, true);
                 }
+                chmod($fullPath, 0755); // Garante a permissão correta
 
                 // Salvar a nova imagem
                 $this->uploadimage->storeAs($directory, $new_name);
@@ -76,6 +78,7 @@ class UploadImage extends Component
             }
         }
     }
+
 
     public function excluirTemp()
     {

@@ -24,7 +24,7 @@ class UploadImage extends Component
     {
         if ($id) {
             $this->student = Peoples::find($id);
-            $this->photo = Storage::directoryExists('public/student/' . $this->student->id);
+            $this->photo = $this->student->id . '/' . $this->student->logo_path;
         }
     }
     public function render()

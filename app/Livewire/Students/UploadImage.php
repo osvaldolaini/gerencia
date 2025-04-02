@@ -63,7 +63,7 @@ class UploadImage extends Component
                 $this->student->save();
 
                 $this->logo(
-                    'Student/' . $this->student->id . '/' . $new_name,
+                    'student/' . $this->student->id . '/' . $new_name,
                     $this->student->id,
                     $code
                 );

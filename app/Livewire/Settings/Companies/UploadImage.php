@@ -60,7 +60,6 @@ class UploadImage extends Component
                     mkdir($path, 0755, true);
                 }
 
-
                 $this->uploadimage->storeAs('public/companies/' . $this->companies->id, $new_name);
                 $this->companies->logo_path = $new_name;
                 $this->companies->save();

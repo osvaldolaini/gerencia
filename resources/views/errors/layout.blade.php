@@ -31,7 +31,7 @@
                 <p class="mt-6 mb-8 font-extrabold text-blue-600 sm:mb-12 text-8xl animate-bounce">
                     @yield('code')
                 </p>
-                <a href="{{ url() }}"
+                <a href="{{ url('/') }}"
                     class="px-8 py-3 text-lg font-semibold text-white bg-black border border-white rounded-md">
                     Voltar
                 </a>

@@ -7,7 +7,7 @@
     <style>
         .container {
             margin-top: 50px;
-            padding-top: 70px;
+            padding-top: 50px;
         }
 
         .class {

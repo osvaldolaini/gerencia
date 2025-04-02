@@ -69,7 +69,7 @@
                             @endif
                             @if ($school_classes_id)
                                 <div class="col-span-full" wire:ignore>
-                                    @livewire('discipline.fact-observeds.fact-observed-students')
+                                    @livewire('faults.school-fault-students', ['class_id' => $school_classes_id])
                                 </div>
                             @endif
                         </div>

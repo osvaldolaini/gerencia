@@ -4,6 +4,7 @@ namespace App\Livewire\Discipline;
 
 use Livewire\Component;
 use App\Models\Peoples;
+use App\Models\Settings\SchoolClasses;
 
 class InputSearch extends Component
 {
@@ -15,6 +16,14 @@ class InputSearch extends Component
     public $people;
     public $field;
 
+    public $pluckStudent;
+
+    public function mount($class_id = null)
+    {
+        if ($class_id) {
+            $this->pluckStudent = SchoolClasses::find($class_id)->studentsPivot->where('active', 1)->pluck('people_id')->toArray();
+        }
+    }
     public function openModalSearch()
     {
         $this->modalSearch = true;
@@ -35,13 +44,25 @@ class InputSearch extends Component
     public function render()
     {
         if ($this->inputSearch != '') {
-            $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
-                ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
-                ->orwhere('number', 'LIKE', '%' . $this->inputSearch . '%')
-                ->where('type', 1)
-                ->where('active', 1)
-                ->limit(5)
-                ->get();
+
+            if ($this->pluckStudent) {
+                $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
+                    ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
+                    ->whereIn('id', $this->pluckStudent)
+                    ->orwhere('number', 'LIKE', '%' . $this->inputSearch . '%')
+                    ->where('type', 1)
+                    ->where('active', 1)
+                    ->limit(5)
+                    ->get();
+            } else {
+                $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
+                    ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
+                    ->orwhere('number', 'LIKE', '%' . $this->inputSearch . '%')
+                    ->where('type', 1)
+                    ->where('active', 1)
+                    ->limit(5)
+                    ->get();
+            }
         }
 
         return view('livewire.discipline.input-search');

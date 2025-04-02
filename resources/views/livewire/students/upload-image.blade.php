@@ -27,7 +27,7 @@
                 Excluir
             </button>
         </div>
-        <img src="{{ url('storage/student/' . $photo) }}" wire:model="photo">
+        <img src="{{ url($photo) }}" wire:model="photo">
     @else
         <div class="col-span-full sm:col-span-3">
             <form wire:submit.prevent="#" id="form-upload">

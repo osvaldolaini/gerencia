@@ -116,8 +116,14 @@
                         </tr>
                     @endforeach
                     <tr class="border">
+                    <tr class="">
                         <td colspan="6" class="text-right border">Total</td>
                         <td class="text-left border">{{ $c }}</td>
+                        <td></td>
+                        <td colspan="6" class="text-right border">Total</td>
+                        <td class="text-left border">{{ $c }}</td>
+                    </tr>
+
                     </tr>
                 </table>
             </div>

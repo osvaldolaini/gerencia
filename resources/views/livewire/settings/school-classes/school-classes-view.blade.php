@@ -66,6 +66,7 @@
                 </a>
             </div>
         </div>
+
         @foreach ($classes as $key => $value)
             <div class="col-span-2 sm:col-span-1">
                 <table class="flex justify-center mx-10 mb-10 rounded-md ">
@@ -96,10 +97,16 @@
                         <th class="w-10 text-center border">5ªf</th>
                         <th class="w-10 text-center border">6ªf</th>
                     </tr>
+                    @php
+                        $c = 0;
+                    @endphp
                     @foreach ($value->studentsPivot as $pivot)
+                        @php
+                            $c += 1;
+                        @endphp
                         <tr class="border">
                             <td class="text-left border">{{ $pivot->students->nick }}</td>
-                            <td class="text-left border">{{ $pivot->students->number }}</td>
+                            <td class="text-center border">{{ $pivot->students->number }}</td>
                             <td class="text-center border"></td>
                             <td class="text-center border"></td>
                             <td class="text-center border"></td>
@@ -107,6 +114,10 @@
                             <td class="text-center border"></td>
                         </tr>
                     @endforeach
+                    <tr class="border">
+                        <td colspan="6" class="text-right border">Total</td>
+                        <td class="text-left border">{{ $c }}</td>
+                    </tr>
                 </table>
             </div>
         @endforeach

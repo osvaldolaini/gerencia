@@ -37,6 +37,7 @@ class SchoolFaultForm extends Component
     public $companies;
     public $grades;
     public $classes;
+    public $students;
 
 
     public function mount(SchoolFaults $school_faults)
@@ -78,10 +79,13 @@ class SchoolFaultForm extends Component
             $this->classes = SchoolGrades::find($this->school_grades_id)->getClasses->sortBy('order');
         }
         if ($property === 'school_classes_id') {
-            // $this->classes = SchoolGrades::find($this->school_grades_id)->getClasses;
             $this->school_classes_year_id = SchoolClassesYears::where('active', 1)->first()->id;
-            dd($this->school_classes_year_id);
         }
+    }
+    #[On('updateStudents')]
+    public function updateStudents($students)
+    {
+        $this->students = $students;
     }
 
 
@@ -124,21 +128,26 @@ class SchoolFaultForm extends Component
             $id = false;
             $msg = 'Registro editado com sucesso.';
         } else {
-            $school_faults = SchoolFaults::create([
-                'active'                => 1,
-                'name'                  => $this->name,
-                'id'                    => $this->id,
-                'student_id'            => $this->student_id,
-                'date'                  => $this->date_view,
-                'companies_id'          => $this->companies_id,
-                'school_grades_id'      => $this->school_grades_id,
-                'school_classes_id'     => $this->school_classes_id,
-                'school_classes_year_id' => $this->school_classes_year_id,
-                'qtd'                   => $this->qtd,
-                'code'                  => Str::uuid(),
-            ]);
-            $id = $school_faults->id;
-            $msg = 'Registro criado com sucesso.';
+            foreach ($this->students as $key => $value) {
+                $this->student_id       = $value['id'];
+                $people                 = Peoples::find($this->student_id);
+
+                $school_faults = SchoolFaults::create([
+                    'active'                => 1,
+                    'name'                  => $this->name,
+                    'id'                    => $this->id,
+                    'student_id'            => $this->student_id,
+                    'date'                  => $this->date_view,
+                    'companies_id'          => $this->companies_id,
+                    'school_grades_id'      => $this->school_grades_id,
+                    'school_classes_id'     => $this->school_classes_id,
+                    'school_classes_year_id' => $this->school_classes_year_id,
+                    'qtd'                   => $this->qtd,
+                    'code'                  => Str::uuid(),
+                ]);
+
+                $msg = 'Registro criado com sucesso.';
+            }
         }
 
         $this->openAlert('success', $msg);

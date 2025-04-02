@@ -81,7 +81,7 @@
                         <th class="w-10 text-center border">4ªf</th>
                         <th class="w-10 text-center border">5ªf</th>
                         <th class="w-10 text-center border">6ªf</th>
-                        <th></th>
+                        <th style="width: 0rem;"></th>
                         <th class="w-20 text-center border">Nr</th>
                         <th class="w-20 text-center border">Aluno</th>
                         <th class="w-10 text-center border">2ªf</th>
@@ -90,7 +90,13 @@
                         <th class="w-10 text-center border">5ªf</th>
                         <th class="w-10 text-center border">6ªf</th>
                     </tr>
+                    @php
+                        $c = 0;
+                    @endphp
                     @foreach ($class->studentsPivot as $pivot)
+                        @php
+                            $c += 1;
+                        @endphp
                         <tr class="">
                             <td class="text-left border">{{ $pivot->students->number }}</td>
                             <td class="text-left border">{{ $pivot->students->nick }}</td>
@@ -109,6 +115,10 @@
                             <td class="text-center border"></td>
                         </tr>
                     @endforeach
+                    <tr class="border">
+                        <td colspan="6" class="text-right border">Total</td>
+                        <td class="text-left border">{{ $c }}</td>
+                    </tr>
                 </table>
             </div>
             @if (!$loop->last)

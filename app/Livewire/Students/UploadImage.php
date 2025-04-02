@@ -36,32 +36,38 @@ class UploadImage extends Component
         $this->dispatch('submitForm');
     }
     public function updated($property)
-    // public function uploadPhoto()
     {
         if ($property === 'uploadimage') {
-            $this->rules = [
-                'uploadimage'   => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
-            ];
+            $this->validate([
+                'uploadimage' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
+            ]);
 
-            $this->validate();
-            if (Storage::directoryMissing('public/student/' . $this->student->id)) {
-                Storage::makeDirectory('public/student/' . $this->student->id, 0755, true, true);
+            $directory = 'public/student/' . $this->student->id;
+
+            // Apaga apenas a imagem anterior, se existir
+            if ($this->student->logo_path) {
+                Storage::delete($directory . '/' . $this->student->logo_path);
             }
-            Storage::deleteDirectory('public/student/' . $this->student->id);
 
-            if (isset($this->uploadimage)) {
+            if ($this->uploadimage) {
                 $ext = $this->uploadimage->getClientOriginalExtension();
                 $code = Str::uuid();
                 $new_name = $code . '.jpg';
 
-                // $path = storage_path('app/public/student/' . $this->student->id);
+                // Criar o diretório com permissões corretas, se necessário
+                if (!Storage::exists($directory)) {
+                    Storage::makeDirectory($directory, 0755, true);
+                    chmod(storage_path('app/' . $directory), 0755); // Ajusta permissão
+                }
 
-                Storage::makeDirectory('public/student/' . $this->student->id, 0755, true, true);
+                // Salvar a nova imagem
+                $this->uploadimage->storeAs($directory, $new_name);
 
-                $this->uploadimage->storeAs('public/student/' . $this->student->id, $new_name);
+                // Atualizar o caminho da imagem no banco
                 $this->student->logo_path = $new_name;
                 $this->student->save();
 
+                // Chamar a função logo
                 $this->logo(
                     'student/' . $this->student->id . '/' . $new_name,
                     $this->student->id,
@@ -70,6 +76,7 @@ class UploadImage extends Component
             }
         }
     }
+
     public function excluirTemp()
     {
         $this->uploadimage = '';
@@ -92,25 +99,42 @@ class UploadImage extends Component
 
     public static function logo($path, $id, $code)
     {
-        $path = 'storage/' . $path;
-        // dd($path);
-        // create image manager with desired driver
+        // Corrige o caminho do arquivo original
+        $fullPath = storage_path('app/public/' . $path);
+
+        if (!file_exists($fullPath)) {
+            throw new \Exception("Imagem não encontrada: " . $fullPath);
+        }
+
+        // Criar o gerenciador de imagem
         $manager = new ImageManager(new Driver());
 
-        // read image from file system
-        $image = $manager->read($path);
-        // $image = ImageManager::imagick()->read('images/example.jpg');
-        // save modified image in new format
-        $image->toPng()->save('storage/student/' . $id . '/' . $code . '_small.png');
-        // $image->toWebp()->save('storage/student/' . $id . '/' . $code . '_small.webp');
-        $image->scale(width: 200);
-        $image->toPng()->save('storage/student/' . $id . '/' . $code . '_big.png');
-        // $image->toWebp()->save('storage/student/' . $id . '/' . $code . '_big.webp');
-        $image->scale(width: 300);
-        // List
-        $footer = $manager->read($path);
-        $footer->scale(width: 60);
-        $footer->toPng()->save('storage/student/' . $id . '/' . $code . '_list.png');
-        // $footer->toWebp()->save('storage/student/' . $id . '/' . $code . '_list.webp');
+        // Carregar a imagem
+        $image = $manager->read($fullPath);
+
+        // Caminho de destino
+        $savePath = storage_path('app/public/student/' . $id . '/');
+
+        // Criar diretório se não existir
+        if (!file_exists($savePath)) {
+            umask(0022); // Garante permissões adequadas
+            mkdir($savePath, 0755, true);
+            chmod($savePath, 0755); // Ajusta a permissão corretamente
+        }
+
+        // Criar versões redimensionadas da imagem
+        $image->scale(width: 200)
+            ->toPng()
+            ->save($savePath . $code . '_big.png');
+
+        $image->scale(width: 300)
+            ->toPng()
+            ->save($savePath . $code . '_small.png');
+
+        // Criar imagem para a lista
+        $footer = $manager->read($fullPath);
+        $footer->scale(width: 60)
+            ->toPng()
+            ->save($savePath . $code . '_list.png');
     }
 }

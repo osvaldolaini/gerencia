@@ -12,7 +12,7 @@
 
         .class {
             width: 100%;
-            font-size: 10pt;
+            font-size: 8pt;
         }
 
         .border {

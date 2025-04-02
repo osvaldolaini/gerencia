@@ -54,9 +54,9 @@ class UploadImage extends Component
                 $code = Str::uuid();
                 $new_name = $code . '.jpg';
 
-                $path = storage_path('app/public/student/' . $this->student->id);
+                // $path = storage_path('app/public/student/' . $this->student->id);
 
-                Storage::makeDirectory($path, 0755, true, true);
+                Storage::makeDirectory('public/student/' . $this->student->id, 0755, true, true);
 
                 $this->uploadimage->storeAs('public/student/' . $this->student->id, $new_name);
                 $this->student->logo_path = $new_name;

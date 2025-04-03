@@ -57,7 +57,6 @@ class SchoolClassesStudents extends Component
     #[On('update_list')]
     public function render(TableService $queryService)
     {
-
         $dataTable = $queryService
             ->setModel($this->model)
             ->setParameters([

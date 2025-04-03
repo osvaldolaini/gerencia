@@ -76,7 +76,7 @@
                     </tbody>
                 </x-slot>
 
-                <x-slot name="link">
+                <x-slot name="link" wire:ignore>
                     {{ $dataTable->links() }}
                 </x-slot>
             </x-layout.table>

@@ -11,7 +11,6 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-
 use Illuminate\Support\Str;
 
 class Buttons extends Component
@@ -53,9 +52,9 @@ class Buttons extends Component
     {
         $config = Settings::find(1);
 
-        $logoPath = Storage::exists('public/logos-school/logo-header.png')
-            ? url('storage/logos-school/logo-header.png')
-            : url('storage/logos/logo-pdf.png');
+        $logoPath = Storage::exists('public/companies/' . $this->company->id)
+            ? url('public/companies/' . $this->company->id . '/' . $this->company->code_image . '_.big')
+            : url('storage/logos-school/logo-header.png');
         // Crie uma instância do mPDF
         $mpdf = new \Mpdf\Mpdf([
             'mode'          => 'utf-8',

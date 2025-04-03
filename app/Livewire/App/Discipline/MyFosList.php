@@ -49,9 +49,9 @@ class MyFosList extends Component
                 'sort' => $this->sorts,
                 'paginate' => $this->paginate,
                 'search' => $this->search,
-                'where' => [
-                    'fact_observeds.created_by' => Auth::user()->name,
-                ],
+                // 'where' => [
+                //     'fact_observeds.created_by' => Auth::user()->name,
+                // ],
                 'customSearch' => $this->customSearch,
                 'active' => $this->active,
             ])

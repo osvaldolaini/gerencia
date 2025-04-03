@@ -74,12 +74,17 @@ class SchoolFaultForm extends Component
     {
         if ($property === 'companies_id') {
             $this->grades = Companies::find($this->companies_id)->grade->sortBy('nick');
+            $this->students = [];
+            $this->dispatch('removeAll');
         }
         if ($property === 'school_grades_id') {
             $this->classes = SchoolGrades::find($this->school_grades_id)->getClasses->sortBy('order');
+            $this->students = [];
+            $this->dispatch('removeAll');
         }
         if ($property === 'school_classes_id') {
             $this->school_classes_year_id = SchoolClassesYears::where('active', 1)->first()->id;
+            $this->dispatch('removeAll');
         }
     }
     #[On('updateStudents')]
@@ -106,18 +111,23 @@ class SchoolFaultForm extends Component
     public function real_save()
     {
         $this->rules = [
-            'student_id' => 'required',
-            'date'      => 'required',
+            'date'                      => 'required',
+            'qtd'                       => 'required',
+            'companies_id'              => 'required',
+            'school_grades_id'          => 'required',
+            'school_classes_id'         => 'required',
         ];
+
         $this->validate();
+        // dd($this->validate());
         if ($this->id) {
             SchoolFaults::updateOrCreate([
                 'id'    => $this->id,
             ], [
-                'name'                  => $this->name,
+                // 'name'                  => $this->name,
                 'id'                    => $this->id,
                 'student_id'            => $this->student_id,
-                'date'                  => $this->date_view,
+                'date'                  => $this->date,
                 'companies_id'          => $this->companies_id,
                 'school_grades_id'      => $this->school_grades_id,
                 'school_classes_id'     => $this->school_classes_id,
@@ -130,14 +140,13 @@ class SchoolFaultForm extends Component
         } else {
             foreach ($this->students as $key => $value) {
                 $this->student_id       = $value['id'];
-                $people                 = Peoples::find($this->student_id);
 
-                $school_faults = SchoolFaults::create([
+                SchoolFaults::create([
                     'active'                => 1,
-                    'name'                  => $this->name,
+                    // 'name'                  => $this->name,
                     'id'                    => $this->id,
                     'student_id'            => $this->student_id,
-                    'date'                  => $this->date_view,
+                    'date'                  => $this->date,
                     'companies_id'          => $this->companies_id,
                     'school_grades_id'      => $this->school_grades_id,
                     'school_classes_id'     => $this->school_classes_id,
@@ -151,7 +160,7 @@ class SchoolFaultForm extends Component
         }
 
         $this->openAlert('success', $msg);
-        return $id;
+        // return $id;
     }
     public function openAlert($status, $msg)
     {

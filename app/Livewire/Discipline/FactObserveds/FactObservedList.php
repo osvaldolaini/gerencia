@@ -56,6 +56,7 @@ class FactObservedList extends Component
                 'active' => $this->active,
             ])
             ->getData();
+        // dd($dataTable);
         return view(
             'livewire.discipline.fact-observeds.fact-observed-list',
             compact('dataTable')

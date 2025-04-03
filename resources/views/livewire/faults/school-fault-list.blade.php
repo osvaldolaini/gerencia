@@ -1,7 +1,6 @@
-<div x-init>
+<div>
     @php
-        use App\Enums\MilitaryRank;
-        use App\Enums\FunctionsObserver;
+        use Carbon\Carbon;
     @endphp
     <x-layout.breadcrumb>
         <x-slot name="left">
@@ -9,7 +8,6 @@
                 {{ $breadcrumb }}
             </h3>
         </x-slot>
-
     </x-layout.breadcrumb>
     <x-layout.search>
         <x-slot name="button">
@@ -24,98 +22,109 @@
             </button>
         </x-slot>
     </x-layout.search>
-    <x-layout.table>
-        <x-slot name="head">
-            <thead class="bg-gray-50 dark:bg-gray-800">
-                <tr scope="col" class="text-gray-500 dark:text-gray-400">
-                    <th scope="col" wire:click="addSort('date')"
-                        class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
-                        <x-layout.table-sort-button :sorts='$sorts' field="date">
-                            Data
-                        </x-layout.table-sort-button>
-                    </th>
-                    <th scope="col" wire:click="addSort('people.name')"
-                        class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
-                        <x-layout.table-sort-button :sorts='$sorts' field="people.name">
-                            Aluno
-                        </x-layout.table-sort-button>
-                    </th>
-                    <th scope="col" wire:click="addSort('people.number')"
-                        class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
-                        <x-layout.table-sort-button :sorts='$sorts' field="people.number">
-                            Nr
-                        </x-layout.table-sort-button>
-                    </th>
-                    <th scope="col"
-                        class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
-                        Opções
-                    </th>
-                </tr>
-            </thead>
-        </x-slot>
-        <x-slot name="body">
-            <tbody class="relative p-0 m-0 bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                @foreach ($dataTable as $item)
-                    <tr>
-                        <td x-data="{ show: false, x: 0, y: 0 }"
-                            class="relative flex items-center px-4 py-1 space-x-2 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
-
-                            @if ($item->code_image)
-                                <div class="avatar">
-                                    <div class="relative w-8 rounded-full cursor-pointer">
-                                        <!-- Avatar pequeno -->
-                                        <img @mouseleave="show = false"
-                                            @mouseover="show = true; x = $event.clientX; y = $event.clientY"
-                                            src="{{ url('storage/people/' . $item->id . '/' . $item->code_image . '_list.png') }}"
-                                            alt="{{ $item->name }}">
+    <div class="mt-5 space-y-4">
+        <!-- Lista de itens arrastáveis -->
+        <div>
+            @foreach ($dataTable as $item)
+                <div class="mb-10 rounded-md cursor-pointer">
+                    <h2 id="w-full text-center items-center">
+                        <div type="button"
+                            class="items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 dark:bg-gray-900 rounded-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                            <div class="grid grid-cols-8 gap-2 mx-2 ">
+                                <div class="flex justify-between pl-2 col-span-full ">
+                                    <div class="p-0">
+                                        Falta lançada em
+                                        {{ Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at)->format('d/m/Y H:i:s') }}
+                                        por {{ $item->created_by }}.
                                     </div>
                                 </div>
-
-                                <!-- Foto maior ao passar o mouse -->
-                                <div x-show="show" x-transition.opacity
-                                    class="fixed z-50 w-32 h-32 p-1 bg-white border-2 border-gray-300 rounded-lg shadow-lg"
-                                    :style="'top: ' + (y + 10) + 'px; left: ' + (x + 10) + 'px;'">
-                                    <img src="{{ url('storage/people/' . $item->id . '/' . $item->code_image . '_small.png') }}"
-                                        alt="Foto grande" class="w-full h-full rounded-lg">
-                                </div>
-                            @else
-                                <div class="avatar">
-                                    <div class="relative w-8 rounded-full cursor-pointer">
+                                <div class="pl-2 col-span-full sm:col-span-1">
+                                    @if ($item->student_id)
+                                        @if ($item->path)
+                                            <img src="{{ url('storage/student/' . $item->student_id . '/' . $item->path) }}"
+                                                class="mx-auto rounded-md">
+                                        @else
+                                            <x-application-logo width="h-12"></x-application-logo>
+                                        @endif
+                                    @else
                                         <x-application-logo width="h-12"></x-application-logo>
+                                    @endif
+                                </div>
+                                <div class="col-span-full sm:col-span-2">
+                                    <h1 class="text-3xl font-bold">
+                                        Al. {{ $item->students->nick }}
+                                    </h1>
+                                    <div class="max-w-xs">
+                                        <p>
+                                            nº. {{ $item->students->number }}
+                                        </p>
+                                        <p>
+                                            T. {{ $item->students->al_class->title }}
+                                        </p>
                                     </div>
                                 </div>
-                            @endif
-                            <span class="{{ $item->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
-                                {{ $item->name }}
-                            </span>
-                        </td>
+                                <div class="pl-2 space-y-2 col-span-full sm:col-span-2">
+                                    <span class="btn btn-outline dark:btn-success btn-sm ">
+                                        Data {{ $item->date_view }}
+                                    </span>
+                                    <span class="btn btn-outline dark:btn-success btn-sm">
+                                        Períodos {{ $item->qtd }}
+                                    </span>
+                                </div>
+                                <div class="col-span-full sm:col-span-3">
+                                    <div class="justify-start block space-x-2 space-y-2 font-medium duration-200 ">
 
-                        <td class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
-                            <span class="{{ $item->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
-                                {{ MilitaryRank::fromDb($item->posto_grad)?->label() ?? '' }} {{ $item->nick }}
-                            </span>
-                        </td>
+                                        @if (in_array('update', auth()->user()->jsonActivities))
+                                            <button wire:click='showUpdate({{ $item->id }})'
+                                                class="btn btn-outline dark:btn-accent btn-sm">
+                                                Editar
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                        @endif
 
-                        <td class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
-                            <span class="{{ $item->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
-                                {{ FunctionsObserver::fromDb($item->function)?->label() ?? '' }}
-                            </span>
-                        </td>
+                                        @if (in_array('active', auth()->user()->jsonActivities))
+                                            <button wire:click="showModalDelete({{ $item->id }})"
+                                                class="btn btn-outline dark:btn-accent btn-sm">
+                                                Apagar
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                                    </path>
+                                                </svg>
+                                                <!-- SVG de Apagar -->
+                                            </button>
+                                        @endif
 
-                        <td class="w-1/6 px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
-                            <x-layout.table-options id='{{ $item->id }}' active='{{ $item->status }}'>
-                            </x-layout.table-options>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </x-slot>
+                                        <button @click="$wire.addStudent(item.id)"
+                                            class="btn btn-outline dark:btn-accent btn-sm">
+                                            Justificativa
+                                            <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M4 19V6.2C4 5.0799 4 4.51984 4.21799 4.09202C4.40973 3.71569 4.71569 3.40973 5.09202 3.21799C5.51984 3 6.0799 3 7.2 3H16.8C17.9201 3 18.4802 3 18.908 3.21799C19.2843 3.40973 19.5903 3.71569 19.782 4.09202C20 4.51984 20 5.0799 20 6.2V17H6C4.89543 17 4 17.8954 4 19ZM4 19C4 20.1046 4.89543 21 6 21H20M9 7H15M9 11H15M19 17V21"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </button>
 
-        <x-slot name="link">
-            {{ $dataTable->links() }}
-        </x-slot>
-    </x-layout.table>
-
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h2>
+                </div>
+            @endforeach
+            <div class="items-center justify-between py-4" wire:ignore>
+                {{ $dataTable->links() }}
+            </div>
+        </div>
+    </div>
     {{-- MODAL DELETE --}}
     <x-confirmation-modal wire:model="showJetModal">
         <x-slot name="title">
@@ -138,38 +147,6 @@
         </x-slot>
     </x-confirmation-modal>
 
-    {{-- MODAL READ --}}
-    <x-dialog-modal wire:model="showModalForm">
-        <x-slot name="title">Detalhes</x-slot>
-        <x-slot name="content">
-            <dl class="text-gray-900 divide-y divide-gray-200 max-w dark:text-white dark:divide-gray-700">
-                @if ($detail)
-                    @foreach ($detail as $item => $value)
-                        @if ($value)
-                            @if ($item == 'Foto')
-                                <figure class="w-48">
-                                    <img class="photo" src="{{ $value }}" alt="Movie" />
-                                </figure>
-                            @else
-                                <div class="flex flex-col pb-1">
-                                    <dt class="text-gray-500 md:text-lg dark:text-gray-400">{{ $item }}:
-                                    </dt>
-                                    <dd class="text-lg font-semibold">
-                                        {{ $value }}
-                                    </dd>
-                                </div>
-                            @endif
-                        @endif
-                    @endforeach
-                @endif
-            </dl>
-        </x-slot>
-        <x-slot name="footer">
-            <x-secondary-button wire:click="$toggle('showModalView')" class="mx-2">
-                Fechar
-            </x-secondary-button>
-        </x-slot>
-    </x-dialog-modal>
     {{-- MODAL FORM --}}
 
     <x-dialog-modal wire:model="showModalForm" maxWidth="4xl">
@@ -185,6 +162,4 @@
 
         </x-slot>
     </x-dialog-modal>
-
-
 </div>

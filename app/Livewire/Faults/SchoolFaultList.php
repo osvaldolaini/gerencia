@@ -26,14 +26,15 @@ class SchoolFaultList extends Component
     public $model = "App\Models\Fault\SchoolFaults"; //Model principal
     public $modelId = "school_faults.id"; //Ex: 'table.id' or 'id'
     public $search;
-    public $sorts = ['school_faults.date' => 'asc'];
+    public $sorts = ['school_faults.date' => 'desc'];
     public $relationTables =  "peoples,peoples.id,school_faults.student_id"; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'peoples.name,peoples.nick,peoples.number,peoples.sex,peoples.logo_path,school_faults.active as status,date';
-    public $searchable = 'peoples.name,peoples.nick,peoples.number,date'; //Colunas pesquisadas no banco de dados
+    public $columnsInclude = 'student_id,peoples.name,qtd,school_faults.created_at,peoples.nick,peoples.number,peoples.logo_path as path,school_faults.created_by,school_faults.date,school_faults.active as status';
+    public $searchable = 'peoples.name,peoples.nick,peoples.number,student_id,school_faults.created_by,date'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
     public $active = 'school_faults.active';
+
 
     #[On('see_excluded')]
     public function render(TableService $queryService)
@@ -48,10 +49,14 @@ class SchoolFaultList extends Component
                 'sort' => $this->sorts,
                 'paginate' => $this->paginate,
                 'search' => $this->search,
+                // 'where' => [
+                //     'school_faults.created_by' => Auth::user()->name,
+                // ],
                 'customSearch' => $this->customSearch,
                 'active' => $this->active,
             ])
             ->getData();
+        // dd($dataTable);
         return view(
             'livewire.faults.school-fault-list',
             compact('dataTable')

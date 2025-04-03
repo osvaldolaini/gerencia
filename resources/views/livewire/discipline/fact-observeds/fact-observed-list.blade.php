@@ -38,7 +38,6 @@
                                             {{ $item->fact_type }}</span> Nº <span>{{ $item->fact_number }}
                                             - ocorrido em {{ $item->f_date . ' às ' . $item->fact_hour }} por
                                             {{ $item->fact_observer . ' ' . $item->fact_observer_function }}.
-
                                         </span>
                                     </div>
                                 </div>

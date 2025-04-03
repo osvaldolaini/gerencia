@@ -2,9 +2,11 @@
 
 namespace App\Models\Fault;
 
+use App\Models\Peoples;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -68,10 +70,13 @@ class SchoolFaults extends Model
     {
         $this->attributes['date'] = $this->dbDate($value);
     }
-    public function getDateViewAttribute($value)
+    public function getDateViewAttribute()
     {
-        if ($value != "") {
-            return $this->viewDate($value);
-        }
+        return $this->viewDate($this->date);
+    }
+
+    public function students(): BelongsTo
+    {
+        return $this->belongsTo(Peoples::class, 'student_id', 'id');
     }
 }

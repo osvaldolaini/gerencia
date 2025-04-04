@@ -5,11 +5,13 @@
 > Novidades
 
     ->Lançamento de faltas
+    ->Inserir Pdf
 
 > Correções
 
     ->Upload da foto do aluno
     ->Tabela da turma com tamanho da folha
+    ->Usuário trocar o nome
 
 ## Versão Santos Dumont 1.3.2 - APP
 

@@ -17,7 +17,9 @@ use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineForm;
 use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineList;
 use App\Livewire\Discipline\Settings\Faults\FaultForm;
 use App\Livewire\Discipline\Settings\Faults\FaultList;
+use App\Livewire\Faults\SchoolFaultEdit;
 use App\Livewire\Faults\SchoolFaultForm;
+use App\Livewire\Faults\SchoolFaultJustified;
 use App\Livewire\Faults\SchoolFaultList;
 use App\Livewire\Peoples\PeopleForm;
 use App\Livewire\Peoples\PeopleList;
@@ -270,8 +272,10 @@ Route::middleware([
         ->name('school-faults-list');
     Route::get('/faltas-escolares/novo', SchoolFaultForm::class)
         ->name('school-faults-create');
-    Route::get('/faltas-escolares/{school_faults}/editar', SchoolFaultForm::class)
+    Route::get('/faltas-escolares/{school_faults}/editar', SchoolFaultEdit::class)
         ->name('school-faults-edit');
+    Route::get('/faltas-escolares/{school_faults}/justificativa', SchoolFaultJustified::class)
+        ->name('school-faults-justified');
 });
 
 Route::middleware([

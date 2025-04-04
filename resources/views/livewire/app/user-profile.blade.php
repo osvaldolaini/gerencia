@@ -31,6 +31,16 @@
                             <span class="error">{{ $message }}</span>
                         @enderror
                     </div>
+                    <!-- Email -->
+                    <div class="col-span-6 sm:col-span-4">
+                        <label for="email"class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Email</label>
+                        <input type="email" wire:model="email" placeholder="Email"
+                            class="w-full border-gray-300 rounded-md shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600">
+                        @error('email')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
+                    </div>
 
                     <!-- Nome guerra -->
                     <div class="col-span-6 sm:col-span-4">

@@ -48,7 +48,7 @@ class UserProfile extends Component
             $this->accesses         = $this->user->jsonAccesses;
             $this->activities       = $this->user->activities;
 
-            $this->name = $this->user->name;
+            // $this->name = $this->user->name;
             $this->nick = $this->user->people->nick;
             $this->posto_grad = $this->user->people->posto_grad;
             $this->function = $this->user->people->function;
@@ -88,16 +88,15 @@ class UserProfile extends Component
         $this->user->email  = $this->email;
         $this->user->save();
 
-        $this->name = $this->user->name;
-        $this->nick = $this->user->people->nick;
-        $this->posto_grad = $this->user->people->posto_grad;
-        $this->function = $this->user->people->function;
-        $this->sex = $this->user->people->sex;
+        $this->nick         = $this->user->people->nick;
+        $this->posto_grad   = $this->user->people->posto_grad;
+        $this->function     = $this->user->people->function;
+        $this->sex          = $this->user->people->sex;
 
         if ($this->password) {
             $this->user->email  = Hash::make($this->password);
         }
-        $this->people->name         = $this->name;
+        $this->people->name         = $this->user->name;
         $this->people->nick         = $this->nick;
         $this->people->posto_grad   = $this->posto_grad;
         $this->people->function     = $this->function;

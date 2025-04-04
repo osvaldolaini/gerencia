@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('school_faults', function (Blueprint $table) {
             $table->id();
             $table->boolean('active');
+            $table->boolean('justified')->nullable();
+            $table->mediumText('text')->nullable();
+            $table->string('logo_path', 100)->nullable();
             $table->foreignId('student_id')
                 ->nullable()
                 ->constrained('peoples')

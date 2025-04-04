@@ -28,9 +28,9 @@ class SchoolFaultList extends Component
     public $search;
     public $sorts = ['school_faults.date' => 'desc'];
     public $relationTables =  "peoples,peoples.id,school_faults.student_id"; //Relacionamentos ( table , key , foreingKey )
-    public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'student_id,peoples.name,qtd,school_faults.created_at,peoples.nick,peoples.number,peoples.logo_path as path,school_faults.created_by,school_faults.date,school_faults.active as status';
-    public $searchable = 'peoples.name,peoples.nick,peoples.number,student_id,school_faults.created_by,date'; //Colunas pesquisadas no banco de dados
+    public $customSearch = ['date' => 'date'];  //Colunas personalizadas, customizar no model
+    public $columnsInclude = 'date,student_id,peoples.name,justified,qtd,school_faults.created_at,peoples.nick,peoples.number,peoples.logo_path as path,school_faults.created_by,school_faults.active as status';
+    public $searchable = 'date,peoples.name,peoples.nick,peoples.number,student_id'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
     public $active = 'school_faults.active';
@@ -81,20 +81,14 @@ class SchoolFaultList extends Component
             $this->showModalForm = true;
             $this->school_faults = '';
         } else {
-            redirect()->route('school-fault-create');
+            redirect()->route('school-faults-create');
         }
     }
 
     //Update
     public function showUpdate($id)
     {
-
-        if ($this->modal) {
-            $this->showModalForm = true;
-            $this->school_faults = SchoolFaults::find($id);
-        } else {
-            redirect()->route('school-fault-edit', $id);
-        }
+        redirect()->route('school-faults-edit', $id);
     }
 
     //DELETE

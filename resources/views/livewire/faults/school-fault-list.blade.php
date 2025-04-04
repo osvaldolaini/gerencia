@@ -51,7 +51,8 @@
                                     @endif
                                 </div>
                                 <div class="col-span-full sm:col-span-2">
-                                    <h1 class="text-3xl font-bold">
+                                    <h1
+                                        class="text-3xl font-bold {{ $item->students->sex == 'F' ? 'text-red-500' : 'text-blue-500' }}">
                                         Al. {{ $item->students->nick }}
                                     </h1>
                                     <div class="max-w-xs">
@@ -63,13 +64,22 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="pl-2 space-y-2 col-span-full sm:col-span-2">
+                                <div class="space-y-2 col-span-full sm:col-span-2">
                                     <span class="btn btn-outline dark:btn-success btn-sm ">
                                         Data {{ $item->date_view }}
                                     </span>
                                     <span class="btn btn-outline dark:btn-success btn-sm">
-                                        Períodos {{ $item->qtd }}
+                                        {{ $item->qtd }} período{{ $item->qtd > 1 ? 's' : '' }}
                                     </span>
+                                    @if ($item->justified == 0)
+                                        <span class="btn btn-outline dark:btn-error btn-sm">
+                                            Não justificada
+                                        </span>
+                                    @else
+                                        <span class="btn btn-outline dark:btn-info btn-sm">
+                                            Justificada
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="col-span-full sm:col-span-3">
                                     <div class="justify-start block space-x-2 space-y-2 font-medium duration-200 ">
@@ -101,7 +111,7 @@
                                             </button>
                                         @endif
 
-                                        <button @click="$wire.addStudent(item.id)"
+                                        <a href="{{ route('school-faults-justified', $item->id) }}"
                                             class="btn btn-outline dark:btn-accent btn-sm">
                                             Justificativa
                                             <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none"
@@ -111,7 +121,7 @@
                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                     stroke-linejoin="round" />
                                             </svg>
-                                        </button>
+                                        </a>
 
                                     </div>
                                 </div>

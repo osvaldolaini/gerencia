@@ -19,6 +19,9 @@ class SchoolFaults extends Model
 
     protected $fillable = [
         'active',
+        'justified',
+        'logo_path',
+        'text',
         'student_id',
         'companies_id',
         'school_grades_id',
@@ -78,5 +81,37 @@ class SchoolFaults extends Model
     public function students(): BelongsTo
     {
         return $this->belongsTo(Peoples::class, 'student_id', 'id');
+    }
+
+    public function scopeFilterFields($query, $filters)
+    {
+        foreach ($filters as $key => $value) {
+
+            if ($key == 'date') {
+                if (substr_count($value, " ") === 1) {
+                    $partesSpace = explode(" ", $value);
+                    if (substr_count($partesSpace[0], "/") === 1) {
+                        $partes = explode("/", $partesSpace[0]);
+                        $converted = $partes[1] . "%-" . $partes[0] . "% " . $partesSpace[1];
+                    } elseif (substr_count($partesSpace[0], "/") === 2) {
+                        $partes = explode("/", $partesSpace[0]);
+                        $converted = $partes[2] . "%-" . $partes[1] . "-" . $partes[0] . "% " . $partesSpace[1];
+                    } else {
+                        $converted = $value;
+                    }
+                } else {
+                    if (substr_count($value, "/") === 1) {
+                        $partes = explode("/", $value);
+                        $converted = $partes[1] . "%-" . $partes[0];
+                    } elseif (substr_count($value, "/") === 2) {
+                        $partes = explode("/", $value);
+                        $converted = $partes[2] . "%-" . $partes[1] . "-" . $partes[0];
+                    } else {
+                        $converted = $value;
+                    }
+                }
+                return array('f' => 'LIKE', 'converted' => '%' . $converted . '%');
+            }
+        }
     }
 }

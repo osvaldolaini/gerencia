@@ -88,10 +88,10 @@ class UserProfile extends Component
         $this->user->email  = $this->email;
         $this->user->save();
 
-        $this->nick         = $this->user->people->nick;
-        $this->posto_grad   = $this->user->people->posto_grad;
-        $this->function     = $this->user->people->function;
-        $this->sex          = $this->user->people->sex;
+        // $this->nick         = $this->nick;
+        // $this->posto_grad   = $this->user->people->posto_grad;
+        // $this->function     = $this->user->people->function;
+        // $this->sex          = $this->user->people->sex;
 
         if ($this->password) {
             $this->user->email  = Hash::make($this->password);

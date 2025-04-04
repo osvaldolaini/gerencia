@@ -35,7 +35,6 @@ class Dashboard extends Component
     {
         $this->config = Settings::find(1);
         $this->darkMode = Auth::user()->dark;
-        $this->viewVersion = Auth::user()->viewVersion;
 
         $this->school_years = SchoolClassesYears::where('active', 1)->first();
         $this->school_classes_year_id           = $this->school_years->id;
@@ -54,6 +53,7 @@ class Dashboard extends Component
     }
     public function render()
     {
+        $this->viewVersion = Auth::user()->viewVersion;
         if (request()->userAgent() && str_contains(request()->userAgent(), 'Mobile')) {
             return view('livewire.app.dashboard-mobile')->layout('layouts.' . $this->layout . '-mobile');
         } else {

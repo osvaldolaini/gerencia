@@ -33,6 +33,7 @@ class User extends Authenticatable
         'active',
         'name',
         'email',
+        'viewVersion',
         'password',
         'groups',
         'accesses',

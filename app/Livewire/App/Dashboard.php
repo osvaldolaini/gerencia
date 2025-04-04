@@ -29,11 +29,13 @@ class Dashboard extends Component
     public $school_grade;
     public $companies;
     public $school_classes_year_id;
+    public $viewVersion;
 
     public function mount()
     {
         $this->config = Settings::find(1);
         $this->darkMode = Auth::user()->dark;
+        $this->viewVersion = Auth::user()->viewVersion;
 
         $this->school_years = SchoolClassesYears::where('active', 1)->first();
         $this->school_classes_year_id           = $this->school_years->id;
@@ -65,6 +67,11 @@ class Dashboard extends Component
     public function fault_form()
     {
         $this->fault = true;
+    }
+    public function view()
+    {
+        Auth::user()->viewVersion = 1;
+        Auth::user()->save();
     }
 
     //configs user

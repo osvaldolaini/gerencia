@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('active');
+            $table->boolean('viewVersion');
             $table->string('groups');
             $table->string('accesses')->nullable();
             $table->string('activities')->nullable();

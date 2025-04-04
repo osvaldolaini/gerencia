@@ -12,6 +12,7 @@
     ->Upload da foto do aluno
     ->Tabela da turma com tamanho da folha
     ->Usuário trocar o nome
+    ->Correção do redirecionamenteo de "app" para "aplicativo"
 
 ## Versão Santos Dumont 1.3.2 - APP
 

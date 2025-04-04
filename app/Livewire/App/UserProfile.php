@@ -49,10 +49,10 @@ class UserProfile extends Component
             $this->activities       = $this->user->activities;
 
             // $this->name = $this->user->name;
-            $this->nick = $this->user->people->nick;
-            $this->posto_grad = $this->user->people->posto_grad;
-            $this->function = $this->user->people->function;
-            $this->sex = $this->user->people->sex;
+            $this->nick         = $this->user->people->nick;
+            $this->posto_grad   = $this->user->people->posto_grad;
+            $this->function     = $this->user->people->function;
+            $this->sex          = $this->user->people->sex;
         }
         $this->groups = UserGroups::cases();
 
@@ -96,7 +96,7 @@ class UserProfile extends Component
         if ($this->password) {
             $this->user->email  = Hash::make($this->password);
         }
-        $this->people->name         = $this->user->name;
+        $this->people->name         = $this->name;
         $this->people->nick         = $this->nick;
         $this->people->posto_grad   = $this->posto_grad;
         $this->people->function     = $this->function;

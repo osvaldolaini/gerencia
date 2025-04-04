@@ -97,4 +97,9 @@ class SchoolGrades extends Model
     {
         return $this->hasMany(SchoolClasses::class, 'school_grade_id', 'id');
     }
+
+    public function students_live($school_classes_year_id)
+    {
+        return SchoolClassesStudent::where('active', 1)->where('school_classes_year_id', $school_classes_year_id)->count();
+    }
 }

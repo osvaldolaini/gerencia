@@ -24,16 +24,16 @@ class FaultDisciplineList extends Component
     //Dados da tabela
     protected $queryService;
     public $model = "App\Models\Discipline\FaultDiscipline"; //Model principal
-    public $modelId = "id"; //Ex: 'table.id' or 'id'
+    public $modelId = "fault_disciplines.id"; //Ex: 'table.id' or 'id'
     public $search;
     public $sorts = ['number' => 'desc'];
-    public $relationTables; //Relacionamentos ( table , key , foreingKey )
+    public $relationTables = "peoples,peoples.id,fault_disciplines.student_id";  //Relacionamentos ( table , key , foreingKey )
     public $customSearch; //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'number,year,al_nick,student_id,al_number,al_class,fact_date,solution_date,delivered_date,justification_date,bi_date,sincomil_date,active as status';
+    public $columnsInclude = 'number,year,al_nick,student_id,al_number,al_class,fact_date,solution_date,delivered_date,justification_date,bi_date,sincomil_date,fault_disciplines.active as status';
     public $searchable = 'number,year,al_nick,al_number,al_class'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 10; //Qtd de registros por página
-    public $active = 'active';
+    public $active = 'fault_disciplines.active';
 
     #[On('see_excluded')]
     public function render(TableService $queryService)

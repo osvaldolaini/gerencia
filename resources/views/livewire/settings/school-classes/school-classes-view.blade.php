@@ -17,8 +17,8 @@
             {{ $company->name }}
         </span>
     </small>
-    <div class="grid w-full grid-cols-2">
-        <div class='flex justify-center col-span-2 text-right'>
+    <div class="grid w-full grid-cols-4">
+        <div class='flex justify-center col-span-4 text-right'>
             <div class="p-0 tooltip tooltip-top" data-tip="imprimir chamada">
                 <a class="btn btn-outline btn-success" wire:click='printClasses()' target="_blank">
                     imprimir <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor"
@@ -68,7 +68,7 @@
         </div>
 
         @foreach ($classes as $key => $value)
-            <div class="col-span-2 sm:col-span-1">
+            <div class="col-span-4 sm:col-span-1 ">
                 <table class="flex justify-center mx-10 mb-10 rounded-md ">
                     <tr class="w-full py-5">
                         <th colspan="7">
@@ -91,11 +91,6 @@
                     <tr class="w-full border">
                         <th class="w-20 text-left border">Aluno</th>
                         <th class="w-20 text-left border">Nr</th>
-                        <th class="w-10 text-center border">2ªf</th>
-                        <th class="w-10 text-center border">3ªf</th>
-                        <th class="w-10 text-center border">4ªf</th>
-                        <th class="w-10 text-center border">5ªf</th>
-                        <th class="w-10 text-center border">6ªf</th>
                     </tr>
                     @php
                         $c = 0;
@@ -107,16 +102,11 @@
                         <tr class="border text-md">
                             <td class="text-left border">{{ $pivot->students->nick }}</td>
                             <td class="text-center border">{{ $pivot->students->number }}</td>
-                            <td class="text-center border"></td>
-                            <td class="text-center border"></td>
-                            <td class="text-center border"></td>
-                            <td class="text-center border"></td>
-                            <td class="text-center border"></td>
                         </tr>
                     @endforeach
                     <tr class="border">
-                        <td colspan="6" class="text-right border">Total</td>
-                        <td class="text-left border">{{ $c }}</td>
+                        <td class="text-right border">Total</td>
+                        <td class="text-center border">{{ $c }}</td>
                     </tr>
                 </table>
             </div>

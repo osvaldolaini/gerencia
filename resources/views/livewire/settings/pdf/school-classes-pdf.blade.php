@@ -121,7 +121,7 @@
                         <td class="text-center border">{{ $c }}</td>
                         <td></td>
                         <td colspan="6" class="text-right border">Total</td>
-                        <td class="text-centerborder">{{ $c }}</td>
+                        <td class="text-center border">{{ $c }}</td>
                     </tr>
 
                     </tr>

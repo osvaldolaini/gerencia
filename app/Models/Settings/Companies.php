@@ -86,4 +86,19 @@ class Companies extends Model
     {
         return $this->belongsTo(Peoples::class, 'people_id', 'id');
     }
+    public function students_live($school_classes_year_id)
+    {
+        $grades = $this->grade;
+        $class = [];
+        foreach ($grades as $grade) {
+            // $class = $grade->getClasses->pluck('id')->toArray();
+            foreach ($grade->getClasses->pluck('id')->toArray() as $item) {
+                $class[] = $item;
+            }
+        }
+
+dd($class);
+        $students = SchoolClassesStudent::where('active', 1)->where('school_classes_year_id', $school_classes_year_id)->whereId('school_classes_id', $class)->count();
+        return $students;
+    }
 }

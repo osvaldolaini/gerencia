@@ -37,9 +37,7 @@
                                     </div>
                                 </div>
                                 <div class="pl-2 col-span-full sm:col-span-1">
-                                    {{ $item->student_id }}
                                     @if ($item->student_id)
-                                        {{ $item->students->logo_path }}
                                         @if ($item->students->logo_path)
                                             <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_big.png') }}"
                                                 class="mx-auto rounded-md">

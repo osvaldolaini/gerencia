@@ -29,8 +29,8 @@ class FaultDisciplineList extends Component
     public $sorts = ['number' => 'desc'];
     public $relationTables = "peoples,peoples.id,fault_disciplines.student_id";  //Relacionamentos ( table , key , foreingKey )
     public $customSearch; //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'number,year,al_nick,student_id,al_number,al_class,fact_date,solution_date,delivered_date,justification_date,bi_date,sincomil_date,fault_disciplines.active as status';
-    public $searchable = 'number,year,al_nick,al_number,al_class'; //Colunas pesquisadas no banco de dados
+    public $columnsInclude = 'fault_disciplines.number,year,al_nick,student_id,al_number,al_class,fact_date,solution_date,delivered_date,justification_date,bi_date,sincomil_date,fault_disciplines.active as status';
+    public $searchable = 'fault_disciplines.number,year,al_nick,al_number,al_class'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 10; //Qtd de registros por página
     public $active = 'fault_disciplines.active';

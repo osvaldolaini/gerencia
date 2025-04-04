@@ -204,6 +204,7 @@ class FaultDiscipline extends Model
     {
         return $this->belongsTo(Peoples::class, 'student_id', 'id');
     }
+
     public function observers(): BelongsTo
     {
         return $this->belongsTo(Peoples::class, 'fact_observer_id', 'id');

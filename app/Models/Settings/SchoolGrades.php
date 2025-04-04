@@ -100,6 +100,16 @@ class SchoolGrades extends Model
 
     public function students_live($school_classes_year_id)
     {
-        return SchoolClassesStudent::where('active', 1)->where('school_classes_year_id', $school_classes_year_id)->count();
+        $grades = $this;
+        $class = [];
+
+        foreach ($grades->getClasses->pluck('id')->toArray() as $item) {
+            $class[] = $item;
+        }
+
+        $students = SchoolClassesStudent::where('active', 1)
+            ->where('school_classes_year_id', $school_classes_year_id)
+            ->whereIn('school_classes_id', $class)->get();
+        return $students->count();
     }
 }

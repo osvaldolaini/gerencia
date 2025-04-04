@@ -97,8 +97,9 @@ class Companies extends Model
             }
         }
 
-dd($class);
-        $students = SchoolClassesStudent::where('active', 1)->where('school_classes_year_id', $school_classes_year_id)->whereId('school_classes_id', $class)->count();
-        return $students;
+        $students = SchoolClassesStudent::where('active', 1)
+            ->where('school_classes_year_id', $school_classes_year_id)
+            ->whereIn('school_classes_id', $class)->get();
+        return $students->count();
     }
 }

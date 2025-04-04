@@ -1,6 +1,6 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
-## Versão Santos Dumont 1.3.3 - Faltas
+## Versão Santos Dumont 1.3.3 - Faltas (admin)
 
 > Novidades
 

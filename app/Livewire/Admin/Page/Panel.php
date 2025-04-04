@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Page;
 
+use App\Models\Admin\Settings\Settings;
 use App\Models\Peoples;
 use App\Models\Settings\Companies;
 use App\Models\Settings\SchoolClassesYears;
@@ -18,6 +19,7 @@ class Panel extends Component
 
     public $students;
     public $school_grades;
+    public $config;
 
     public function mount()
     {
@@ -32,6 +34,7 @@ class Panel extends Component
                 $this->companies = Companies::where('active', 1)->whereIn('id', Auth::user()->json_companies)->get();
             }
         }
+        $this->config = Settings::find(1);
 
         if (Auth::user()->panel == 'user') {
             $this->redirect('aplicativo');

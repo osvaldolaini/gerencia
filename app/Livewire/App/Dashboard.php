@@ -77,4 +77,9 @@ class Dashboard extends Component
         $this->darkMode = $user->dark;
         $this->dispatch('darkModeToggled', $this->darkMode);
     }
+    //MESSAGE
+    public function openAlert($status, $msg)
+    {
+        $this->dispatch('openAlert', $status, $msg);
+    }
 }

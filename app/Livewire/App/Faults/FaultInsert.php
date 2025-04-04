@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Faults;
+namespace App\Livewire\App\Faults;
 
 use App\Models\Fault\SchoolFaults;
 use App\Models\Peoples;
@@ -12,7 +12,8 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Illuminate\Support\Str;
 
-class SchoolFaultForm extends Component
+class FaultInsert extends Component
+
 {
     public $rules;
 
@@ -38,7 +39,7 @@ class SchoolFaultForm extends Component
     public $students;
 
 
-    public function mount(SchoolFaults $school_faults)
+    public function mount()
     {
         $companiesAccess = Auth::user()->json_companies;
         if (in_array('all', $companiesAccess)) {
@@ -46,21 +47,10 @@ class SchoolFaultForm extends Component
         } else {
             $this->companies = Companies::where('active', 1)->whereIn('id', Auth::user()->json_companies)->get();
         }
-
-        if ($school_faults->getAttributes()) {
-            $this->id                       = $school_faults->id;
-            $this->student_id               = $school_faults->student_id;
-            $this->date                     = $school_faults->date_view;
-            $this->companies_id             = $school_faults->companies_id;
-            $this->school_grades_id         = $school_faults->school_grades_id;
-            $this->school_classes_id        = $school_faults->school_classes_id;
-            $this->school_classes_year_id   = $school_faults->school_classes_year_id;
-            $this->qtd                      = $school_faults->qtd;
-        }
     }
     public function render()
     {
-        return view('livewire.faults.school-fault-form');
+        return view('livewire.app.faults.fault-insert');
     }
     #[On('updateStudent')]
     public function updateStudent($id)
@@ -91,22 +81,7 @@ class SchoolFaultForm extends Component
         $this->students = $students;
     }
 
-
     public function save()
-    {
-        $id = $this->real_save();
-        if ($id) {
-            redirect()->route($this->route . '-edit', $id)->with('success', 'Registro criado com sucesso.');
-        }
-    }
-    public function save_out()
-    {
-        $this->real_save();
-        redirect()->route($this->route . '-list')->with('success', 'Registro criado com sucesso.');
-    }
-
-
-    public function real_save()
     {
         $this->rules = [
             'date'                      => 'required',
@@ -117,11 +92,12 @@ class SchoolFaultForm extends Component
         ];
 
         $this->validate();
-        // dd($this->validate());
-        if ($this->id) {
-            SchoolFaults::updateOrCreate([
-                'id'    => $this->id,
-            ], [
+
+        foreach ($this->students as $key => $value) {
+            $this->student_id       = $value['id'];
+
+            SchoolFaults::create([
+                'active'                => 1,
                 // 'name'                  => $this->name,
                 'id'                    => $this->id,
                 'student_id'            => $this->student_id,
@@ -131,34 +107,15 @@ class SchoolFaultForm extends Component
                 'school_classes_id'     => $this->school_classes_id,
                 'school_classes_year_id' => $this->school_classes_year_id,
                 'qtd'                   => $this->qtd,
+                'code'                  => Str::uuid(),
             ]);
 
-            $id = false;
-            $msg = 'Registro editado com sucesso.';
-        } else {
-            foreach ($this->students as $key => $value) {
-                $this->student_id       = $value['id'];
-
-                SchoolFaults::create([
-                    'active'                => 1,
-                    // 'name'                  => $this->name,
-                    'id'                    => $this->id,
-                    'student_id'            => $this->student_id,
-                    'date'                  => $this->date,
-                    'companies_id'          => $this->companies_id,
-                    'school_grades_id'      => $this->school_grades_id,
-                    'school_classes_id'     => $this->school_classes_id,
-                    'school_classes_year_id' => $this->school_classes_year_id,
-                    'qtd'                   => $this->qtd,
-                    'code'                  => Str::uuid(),
-                ]);
-
-                $msg = 'Registro criado com sucesso.';
-            }
+            $msg = 'Falta registrada criado com sucesso.';
         }
 
-        $this->openAlert('success', $msg);
-        // return $id;
+        // $this->openAlert('success', $msg);
+
+        return redirect('aplicativo')->with('success', $msg);
     }
     public function openAlert($status, $msg)
     {

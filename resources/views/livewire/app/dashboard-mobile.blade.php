@@ -55,9 +55,7 @@
                 @livewire('app.fact-observeds.app-fact-observed-info')
             </div>
             <div id="tab5" x-show="activeTab === '#tab5'">
-                <div class="mx-5">
-                    <x-under-construction />
-                </div>
+                @livewire('app.faults.fault-insert')
             </div>
             <div id="tab3" x-show="activeTab === '#tab3'">
                 @livewire('app.user-profile')

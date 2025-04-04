@@ -10,4 +10,8 @@ class DashboardMobile extends Component
     {
         return view('livewire.app.dashboard-mobile');
     }
+    public function openAlert($status, $msg)
+    {
+        $this->dispatch('openAlert', $status, $msg);
+    }
 }

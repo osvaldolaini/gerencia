@@ -9,6 +9,8 @@ use App\Livewire\Admin\Users\UserForm;
 use App\Livewire\Admin\Users\UserList;
 use App\Livewire\App\Dashboard as App;
 use App\Livewire\App\Discipline\MyFosList;
+use App\Livewire\App\Faults\FaultInsert;
+use App\Livewire\App\Faults\MyFaultsList;
 use App\Livewire\Discipline\FactObserveds\FactObservedEdit;
 use App\Livewire\Discipline\FactObserveds\FactObservedForm;
 use App\Livewire\Discipline\FactObserveds\FactObservedList;
@@ -288,4 +290,8 @@ Route::middleware([
         ->name('aplicativo');
     Route::get('/disciplina/fato-observado/meus-fatos-observados', MyFosList::class)
         ->name('my-fact-observed');
+    Route::get('/faltas/inserir-faltas', FaultInsert::class)
+        ->name('insert-faults');
+    Route::get('/faltas/faltas-lancadas', SchoolFaultList::class)
+        ->name('my-insert-faults');
 });

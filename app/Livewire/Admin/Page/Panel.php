@@ -30,7 +30,7 @@ class Panel extends Component
         }
 
         if (Auth::user()->panel == 'user') {
-            $this->redirect('app');
+            $this->redirect('aplicativo');
         }
     }
     public function render()

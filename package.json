@@ -25,6 +25,7 @@
         "@fullcalendar/multimonth": "^6.1.15",
         "@fullcalendar/timegrid": "^6.1.15",
         "alpinejs": "^3.14.1",
+        "chart.js": "^4.4.8",
         "flatpickr": "^4.6.13",
         "flowbite": "^2.5.1",
         "inputmask": "^5.0.9",

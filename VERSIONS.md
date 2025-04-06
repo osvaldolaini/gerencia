@@ -5,6 +5,7 @@
 > Novidades
 
     ->Quantidade de alunos por turma no painel
+    ->Gráfico de (M/F) por turma
 
 ## Versão Santos Dumont 1.3.4 - Faltas (user)
 

@@ -7,7 +7,6 @@
                 }'
                 x-init="const chartData = data;
                 const chartLabels = labels;
-                console.log(data);
                 new Chart($refs.third, {
                     type: 'pie',
                     data: {

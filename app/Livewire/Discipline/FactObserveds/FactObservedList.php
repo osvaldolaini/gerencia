@@ -19,11 +19,13 @@ class FactObservedList extends Component
     public $showJetModal = false;
     public $showModalForm = false;
     public $modalFafd = false;
+    public $showReadModal = false;
 
     public $rules;
     public $detail;
     public $fact_observed;
     public $id;
+    public $read;
 
     //Dados da tabela
     protected $queryService;
@@ -99,6 +101,15 @@ class FactObservedList extends Component
             $this->id = $id;
         } else {
             $this->id = '';
+        }
+    }
+    //VER
+    public function showRead($id)
+    {
+        $this->showReadModal = true;
+        $this->read = '';
+        if ($id) {
+            $this->read = FactObserved::find($id);
         }
     }
     //DELETE

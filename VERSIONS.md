@@ -2,6 +2,10 @@
 
 ## Versão Santos Dumont 1.3.6
 
+> Novidades
+
+    ->Botão para ver o fato
+
 > Correções
 
     ->Ordem dos alunos por nome (chamada)

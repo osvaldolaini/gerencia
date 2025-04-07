@@ -4,6 +4,7 @@ namespace App\Livewire\Students;
 
 use Livewire\Component;
 use App\Models\Peoples;
+use App\Models\Settings\SchoolClasses;
 
 class InputSearch extends Component
 {
@@ -51,10 +52,26 @@ class InputSearch extends Component
             $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
                 ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
                 ->where('type', 1)
+                ->orderBy('nick', 'asc')
                 ->limit(5)
                 ->get();
+
             if ($this->field) {
-                # code...
+                $pluckStudents = [];
+                $classes = SchoolClasses::where('school_grade_id', $this->field)->where('active', 1)->get();
+                foreach ($classes as $class) {
+                    $pluckStudents = array_merge($pluckStudents, $class->studentsPivot->pluck('people_id')->toArray());
+                }
+                // dd($pluckStudents);
+                $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
+                    ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
+                    ->whereIn('id', $pluckStudents)
+                    ->orwhere('number', 'LIKE', '%' . $this->inputSearch . '%')
+                    ->where('type', 1)
+                    ->orderBy('nick', 'asc')
+                    ->where('active', 1)
+                    ->limit(5)
+                    ->get();
             }
         }
 

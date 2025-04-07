@@ -271,20 +271,20 @@
                         class="flex flex-col w-full p-6 space-y-4 text-gray-500 divide-y dark:divide-gray-300 dark:bg-gray-50 dark:text-gray-500">
 
                         <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
-                            <span>Data:</span>
-                            <span>Hora:</span>
+                            <span>Data </span>
+                            <span>Hora</span>
                             <span class="text-xs dark:text-gray-500">{{ $item->f_date }}</span>
                             <span class="text-xs dark:text-gray-500">{{ $item->fact_hour }}</span>
                         </div>
                         <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
-                            <span>Observador:</span>
-                            <span>Função:</span>
+                            <span>Observador</span>
+                            <span>Função</span>
                             <span class="text-xs dark:text-gray-500">{{ $item->fact_observer }}</span>
                             <span
                                 class="text-xs dark:text-gray-500">{{ strtoupper($item->fact_observer_function) }}</span>
                         </div>
                         <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
-                            <span class="col-span-2">Fato:</span>
+                            <span class="col-span-2">Fato</span>
                             <span class=" col-span-2text-xs dark:text-gray-500">{{ $item->fact }}</span>
                         </div>
                     </div>

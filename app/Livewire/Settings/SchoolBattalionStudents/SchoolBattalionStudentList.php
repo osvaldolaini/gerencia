@@ -123,7 +123,7 @@ class SchoolBattalionStudentList extends Component
                 "active" => $value->active,
                 "posto_grad" => ($value->posto_grad ? Rank::fromDb($value->posto_grad)->label() : 'Patente'),
                 // 'image' => $value->posto_grad ? Rank::fromDb($value->posto_grad)?->image() : Storage::url('ranks/fundo/default.png'),
-                'image' => $value->posto_grad ? Rank::fromDb($value->posto_grad)?->imageBg() : Storage::url('ranks/fundo/default.png'),
+                'image' => $value->posto_grad ? url(Rank::fromDb($value->posto_grad)?->imageBg()) : Storage::url('ranks/fundo/default.png'),
                 "order" => $value->order,
                 "id" => $value->id,
                 "code" => $value->code,

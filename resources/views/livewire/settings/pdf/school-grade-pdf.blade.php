@@ -62,6 +62,10 @@
             min-height: 300px;
             /* Ajuste a altura mínima conforme necessário */
         }
+
+        .text-right {
+            text-align: right;
+        }
     </style>
     <x-app.favicons></x-app.favicons>
 

@@ -90,13 +90,23 @@
                                         <th class="w-20 text-center border">Nome</th>
                                         <th class="w-20 text-center border">Inglês</th>
                                     </tr>
+                                    @php
+                                        $c = 0;
+                                    @endphp
                                     @foreach ($class->studentsPivot as $student)
+                                        @php
+                                            $c += 1;
+                                        @endphp
                                         <tr class="mt-0">
                                             <td class="text-center border">{{ $student->students->number }}</td>
                                             <td class="text-center border">{{ $student->students->nick }}</td>
                                             <td class="text-center border"></td>
                                         </tr>
                                     @endforeach
+                                    <tr class="">
+                                        <td colspan="2" class="text-right border">Total</td>
+                                        <td class="text-center border">{{ $c }}</td>
+                                    </tr>
                                 </table>
                             </div>
                         </td>

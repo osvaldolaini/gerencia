@@ -5,6 +5,7 @@
 > Correções
 
     ->Ordem dos alunos por nome (chamada)
+    ->Logo na chamada
 
 ## Versão Santos Dumont 1.3.5 - Painel
 

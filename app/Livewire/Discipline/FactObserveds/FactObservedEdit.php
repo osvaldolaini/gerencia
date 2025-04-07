@@ -134,7 +134,7 @@ class FactObservedEdit extends Component
             'fact_hour'                => 'required',
             'fact_date'                => 'required',
             'fact_type'                => 'required',
-            'faults'                   => 'required',
+            // 'faults'                   => 'required',
             'fact_observer'            => 'required',
             'fact_observer_function'   => 'required',
         ];

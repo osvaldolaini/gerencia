@@ -6,6 +6,8 @@
 
     ->Ordem dos alunos por nome (chamada)
     ->Logo na chamada
+    ->Busca dos aluno no Batalhão
+    ->Gravar data FO SINCOMIL
 
 ## Versão Santos Dumont 1.3.5 - Painel
 

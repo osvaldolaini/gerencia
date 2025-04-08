@@ -269,7 +269,12 @@
                 @if ($read)
                     <div
                         class="flex flex-col w-full p-6 space-y-4 text-gray-500 divide-y dark:divide-gray-300 dark:bg-gray-50 dark:text-gray-500">
-
+                        <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
+                            <span>Aluno </span>
+                            <span>Nr</span>
+                            <span class="text-xs dark:text-gray-500">{{ $item->al_nick }}</span>
+                            <span class="text-xs dark:text-gray-500">{{ $item->al_number }}</span>
+                        </div>
                         <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
                             <span>Data </span>
                             <span>Hora</span>

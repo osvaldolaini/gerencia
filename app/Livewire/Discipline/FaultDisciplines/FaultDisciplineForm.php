@@ -108,7 +108,7 @@ class FaultDisciplineForm extends Component
             // 'fact'                     => $this->fact,
             // 'fact_hour'                => $this->fact_hour,
             // 'fact_date'                => $this->fact_date,
-            // 'fact_type'                => $this->fact_type,
+            'fact_type'                => $this->fact_type,
             // 'faults'                   => $this->faults,
             // 'fact_observer_function'   => $this->fact_observer_function,
             // 'fact_observer_id'         => $this->fact_observer_id,

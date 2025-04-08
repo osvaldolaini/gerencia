@@ -68,16 +68,16 @@ class FaultDisciplineForm extends Component
     public function save()
     {
         $id = $this->real_save();
-        if ($id) {
-            redirect()->route($this->route . '-edit', $id)->with('success', 'Registro criado com sucesso.');
-        }
+        // if ($id) {
+        //     redirect()->route($this->route . '-edit', $id)->with('success', 'Registro criado com sucesso.');
+        // }
     }
     public function save_out()
     {
         $id = $this->real_save();
-        if ($id) {
-            redirect()->route($this->route . '-edit', $id)->with('success', 'Registro criado com sucesso.');
-        }
+        // if ($id) {
+        //     redirect()->route($this->route . '-edit', $id)->with('success', 'Registro criado com sucesso.');
+        // }
     }
 
     public function real_save()
@@ -119,7 +119,8 @@ class FaultDisciplineForm extends Component
 
 
         $this->openAlert('success', $msg);
-        return $id;
+        $this->dispatch('modelClose');
+        // return $id;
     }
     public function openAlert($status, $msg)
     {

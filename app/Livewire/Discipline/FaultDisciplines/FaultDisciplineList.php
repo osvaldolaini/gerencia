@@ -106,6 +106,11 @@ class FaultDisciplineList extends Component
 
         $this->showJetModal = false;
     }
+    #[On('modalClose')]
+    public function modalClose()
+    {
+        $this->showModalForm = true;
+    }
     //ACTIVE
     public function buttonActive($id)
     {

@@ -89,7 +89,7 @@ class FaultDisciplineForm extends Component
             // 'fact'                     => 'required',
             'fact_hour'                => 'required',
             'fact_date'                => 'required',
-            'fact_type'                => 'required',
+            // 'fact_type'                => 'required',
         ];
         $this->validate();
 

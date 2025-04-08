@@ -1,5 +1,14 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.3.7
+
+> Correções
+
+    ->PDF (Justificativa, solução e nota)
+    ->Logo na chamada
+    ->Busca dos aluno no Batalhão
+    ->Gravar data FO SINCOMIL
+
 ## Versão Santos Dumont 1.3.6
 
 > Novidades

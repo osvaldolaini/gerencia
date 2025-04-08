@@ -86,8 +86,8 @@ class FaultDisciplineJustification extends Component
 
         $tmp = Str::uuid();
         // Salve o PDF temporariamente
-        $down = storage_path('storage/livewire-tmp/' . $tmp . '.pdf');
-        $pdfPath = url('storage/livewire-tmp/' . $tmp . '.pdf');
+        $down = storage_path('public/pdf-tmp/' . $tmp . '.pdf');
+        $pdfPath = url('storage/pdf-tmp/' . $tmp . '.pdf');
 
         $mpdf->Output($down, 'F');
 

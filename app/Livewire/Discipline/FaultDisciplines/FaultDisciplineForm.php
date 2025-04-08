@@ -85,10 +85,10 @@ class FaultDisciplineForm extends Component
         $this->rules = [
             // 'number'                   => 'required',
             // 'year'                     => 'required',
-            'al_nick'               => 'required',
+            'al_nick'                   => 'required',
             'al_class'                     => 'required',
-            'cia'                => 'required',
-            'fact_date'                => 'required',
+            'cia'                       => 'required',
+            // 'fact_date'                => 'required',
             'fact_type'                => 'required',
         ];
         $this->validate();

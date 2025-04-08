@@ -16,9 +16,10 @@ class SchoolBattalionView extends Component
     public $school_battalion;
     public $companies;
     public $grade;
-    public function mount(SchoolBattalions $school_battalion)
+    public function mount()
     {
-        $this->school_battalion = $school_battalion;
+        $this->school_battalion = SchoolBattalions::where('active', 1)->first();
+        // $this->school_battalion = $school_battalion;
         $this->companies = Companies::where('active', 1)->get();
     }
 
@@ -29,11 +30,13 @@ class SchoolBattalionView extends Component
     //Turmas
     public function printBattalion()
     {
+        // dd($school_classes);
         $config = Settings::find(1);
 
-        $logoPath = Storage::exists('public/logos-school/logo-header.png')
-            ? url('storage/logos-school/logo-header.png')
-            : url('storage/logos/logo-pdf.png');
+        $logoPath = Storage::exists('public/companies/' . $this->company->id)
+            ? url('storage/companies/' . $this->company->id . '/' . $this->company->code_image . '_list.png')
+            : url('storage/logos-school/logo-header.png');
+
         // Crie uma instância do mPDF
         $mpdf = new \Mpdf\Mpdf([
             'mode'          => 'utf-8',

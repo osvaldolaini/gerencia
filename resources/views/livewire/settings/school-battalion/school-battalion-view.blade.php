@@ -75,18 +75,21 @@
                             <img src="{{ Rank::fromDb($posto)?->imageBg() ?? Storage::url('ranks/fundo/default.png') }}"
                                 alt="Patente" class="w-12 h-12 rounded-full">
                         </div>
-
                         <!-- Listar os alunos dentro do posto -->
-                        @foreach ($items as $item)
-                            <div class="py-2 text-center border-b">
-                                <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
-                                    class="w-16 h-16 mx-auto rounded-full">
-                                <h3 class="font-semibold">
-                                    Al. {{ $item->students->nick }}
-                                </h3>
-                                <p>T. {{ $item->students->people_class }}</p>
-                            </div>
+
+                        @foreach ($items->where('active', 1) as $item)
+                            @if ($item->people_id)
+                                <div class="py-2 text-center border-b">
+                                    <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
+                                        class="w-16 h-16 mx-auto rounded-full">
+                                    <h3 class="font-semibold">
+                                        Al. {{ $item->students->nick }}
+                                    </h3>
+                                    <p>T. {{ $item->students->people_class }}</p>
+                                </div>
+                            @endif
                         @endforeach
+
                     </div>
                 @endforeach
             </div>

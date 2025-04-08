@@ -214,7 +214,7 @@ class FaultDisciplineEdit extends Component
             'solution'                 => $this->solution,
             'solution_date'            => $this->solution_date,
             'decision'                 => $this->decision,
-            'dacision_days'            => $this->dacision_days,
+            // 'dacision_days'            => $this->dacision_days,
             'grau'                     => $this->grau,
             'bi_date'                  => $this->bi_date,
             'bi_text'                  => $this->bi_text,

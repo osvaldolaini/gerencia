@@ -50,7 +50,7 @@ class InputSearch extends Component
     {
         if ($this->inputSearch != '') {
             $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
-                ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
+                ->where('nick', 'LIKE', '%' . $this->inputSearch . '%')
                 ->where('type', 1)
                 ->orderBy('nick', 'asc')
                 ->limit(5)
@@ -64,7 +64,7 @@ class InputSearch extends Component
                 }
                 // dd($pluckStudents);
                 $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
-                    ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
+                    ->where('nick', 'LIKE', '%' . $this->inputSearch . '%')
                     ->whereIn('id', $pluckStudents)
                     ->orwhere('number', 'LIKE', '%' . $this->inputSearch . '%')
                     ->where('type', 1)

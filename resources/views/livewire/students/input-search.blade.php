@@ -50,14 +50,11 @@
                                                     <div class="avatar">
                                                         <div class="h-24 w-18">
                                                             @if ($item->code_image)
-                                                                <div class="avatar">
-                                                                    <div
-                                                                        class="fixed h-24 p-1 bg-white border-2 border-gray-300 rounded-lg shadow-lg w-18">
-                                                                        <!-- Avatar pequeno -->
-                                                                        <img src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_list.png') }}"
-                                                                            alt="Foto grande"
-                                                                            class="w-full h-full rounded-lg">
-                                                                    </div>
+                                                                <div
+                                                                    class="fixed h-24 border-2 border-gray-300 rounded-lg shadow-lg p-1bg-white w-18">
+                                                                    <!-- Avatar pequeno -->
+                                                                    <img src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_list.png') }}"
+                                                                        alt="Foto grande" class="w-full h-full rounded-lg">
                                                                 </div>
                                                             @else
                                                                 <div class="avatar">

@@ -269,28 +269,30 @@
                 @if ($read)
                     <div
                         class="flex flex-col w-full p-6 space-y-4 text-gray-500 divide-y dark:divide-gray-300 dark:bg-gray-50 dark:text-gray-500">
-                        <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
-                            <span>Aluno </span>
-                            <span>Nr</span>
-                            <span class="text-xs dark:text-gray-500">{{ $item->al_nick }}</span>
-                            <span class="text-xs dark:text-gray-500">{{ $item->al_number }}</span>
-                        </div>
-                        <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
-                            <span>Data </span>
-                            <span>Hora</span>
-                            <span class="text-xs dark:text-gray-500">{{ $item->f_date }}</span>
-                            <span class="text-xs dark:text-gray-500">{{ $item->fact_hour }}</span>
-                        </div>
-                        <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
-                            <span>Observador</span>
-                            <span>Função</span>
-                            <span class="text-xs dark:text-gray-500">{{ $item->fact_observer }}</span>
-                            <span
-                                class="text-xs dark:text-gray-500">{{ strtoupper($item->fact_observer_function) }}</span>
-                        </div>
-                        <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
-                            <span class="col-span-2">Fato</span>
-                            <span class=" col-span-2text-xs dark:text-gray-500">{{ $item->fact }}</span>
+                        <div
+                            class="flex flex-col w-full p-6 space-y-4 text-gray-500 divide-y dark:divide-gray-300 dark:bg-gray-50 dark:text-gray-500">
+                            <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
+                                <span class="dark:text-gray-500">Aluno </span>
+                                <span class="dark:text-gray-500">Nr</span>
+                                <span class="text-xs">{{ $read->al_nick }}</span>
+                                <span class="text-xs">{{ $read->al_number }}</span>
+                            </div>
+                            <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
+                                <span class="dark:text-gray-500">Data </span>
+                                <span class="dark:text-gray-500">Hora</span>
+                                <span class="text-xs">{{ $read->f_date }}</span>
+                                <span class="text-xs">{{ $read->fact_hour }}</span>
+                            </div>
+                            <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
+                                <span class="dark:text-gray-500">Observador</span>
+                                <span class="dark:text-gray-500">Função</span>
+                                <span class="text-xs">{{ $read->fact_observer }}</span>
+                                <span class="text-xs">{{ strtoupper($read->fact_observer_function) }}</span>
+                            </div>
+                            <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
+                                <span class="col-span-2 dark:text-gray-500">Fato</span>
+                                <span class="col-span-2 text-xs ">{{ $read->fact }}</span>
+                            </div>
                         </div>
                     </div>
                 @endif

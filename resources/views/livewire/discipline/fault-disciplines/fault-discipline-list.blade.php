@@ -65,7 +65,7 @@
                                     <ul class="timeline timeline-vertical">
                                         <li>
                                             <div class="timeline-start">
-                                                {{ Carbon::createFromFormat('Y-m-d', $item->fact_date)->format('d/m') }}
+                                                {{-- {{ Carbon::createFromFormat('Y-m-d', $item->fact_date)->format('d/m') }} --}}
                                             </div>
                                             <div class="timeline-middle">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"

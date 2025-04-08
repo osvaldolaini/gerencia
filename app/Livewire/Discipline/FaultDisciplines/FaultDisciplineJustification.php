@@ -84,10 +84,10 @@ class FaultDisciplineJustification extends Component
                  </tr>
              </table>');
 
-        $tmp = Str::uuid();
+        $file = Str::uuid() . '.pdf';
         // Salve o PDF temporariamente
-        $down = storage_path('public/pdf-tmp/' . $tmp . '.pdf');
-        $pdfPath = url('storage/pdf-tmp/' . $tmp . '.pdf');
+        $down = storage_path('app/public/pdf-tmp/' . $file);
+        $pdfPath = url('storage/pdf-tmp/' . $file);
 
         $mpdf->Output($down, 'F');
 

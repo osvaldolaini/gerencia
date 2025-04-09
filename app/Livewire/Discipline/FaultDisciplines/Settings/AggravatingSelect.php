@@ -37,7 +37,7 @@ class AggravatingSelect extends Component
 
         ksort($this->selectedAggravating); // Reordena a lista selecionada
 
-        $this->dispatch('updateAggravating', array_keys($this->updateAggravating));
+        $this->dispatch('updateAggravating', array_keys($this->selectedAggravating));
     }
 
     public function removeAggravating($value)
@@ -47,7 +47,7 @@ class AggravatingSelect extends Component
             unset($this->selectedAggravating[$value]);
         }
         ksort($this->selectedAggravating); // Reordena a lista selecionada
-        $this->dispatch('updateAggravating', array_keys($this->updateAggravating));
+        $this->dispatch('updateAggravating', array_keys($this->selectedAggravating));
     }
 
     public function render()

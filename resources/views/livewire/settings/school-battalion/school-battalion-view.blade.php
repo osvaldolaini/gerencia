@@ -75,7 +75,6 @@
                         alt="Patente" class="w-12 h-12 rounded-full">
                 </div>
                 <!-- Listar os alunos dentro do posto -->
-
                 @foreach ($items->where('active', 1) as $item)
                     @if ($item->people_id)
                         <div class="py-2 text-center border-b">

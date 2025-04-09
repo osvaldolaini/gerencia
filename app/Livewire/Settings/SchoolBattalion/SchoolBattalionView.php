@@ -63,17 +63,19 @@ class SchoolBattalionView extends Component
 
         // Adicione o conteúdo HTML ao PDF
         $mpdf->SetHTMLHeader('
-             <table width="100%">
-                 <tr >
-                     <td width="50%">
-                         <img width="50" src="' . $logoPath . '" alt="Logo">
-                     </td>
-                     <td width="50%" style="text-align: right;">
-                         <strong>' . $config->name . '</strong><br>
-                     </td>
-                 </tr>
-             </table>
-         ');
+            <table width="100%">
+                <tr >
+                    <td width="22%">
+                        <img width="50" src="' . $logoPath . '" alt="Logo">
+                    </td>
+                    <td width="25%" style="text-align: right;">
+                        <strong>' . $config->name . '</strong><br>
+                        ' . $this->company->name . '<br>
+                        Alunos do ' . $this->grade->name . '
+                    </td>
+                </tr>
+            </table>
+        ');
         $mpdf->SetHTMLFooter('
              <table width="100%">
                  <tr>

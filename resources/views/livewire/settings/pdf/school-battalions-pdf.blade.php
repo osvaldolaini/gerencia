@@ -93,6 +93,7 @@
                 <!-- Define número de colunas -->
                 @foreach ($school_battalion->where('active', 1)->sortBy('order')->groupBy('posto_grad') as $posto => $items)
                     <td>
+
                         <!-- Exibir nome do posto -->
                         <h2 class="text-lg font-bold text-center">
                             {{ Rank::fromDb($posto)?->label() ?? 'Patente' }}
@@ -104,28 +105,47 @@
                                 alt="Patente" class="rank-image">
                         </div>
                         <!-- Listar os alunos dentro do posto -->
-
-                        @foreach ($items->where('active', 1) as $item)
-                            @if ($item->people_id)
-                                <div class="py-2 text-center border-b">
-                                    @if ($item->students->code_image)
-                                        <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
-                                            class="student-image">
-                                    @else
-                                        <img src="{{ Storage::url('ranks/fundo/default.png') }}" class="student-image">
+                        <table>
+                            @php $count = 0; @endphp
+                            @foreach ($items->where('active', 1) as $item)
+                                @if ($item->people_id)
+                                    @if ($count % 2 == 0)
+                                        <tr>
                                     @endif
 
-                                    <h3 class="font-semibold">
-                                        Al. {{ $item->students->nick }}
-                                    </h3>
-                                    <p>T. {{ $item->students->people_class }}</p>
-                                </div>
-                            @endif
-                        @endforeach
-                    </td>
-                @endforeach
+                                    <td class="py-2 text-center border-b">
+                                        @if ($item->students->code_image)
+                                            <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
+                                                class="student-image">
+                                        @else
+                                            <img src="{{ Storage::url('ranks/fundo/default.png') }}"
+                                                class="student-image">
+                                        @endif
+                                        <h3 class="font-semibold">
+                                            Al. {{ $item->students->nick }}
+                                        </h3>
+                                        <p>T. {{ $item->students->people_class }}</p>
+                                    </td>
 
+                                    @php $count++; @endphp
+
+                                    @if ($count % 2 == 0)
             </tr>
+            @endif
+            @endif
+            @endforeach
+
+            {{-- Fecha a linha se tiver número ímpar de itens --}}
+            @if ($count % 2 != 0)
+                <td></td>
+                </tr>
+            @endif
+        </table>
+
+        </td>
+        @endforeach
+
+        </tr>
         </table>
 
     </div>

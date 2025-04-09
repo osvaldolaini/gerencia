@@ -29,9 +29,9 @@
         }
 
         .container td {
-            width: 33.33%;
+            /* width: 33.33%; */
             /* Garante três colunas iguais */
-            padding: 3px;
+            padding: 0px;
             /* border: 1px solid #ddd;
             border-radius: 8px; */
             text-align: center;
@@ -49,7 +49,7 @@
             height: auto;
             border-radius: 50%;
             display: block;
-            margin: 0 auto 10px;
+            margin: 0 auto 2px;
         }
 
         .student-item {
@@ -61,7 +61,7 @@
         .student-image {
             width: 10rem;
             height: auto;
-            margin: 0 auto 8px;
+            margin: 0 auto 3px;
             border-radius: 50%;
         }
 

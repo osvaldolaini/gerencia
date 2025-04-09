@@ -17,10 +17,10 @@
             display: block;
             width: 100%;
             text-align: center;
-            font-size: 50px;
+            font-size: 30px;
             font-weight: bold;
             color: #555;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .container table {
@@ -31,7 +31,7 @@
         .container td {
             width: 33.33%;
             /* Garante três colunas iguais */
-            padding: 16px;
+            padding: 8px;
             /* border: 1px solid #ddd;
             border-radius: 8px; */
             text-align: center;
@@ -45,7 +45,7 @@
         }
 
         .rank-image {
-            width: 3rem;
+            width: 5rem;
             height: auto;
             border-radius: 50%;
             display: block;

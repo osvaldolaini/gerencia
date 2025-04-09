@@ -53,7 +53,7 @@
                                                         <div class="flex justify-center font-medium duration-200">
                                                             {{-- Opções visíveis em telas grandes --}}
                                                             <div class="flex space-x-1">
-                                                                @livewire('settings.pdf.buttons', ['print_battalion', $school_years->id, $grade->id])
+                                                                {{-- @livewire('settings.pdf.buttons', ['print_battalion', $school_years->id, $grade->id]) --}}
                                                                 @livewire('settings.pdf.buttons', ['print_classes', $school_years->id, $grade->id])
                                                                 @livewire('settings.pdf.buttons', ['print_call', $school_years->id, $grade->id])
                                                             </div>

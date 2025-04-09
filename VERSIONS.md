@@ -5,6 +5,7 @@
 > Novidades
 
     ->Imprimir batalhão
+    ->Inserir falta individual e grupo
 
 > Correções
 

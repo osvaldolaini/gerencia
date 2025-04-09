@@ -13,9 +13,14 @@ class SchoolFaultStudents extends Component
 {
     public $selectedStudents = [];
     public $class_id;
-    public function mount($class_id)
+    public $array = false;
+    public function mount($class_id, $array = null)
     {
+
         $this->class_id = $class_id;
+        if ($array) {
+            $this->array = true;
+        }
     }
     public function render()
     {
@@ -25,6 +30,9 @@ class SchoolFaultStudents extends Component
     public function addStudents($student_id)
     {
         $students = Peoples::find($student_id);
+        if ($this->array) {
+            $this->selectedStudents = [];
+        }
         $this->selectedStudents[] = [
             'id' => $students->id,
             'code_image' => $students->code_image,

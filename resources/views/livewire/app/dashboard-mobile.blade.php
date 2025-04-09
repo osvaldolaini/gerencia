@@ -32,11 +32,18 @@
                             </div>
                         </a>
                     </div>
-                    <div class="flex items-center justify-center col-span-3 mt-10">
+                    <div class="flex items-center justify-center col-span-3 mt-10 space-x-4">
+
+                        <a href="#tab51" @click="activeTab = '#tab51'" class="relative inline-flex ">
+                            <div class="flex w-full overflow-hidden rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300">
+                                <img class="w-full cover" src="{{ url('storage/buttons/faltas-individual.png') }}"
+                                    alt="faltas-simples" />
+                            </div>
+                        </a>
                         <a href="#tab5" @click="activeTab = '#tab5'" class="relative inline-flex ">
                             <div class="flex w-full overflow-hidden rounded-tr-2xl rounded-bl-2xl dark:bg-blue-300">
-                                <img class="w-full cover" src="{{ url('storage/buttons/faltas.png') }}"
-                                    alt="faltas" />
+                                <img class="w-full cover" src="{{ url('storage/buttons/faltas-grupo.png') }}"
+                                    alt="faltas-grupo" />
                             </div>
                         </a>
                     </div>
@@ -56,6 +63,9 @@
             </div>
             <div id="tab5" x-show="activeTab === '#tab5'">
                 @livewire('app.faults.fault-insert')
+            </div>
+            <div id="tab51" x-show="activeTab === '#tab51'">
+                @livewire('app.faults.fault-insert-simple')
             </div>
             <div id="tab3" x-show="activeTab === '#tab3'">
                 @livewire('app.user-profile')

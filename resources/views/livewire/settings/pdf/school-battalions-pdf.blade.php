@@ -29,9 +29,9 @@
         }
 
         .container td {
-            /* width: 33.33%; */
+            width: 33.33%;
             /* Garante três colunas iguais */
-            padding: 0px;
+            padding: 1px;
             /* border: 1px solid #ddd;
             border-radius: 8px; */
             text-align: center;

@@ -20,7 +20,7 @@
             font-size: 30px;
             font-weight: bold;
             color: #555;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .container table {
@@ -49,7 +49,7 @@
             height: auto;
             border-radius: 50%;
             display: block;
-            margin: 0 auto 5px;
+            margin: 0 auto 10px;
         }
 
         .student-item {
@@ -87,49 +87,69 @@
         </small>
 
 
-        <table class="w-full">
-            @php
-                $filteredItems = $items->where('active', 1)->filter(fn($item) => $item->people_id);
-                $total = $filteredItems->count();
-                $count = 0;
-            @endphp
+        <table>
+            <tr>
 
-            @foreach ($filteredItems as $item)
-                @if ($total === 1)
-                    <tr>
-                        <td colspan="2" class="py-2 text-center border-b">
-                            @if ($item->students->code_image)
-                                <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
-                                    class="student-image">
-                            @else
-                                <img src="{{ Storage::url('ranks/fundo/default.png') }}" class="student-image">
-                            @endif
-                            <h3 class="font-semibold">Al. {{ $item->students->nick }}</h3>
-                            <p>T. {{ $item->students->people_class }}</p>
-                        </td>
-                    </tr>
-                @else
-                    @if ($count % 2 == 0)
-                        <tr>
-                    @endif
+                <!-- Define número de colunas -->
+                @foreach ($school_battalion->where('active', 1)->sortBy('order')->groupBy('posto_grad') as $posto => $items)
+                    <td>
 
-                    <td class="w-1/2 py-2 text-center border-b">
-                        @if ($item->students->code_image)
-                            <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
-                                class="student-image">
-                        @else
-                            <img src="{{ Storage::url('ranks/fundo/default.png') }}" class="student-image">
-                        @endif
-                        <h3 class="font-semibold">Al. {{ $item->students->nick }}</h3>
-                        <p>T. {{ $item->students->people_class }}</p>
-                    </td>
+                        <!-- Exibir nome do posto -->
+                        <h2 class="text-lg font-bold text-center">
+                            {{ Rank::fromDb($posto)?->label() ?? 'Patente' }}
+                        </h2>
 
-                    @php $count++; @endphp
+                        <!-- Exibir ícone da patente -->
+                        <div class="flex justify-center my-2">
+                            <img src="{{ Rank::fromDb($posto)?->imageBg() ?? Storage::url('ranks/fundo/default.png') }}"
+                                alt="Patente" class="rank-image">
+                        </div>
+                        <!-- Listar os alunos dentro do posto -->
+                        <table class="w-full">
+                            @php
+                                $filteredItems = $items->where('active', 1)->filter(fn($item) => $item->people_id);
+                                $total = $filteredItems->count();
+                                $count = 0;
+                            @endphp
 
-                    @if ($count % 2 == 0)
-                        </tr>
-                    @endif
-                @endif
+                            @foreach ($filteredItems as $item)
+                                @if ($total === 1)
+                                    <tr>
+                                        <td colspan="2" class="py-2 text-center border-b">
+                                            @if ($item->students->code_image)
+                                                <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
+                                                    class="student-image">
+                                            @else
+                                                <img src="{{ Storage::url('ranks/fundo/default.png') }}"
+                                                    class="student-image">
+                                            @endif
+                                            <h3 class="font-semibold">Al. {{ $item->students->nick }}</h3>
+                                            <p>T. {{ $item->students->people_class }}</p>
+                                        </td>
+                                    </tr>
+                                @else
+                                    @if ($count % 2 == 0)
+                                        <tr>
+                                    @endif
+
+                                    <td class="w-1/2 py-2 text-center border-b">
+                                        @if ($item->students->code_image)
+                                            <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
+                                                class="student-image">
+                                        @else
+                                            <img src="{{ Storage::url('ranks/fundo/default.png') }}"
+                                                class="student-image">
+                                        @endif
+                                        <h3 class="font-semibold">Al. {{ $item->students->nick }}</h3>
+                                        <p>T. {{ $item->students->people_class }}</p>
+                                    </td>
+
+                                    @php $count++; @endphp
+
+                                    @if ($count % 2 == 0)
+            </tr>
+            @endif
+            @endif
             @endforeach
 
             @if ($total > 1 && $count % 2 != 0)

@@ -59,7 +59,7 @@
         }
 
         .student-image {
-            width: 3rem;
+            width: 10rem;
             height: auto;
             margin: 0 auto 8px;
             border-radius: 50%;

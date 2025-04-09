@@ -7,8 +7,8 @@
     <title>Batalhão</title>
     <style>
         .container {
-            margin-top: 50px;
-            padding-top: 70px;
+            margin-top: 30px;
+            padding-top: 40px;
             width: 100%;
             font-family: sans-serif;
         }

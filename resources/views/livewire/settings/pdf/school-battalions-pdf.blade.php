@@ -100,8 +100,8 @@
             .container td {
                 width: 33.33%;
                 padding: 16px;
-                border: 1px solid #ddd;
-                border-radius: 8px;
+                /* border: 1px solid #ddd;
+                border-radius: 8px; */
                 text-align: center;
                 vertical-align: top;
             }
@@ -128,7 +128,7 @@
             }
 
             .student-image {
-                width: 3rem;
+                width: 5rem;
                 height: auto;
                 margin: 0 auto 8px;
                 border-radius: 50%;
@@ -151,56 +151,53 @@
         use App\Enums\Rank;
     @endphp
     <div class="container">
-        @forelse ($companies->where('active',1)->sortByDesc('nick') as $company)
-            @forelse ($company->grade->where('active',1)->sortByDesc('nick') as $grade)
-                @if ($grade->battalion->where('active', 1)->sortBy('order')->groupBy('posto_grad')->count() > 0)
-                    <small class="grade-title ">
-                        {{ $grade->name }}
-                    </small>
-                @endif
 
-                <table>
-                    <tr>
-                        @php
-                            $postos = $grade->battalion->where('active', 1)->sortBy('order')->groupBy('posto_grad');
-                            $colunas = $postos->chunk(ceil($postos->count() / 3)); // Divide em 3 colunas
-                        @endphp
+        <small class="grade-title">
+            {{ $grade->name }}
+        </small>
 
-                        @foreach ($colunas as $coluna)
-                            <td>
-                                @foreach ($coluna as $posto => $items)
-                                    <div class="posto-container">
-                                        <h2 width="100%">
-                                            {{ Rank::fromDb($posto)?->label() ?? 'Patente' }}
-                                        </h2>
-                                        <p width="100%">
-                                            <img src="{{ Rank::fromDb($posto)?->imageBg() ?? Storage::url('ranks/fundo/default.png') }}"
-                                                alt="Patente" class="rank-image">
 
-                                        </p>
+        <table>
+            <tr>
 
-                                        @foreach ($items as $item)
-                                            <div class="student-item">
-                                                <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
-                                                    class="student-image">
-                                                <h3>
-                                                    Al. {{ $item->students->nick }}
-                                                </h3>
-                                                <p>T. {{ $item->students->people_class }}</p>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endforeach
-                            </td>
+                <!-- Define número de colunas -->
+                @foreach ($school_battalion->where('active', 1)->sortBy('order')->groupBy('posto_grad') as $posto => $items)
+                    <td>
+                        <!-- Exibir nome do posto -->
+                        <h2 class="text-lg font-bold text-center">
+                            {{ Rank::fromDb($posto)?->label() ?? 'Patente' }}
+                        </h2>
+
+                        <!-- Exibir ícone da patente -->
+                        <div class="flex justify-center my-2">
+                            <img src="{{ Rank::fromDb($posto)?->imageBg() ?? Storage::url('ranks/fundo/default.png') }}"
+                                alt="Patente" class="rank-image">
+                        </div>
+                        <!-- Listar os alunos dentro do posto -->
+
+                        @foreach ($items->where('active', 1) as $item)
+                            @if ($item->people_id)
+                                <div class="py-2 text-center border-b">
+                                    @if ($item->students->code_image)
+                                        <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
+                                            class="student-image">
+                                    @else
+                                        <img src="{{ Storage::url('ranks/fundo/default.png') }}" class="student-image">
+                                    @endif
+
+                                    <h3 class="font-semibold">
+                                        Al. {{ $item->students->nick }}
+                                    </h3>
+                                    <p>T. {{ $item->students->people_class }}</p>
+                                </div>
+                            @endif
                         @endforeach
-                    </tr>
-                </table>
-            @empty
-                <p>Nenhuma ano cadastrado</p>
-            @endforelse
-        @empty
-            <p>Nenhuma companhia cadastrada</p>
-        @endforelse
+                    </td>
+                @endforeach
+
+            </tr>
+        </table>
+
     </div>
 </body>
 

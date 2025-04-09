@@ -2,6 +2,10 @@
 
 ## Versão Santos Dumont 1.3.7
 
+> Novidades
+
+    ->Imprimir batalhão
+
 > Correções
 
     ->PDF (Justificativa, solução e nota)

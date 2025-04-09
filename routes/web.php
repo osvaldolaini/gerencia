@@ -195,7 +195,7 @@ Route::middleware([
         ->name('school-battalion-create');
     Route::get('/batalhao/anos/{school_battalion}/editar', SchoolBattalionForm::class)
         ->name('school-battalion-edit');
-    Route::get('/batalhao/anos/visualizar', SchoolBattalionView::class)
+    Route::get('/batalhao/anos/{school_battalion}/visualizar', SchoolBattalionView::class)
         ->name('school-battalion-view');
 });
 

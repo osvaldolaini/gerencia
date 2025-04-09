@@ -7,6 +7,7 @@ use App\Models\Settings\SchoolBattalions;
 use Livewire\Component;
 
 use App\Models\Admin\Settings\Settings;
+use App\Models\Settings\SchoolGrades;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -14,13 +15,15 @@ use Illuminate\Support\Str;
 class SchoolBattalionView extends Component
 {
     public $school_battalion;
-    public $companies;
+    public $company;
     public $grade;
-    public function mount()
+    public function mount(SchoolGrades $school_battalion)
     {
-        $this->school_battalion = SchoolBattalions::where('active', 1)->first();
-        // $this->school_battalion = $school_battalion;
-        $this->companies = Companies::where('active', 1)->get();
+        $this->school_battalion = $school_battalion->battalion->where('active', 1)->sortByDesc('posto_grad');
+        $this->grade = $school_battalion;
+        $this->company = $this->grade->getCompany;
+
+        // dd($school_battalion);
     }
 
     public function render()
@@ -52,7 +55,8 @@ class SchoolBattalionView extends Component
             'livewire.settings.pdf.school-battalions-pdf',
             [
                 'school_battalion'  => $this->school_battalion,
-                'companies'         => $this->companies,
+                'companies'         => $this->company,
+                'grade'             => $this->grade,
                 'responsible'       => Auth::user()->name,
             ]
         )->render();

@@ -6,7 +6,7 @@
 
     ->PDF (Justificativa, solução e nota)
     ->Criar FAFD
-    ->Dados apresntados no resumo do fato
+    ->Dados no resumo do fato
     ->Batalhão fotos e visualização
 
 ## Versão Santos Dumont 1.3.6

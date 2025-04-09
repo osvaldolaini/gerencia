@@ -1,4 +1,8 @@
 <div class="pt-3 w-100 sm:rounded-lg">
+    @php
+        use App\Enums\Rank;
+    @endphp
+
     <div class="flex flex-wrap sm:justify-center">
         <div class="w-full">
             @if ($companies)
@@ -72,6 +76,9 @@
                                                         </div>
                                                     @endif
                                                 </div>
+                                                <div class="col-span-1" wire:ignore>
+                                                    @livewire('app.battalion.students-grade', ['grade' => $grade->id])
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -85,6 +92,55 @@
             @endif
         </div>
     </div>
+    {{-- MODAL READ --}}
+    <x-dialog-modal wire:model="seeModelBattalion">
+        <x-slot name="title">Alunos do batalhão do {{ $title ? $title : '' }}</x-slot>
+        <x-slot name="content">
+            <div class="container flex flex-col items-center justify-center w-full mx-auto">
+                <ul class="flex flex-col w-full">
+                    @if ($seeModelBattalion)
+                        @foreach ($battalion as $item)
+                            <li class="flex flex-row w-full mb-2 border-gray-400">
+                                <div
+                                    class="flex items-center justify-between w-full p-4 bg-white border rounded-md shadow cursor-pointer select-none dark:bg-gray-800">
+                                    <div class="items-center justify-center w-10 h-10 mr-4 ">
+                                        <span class="relative block">
+                                            @if ($item->students->logo_path)
+                                                <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
+                                                    class="object-cover w-10 h-10 mx-auto rounded-full ">
+                                            @else
+                                                <x-application-logo width="h-12"></x-application-logo>
+                                            @endif
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-col pl-1 md:mr-16">
+                                        <div class="font-medium dark:text-white">
+                                            Al {{ $item->students->nick }} - <span class="badge badge-success">
+                                                {{ $item->students->people_class }}
+                                            </span>
+                                        </div>
+                                        <div class="text-xs text-gray-600 dark:text-gray-200">
+                                            {{ $item->students->name }}
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-end pl-1 text-right ">
+                                        <!-- Exibir ícone da patente -->
+                                        <img src="{{ Rank::fromDb($item->posto_grad)?->imageBg() ?? Storage::url('ranks/fundo/default.png') }}"
+                                            alt="Patente" class="w-12 h-12 rounded-full">
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                    @endif
+                </ul>
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$toggle('seeModelBattalion')" class="mx-2">
+                Fechar
+            </x-secondary-button>
+        </x-slot>
+    </x-dialog-modal>
     {{-- MODAL READ --}}
     <x-dialog-modal wire:model="showModalView">
         <x-slot name="title">Alunos do {{ $title ? $title : '' }}</x-slot>
@@ -131,4 +187,4 @@
             </x-secondary-button>
         </x-slot>
     </x-dialog-modal>
-</div>
+</div>)

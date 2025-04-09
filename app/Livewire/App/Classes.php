@@ -7,6 +7,7 @@ use App\Models\Settings\SchoolClassesStudent;
 use App\Models\Settings\SchoolClassesYears;
 use App\Models\Settings\SchoolGrades;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Classes extends Component
@@ -19,7 +20,10 @@ class Classes extends Component
     public $title;
     public $list = [];
 
+    public $battalion;
+
     public $showModalView = false;
+    public $seeModelBattalion = false;
 
     public function mount()
     {
@@ -46,5 +50,13 @@ class Classes extends Component
             ->where('school_classes_year_id', $school_classes_year_id)
             ->whereIn('school_classes_id', $classIds)
             ->get();
+    }
+
+    #[On('seeBattalion')]
+    public function seeBattalion(SchoolGrades $grade)
+    {
+        $this->battalion = $grade->battalion->where('people_id', '!=', null);
+        $this->title = $grade->name;
+        $this->seeModelBattalion = true;
     }
 }

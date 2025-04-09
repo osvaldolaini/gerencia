@@ -67,19 +67,10 @@
                                 <div class="avatar">
                                     <div class="relative w-8 rounded-full cursor-pointer">
                                         <!-- Avatar pequeno -->
-                                        <img @mouseleave="show = false"
-                                            @mouseover="show = true; x = $event.clientX; y = $event.clientY"
-                                            src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_list.png') }}"
-                                            alt="{{ $item->name }}">
-                                    </div>
-                                </div>
 
-                                <!-- Foto maior ao passar o mouse -->
-                                <div x-show="show" x-transition.opacity
-                                    class="fixed z-50 w-32 h-32 p-1 bg-white border-2 border-gray-300 rounded-lg shadow-lg"
-                                    :style="'top: ' + (y + 10) + 'px; left: ' + (x + 10) + 'px;'">
-                                    <img src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_list.png') }}"
-                                        alt="Foto grande" class="w-full h-full rounded-lg">
+                                        src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_list.png') }}"
+                                        alt="{{ $item->name }}">
+                                    </div>
                                 </div>
                             @else
                                 <div class="avatar">

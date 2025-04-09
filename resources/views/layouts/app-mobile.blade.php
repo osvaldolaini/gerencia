@@ -36,7 +36,8 @@
     <link rel="manifest" href="/manifest.json" />
 </head>
 
-<body class="{{ auth()->user()->dark ? 'dark' : '' }} font-sans antialiased p-0 m-0 dark:text-white dark:bg-gray-800">
+<body
+    class="{{ auth()->user()->dark ? 'dark' : '' }} text-base font-sans antialiased p-0 m-0 dark:text-white dark:bg-gray-800">
     <div class="min-h-screen p-0 m-0 bg-gray-100 dark:bg-gray-900">
         @livewire('message-alert')
         <!-- Page Content -->

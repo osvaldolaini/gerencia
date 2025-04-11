@@ -44,7 +44,7 @@ class SchoolBattalionView extends Component
         $mpdf = new \Mpdf\Mpdf([
             'mode'          => 'utf-8',
             // 'orientation'        => 'P', //[P,L]
-            'format' => 'A4-L',
+            'format' => 'A4-P',
             'margin_left'   => 15,
             'margin_top'    => 15,
             'default_font_size'  => 9,

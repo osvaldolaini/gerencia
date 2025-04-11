@@ -3,6 +3,10 @@
 namespace App\Models\Fault;
 
 use App\Models\Peoples;
+use App\Models\Settings\Companies;
+use App\Models\Settings\SchoolClasses;
+use App\Models\Settings\SchoolClassesYears;
+use App\Models\Settings\SchoolGrades;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -81,6 +85,22 @@ class SchoolFaults extends Model
     public function students(): BelongsTo
     {
         return $this->belongsTo(Peoples::class, 'student_id', 'id');
+    }
+    public function companies(): BelongsTo
+    {
+        return $this->belongsTo(Companies::class, 'companies_id', 'id');
+    }
+    public function grades(): BelongsTo
+    {
+        return $this->belongsTo(SchoolGrades::class, 'school_grades_id', 'id');
+    }
+    public function class(): BelongsTo
+    {
+        return $this->belongsTo(SchoolClasses::class, 'school_classes_id', 'id');
+    }
+    public function class_year(): BelongsTo
+    {
+        return $this->belongsTo(SchoolClassesYears::class, 'school_classes_year_id', 'id');
     }
 
     public function scopeFilterFields($query, $filters)

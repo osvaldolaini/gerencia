@@ -19,6 +19,8 @@ use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineForm;
 use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineList;
 use App\Livewire\Discipline\Settings\Faults\FaultForm;
 use App\Livewire\Discipline\Settings\Faults\FaultList;
+use App\Livewire\Faults\Panel\FaultsPanel;
+use App\Livewire\Faults\Panel\SchoolFaultsFilter;
 use App\Livewire\Faults\SchoolFaultEdit;
 use App\Livewire\Faults\SchoolFaultForm;
 use App\Livewire\Faults\SchoolFaultJustified;
@@ -270,7 +272,7 @@ Route::middleware([
     RegisterLogging::class,
     'checkAccess:school_faults' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
 ])->group(function () {
-    Route::get('/faltas-escolares', SchoolFaultList::class)
+    Route::get('/faltas-escolares/lançar-faltas', SchoolFaultList::class)
         ->name('school-faults-list');
     Route::get('/faltas-escolares/novo', SchoolFaultForm::class)
         ->name('school-faults-create');
@@ -278,6 +280,12 @@ Route::middleware([
         ->name('school-faults-edit');
     Route::get('/faltas-escolares/{school_faults}/justificativa', SchoolFaultJustified::class)
         ->name('school-faults-justified');
+
+    Route::get('/faltas-escolares/busca-avançada', SchoolFaultsFilter::class)
+        ->name('school-faults-filter');
+
+    Route::get('/faltas-escolares/painel', FaultsPanel::class)
+        ->name('school-faults-panel');
 });
 
 Route::middleware([

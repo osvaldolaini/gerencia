@@ -58,7 +58,7 @@
                     <th class="text-center">Data</th>
                     <th class="text-center">Turma</th>
                     <th class="text-center">Qtd</th>
-                    {{-- <th class="text-center">Justificada</th> --}}
+                    <th class="text-center">Justificada</th>
                     <th class="text-center">Acumulado</th>
                     <th class="text-center">%</th>
                 </tr>
@@ -70,7 +70,7 @@
                         <td class="text-center">{{ \Carbon\Carbon::parse($fault->date)->format('d/m/Y') }}</td>
                         <td class="text-center">{{ $fault->class->title ?? '-' }}</td>
                         <td class="text-center">{{ $fault->qtd }}</td>
-                        {{-- <td class="text-center">{{ $fault->justified ? 'Sim' : 'Não' }}</td> --}}
+                        <td class="text-center">{{ $fault->justified ? 'Sim' : 'Não' }}</td>
                         <td class="text-center">{{ $fault->acumulado }}</td>
                         <td class="px-2 py-1 font-bold text-center">
                             {{ number_format((($fault->acumulado ?? 0) / 1200) * 100, 2, ',', '') }}%

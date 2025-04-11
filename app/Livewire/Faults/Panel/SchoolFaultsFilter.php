@@ -170,7 +170,6 @@ class SchoolFaultsFilter extends Component
                     </td>
                     <td width="25%" style="text-align: right;">
                         <strong>' . $config->name . '</strong><br>
-
                     </td>
                 </tr>
             </table>

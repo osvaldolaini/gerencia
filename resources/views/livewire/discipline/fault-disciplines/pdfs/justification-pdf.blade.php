@@ -10,10 +10,19 @@
             line-height: 1.5;
         }
 
+        .break-page {
+            page-break-before: always;
+        }
+
         .container {
             width: 100%;
             border: 1px solid black;
             margin-top: 20px;
+        }
+
+        p {
+            text-align: justify;
+            text-indent: 1.5cm;
         }
 
         .header {
@@ -310,7 +319,98 @@
         </div>
     </div>
     <div class="break-page"></div>
+    <div class="container">
+        <div class="header">
 
+            <table class="identification">
+                <tr>
+                    <td colspan="4" Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
+                        ÁREA DESTINADA AO CONTROLE DO RECEBIMENTO PELO(A) ALUNO(A)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="4" style="border-top: 1px solid black;">
+                        <p style="text-align: justify;">
+                            O prazo para a devolução deste documento é de 3 (três) dias úteis. O não cumprimento deste
+                            prazo constitui falta disciplinar constante no Apêndice 1 do Anexo F do Regimento Interno
+                            dos Colégios Militares – RICM (nº 18 - Deixar de devolver à subunidade, dentro do prazo
+                            estipulado, qualquer documento, devidamente visado pelo pai ou responsável.)
+                        </p>
+                        <p>
+                            Após passadas os 3 (três) dias úteis, e não havendo a apresentação das alegações dentro do
+                            prazo estipulado, o julgamento da medida disciplinar correspondente será efetuado à revelia
+                            das possíveis explicações do aluno e/ou dos responsáveis.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="border: 1px solid black;">
+                        Recebi a presente Ficha de Informação de Ocorrência em ___/___/20___
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border-right: 1px solid black;">
+                        Alu Nr: {{ $fault_discipline->al_number }}
+                    </td>
+                    <td colspan="2" style=" border-right: 1px solid black;">
+                        Nome de guerra: {{ $fault_discipline->al_nick }}
+                    </td>
+                    <td style="border-right: 1px solid black;">
+                        Turma: {{ $fault_discipline->al_class }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="border-top: 1px solid black;">
+                        Assinatura do(a) Aluno(a): _______________________________________________________________
+                    </td>
+                </tr>
+
+            </table>
+            <table class="identification">
+                <tr>
+                    <td colspan="4" Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
+                        ÁREA DESTINADA AO CONTROLE DO RECEBIMENTO PELO RESPONSÁVEL
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="4" style="border-top: 1px solid black;">
+                        <p>
+                            Sr./Sra. Responsável, favor dar o ciente após a apresentação das alegações, tanto pelo aluno
+                            quanto pelo(a) Sr.(a), sobre o fato observado em apuração. O prazo para a devolução deste
+                            documento é de 3(três) dias úteis. O não cumprimento deste prazo constitui falta disciplinar
+                            constante no Apêndice 1 do Anexo F do RICM (nº 18 - Deixar de devolver à subunidade, dentro
+                            do prazo estipulado, qualquer documento, devidamente visado pelo pai ou responsável.)
+                        </p>
+                        <p>
+                            Após passadas os 3 (três) dias úteis, e não havendo a apresentação das alegações dentro do
+                            prazo estipulado, o julgamento da medida disciplinar correspondente será efetuado à revelia
+                            das possíveis explicações do aluno e/ou dos responsáveis.
+                        </p>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="border-top: 1px solid black;border-right: 1px solid black;">
+                        Tomei ciência da presente Ficha de Informação de Ocorrência em ___/___/20___
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="border-top: 1px solid black;">
+                        Nome do Responsável:__________________________________________________________________
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="border-top: 1px solid black; border-right: 1px solid black;">
+                        Assinatura do Responsável
+                    </td>
+                    <td style="border-top: 1px solid black; "> em ____/____/20___ </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>

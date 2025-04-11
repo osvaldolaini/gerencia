@@ -1,5 +1,9 @@
 <div>
+
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div>
+            @livewire('faults.charts.faults-by-grade')
+        </div>
         <!-- Lançamentos Recentes -->
         <div class="p-5 shadow-md bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100 rounded-2xl">
             <h2 class="flex items-center gap-2 mb-4 text-xl font-semibold ">

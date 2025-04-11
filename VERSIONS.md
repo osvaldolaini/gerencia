@@ -6,6 +6,7 @@
 
     ->Pesquisa de faltas avançada
     ->Relatório de faltas
+    ->Graficos de faltas
 
 ## Versão Santos Dumont 1.3.7
 

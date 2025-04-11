@@ -1,6 +1,8 @@
 <div>
-
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div>
+            @livewire('faults.charts.faults-by-week')
+        </div>
         <div>
             @livewire('faults.charts.faults-by-grade')
         </div>
@@ -26,7 +28,7 @@
                                     </span>
                                     {{ $fault->students->name }}
                                 </p>
-                                <p class="text-sm text-gray-300">
+                                <p class="text-sm text-gray-700 dark:text-gray-300">
                                     {{ \Carbon\Carbon::parse($fault->date)->format('d/m/Y') }}
                                 </p>
                             </div>

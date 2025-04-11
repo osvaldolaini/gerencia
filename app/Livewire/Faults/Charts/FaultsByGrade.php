@@ -3,16 +3,16 @@
 namespace App\Livewire\Faults\Charts;
 
 use App\Models\Fault\SchoolFaults;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class FaultsByGrade extends Component
 {
-
-
     public $labels;
-    public $color;
     public $data;
+
+
     public function render()
     {
         $this->chart();
@@ -20,7 +20,11 @@ class FaultsByGrade extends Component
     }
     public function chart()
     {
+        $companiesAccess = Auth::user()->json_companies;
         $gradesChartRaw = SchoolFaults::select('school_grades_id', DB::raw('SUM(qtd) as total_faults'))
+            ->when(!in_array('all', $companiesAccess), function ($query) use ($companiesAccess) {
+                $query->whereIn('companies_id', $companiesAccess);
+            })
             ->groupBy('school_grades_id')
             ->with('grades')
             ->get();

@@ -3,6 +3,7 @@
 namespace App\Livewire\Faults\Panel;
 
 use App\Models\Fault\SchoolFaults;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class FaultsPanel extends Component
@@ -11,20 +12,28 @@ class FaultsPanel extends Component
     public $topStudents;
     public function render()
     {
-        // 10 lançamentos mais recentes
-        $this->recentFaults = SchoolFaults::with('students')
-            ->latest('date')
+        $companiesAccess = Auth::user()->json_companies;
+        $this->recentFaults = SchoolFaults::query()
+            ->when(!in_array('all', $companiesAccess), function ($query) use ($companiesAccess) {
+                $query->whereIn('companies_id', $companiesAccess);
+            })
+            ->with(['students', 'companies', 'grades', 'class'])
+            ->latest()
             ->take(10)
             ->get();
 
         // 10 alunos com mais faltas
-        $this->topStudents = SchoolFaults::select('student_id')
-            ->selectRaw('SUM(qtd) as total_faults')
+        $this->topStudents = SchoolFaults::query()
+            ->when(!in_array('all', $companiesAccess), function ($query) use ($companiesAccess) {
+                $query->whereIn('companies_id', $companiesAccess);
+            })
+            ->selectRaw('student_id, SUM(qtd) as total_faults')
             ->groupBy('student_id')
             ->orderByDesc('total_faults')
             ->with('students')
             ->take(10)
             ->get();
+
         return view('livewire.faults.panel.faults-panel');
     }
 }

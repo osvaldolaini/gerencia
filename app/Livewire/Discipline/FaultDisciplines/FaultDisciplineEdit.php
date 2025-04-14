@@ -148,7 +148,8 @@ class FaultDisciplineEdit extends Component
                 ->where('id', '!=', $fault_discipline->id)
                 ->get()
                 ->flatMap(function ($row) {
-                    return json_decode($row->faults);
+                    $decoded = json_decode($row->faults);
+                    return is_array($decoded) ? $decoded : [];
                 })
                 ->filter(function ($fault) use ($faultsArray) {
                     return in_array($fault, $faultsArray);

@@ -59,10 +59,10 @@
         }
 
         .student-image {
-            width: 12rem;
+            width: 20rem;
             height: auto;
-            margin-bottom: 1px;
-            margin-top: 1px;
+            /* margin-bottom: 1px;
+            margin-top: 1px; */
             border-radius: 50%;
         }
 

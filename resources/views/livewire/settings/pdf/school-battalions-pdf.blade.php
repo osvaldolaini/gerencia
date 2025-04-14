@@ -59,9 +59,10 @@
         }
 
         .student-image {
-            width: 10rem;
+            width: 12rem;
             height: auto;
-            margin: 0 auto 3px;
+            margin-bottom: 1px;
+            margin-top: 1px;
             border-radius: 50%;
         }
 
@@ -100,7 +101,7 @@
                         </h2>
 
                         <!-- Exibir ícone da patente -->
-                        <div class="flex justify-center ">
+                        <div class="flex justify-center " style="margin-bottom: 10px">
                             <img src="{{ Rank::fromDb($posto)?->imageBg() ?? Storage::url('ranks/fundo/default.png') }}"
                                 alt="Patente" class="rank-image">
                         </div>

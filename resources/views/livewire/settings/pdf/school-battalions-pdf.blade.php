@@ -31,7 +31,7 @@
         .container td {
             width: 33.33%;
             /* Garante três colunas iguais */
-            /* padding: 1px; */
+            padding: 1px;
             /* border: 1px solid #ddd;
             border-radius: 8px; */
             text-align: center;
@@ -59,11 +59,11 @@
         }
 
         .student-image {
-            width: 20rem;
+            width: 10rem;
             height: auto;
-            /* margin-bottom: 1px;
-            margin-top: 1px; */
+            margin: 0 auto 3px;
             border-radius: 50%;
+            padding: 0px;
         }
 
         .student-item h3 {
@@ -101,7 +101,7 @@
                         </h2>
 
                         <!-- Exibir ícone da patente -->
-                        <div class="flex justify-center " style="margin-bottom: 10px">
+                        <div class="flex justify-center my-2">
                             <img src="{{ Rank::fromDb($posto)?->imageBg() ?? Storage::url('ranks/fundo/default.png') }}"
                                 alt="Patente" class="rank-image">
                         </div>
@@ -116,7 +116,7 @@
                             @foreach ($filteredItems as $item)
                                 @if ($total === 1)
                                     <tr>
-                                        <td colspan="2" class="text-center border-b ">
+                                        <td colspan="2" class="py-2 text-center border-b">
                                             @if ($item->students->code_image)
                                                 <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
                                                     class="student-image">
@@ -133,7 +133,7 @@
                                         <tr>
                                     @endif
 
-                                    <td class="w-1/2 text-center border-b">
+                                    <td class="w-1/2 py-2 text-center border-b">
                                         @if ($item->students->code_image)
                                             <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
                                                 class="student-image">

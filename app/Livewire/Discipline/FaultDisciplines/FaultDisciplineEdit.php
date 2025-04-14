@@ -152,7 +152,7 @@ class FaultDisciplineEdit extends Component
                     return is_array($decoded) ? $decoded : [];
                 })
                 ->filter(function ($fault) use ($faultsArray) {
-                    return in_array($fault, $faultsArray);
+                    return is_array($faultsArray) && in_array($fault, $faultsArray);
                 })
                 ->unique()
                 ->values()

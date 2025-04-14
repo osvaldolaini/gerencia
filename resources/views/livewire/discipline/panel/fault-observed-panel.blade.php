@@ -19,12 +19,17 @@
                 @foreach ($topStudentsFos as $fact)
                     <li class="py-3">
                         <div class="flex items-center justify-between">
-                            <p class="font-medium text-gray-800 dark:text-gray-100">
-                                <span class="shadow-md badge badge-neutral">
-                                    {{ $fact->students->al_class->title }}
-                                </span>
-                                {{ $fact->students->name }}
-                            </p>
+                            <div>
+                                <p class="font-medium text-gray-800 dark:text-gray-100">
+                                    <span class="shadow-md badge badge-neutral">
+                                        {{ $fact->students->al_class->title }}
+                                    </span>
+                                    {{ $fact->students->name }}
+                                </p>
+                                <p class="text-sm text-gray-700 dark:text-gray-300">
+                                    {{ $fact->students->nick }}
+                                </p>
+                            </div>
                             <span class="inline-block px-3 py-1 text-sm text-red-800 bg-red-100 rounded-full">
                                 {{ $fact->total }}
                             </span>

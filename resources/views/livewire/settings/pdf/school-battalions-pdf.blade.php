@@ -63,7 +63,6 @@
             height: auto;
             margin: 0 auto 3px;
             border-radius: 50%;
-            padding: 0px;
         }
 
         .student-item h3 {

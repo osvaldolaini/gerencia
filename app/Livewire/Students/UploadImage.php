@@ -130,7 +130,7 @@ class UploadImage extends Component
             ->toPng()
             ->save($savePath . $code . '_big.png');
 
-        $image->scale(width: 300)
+        $image->scale(width: 30)
             ->toPng()
             ->save($savePath . $code . '_small.png');
 

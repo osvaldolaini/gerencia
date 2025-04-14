@@ -71,6 +71,10 @@ class FaultDisciplineEdit extends Component
     public $days;
     public $f_date;
 
+
+    public $old_faults;
+    public $relatedFaults;
+
     public function mount(FaultDiscipline $fault_discipline)
     {
         if ($fault_discipline->getAttributes()) {
@@ -123,8 +127,6 @@ class FaultDisciplineEdit extends Component
             $this->bi_date          = $fault_discipline->bi_date;
             $this->s_date           = $fault_discipline->s_date;
 
-
-
             if ($this->decision) {
                 $this->days = Penalty::from($this->decision)->days();
                 $this->grau = Penalty::from($this->decision)->degree();
@@ -134,6 +136,26 @@ class FaultDisciplineEdit extends Component
                 $this->sugestion = $fault_discipline->solution;
             }
             $this->breadcrumb = 'Faltas disciplinar nº ' . $this->number . '/' . $this->year;
+
+            $this->old_faults = FaultDiscipline::where('id', '!=', $fault_discipline->id)->where('al_number', $this->students->number)->get();
+
+
+            // Array de faltas da linha atual
+            $faultsArray = json_decode($fault_discipline->faults);
+
+            // Busca outras linhas do mesmo aluno
+            $this->relatedFaults = FaultDiscipline::where('student_id', $fault_discipline->student_id)
+                ->where('id', '!=', $fault_discipline->id)
+                ->get()
+                ->flatMap(function ($row) {
+                    return json_decode($row->faults);
+                })
+                ->filter(function ($fault) use ($faultsArray) {
+                    return in_array($fault, $faultsArray);
+                })
+                ->unique()
+                ->values()
+                ->all();
         }
     }
 

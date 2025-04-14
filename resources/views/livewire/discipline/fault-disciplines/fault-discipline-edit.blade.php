@@ -2,6 +2,7 @@
     @php
         use App\Enums\FunctionsObserver;
         use App\Enums\Penalty;
+        use App\Enums\Rank;
     @endphp
 
     <div class="py-4 rounded-2xl dark:bg-gray-700 ">
@@ -248,7 +249,6 @@
                             @enderror
                         </div>
 
-
                         <div class="col-span-full sm:col-span-full ">
                             <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
                                 Relato
@@ -259,8 +259,6 @@
                                 <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-
-
                     </div>
                 </div>
                 {{-- Enquadramento --}}
@@ -288,11 +286,32 @@
                                 @enderror
                             </div>
                         @endif
-
                     </div>
                     @livewire('discipline.fault-disciplines.settings.faults-select', [$faults])
+
                     @livewire('discipline.fault-disciplines.settings.mitigating-select', [$mitigating])
+                    <div>
+                        @if ($old_faults->count() > 0)
+                            <span class="text-red-500">*Não é sua primeira falta</span>
+                        @endif
+                    </div>
                     @livewire('discipline.fault-disciplines.settings.aggravating-select', [$aggravating])
+                    <div>
+                        @if (!empty($relatedFaults))
+                            <span class="text-red-500">*Já cometeu a(s) falta(s) nº
+                                (
+                                @foreach ($relatedFaults as $fault)
+                                    <span>{{ $fault }},</span>
+                                @endforeach
+                                )
+                            </span>
+                        @endif
+                        @if ($students->rank)
+                            <span class="text-red-500"> **Aluno
+                                {{ Rank::fromDb($students->rank->posto_grad)?->label() ?? 'Patente' }}
+                            </span>
+                        @endif
+                    </div>
                 </div>
                 <div id="tab4" x-show="activeTab === '#tab4'">
                     <div class="grid grid-cols-2 gap-2 mb-1 sm:grid-cols-6 sm:gap-3 sm:mb-5">

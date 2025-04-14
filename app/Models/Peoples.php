@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Livewire\Settings\SchoolClasses\SchoolClassesStudents;
+use App\Models\Settings\SchoolBattalionStudents;
 use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolClassesStudent;
 use App\Models\Settings\SchoolClassesYears;
@@ -150,5 +151,9 @@ class Peoples extends Model
     public function setTitle()
     {
         return $this->nick . ' (Turma ' . $this->people_class . ')';
+    }
+    public function getRankAttribute()
+    {
+        return SchoolBattalionStudents::where('people_id', $this->id)->where('active', 1)->first();
     }
 }

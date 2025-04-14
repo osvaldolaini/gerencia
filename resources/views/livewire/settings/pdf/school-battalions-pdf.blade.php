@@ -31,7 +31,7 @@
         .container td {
             width: 33.33%;
             /* Garante três colunas iguais */
-            padding: 1px;
+            /* padding: 1px; */
             /* border: 1px solid #ddd;
             border-radius: 8px; */
             text-align: center;
@@ -100,7 +100,7 @@
                         </h2>
 
                         <!-- Exibir ícone da patente -->
-                        <div class="flex justify-center my-2">
+                        <div class="flex justify-center ">
                             <img src="{{ Rank::fromDb($posto)?->imageBg() ?? Storage::url('ranks/fundo/default.png') }}"
                                 alt="Patente" class="rank-image">
                         </div>

@@ -34,6 +34,8 @@ class FaultsPanel extends Component
             ->take(10)
             ->get();
 
+
+
         return view('livewire.faults.panel.faults-panel');
     }
 }

@@ -19,6 +19,7 @@ use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineForm;
 use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineList;
 use App\Livewire\Discipline\Settings\Faults\FaultForm;
 use App\Livewire\Discipline\Settings\Faults\FaultList;
+use App\Livewire\Discipline\Panel\DisciplinePanel;
 use App\Livewire\Faults\Panel\FaultsPanel;
 use App\Livewire\Faults\Panel\SchoolFaultsFilter;
 use App\Livewire\Faults\SchoolFaultEdit;
@@ -233,6 +234,9 @@ Route::middleware([
         ->name('fault-discipline-create');
     Route::get('/disciplina/falta-disciplinar/{fault_discipline}/editar', FaultDisciplineEdit::class)
         ->name('fault-discipline-edit');
+
+    Route::get('/disciplina/painel', DisciplinePanel::class)
+        ->name('fact-observed-panel');
 });
 
 Route::middleware([

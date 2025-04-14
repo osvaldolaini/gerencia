@@ -109,7 +109,7 @@ class FaultDisciplineList extends Component
     #[On('modalClose')]
     public function modalClose()
     {
-        $this->showModalForm = true;
+        $this->showModalForm = false;
     }
     //ACTIVE
     public function buttonActive($id)

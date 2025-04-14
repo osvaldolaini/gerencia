@@ -83,24 +83,18 @@ class FaultDisciplineForm extends Component
     public function real_save()
     {
         $this->rules = [
-            // 'number'                   => 'required',
-            // 'year'                     => 'required',
-            'al_nick'                   => 'required',
-            'al_class'                     => 'required',
-            'cia'                       => 'required',
-            // 'fact_date'                => 'required',
-            'fact_type'                => 'required',
+            'al_nick'   => 'required',
+            'al_class'  => 'required',
+            'cia'       => 'required',
+            'fact_type' => 'required',
         ];
         $this->validate();
 
         $fault_discipline = FaultDiscipline::create([
             'active'                   => 1,
-            // 'number'                   => $this->number,
-            // 'year'                     => $this->year,
             'cia'                      => $this->cia,
             'company_id'               => $this->company_id,
             'cmt_cia'                  => $this->cmt_cia,
-            // 'cmt_cia_posto'            => $this->cmt_cia_posto,
             'student_id'               => $this->student_id,
             'al_nick'                  => $this->al_nick,
             'al_number'                => $this->al_number,
@@ -109,18 +103,12 @@ class FaultDisciplineForm extends Component
             'fact_hour'                => $this->fact_hour,
             'fact_date'                => $this->fact_date,
             'fact_type'                => $this->fact_type,
-            // 'faults'                   => $this->faults,
-            // 'fact_observer_function'   => $this->fact_observer_function,
-            // 'fact_observer_id'         => $this->fact_observer_id,
             'code'                     => Str::uuid(),
         ]);
         $id = $fault_discipline->id;
         $msg = 'Registro criado com sucesso.';
-
-
         $this->openAlert('success', $msg);
         $this->dispatch('modelClose');
-        // return $id;
     }
     public function openAlert($status, $msg)
     {

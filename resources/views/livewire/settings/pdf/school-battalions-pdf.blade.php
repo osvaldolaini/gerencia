@@ -31,7 +31,8 @@
         .container td {
             width: 33.33%;
             /* Garante três colunas iguais */
-            padding: 1px;
+            padding-top: 1px;
+            padding-bottom: 1px;
             /* border: 1px solid #ddd;
             border-radius: 8px; */
             text-align: center;
@@ -61,7 +62,7 @@
         .student-image {
             width: 10rem;
             height: auto;
-            margin: 0 auto 3px;
+            margin: 0 auto 1px;
             border-radius: 50%;
         }
 

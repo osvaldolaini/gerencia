@@ -5,6 +5,7 @@
 > Novidades
 
     ->Painel de controle (FO, FAFD)
+    ->Painel geral (admin)
 
 ## Versão Santos Dumont 1.3.8
 

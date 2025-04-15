@@ -56,7 +56,6 @@
 </head>
 
 <body>
-
     <div class="container">
         <div>
             <table class="turmas-table">
@@ -93,23 +92,21 @@
                     <td colspan="3" class="text-right border">Total</td>
                     <td class="text-center border">{{ $c }}</td>
                 </tr>
-
             </table>
         </div>
-
         <pagebreak />
         <div>
             <table class="turmas-table">
                 <tr class="w-full py-5">
                     <th colspan="4" class="border header">
                         <small>
-                            <span>Masculino - {{ $class->title }}</span>
+                            <span>Masculino</span>
                         </small>
                     </th>
                 </tr>
                 <tr class="class">
                     <td class="text-left border">Nr</td>
-                    <td class="text-left border">AlunO</td>
+                    <td class="text-left border">Aluno</td>
                     <td class="text-left border">Turma</td>
                     <td class="text-center border">P/F</td>
                 </tr>
@@ -133,13 +130,9 @@
                     <td colspan="3" class="text-right border">Total</td>
                     <td class="text-center border">{{ $c }}</td>
                 </tr>
-
             </table>
         </div>
     </div>
-
-
 </body>
-
 
 </html>

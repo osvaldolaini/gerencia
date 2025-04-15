@@ -52,17 +52,19 @@
 <body>
 
     <div class="container">
+        <table class="turmas-table">
+            <tr class="w-full py-5">
+                <th colspan="3" class="border header">
+                    <small>
+                        <span>Feminino </span>
+                    </small>
+                </th>
+            </tr>
+        </table>
         @foreach ($school_classes as $class)
             <div class="turma-wrapper">
                 <!-- Primeira Tabela -->
                 <table class="turmas-table">
-                    <tr class="w-full py-5">
-                        <th colspan="3" class="border header">
-                            <small>
-                                <span>Feminino - {{ $class->title }}</span>
-                            </small>
-                        </th>
-                    </tr>
                     <tr class="w-full ">
                         <th class="w-20 text-center border">Nr</th>
                         <th class="w-20 text-center border">Aluna</th>
@@ -81,29 +83,29 @@
                             <td class="text-center border"></td>
                         </tr>
                     @endforeach
-                    <tr class="border">
                     <tr class="">
                         <td colspan="2" class="text-right border">Total</td>
                         <td class="text-center border">{{ $c }}</td>
-                    </tr>
-
                     </tr>
                 </table>
             </div>
         @endforeach
 
         <pagebreak />
+        <table class="turmas-table">
+            <tr class="w-full py-5">
+                <th colspan="3" class="border header">
+                    <small>
+                        <span>Masculino - {{ $class->title }}</span>
+                    </small>
+                </th>
+            </tr>
+        </table>
         @foreach ($school_classes as $class)
             <div class="turma-wrapper">
                 <!-- Primeira Tabela -->
                 <table class="turmas-table">
-                    <tr class="w-full py-5">
-                        <th colspan="3" class="border header">
-                            <small>
-                                <span>Masculino - {{ $class->title }}</span>
-                            </small>
-                        </th>
-                    </tr>
+
                     <tr class="w-full ">
                         <th class="w-20 text-center border">Nr</th>
                         <th class="w-20 text-center border">Aluno</th>
@@ -123,17 +125,11 @@
                         </tr>
                     @endforeach
                     <tr class="border">
-                    <tr class="">
                         <td colspan="2" class="text-right border">Total</td>
                         <td class="text-center border">{{ $c }}</td>
                     </tr>
-
-                    </tr>
                 </table>
             </div>
-            @if (!$loop->last)
-                <pagebreak />
-            @endif
         @endforeach
     </div>
 

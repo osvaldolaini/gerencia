@@ -101,29 +101,28 @@
                         </small>
                     </th>
                 </tr>
-            </table>
-            @php
-                $c = 0;
-            @endphp
-            @foreach ($school_classes as $class)
-                @foreach ($class->studentsPivot->where('students.sex', 'M')->sortBy('students.nick') as $pivot)
-                    @php
-                        $c += 1;
-                    @endphp
-                    <tr class="class">
-                        <td class="text-left border">{{ $pivot->students->number }}</td>
-                        <td class="text-left border">{{ $pivot->students->nick }}</td>
-                        <td class="text-center border"></td>
-                    </tr>
+                @php
+                    $c = 0;
+                @endphp
+                @foreach ($school_classes as $class)
+                    @foreach ($class->studentsPivot->where('students.sex', 'M')->sortBy('students.nick') as $pivot)
+                        @php
+                            $c += 1;
+                        @endphp
+                        <tr class="class">
+                            <td class="text-left border">{{ $pivot->students->number }}</td>
+                            <td class="text-left border">{{ $pivot->students->nick }}</td>
+                            <td class="text-center border"></td>
+                        </tr>
+                    @endforeach
                 @endforeach
-            @endforeach
-            <table>
-                <tr class="border">
-                    <td colspan="2" class="text-right border">Total</td>
-                    <td class="text-center border">{{ $c }}</td>
-                </tr>
+                <table>
+                    <tr class="border">
+                        <td colspan="2" class="text-right border">Total</td>
+                        <td class="text-center border">{{ $c }}</td>
+                    </tr>
 
-            </table>
+                </table>
         </div>
     </div>
 

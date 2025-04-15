@@ -101,6 +101,9 @@
                 </th>
             </tr>
         </table>
+        @php
+            $c = 0;
+        @endphp
         @foreach ($school_classes as $class)
             <div class="turma-wrapper">
                 <!-- Primeira Tabela -->
@@ -111,9 +114,7 @@
                         <th class="w-20 text-center border">Aluno</th>
                         <th class="w-10 text-center border">P/F</th>
                     </tr>
-                    @php
-                        $c = 0;
-                    @endphp
+
                     @foreach ($class->studentsPivot->where('students.sex', 'M')->sortBy('students.nick') as $pivot)
                         @php
                             $c += 1;
@@ -124,13 +125,16 @@
                             <td class="text-center border"></td>
                         </tr>
                     @endforeach
-                    <tr class="border">
-                        <td colspan="2" class="text-right border">Total</td>
-                        <td class="text-center border">{{ $c }}</td>
-                    </tr>
+
                 </table>
             </div>
         @endforeach
+        <table>
+            <tr class="border">
+                <td colspan="2" class="text-right border">Total</td>
+                <td class="text-center border">{{ $c }}</td>
+            </tr>
+        </table>
     </div>
 
 

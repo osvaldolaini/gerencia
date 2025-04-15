@@ -15,6 +15,12 @@
             font-size: 6pt;
         }
 
+        .turmas-table {
+
+            width: 100%;
+            font-size: 6pt;
+        }
+
         .border {
             border: solid thin #000;
         }
@@ -55,7 +61,7 @@
         <div>
             <table class="turmas-table">
                 <tr class="w-full py-5">
-                    <th colspan="3" class="border header">
+                    <th colspan="4" class="border header">
                         <small>
                             <span>Feminino</span>
                         </small>
@@ -72,12 +78,13 @@
                         <tr class="class">
                             <td class="text-left border">{{ $pivot->students->number }}</td>
                             <td class="text-left border">{{ $pivot->students->nick }}</td>
+                            <td class="text-left border">{{ $pivot->students->al_class->title }}</td>
                             <td class="text-center border"></td>
                         </tr>
                     @endforeach
                 @endforeach
                 <tr class="border">
-                    <td colspan="2" class="text-right border">Total</td>
+                    <td colspan="3" class="text-right border">Total</td>
                     <td class="text-center border">{{ $c }}</td>
                 </tr>
 
@@ -88,7 +95,7 @@
         <div>
             <table class="turmas-table">
                 <tr class="w-full py-5">
-                    <th colspan="3" class="border header">
+                    <th colspan="4" class="border header">
                         <small>
                             <span>Masculino - {{ $class->title }}</span>
                         </small>
@@ -105,12 +112,13 @@
                         <tr class="class">
                             <td class="text-left border">{{ $pivot->students->number }}</td>
                             <td class="text-left border">{{ $pivot->students->nick }}</td>
+                            <td class="text-left border">{{ $pivot->students->al_class->title }}</td>
                             <td class="text-center border"></td>
                         </tr>
                     @endforeach
                 @endforeach
                 <tr class="border">
-                    <td colspan="2" class="text-right border">Total</td>
+                    <td colspan="3" class="text-right border">Total</td>
                     <td class="text-center border">{{ $c }}</td>
                 </tr>
 

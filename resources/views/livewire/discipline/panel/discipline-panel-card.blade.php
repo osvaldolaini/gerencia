@@ -4,7 +4,7 @@
         <div class="p-4 ">
             <dl>
                 <dt class="text-sm font-medium leading-5 text-white truncate">
-                    Painel disciplina
+                    Painel disciplina {{ date('Y') }}
                 </dt>
                 <dd class="mt-1 font-bold text-white text-md">
                     <div class="flex justify-around ">

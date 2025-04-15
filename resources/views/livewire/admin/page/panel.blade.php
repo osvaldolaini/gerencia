@@ -66,6 +66,7 @@
                 </span>
             @endforeach
         @endif
+        @livewire('discipline.panel.discipline-panel-card')
     </div>
     @if ($companies)
         <div class="flex flex-wrap sm:justify-center">
@@ -129,8 +130,6 @@
 
                                         <div>
                                             <div class="col-span-1">
-
-
                                                 <div class="flex justify-center font-medium duration-200">
                                                     {{-- Opções visíveis em telas grandes --}}
                                                     <div class="flex space-x-1">

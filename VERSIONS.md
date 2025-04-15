@@ -1,5 +1,16 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.3.10
+
+> Novidades
+
+    ->Card disciplina
+    ->Chamada da formatura (masculino/feminino)
+
+> Correções
+
+    ->Ordem dos alunos por nome (chamada)
+
 ## Versão Santos Dumont 1.3.9
 
 > Novidades

@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 class Buttons extends Component
 {
     public $print_classes   = false;
+    public $print_classes_sex   = false;
     public $print_call      = false;
     public $print_battalion = false;
 
@@ -37,6 +38,7 @@ class Buttons extends Component
         $this->grade = SchoolGrades::find($grade);
 
         $this->print_classes    = $button == 'print_classes' ?? true;
+        $this->print_classes_sex    = $button == 'print_classes_sex' ?? true;
         $this->print_call       = $button == 'print_call' ?? true;
         $this->print_battalion  = $button == 'print_battalion' ?? true;
 
@@ -103,6 +105,78 @@ class Buttons extends Component
              <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
          </tr>
      </table>');
+        $mpdf->WriteHTML($html);
+
+        // Salve o PDF temporariamente
+        $file = trim('chamada_' . $this->grade->name . '_' . Str::uuid() . '.pdf');
+
+        if (!is_dir(storage_path('app/public/pdf-tmp'))) {
+            mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário
+        }
+
+        $down = storage_path('app/public/pdf-tmp/' . $file);
+        $pdfPath = url('storage/pdf-tmp/' . $file);
+
+        $mpdf->Output($down, 'F');
+
+        $this->dispatch('openPdfInNewTabClasses', pdfPath: $pdfPath);
+    }
+    //Turmas
+    public function classes_sex()
+    {
+        $config = Settings::find(1);
+
+        $logoPath = Storage::exists('public/companies/' . $this->company->id)
+            ? url('storage/companies/' . $this->company->id . '/' . $this->company->code_image . '_list.png')
+            : url('storage/logos-school/logo-header.png');
+
+
+        // Crie uma instância do mPDF
+        $mpdf = new \Mpdf\Mpdf([
+            'mode'          => 'utf-8',
+            // 'orientation'        => 'P', //[P,L]
+            'format' => 'A4-P',
+            'margin_left'   => 15,
+            'margin_top'    => 15,
+            'default_font_size'  => 9,
+            'default_font'  => 'arial',
+        ]);
+        // dd($mpdf);
+        $html = view(
+            'livewire.settings.pdf.school-classes-sex-pdf',
+            [
+                'logoPath'          => $logoPath,
+                'school_classes'    => $this->school_classes,
+                'grade'             => $this->grade->name,
+                'config'            => $config,
+                'companies'         => $this->company,
+                'subtext'           => 'Turmas do ' . $this->grade->name,
+                'responsible'       => Auth::user()->name,
+            ]
+        )->render();
+
+        // Adicione o conteúdo HTML ao PDF
+        $mpdf->SetHTMLHeader('
+             <table width="100%">
+                 <tr >
+                     <td width="50%">
+                         <img width="50" src="' . $logoPath . '" alt="Logo">
+                     </td>
+                     <td width="50%" style="text-align: right;">
+                         <strong>' . $config->name . '</strong><br>
+                         ' . $this->company->name . '<br>
+                         Turmas do ' . $this->grade->name . '
+                     </td>
+                 </tr>
+             </table>
+             ');
+        $mpdf->SetHTMLFooter('
+      <table width="100%">
+          <tr>
+              <td width="66%">Impressão realizada em {DATE j/m/Y} às {DATE H:i:s}</td>
+              <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
+          </tr>
+      </table>');
         $mpdf->WriteHTML($html);
 
         // Salve o PDF temporariamente

@@ -97,7 +97,7 @@
                                     @php
                                         $c = 0;
                                     @endphp
-                                    @foreach ($class->studentsPivot->sortBy('nick') as $student)
+                                    @foreach ($class->studentsPivot->sortBy('students.nick') as $student)
                                         @php
                                             $c += 1;
                                         @endphp

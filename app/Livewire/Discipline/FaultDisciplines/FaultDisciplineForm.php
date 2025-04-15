@@ -65,13 +65,13 @@ class FaultDisciplineForm extends Component
         // $this->cmt_cia_posto    = $people->al_class->classGrade->company->id;
     }
 
-    public function save()
-    {
-        $id = $this->real_save();
-        // if ($id) {
-        //     redirect()->route($this->route . '-edit', $id)->with('success', 'Registro criado com sucesso.');
-        // }
-    }
+    // public function save()
+    // {
+    //     $id = $this->real_save();
+    //     // if ($id) {
+    //     //     redirect()->route($this->route . '-edit', $id)->with('success', 'Registro criado com sucesso.');
+    //     // }
+    // }
     public function save_out()
     {
         $id = $this->real_save();
@@ -107,8 +107,8 @@ class FaultDisciplineForm extends Component
         ]);
         $id = $fault_discipline->id;
         $msg = 'Registro criado com sucesso.';
+        $this->dispatch('modalClose');
         $this->openAlert('success', $msg);
-        $this->dispatch('modelClose');
     }
     public function openAlert($status, $msg)
     {

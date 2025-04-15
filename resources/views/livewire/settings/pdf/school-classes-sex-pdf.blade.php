@@ -57,7 +57,7 @@
                 <tr class="w-full py-5">
                     <th colspan="3" class="border header">
                         <small>
-                            <span>Feminino - {{ $class->title }}</span>
+                            <span>Feminino</span>
                         </small>
                     </th>
                 </tr>

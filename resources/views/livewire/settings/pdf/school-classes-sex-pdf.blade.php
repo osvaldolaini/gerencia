@@ -92,49 +92,39 @@
         @endforeach
 
         <pagebreak />
-        <table class="turmas-table">
-            <tr class="w-full py-5">
-                <th colspan="3" class="border header">
-                    <small>
-                        <span>Masculino - {{ $class->title }}</span>
-                    </small>
-                </th>
-            </tr>
-        </table>
-        @php
-            $c = 0;
-        @endphp
-        @foreach ($school_classes as $class)
-            <div class="turma-wrapper">
-                <!-- Primeira Tabela -->
-                <table class="turmas-table">
-
-                    <tr class="w-full ">
-                        <th class="w-20 text-center border">Nr</th>
-                        <th class="w-20 text-center border">Aluno</th>
-                        <th class="w-10 text-center border">P/F</th>
+        <div>
+            <table class="turmas-table">
+                <tr class="w-full py-5">
+                    <th colspan="3" class="border header">
+                        <small>
+                            <span>Masculino - {{ $class->title }}</span>
+                        </small>
+                    </th>
+                </tr>
+            </table>
+            @php
+                $c = 0;
+            @endphp
+            @foreach ($school_classes as $class)
+                @foreach ($class->studentsPivot->where('students.sex', 'M')->sortBy('students.nick') as $pivot)
+                    @php
+                        $c += 1;
+                    @endphp
+                    <tr class="class">
+                        <td class="text-left border">{{ $pivot->students->number }}</td>
+                        <td class="text-left border">{{ $pivot->students->nick }}</td>
+                        <td class="text-center border"></td>
                     </tr>
+                @endforeach
+            @endforeach
+            <table>
+                <tr class="border">
+                    <td colspan="2" class="text-right border">Total</td>
+                    <td class="text-center border">{{ $c }}</td>
+                </tr>
 
-                    @foreach ($class->studentsPivot->where('students.sex', 'M')->sortBy('students.nick') as $pivot)
-                        @php
-                            $c += 1;
-                        @endphp
-                        <tr class="class">
-                            <td class="text-left border">{{ $pivot->students->number }}</td>
-                            <td class="text-left border">{{ $pivot->students->nick }}</td>
-                            <td class="text-center border"></td>
-                        </tr>
-                    @endforeach
-
-                </table>
-            </div>
-        @endforeach
-        <table>
-            <tr class="border">
-                <td colspan="2" class="text-right border">Total</td>
-                <td class="text-center border">{{ $c }}</td>
-            </tr>
-        </table>
+            </table>
+        </div>
     </div>
 
 

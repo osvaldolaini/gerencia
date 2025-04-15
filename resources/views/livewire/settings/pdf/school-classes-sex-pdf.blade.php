@@ -12,7 +12,7 @@
 
         .class {
             width: 100%;
-            font-size: 8pt;
+            font-size: 6pt;
         }
 
         .border {
@@ -52,27 +52,19 @@
 <body>
 
     <div class="container">
-        <table class="turmas-table">
-            <tr class="w-full py-5">
-                <th colspan="3" class="border header">
-                    <small>
-                        <span>Feminino </span>
-                    </small>
-                </th>
-            </tr>
-        </table>
-        @foreach ($school_classes as $class)
-            <div class="turma-wrapper">
-                <!-- Primeira Tabela -->
-                <table class="turmas-table">
-                    <tr class="w-full ">
-                        <th class="w-20 text-center border">Nr</th>
-                        <th class="w-20 text-center border">Aluna</th>
-                        <th class="w-10 text-center border">P/F</th>
-                    </tr>
-                    @php
-                        $c = 0;
-                    @endphp
+        <div>
+            <table class="turmas-table">
+                <tr class="w-full py-5">
+                    <th colspan="3" class="border header">
+                        <small>
+                            <span>Feminino - {{ $class->title }}</span>
+                        </small>
+                    </th>
+                </tr>
+                @php
+                    $c = 0;
+                @endphp
+                @foreach ($school_classes as $class)
                     @foreach ($class->studentsPivot->where('students.sex', 'F')->sortBy('students.nick') as $pivot)
                         @php
                             $c += 1;
@@ -83,13 +75,14 @@
                             <td class="text-center border"></td>
                         </tr>
                     @endforeach
-                    <tr class="">
-                        <td colspan="2" class="text-right border">Total</td>
-                        <td class="text-center border">{{ $c }}</td>
-                    </tr>
-                </table>
-            </div>
-        @endforeach
+                @endforeach
+                <tr class="border">
+                    <td colspan="2" class="text-right border">Total</td>
+                    <td class="text-center border">{{ $c }}</td>
+                </tr>
+
+            </table>
+        </div>
 
         <pagebreak />
         <div>

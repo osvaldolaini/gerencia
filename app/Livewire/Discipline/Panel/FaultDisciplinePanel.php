@@ -19,6 +19,7 @@ class FaultDisciplinePanel extends Component
                 $query->whereIn('company_id', $companiesAccess);
             })
             ->with(['students'])
+            ->where('active', 1)
             ->latest()
             ->take(10)
             ->get();
@@ -28,6 +29,7 @@ class FaultDisciplinePanel extends Component
                 $query->whereIn('company_id', $companiesAccess);
             })
             ->selectRaw('student_id, COUNT(*) as total')
+            ->where('active', 1)
             ->groupBy('student_id')
             ->orderByDesc('total')
             ->with('students') // Certifique-se de que a relação está definida no model

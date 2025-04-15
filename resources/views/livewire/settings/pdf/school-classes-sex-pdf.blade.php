@@ -12,7 +12,7 @@
 
         .class {
             width: 100%;
-            font-size: 6pt;
+            font-size: 8pt;
         }
 
         .turmas-table {
@@ -67,6 +67,12 @@
                         </small>
                     </th>
                 </tr>
+                <tr class="class">
+                    <td class="text-left border">Nr</td>
+                    <td class="text-left border">Aluna</td>
+                    <td class="text-left border">Turma</td>
+                    <td class="text-center border">P/F</td>
+                </tr>
                 @php
                     $c = 0;
                 @endphp
@@ -100,6 +106,12 @@
                             <span>Masculino - {{ $class->title }}</span>
                         </small>
                     </th>
+                </tr>
+                <tr class="class">
+                    <td class="text-left border">Nr</td>
+                    <td class="text-left border">AlunO</td>
+                    <td class="text-left border">Turma</td>
+                    <td class="text-center border">P/F</td>
                 </tr>
                 @php
                     $c = 0;

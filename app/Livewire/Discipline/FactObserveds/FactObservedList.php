@@ -175,6 +175,7 @@ class FactObservedList extends Component
             'fact_date'                => $fact->fact_date,
             'fact_type'                => $fact->fact_type,
             'faults'                   => $f,
+            'fact_observer'            => $fact->fact_observer,
             'fact_observer_function'   => $fact->fact_observer_function,
             'fact_observer_id'         => $fact->fact_observer_id,
             'code'                     => Str::uuid(),

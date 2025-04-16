@@ -50,9 +50,11 @@ class AppFactObservedNegative extends Component
     public function mount()
     {
         $user = Auth::user();
-        $this->fact_observer = MilitaryRank::from($user->people->posto_grad)->label() . ' ' . $user->people->nick;
-        $this->fact_observer_function = $user->people->function;
-        $this->fact_observer_id = $user->people->id;
+        if ($user->people) {
+            $this->fact_observer = MilitaryRank::from($user->people->posto_grad)->label() . ' ' . $user->people->nick;
+            $this->fact_observer_function = $user->people->function;
+            $this->fact_observer_id = $user->people->id;
+        }
     }
 
 

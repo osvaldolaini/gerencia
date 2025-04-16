@@ -131,7 +131,7 @@
                         Alu Nr: {{ $fault_discipline->al_number }}
                     </td>
                     <td colspan="2" style=" border-right: 1px solid black;">
-                        NOME: {{ $fault_discipline->al_nick }}
+                        NOME: {{ $fault_discipline->al_name }}
                     </td>
                     <td style="border-top: 1px solid black;">
                         TURMA: {{ $fault_discipline->al_class }}

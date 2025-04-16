@@ -134,6 +134,7 @@ class FactObservedForm extends Component
                 'cmt_cia'                  => $this->cmt_cia,
                 'student_id'               => $this->student_id,
                 'al_nick'                  => $this->al_nick,
+                'al_name'                  => $this->al_name,
                 'al_number'                => $this->al_number,
                 'al_class'                 => $this->al_class,
                 'fact'                     => $this->fact,

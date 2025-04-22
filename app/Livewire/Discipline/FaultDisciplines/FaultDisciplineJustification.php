@@ -32,7 +32,7 @@ class FaultDisciplineJustification extends Component
         if ($fault_discipline->id) {
             $this->fafd = Peoples::find($fault_discipline->id);
             $this->paste = Storage::fileExists('public/fafd/' . $this->fault_discipline->id . '/fafd_n_' . $this->fault_discipline->number . '.pdf');
-            // dd($this->doc);
+            dd($this->paste);
         }
     }
     public function render()

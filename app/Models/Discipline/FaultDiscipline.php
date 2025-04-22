@@ -170,11 +170,9 @@ class FaultDiscipline extends Model
     {
         $this->attributes['solution_date'] = $this->dbDate($value);
     }
-    public function getSDateAttribute($value)
+    public function getSDateAttribute()
     {
-        if ($value != "") {
-            return $this->viewDate($value);
-        }
+        return $this->viewDate($this->solution_date);
     }
     public function setFactDateAttribute($value)
     {

@@ -4,6 +4,7 @@ namespace App\Enums;
 
 enum Penalty: string
 {
+    case Fo = 'fo';
     case Advertencia = 'advertencia';
     case Repreensao = 'repreensao';
     case AOE = 'atividade_orientacao_educacional';
@@ -13,6 +14,7 @@ enum Penalty: string
     public function label(): string
     {
         return match ($this) {
+            self::Fo => 'FO',
             self::Advertencia => 'Advertência',
             self::Repreensao => 'Repreensão',
             self::AOE => 'Atividade de Orientação Educacional (AOE)',
@@ -24,6 +26,7 @@ enum Penalty: string
     public function degree(): float
     {
         return match ($this) {
+            self::Fo => 0.0,
             self::Advertencia => 0.0,
             self::Repreensao => 0.3,
             self::AOE => 0.5,
@@ -34,6 +37,7 @@ enum Penalty: string
     public function days(): int
     {
         return match ($this) {
+            self::Fo => 0,
             self::Advertencia => 0,
             self::Repreensao => 0,
             self::AOE => 1,
@@ -44,6 +48,7 @@ enum Penalty: string
     public function sugestion($days): string
     {
         return match ($this) {
+            self::Fo                    => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido registrar um FO',
             self::Advertencia           => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a) com uma advertência publicada em BI',
             self::Repreensao            => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a) com repreenção publicada em BI',
             self::AOE                   => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a) com ' . $days . ' dia' . ($days > 1 ? 's' : '') . ' de Atividade de Orientação Educacional (AOE)',

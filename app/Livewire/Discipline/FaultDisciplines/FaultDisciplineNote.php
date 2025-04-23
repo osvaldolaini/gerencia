@@ -109,7 +109,7 @@ class FaultDisciplineNote extends Component
 
             $this->validate();
             if (Storage::directoryMissing('public/fafd/' . $this->fault_discipline->id)) {
-                Storage::makeDirectory('public/fafd/' . $this->fault_discipline->id);
+                Storage::makeDirectory('public/fafd/' . $this->fault_discipline->id, 0755, true, true);
             }
             Storage::delete('public/fafd/' . $this->fault_discipline->id . '/fafd_n_nota_' . $this->fault_discipline->number . '.pdf');
             if (isset($this->uploadPdf)) {

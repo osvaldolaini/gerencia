@@ -211,4 +211,15 @@ class FaultDiscipline extends Model
     {
         return $this->belongsTo(Faults::class, 'fault_id', 'id');
     }
+
+
+    public function relatedFaults()
+    {
+        // Array de faltas da linha atual
+        $faultsArray = json_decode($this->faults);
+
+        // Busca outras linhas do mesmo aluno
+        return $this->values()
+            ->all();
+    }
 }

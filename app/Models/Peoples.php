@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-use App\Livewire\Settings\SchoolClasses\SchoolClassesStudents;
+use App\Models\Discipline\FactObserved;
+use App\Models\Discipline\FaultDiscipline;
+use App\Models\Fault\SchoolFaults;
 use App\Models\Settings\SchoolBattalionStudents;
 use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolClassesStudent;
@@ -155,5 +157,18 @@ class Peoples extends Model
     public function getRankAttribute()
     {
         return SchoolBattalionStudents::where('people_id', $this->id)->where('active', 1)->first();
+    }
+
+    public function fo(): HasMany
+    {
+        return $this->hasMany(FactObserved::class, 'student_id', 'id');
+    }
+    public function fafd(): HasMany
+    {
+        return $this->hasMany(FaultDiscipline::class, 'student_id', 'id');
+    }
+    public function faults(): HasMany
+    {
+        return $this->hasMany(SchoolFaults::class, 'student_id', 'id');
     }
 }

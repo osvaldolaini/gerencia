@@ -285,6 +285,13 @@
                                 <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="flex flex-col items-end justify-end col-span-full sm:col-span-5">
+                            <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                                Histórico
+                            </label>
+                            @livewire('students.student-history', ['student' => $student_id])
+                        </div>
+
                         @if ($repeat == 1)
                             <div class="col-span-full sm:col-span-1">
                                 <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">

@@ -1,4 +1,7 @@
 <div>
+    @php
+        use App\Enums\Penalty;
+    @endphp
     <span wire:click='showRead({{ $student->id }})'
         class="flex px-3 py-2 transition-colors duration-200 rounded-sm cursor-pointer dark:text-white hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,62 +91,106 @@
                         <x-slot name="content">
                             @if ($activeTab === 'fafd')
                                 <div id="fafd">
-                                    <ul>
+                                    <table class="w-full">
+                                        <tr>
+                                            <th class="text-center">Data</th>
+                                            <th class="text-center">FAFD Nr</th>
+                                            <th class="text-center">Falta(s)</th>
+                                            <th class="text-center">Solução</th>
+                                        </tr>
                                         @foreach ($student->fafd->sortByDesc('fact_date') as $fafd)
-                                            <li>
-                                                {{ $fafd->f_date }} FAFD {{ $fafd->number }} - falta(s) nº
-                                                @if ($fafd->faults)
-                                                    @php
-                                                        $vowels = ['[', ']'];
-                                                        $faults = str_replace($vowels, '', $fafd->faults);
-                                                    @endphp
-                                                    {{-- (@fafdreach ($fafd->json_faults as $fault) --}}
-                                                    <span>{{ $faults }}</span>
-                                                    {{-- @endforeach) --}}
-                                                @endif
-                                            </li>
+                                            <tr class="border-t">
+                                                <td class="text-center ">
+                                                    {{ $fafd->f_date }}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ $fafd->number }}
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($fafd->faults)
+                                                        @php
+                                                            $vowels = ['[', ']'];
+                                                            $faults = str_replace($vowels, '', $fafd->faults);
+                                                        @endphp
+                                                        {{-- (@fafdreach ($fafd->json_faults as $fault) --}}
+                                                        <span>{{ $faults }}</span>
+                                                        {{-- @endforeach) --}}
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : '' }}
+                                                </td>
+                                            </tr>
                                         @endforeach
-                                    </ul>
+                                    </table>
 
                                 </div>
                             @elseif ($activeTab === 'fo')
                                 <div id="fo">
-                                    <ul>
+                                    <table class="w-full">
+                                        <tr>
+                                            <th class="text-center">Data</th>
+                                            <th class="text-center">FO</th>
+                                            <th class="text-center">Falta(s)</th>
+                                        </tr>
                                         @foreach ($student->fo->sortByDesc('fact_date') as $fo)
-                                            <li>
-                                                {{ $fo->f_date }} FO {{ $fo->fact_type }} - falta(s) nº
-                                                @if ($fo->faults)
-                                                    @php
-                                                        $vowels = ['[', ']'];
-                                                        $faults = str_replace($vowels, '', $fo->faults);
-                                                    @endphp
-                                                    {{-- (@fafdreach ($fafd->json_faults as $fault) --}}
-                                                    <span>{{ $faults }}</span>
-                                                    {{-- @endforeach) --}}
-                                                @endif
-                                            </li>
+                                            <tr class="border-t">
+                                                <td class="text-center ">
+                                                    {{ $fo->f_date }}
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($fo->fact_type == 'negativo')
+                                                        <span class="badge badge-error">FO-</span>
+                                                    @endif
+                                                    @if ($fo->fact_type == 'positivo')
+                                                        <span class="badge badge-info">FO+</span>
+                                                    @endif
+                                                    @if ($fo->fact_type == 'informativo')
+                                                        <span class="badge badge-success">FO!</span>
+                                                    @endif
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($fo->faults)
+                                                        @php
+                                                            $vowels = ['[', ']'];
+                                                            $faults = str_replace($vowels, '', $fo->faults);
+                                                        @endphp
+                                                        {{-- (@fafdreach ($fafd->json_faults as $fault) --}}
+                                                        <span>{{ $faults }}</span>
+                                                        {{-- @endforeach) --}}
+                                                    @endif
+                                                </td>
+                                            </tr>
                                         @endforeach
-                                    </ul>
+                                    </table>
                                 </div>
                             @elseif ($activeTab === 'faltas')
                                 <div id="faltas">
-                                    <ul>
+                                    <table class="w-full">
+                                        <tr>
+                                            <th class="text-center">Data</th>
+                                            <th class="text-center">Períodos</th>
+                                            <th class="text-center">Justificada</th>
+                                        </tr>
                                         @foreach ($student->faults->sortByDesc('date') as $faults)
-                                            <li>
-                                                @if ($faults->justified == 0)
-                                                    <span class="text-red-500">
-                                                        Não justificada
-                                                    </span>
-                                                @else
-                                                    <span class="text-green-500 ">
-                                                        Justificada
-                                                    </span>
-                                                @endif
-                                                {{ $faults->qtd }} período{{ $faults->qtd > 1 ? 's' : '' }} dia
-                                                {{ $faults->date_view }}
-                                            </li>
+                                            <tr class="border-t">
+                                                <td class="text-center ">
+                                                    {{ $faults->date_view }}
+                                                </td>
+                                                <td class="text-center ">
+                                                    {{ $faults->qtd }}
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($faults->justified == 0)
+                                                        <span class="badge badge-error">Não</span>
+                                                    @endif
+                                                    @if ($faults->justified == 1)
+                                                        <span class="badge badge-success">Sim</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
                                         @endforeach
-                                    </ul>
+                                    </table>
                                 </div>
                             @endif
 

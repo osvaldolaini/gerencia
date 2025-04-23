@@ -34,6 +34,7 @@ enum Penalty: string
             self::ExclusaoDisciplinar => 0.0,
         };
     }
+
     public function days(): int
     {
         return match ($this) {
@@ -55,5 +56,9 @@ enum Penalty: string
             self::RetiradaCM            => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a) com ' . $days . ' dia' . ($days > 1 ? 's' : '') . ' de retirada',
             self::ExclusaoDisciplinar   => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido excluir o(a) aluno(a) do ...',
         };
+    }
+    public static function fromDb(string $dbValue): ?self
+    {
+        return self::tryFrom($dbValue);
     }
 }

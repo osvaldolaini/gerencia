@@ -2,6 +2,10 @@
 
 ## Versão Santos Dumont 1.3.11
 
+> Novidades
+
+    ->Histórico do aluno no enquadramento
+
 > Correções
 
     ->Data da solução no pdf

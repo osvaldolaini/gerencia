@@ -109,7 +109,7 @@
                             @elseif ($activeTab === 'fo')
                                 <div id="fo">
                                     <ul>
-                                        @foreach ($student->fo as $fo)
+                                        @foreach ($student->fo->sortByDesc('fact_date') as $fo)
                                             <li>
                                                 {{ $fo->f_date }} FO {{ $fo->fact_type }} - falta(s) nº
                                                 @if ($fo->faults)
@@ -128,7 +128,7 @@
                             @elseif ($activeTab === 'faltas')
                                 <div id="faltas">
                                     <ul>
-                                        @foreach ($student->faults as $faults)
+                                        @foreach ($student->faults->sortByDesc('date') as $faults)
                                             <li>
                                                 @if ($faults->justified == 0)
                                                     <span class="text-red-500">

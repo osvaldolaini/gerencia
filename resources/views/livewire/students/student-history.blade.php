@@ -89,7 +89,7 @@
                             @if ($activeTab === 'fafd')
                                 <div id="fafd">
                                     <ul>
-                                        @foreach ($student->fafd as $fafd)
+                                        @foreach ($student->fafd->sortBy('date') as $fafd)
                                             <li>
                                                 {{ $fafd->f_date }} FAFD {{ $fafd->number }} - falta(s) nº
                                                 @if ($fafd->faults)

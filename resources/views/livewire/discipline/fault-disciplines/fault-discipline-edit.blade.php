@@ -285,7 +285,7 @@
                                 <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="flex flex-col items-end justify-end col-span-full sm:col-span-5">
+                        <div wire:ignore class="flex flex-col items-end justify-end col-span-full sm:col-span-5">
                             <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
                                 Histórico
                             </label>

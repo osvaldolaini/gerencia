@@ -1,5 +1,5 @@
 <div>
-    <button wire:click='showRead({{ $student->id }})'
+    <span wire:click='showRead({{ $student->id }})'
         class="flex px-3 py-2 transition-colors duration-200 rounded-sm dark:text-white hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="2.5" stroke="currentColor" />
@@ -15,7 +15,7 @@
             <path d="M6.5 20.5H6.3C4.50866 20.5 3.61299 20.5 3.0565 19.9435C2.5 19.387 2.5 18.4913 2.5 16.7V16.5"
                 stroke="currentColor" stroke-linecap="round" />
         </svg>
-    </button>
+    </span>
     {{-- MODAL READ --}}
     <x-dialog-modal wire:model="showReadModal">
         <x-slot name="title">Dados do(a) aluno(a) {{ $student->nick }}</x-slot>

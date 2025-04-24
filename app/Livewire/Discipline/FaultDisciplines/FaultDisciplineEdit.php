@@ -273,7 +273,8 @@ class FaultDisciplineEdit extends Component
     }
     public function sugestionText()
     {
-        $this->sugestion = 'Diante do exposto, o(a) Aluno(a) em tela incidiu em falta disciplinar por, ';
+        $gender = ($this->students->sex == 'F' ? 'a' : 'o');
+        $this->sugestion = 'Diante do exposto, ' . $gender . ' alun' . $gender . ' em tela incidiu em falta disciplinar por, ';
         foreach ($this->faults as $key => $value) {
             $this->sugestion .= strtolower(Faults::find($value)->title) . ' ';
         }

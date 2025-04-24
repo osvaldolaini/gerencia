@@ -11,6 +11,7 @@ class StudentHistory extends Component
     public $read;
     public $showReadModal = false;
     public $activeTab = 'fafd';
+
     public function mount(Peoples $student)
     {
         $this->student = $student;
@@ -29,6 +30,7 @@ class StudentHistory extends Component
     {
         $this->showReadModal = true;
         $this->read = '';
+        // dd($student);
         if ($student) {
             $this->read = $student;
         }

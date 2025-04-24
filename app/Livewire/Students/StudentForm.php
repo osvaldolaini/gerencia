@@ -55,7 +55,7 @@ class StudentForm extends Component
     public function real_save()
     {
         $this->rules = [
-            'number' => 'max:5|required|' . Rule::unique('peoples')->ignore($this->id),
+            // 'number' => 'max:5|required|' . Rule::unique('peoples')->ignore($this->id),
             'sex'   => 'required',
             'name'   => 'required',
             'nick'   => 'required',

@@ -205,6 +205,9 @@
 
                                         </x-layout.table-options>
                                     </div>
+                                    <div>
+                                        items
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -213,13 +213,5 @@ class FaultDiscipline extends Model
     }
 
 
-    public function relatedFaults()
-    {
-        // Array de faltas da linha atual
-        $faultsArray = json_decode($this->faults);
-
-        // Busca outras linhas do mesmo aluno
-        return $this->values()
-            ->all();
-    }
+   
 }

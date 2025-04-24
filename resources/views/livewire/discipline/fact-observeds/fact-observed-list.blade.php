@@ -42,7 +42,6 @@
                                     </div>
 
                                     @if ($item->faults != '')
-                                        {{-- {{ $item->faults }} --}}
                                         <div class="btn btn-outline btn-accent">
                                             <p>Falta(s) nr</p>
                                             @foreach ($item->json_faults as $faults)
@@ -50,11 +49,8 @@
                                                     {{ $faults }}
                                                 </span>
                                             @endforeach
-
                                         </div>
                                     @endif
-
-
                                 </div>
                                 <div class="pl-2 col-span-full sm:col-span-1">
                                     @if ($item->student_id)
@@ -220,7 +216,19 @@
 
                                         </x-layout.table-options>
                                     </div>
-
+                                    @if ($item->faults != '')
+                                        <div class="btn btn-outline btn-error">
+                                            <p>Reincidente na(s) falta(s) nr</p>
+                                            @foreach ($item->json_faults as $faults)
+                                                @if ($item->reincident($faults, $item->fact_date, $item->student_id) > 0)
+                                                    <span class="badge badge-error">
+                                                        {{ $faults }}
+                                                        ({{ $item->reincident($faults, $item->fact_date, $item->student_id) }}x)
+                                                    </span>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

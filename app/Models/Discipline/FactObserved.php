@@ -154,4 +154,12 @@ class FactObserved extends Model
     {
         return $this->belongsTo(FaultDiscipline::class, 'fafd_id', 'id');
     }
+    public function reincident($number, $date, $student_id)
+    {
+        $reincident = FactObserved::where('student_id', $student_id)
+            ->where('faults', 'LIKE', '%' . $number . '%')
+            ->where('fact_date', '<', $date)
+            ->get()->count();
+        return $reincident;
+    }
 }

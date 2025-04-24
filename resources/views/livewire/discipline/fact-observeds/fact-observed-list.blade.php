@@ -206,7 +206,11 @@
                                         </x-layout.table-options>
                                     </div>
                                     <div>
-                                        items
+                                        @foreach ($item->json_faults as $faults)
+                                            <span class="badge badge-accent badge-outline">
+                                                {{ $faults }}
+                                            </span>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>

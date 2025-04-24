@@ -268,7 +268,7 @@
                             <div class="col-span-full sm:col-span-5">
                                 <h2 class="w-full text-center text-gray-900 dark:text-gray-100">Resumo</h2>
                                 <div
-                                    class="flex flex-col w-full p-6 space-y-4 text-gray-500 divide-y dark:divide-gray-300 dark:bg-gray-50 dark:text-gray-500">
+                                    class="flex flex-col w-full p-6 space-y-4 text-gray-500 divide-y dark:divide-gray-300 dark:bg-gray-800 dark:text-gray-500">
                                     <div class="grid grid-cols-2 text-gray-900 dark:text-gray-100">
                                         <span class="dark:text-gray-500">Aluno </span>
                                         <span class="dark:text-gray-500">Nr</span>

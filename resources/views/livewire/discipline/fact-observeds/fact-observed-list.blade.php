@@ -42,8 +42,8 @@
                                     </div>
 
                                     @if ($item->faults != '')
-                                        {{ $item->faults }}
-                                        {{-- <div class="btn btn-outline btn-accent">
+                                        {{-- {{ $item->faults }} --}}
+                                        <div class="btn btn-outline btn-accent">
                                             <p>Falta(s) nr</p>
                                             @foreach ($item->json_faults as $faults)
                                                 <span class="badge badge-accent ">
@@ -51,7 +51,7 @@
                                                 </span>
                                             @endforeach
 
-                                        </div> --}}
+                                        </div>
                                     @endif
 
 

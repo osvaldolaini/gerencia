@@ -35,7 +35,7 @@ class FactObservedList extends Component
     public $sorts = ['fact_observeds.number' => 'desc'];
     public $relationTables =  "peoples,peoples.id,fact_observeds.student_id"; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'peoples.logo_path as path,fact_observeds.updated_at,fafd,fafd_id,fact_observer,fact_observer_function,year,al_number,al_nick,al_class,student_id,fact_type,fact_hour,fact_date,fact_observeds.number,fact,sincomil_date,fact_observeds.active as status';
+    public $columnsInclude = 'peoples.logo_path as path,faults,fact_observeds.updated_at,fafd,fafd_id,fact_observer,fact_observer_function,year,al_number,al_nick,al_class,student_id,fact_type,fact_hour,fact_date,fact_observeds.number,fact,sincomil_date,fact_observeds.active as status';
     public $searchable = 'fact_hour,fact_date,year,al_number,al_nick,al_name,al_class,fact_observeds.number,fact'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página

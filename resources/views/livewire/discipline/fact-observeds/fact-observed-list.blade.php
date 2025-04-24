@@ -40,6 +40,20 @@
                                             {{ $item->fact_observer . ' ' . $item->fact_observer_function }}.
                                         </span>
                                     </div>
+
+                                    @if ($item->faults)
+                                        <div class="btn btn-outline btn-accent">
+                                            <p>Falta(s) nr</p>
+                                            @foreach ($item->json_faults as $faults)
+                                                <span class="badge badge-accent ">
+                                                    {{ $faults }}
+                                                </span>
+                                            @endforeach
+
+                                        </div>
+                                    @endif
+
+
                                 </div>
                                 <div class="pl-2 col-span-full sm:col-span-1">
                                     @if ($item->student_id)
@@ -205,16 +219,7 @@
 
                                         </x-layout.table-options>
                                     </div>
-                                    <div>
-                                        @if ($item->faults)
-                                            @foreach ($item->json_faults as $faults)
-                                                <span class="badge badge-accent badge-outline">
-                                                    {{ $faults }}
-                                                </span>
-                                            @endforeach
-                                        @endif
 
-                                    </div>
                                 </div>
                             </div>
                         </div>

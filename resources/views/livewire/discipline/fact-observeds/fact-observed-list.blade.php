@@ -41,7 +41,7 @@
                                         </span>
                                     </div>
 
-                                    @if (!empty($item->faults))
+                                    @if ($item->faults != null)
                                         {{ $item->faults }}
                                         {{-- <div class="btn btn-outline btn-accent">
                                             <p>Falta(s) nr</p>

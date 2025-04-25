@@ -1,4 +1,4 @@
-<div wire:ignore wire:key="history-{{ $student->id }}">
+<div>
     @php
         use App\Enums\Penalty;
     @endphp

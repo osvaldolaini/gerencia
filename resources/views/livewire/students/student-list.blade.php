@@ -112,8 +112,9 @@
                             class="w-2/5 px-4 py-1 text-sm font-normal text-center text-gray-500 justify-stretch dark:text-gray-400">
                             {{ $item->people_class }}
                         </td>
-                        <td>
-                            <div class="p-0" wire:ignore>
+                        <td
+                            class="w-2/5 px-4 py-1 text-sm font-normal text-center text-gray-500 justify-stretch dark:text-gray-400">
+                            <div wire:ignore>
                                 @livewire('students.student-history', ['student' => $item->id], key('student-history-' . $item->id))
                             </div>
                         </td>

@@ -147,13 +147,13 @@ class StudentList extends Component
     //Turmas
     public function history(Peoples $student)
     {
-        dd($student);
         $config = Settings::find(1);
-
         $logoPath = Storage::exists('public/companies/' . $this->company->id)
             ? url('storage/companies/' . $this->company->id . '/' . $this->company->code_image . '_list.png')
             : url('storage/logos-school/logo-header.png');
-
+        $studentImage = Storage::exists('storage/student/' . $student->id)
+            ? url('storage/student/' . $this->student->id . '/' . $this->student->code_image . '_list.png')
+            : url('storage/logos-school/logo-header.png');
 
         // Crie uma instância do mPDF
         $mpdf = new \Mpdf\Mpdf([
@@ -170,8 +170,8 @@ class StudentList extends Component
             'livewire.settings.pdf.student-history-pdf',
             [
                 'logoPath'          => $logoPath,
-                'school_classes'    => $this->school_classes,
-                'grade'             => $this->grade->name,
+                'studentImage'      => $studentImage,
+                'student'           => $student,
                 'config'            => $config,
                 'companies'         => $this->company,
                 'subtext'           => 'Turmas do ' . $this->grade->name,

@@ -80,12 +80,28 @@
     <div class="container">
 
 
-        <table>
-            <tr>
+        <div class="section">
+            <div class="section-title">Dados Individuais</div>
+            <table class="dados-container">
+                <tr>
+                    <td class="col-direita">
+                        <img src="{{ $studentImage }}" class="foto">
+                    </td>
+                    <td class="col-esquerda">
+                        <div class="linha-info"><strong>Nome:</strong> João da Silva</div>
+                        <div class="linha-info"><strong>Data de Nascimento:</strong> 01/01/2000</div>
+                        <div class="linha-info"><strong>RG:</strong> 123456789</div>
+                    </td>
 
+                </tr>
+            </table>
+        </div>
 
-            </tr>
-        </table>
+        <div class="section">
+            <div class="section-title">Formação Acadêmica</div>
+            <div class="linha-tabela">Ensino Médio - Colégio Exemplo - Concluído em 2017</div>
+            <div class="linha-tabela">Graduação - Engenharia - Universidade X - Concluído em 2022</div>
+        </div>
 
     </div>
 </body>

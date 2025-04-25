@@ -113,8 +113,6 @@
                             {{ $item->people_class }}
                         </td>
 
-
-
                         <td class="w-1/6 px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                             <x-layout.table-options id='{{ $item->id }}' active='{{ $item->status }}'>
                                 <x-slot name="extra">

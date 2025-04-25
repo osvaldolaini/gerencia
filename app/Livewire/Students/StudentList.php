@@ -148,6 +148,7 @@ class StudentList extends Component
     public function history(Peoples $student)
     {
         $config = Settings::find(1);
+
         $logoPath = Storage::exists('public/companies/' . $this->company->id)
             ? url('storage/companies/' . $this->company->id . '/' . $this->company->code_image . '_list.png')
             : url('storage/logos-school/logo-header.png');
@@ -173,8 +174,8 @@ class StudentList extends Component
                 'studentImage'      => $studentImage,
                 'student'           => $student,
                 'config'            => $config,
-                'companies'         => $this->company,
-                'subtext'           => 'Turmas do ' . $this->grade->name,
+                // 'companies'         => $this->company,
+                'subtext'           => 'Ficha individual',
                 'responsible'       => Auth::user()->name,
             ]
         )->render();
@@ -188,7 +189,6 @@ class StudentList extends Component
                     </td>
                     <td width="50%" style="text-align: right;">
                         <strong>' . $config->name . '</strong><br>
-                        ' . $this->company->name . '<br>
                     </td>
                 </tr>
             </table>

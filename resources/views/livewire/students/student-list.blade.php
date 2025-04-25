@@ -117,7 +117,7 @@
 
                         <td class="w-1/6 px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                             <x-layout.table-options id='{{ $item->id }}' active='{{ $item->status }}'>
-                                <x-slots name="extras">
+                                <x-slot name="extra">
                                     <div wire:ignore>
                                         @livewire('students.student-history', ['student' => $item->id], key('student-history-' . $item->id))
                                     </div>
@@ -171,7 +171,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                </x-slots>
+                                </x-slot>
 
                             </x-layout.table-options>
                         </td>

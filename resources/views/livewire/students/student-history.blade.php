@@ -2,7 +2,7 @@
     @php
         use App\Enums\Penalty;
     @endphp
-    <div class="p-0 tooltip tooltip-top" data-tip="Histórico">
+    <div class="p-0 tooltip tooltip-top" data-tip="Registros">
         <span wire:click='showRead({{ $student->id }})'
             class="flex px-3 py-2 transition-colors duration-200 rounded-sm cursor-pointer dark:text-white hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

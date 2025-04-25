@@ -13,65 +13,53 @@
             font-family: sans-serif;
         }
 
-        .grade-title {
-            display: block;
-            width: 100%;
-            text-align: center;
-            font-size: 30px;
-            font-weight: bold;
-            color: #555;
-            margin-bottom: 5px;
+        .section {
+            margin-bottom: 20px;
+            page-break-inside: avoid;
         }
 
-        .container table {
+        .section-title {
+            font-weight: bold;
+            font-size: 14pt;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #000;
+        }
+
+        .dados-container {
             width: 100%;
+            border: 1px solid #000;
             border-collapse: collapse;
         }
 
-        .container td {
-            width: 33.33%;
-            /* Garante três colunas iguais */
-            padding: 1px;
-            /* border: 1px solid #ddd;
-            border-radius: 8px; */
-            text-align: center;
+        .col-esquerda {
+            width: 60%;
             vertical-align: top;
+            border-right: 1px solid #000;
+            padding: 10px;
         }
 
-        .posto-container h2 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .col-direita {
+            width: 40%;
+            vertical-align: top;
+            text-align: center;
+            padding: 10px;
         }
 
-        .rank-image {
-            width: 5rem;
-            height: auto;
-            border-radius: 50%;
-            display: block;
-            margin: 0 auto 2px;
+        .foto {
+            width: 100px;
+            height: 120px;
+            object-fit: cover;
+            border: 1px solid #000;
         }
 
-        .student-item {
-            padding-top: 3px;
-            padding-bottom: 3px;
-            border-bottom: 1px solid #eee;
+        .linha-info {
+            padding: 5px 0;
+            text-align: left;
         }
 
-        .student-image {
-            width: 10rem;
-            height: auto;
-            margin: 0 auto 3px;
-            border-radius: 50%;
-        }
-
-        .student-item h3 {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .student-item p {
-            font-size: 14px;
+        .linha-tabela {
+            border-bottom: 1px solid #ccc;
+            padding: 6px 0;
         }
     </style>
 </head>

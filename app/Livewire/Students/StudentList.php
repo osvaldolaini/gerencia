@@ -148,7 +148,7 @@ class StudentList extends Component
     public function history(Peoples $student)
     {
         $config = Settings::find(1);
-        $company = $student->al_class->class->class_grade->company;
+        $company = $student->al_class->class_grade->company;
         $logoPath = Storage::exists('public/companies/' . $company->id)
             ? url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png')
             : url('storage/logos-school/logo-header.png');

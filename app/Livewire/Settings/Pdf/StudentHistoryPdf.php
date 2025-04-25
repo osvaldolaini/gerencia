@@ -4,10 +4,10 @@ namespace App\Livewire\Settings\Pdf;
 
 use Livewire\Component;
 
-class StudentHistory extends Component
+class StudentHistoryPdf extends Component
 {
     public function render()
     {
-        return view('livewire.settings.pdf.student-history');
+        return view('livewire.settings.pdf.student-history-pdf');
     }
 }

@@ -123,7 +123,7 @@
                                     </div>
                                     <div wire:ignore>
                                         <div class="p-0 tooltip tooltip-top" data-tip="Ficha">
-                                            <button wire:click="classes_sex()"
+                                            <button wire:click="history($item->id)"
                                                 class="px-3 py-2 transition-colors duration-200 rounded-sm hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
                                                     fill="currentColor" viewBox="0 0 512 512" xml:space="preserve">
@@ -254,6 +254,16 @@
 
         </x-slot>
     </x-dialog-modal>
-
+    @section('scripts')
+        <script>
+            document.addEventListener('livewire:init', () => {
+                Livewire.on('openPdfInNewTabRegister', ({
+                    pdfPath
+                }) => {
+                    window.open(pdfPath, '_blank');
+                })
+            })
+        </script>
+    @endsection
 
 </div>

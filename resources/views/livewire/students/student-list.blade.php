@@ -51,6 +51,10 @@
                     </th>
                     <th scope="col"
                         class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
+                        Turma atual
+                    </th>
+                    <th scope="col"
+                        class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                         Opções
                     </th>
                 </tr>
@@ -59,8 +63,8 @@
         <x-slot name="body">
             <tbody class="relative p-0 m-0 bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                 @foreach ($dataTable as $item)
-                    <tr>
-                        <td x-data="{ show: false, x: 0, y: 0 }"
+                    <tr wire:key="item-{{ $item->id }}">
+                        <td
                             class="relative flex items-center px-4 py-1 space-x-2 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
 
                             @if ($item->code_image)
@@ -108,13 +112,17 @@
                             class="w-2/5 px-4 py-1 text-sm font-normal text-center text-gray-500 justify-stretch dark:text-gray-400">
                             {{ $item->people_class }}
                         </td>
+                        <td>
+                            <div class="p-0" wire:ignore>
+                                @livewire('students.student-history', ['student' => $item->id], key('student-history-' . $item->id))
+                            </div>
+                        </td>
+
 
                         <td class="w-1/6 px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                             <x-layout.table-options id='{{ $item->id }}' active='{{ $item->status }}'>
 
-                                <x-slot name="extra">
-                                    @livewire('students.student-history', ['student' => $item->id])
-                                </x-slot>
+
                             </x-layout.table-options>
                         </td>
                     </tr>

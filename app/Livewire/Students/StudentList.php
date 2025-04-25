@@ -152,8 +152,8 @@ class StudentList extends Component
         $logoPath = Storage::exists('public/companies/' . $company->id)
             ? url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png')
             : url('storage/logos-school/logo-header.png');
-        $studentImage = Storage::exists('storage/student/' . $student->id)
-            ? url('storage/student/' . $this->student->id . '/' . $this->student->code_image . '_list.png')
+        $studentImage = Storage::exists('storage/students/' . $student->id)
+            ? url('storage/students/' . $this->student->id . '/' . $this->student->code_image . '_list.png')
             : url('storage/logos-school/logo-header.png');
 
         // Crie uma instância do mPDF

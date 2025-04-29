@@ -168,7 +168,7 @@
                     class="flex items-center justify-between w-full px-2 py-1 text-left text-gray-700 transition dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                     <span class="flex items-center">
                         <div class="indicator" wire:click='view()'>
-                            @if (!$viewVersion)
+                            @if ($fo > 1)
                                 <span class="indicator-item badge badge-error"></span>
                             @endif
                             <svg xmlns="http://www.w3.org/2000/svg"

@@ -98,6 +98,7 @@
                         <th class="text-center">Data</th>
                         <th class="text-center">FAFD Nr</th>
                         <th class="text-center">Falta(s)</th>
+                        <th class="text-center">Fato</th>
                         <th class="text-center">Solução</th>
                     </tr>
                     @foreach ($student->fafd->sortByDesc('fact_date') as $fafd)
@@ -118,6 +119,9 @@
                                     <span>{{ $faults }}</span>
                                     {{-- @endforeach) --}}
                                 @endif
+                            </td>
+                            <td class="text-center">
+                                {{ $fafd->fact }}
                             </td>
                             <td class="text-center">
                                 {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : '' }}

@@ -153,7 +153,7 @@ class StudentList extends Component
             ? url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png')
             : url('storage/logos-school/logo-header.png');
 
-        $studentImage = Storage::exists('public/students/' . $student->id)
+        $studentImage = Storage::exists('public/student/' . $student->id)
             ? url('storage/student/' . $student->id . '/' . $student->code_image . '_list.png')
             : $logoPath;
 

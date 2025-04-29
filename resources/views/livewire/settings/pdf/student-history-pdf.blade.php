@@ -93,7 +93,13 @@
         <div class="section">
             @if ($student->fafd->count() > 1)
                 <div class="section-title">Formulários de apuração de falta</div>
-                <table>
+                <table class="w-full">
+                    <tr>
+                        <th class="text-center">Data</th>
+                        <th class="text-center">FAFD Nr</th>
+                        <th class="text-center">Falta(s)</th>
+                        <th class="text-center">Solução</th>
+                    </tr>
                     @foreach ($student->fafd->sortByDesc('fact_date') as $fafd)
                         <tr class="linha-tabela">
                             <td class="text-center ">

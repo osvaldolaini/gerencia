@@ -95,8 +95,8 @@
             </table>
         </div>
         <div class="section">
+            <div class="section-title">Formulários de apuração de falta</div>
             @if ($student->fafd->count() > 1)
-                <div class="section-title">Formulários de apuração de falta</div>
                 <table class="w-full">
                     <tr>
                         <th class="text-center">Nr</th>
@@ -140,8 +140,8 @@
             @endif
         </div>
         <div class="section">
+            <div class="section-title">Fatos observados</div>
             @if ($student->fo->count() > 1)
-                <div class="section-title">Fatos observados</div>
                 <table class="w-full">
                     <tr>
                         <th class="text-center">Data</th>
@@ -187,8 +187,9 @@
             @endif
         </div>
         <div class="section">
+            <div class="section-title">Faltas</div>
             @if ($student->faults->count() > 1)
-                <div class="section-title">Faltas</div>
+
                 <table class="w-full">
                     <tr>
                         <th class="text-center">Data</th>

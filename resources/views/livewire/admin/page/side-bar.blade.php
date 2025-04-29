@@ -168,7 +168,7 @@
                     class="flex items-center justify-between w-full px-2 py-1 text-left text-gray-700 transition dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                     <span class="flex items-center">
                         <div class="indicator" wire:click='view()'>
-                            @if ($fo > 1)
+                            @if ($fo > 0)
                                 <span class="indicator-item-bottom badge badge-error"></span>
                             @endif
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +217,7 @@
                         access_page="fact_observed">
                         <x-slot name="svg">
                             <div class="indicator" wire:click='view()'>
-                                @if ($fo > 1)
+                                @if ($fo > 0)
                                     <span class="indicator-item-bottom badge badge-error"></span>
                                 @endif
                                 <svg xmlns="http://www.w3.org/2000/svg"

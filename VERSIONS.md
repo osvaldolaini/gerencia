@@ -5,6 +5,7 @@
 > Novidades
 
     ->Histórico do aluno no enquadramento em pdf
+    ->Carga horária na cia
 
 > Correções
 

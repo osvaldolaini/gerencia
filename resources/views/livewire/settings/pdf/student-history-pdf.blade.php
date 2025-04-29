@@ -86,11 +86,42 @@
                 </tr>
             </table>
         </div>
-
         <div class="section">
-            <div class="section-title">Formação Acadêmica</div>
-            <div class="linha-tabela">Ensino Médio - Colégio Exemplo - Concluído em 2017</div>
-            <div class="linha-tabela">Graduação - Engenharia - Universidade X - Concluído em 2022</div>
+            @if ($student->fafd->count() > 1)
+                <div class="section-title">Formulários de apuração de falta</div>
+                <table>
+                    @foreach ($student->fafd->sortByDesc('fact_date') as $fafd)
+                        <tr class="linha-tabela">
+                            <td class="text-center ">
+                                {{ $fafd->f_date }}
+                            </td>
+                            <td class="text-center">
+                                {{ $fafd->number }}
+                            </td>
+                            <td class="text-center">
+                                @if ($fafd->faults)
+                                    @php
+                                        $vowels = ['[', ']'];
+                                        $faults = str_replace($vowels, '', $fafd->faults);
+                                    @endphp
+                                    {{-- (@fafdreach ($fafd->json_faults as $fault) --}}
+                                    <span>{{ $faults }}</span>
+                                    {{-- @endforeach) --}}
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : '' }}
+                            </td>
+                        </tr>
+                    @endforeach
+
+                </table>
+            @else
+                <div class="linha-tabela">Não possui</div>
+            @endif
+
+
+
         </div>
 
     </div>

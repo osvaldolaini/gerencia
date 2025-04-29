@@ -72,8 +72,8 @@ class User extends Authenticatable
         static::creating(function ($transaction) {
             $transaction->see_excluded  = 0;
             $transaction->accesses      = ["fact_observed"];
-            // $transaction->activities    = [null];
-            // $transaction->companies     = [null];
+            $transaction->activities    = [];
+            $transaction->companies     = [];
         });
     }
 

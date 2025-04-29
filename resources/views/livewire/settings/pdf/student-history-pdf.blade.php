@@ -2,7 +2,11 @@
 <html lang="pt-BR">
 
 
+
 <head>
+    @php
+        use App\Enums\Penalty;
+    @endphp
     <meta charset="UTF-8">
     <title>Ficha individual</title>
     <style>

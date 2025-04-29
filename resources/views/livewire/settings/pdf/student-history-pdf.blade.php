@@ -138,9 +138,52 @@
             @else
                 <div class="linha-tabela">Não possui</div>
             @endif
-
-
-
+        </div>
+        <div class="section">
+            @if ($student->fo->count() > 1)
+                <table class="w-full">
+                    <tr>
+                        <th class="text-center">Data</th>
+                        <th class="text-center">Tipo</th>
+                        <th class="text-center">FO</th>
+                        <th class="text-center">Falta(s)</th>
+                    </tr>
+                    @foreach ($student->fo->sortByDesc('fact_date') as $fo)
+                        <tr class="border-t">
+                            <td class="text-center ">
+                                {{ $fo->f_date }}
+                            </td>
+                            <td class="text-center">
+                                @if ($fo->fact_type == 'negativo')
+                                    <span class="badge badge-error">FO-</span>
+                                @endif
+                                @if ($fo->fact_type == 'positivo')
+                                    <span class="badge badge-info">FO+</span>
+                                @endif
+                                @if ($fo->fact_type == 'informativo')
+                                    <span class="badge badge-success">FO!</span>
+                                @endif
+                            </td>
+                            <td>
+                                {{ $fo->fact }}
+                            </td>
+                            <td class="text-center">
+                                @if ($fo->faults)
+                                    @php
+                                        $vowels = ['[', ']'];
+                                        $faults = str_replace($vowels, '', $fo->faults);
+                                    @endphp
+                                    {{-- (@fafdreach ($fafd->json_faults as $fault) --}}
+                                    <span>{{ $faults }}</span>
+                                    {{-- @endforeach) --}}
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            @else
+                <div class="linha-tabela">Não possui</div>
+            @endif
         </div>
 
     </div>

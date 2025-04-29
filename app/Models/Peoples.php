@@ -116,6 +116,10 @@ class Peoples extends Model
             return false;
         }
     }
+    public function getCompanyAttribute()
+    {
+        return $this->al_class->class_grade->company;
+    }
     public function getPeopleGradeAttribute()
     {
         $studentClass = SchoolClassesStudent::where('active', 1)
@@ -142,6 +146,7 @@ class Peoples extends Model
         }
         return false;
     }
+
     public function getCodeImageAttribute()
     {
         // return $this->logo_path;

@@ -65,6 +65,10 @@
             border-bottom: 1px solid #ccc;
             padding: 6px 0;
         }
+
+        .text-center {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -95,20 +99,21 @@
                 <div class="section-title">Formulários de apuração de falta</div>
                 <table class="w-full">
                     <tr>
+                        <th class="text-center">Nr</th>
                         <th class="text-center">Data</th>
-                        <th class="text-center">FAFD Nr</th>
                         <th class="text-center">Falta(s)</th>
                         <th class="text-center">Fato</th>
                         <th class="text-center">Solução</th>
                     </tr>
                     @foreach ($student->fafd->sortByDesc('fact_date') as $fafd)
                         <tr class="linha-tabela">
-                            <td class="text-center ">
-                                {{ $fafd->f_date }}
-                            </td>
                             <td class="text-center">
                                 {{ $fafd->number }}
                             </td>
+                            <td class="text-center ">
+                                {{ $fafd->f_date }}
+                            </td>
+
                             <td class="text-center">
                                 @if ($fafd->faults)
                                     @php

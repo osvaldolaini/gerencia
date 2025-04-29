@@ -76,9 +76,10 @@
                         <img src="{{ $studentImage }}" class="foto">
                     </td>
                     <td class="col-esquerda">
-                        <div class="linha-info"><strong>Nome:</strong> João da Silva</div>
-                        <div class="linha-info"><strong>Data de Nascimento:</strong> 01/01/2000</div>
-                        <div class="linha-info"><strong>RG:</strong> 123456789</div>
+                        <div class="linha-info"><strong>Nome:</strong> {{ $student->name }}</div>
+                        <div class="linha-info"><strong>Turma:</strong>{{ $student->people_class }}</div>
+                        <div class="linha-info"><strong>Nome aluno:</strong> {{ $student->name }}</div>
+                        <div class="linha-info"><strong>Nr:</strong> {{ $student->number }}</div>
                     </td>
 
                 </tr>

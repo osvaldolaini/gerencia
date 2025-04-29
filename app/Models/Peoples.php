@@ -118,7 +118,7 @@ class Peoples extends Model
     }
     public function getCompanyAttribute()
     {
-        return $this->al_class->class_grade->company;
+        return $this->al_class->classGrade->company;
     }
     public function getPeopleGradeAttribute()
     {

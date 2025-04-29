@@ -62,7 +62,7 @@
         }
 
         .linha-tabela {
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid #000;
             padding: 6px 0;
         }
 
@@ -125,7 +125,7 @@
                                     {{-- @endforeach) --}}
                                 @endif
                             </td>
-                            <td class="text-center">
+                            <td>
                                 {{ $fafd->fact }}
                             </td>
                             <td class="text-center">

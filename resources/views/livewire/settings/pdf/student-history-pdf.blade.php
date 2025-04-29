@@ -141,6 +141,7 @@
         </div>
         <div class="section">
             @if ($student->fo->count() > 1)
+                <div class="section-title">Fatos observados</div>
                 <table class="w-full">
                     <tr>
                         <th class="text-center">Data</th>
@@ -176,6 +177,38 @@
                                     {{-- (@fafdreach ($fafd->json_faults as $fault) --}}
                                     <span>{{ $faults }}</span>
                                     {{-- @endforeach) --}}
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            @else
+                <div class="linha-tabela">Não possui</div>
+            @endif
+        </div>
+        <div class="section">
+            @if ($student->faults->count() > 1)
+                <div class="section-title">Faltas</div>
+                <table class="w-full">
+                    <tr>
+                        <th class="text-center">Data</th>
+                        <th class="text-center">Períodos</th>
+                        <th class="text-center">Justificada</th>
+                    </tr>
+                    @foreach ($student->faults->sortByDesc('date') as $faults)
+                        <tr class="border-t">
+                            <td class="text-center ">
+                                {{ $faults->date_view }}
+                            </td>
+                            <td class="text-center ">
+                                {{ $faults->qtd }}
+                            </td>
+                            <td class="text-center">
+                                @if ($faults->justified == 0)
+                                    <span class="badge badge-error">Não</span>
+                                @endif
+                                @if ($faults->justified == 1)
+                                    <span class="badge badge-success">Sim</span>
                                 @endif
                             </td>
                         </tr>

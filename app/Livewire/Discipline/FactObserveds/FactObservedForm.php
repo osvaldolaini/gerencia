@@ -2,21 +2,12 @@
 
 namespace App\Livewire\Discipline\FactObserveds;
 
-
-use App\Models\Discipline\FaultDiscipline;
 use App\Models\Peoples;
 use Livewire\Component;
 use App\Enums\MilitaryRank;
 
 use Livewire\Attributes\On;
-
-use App\Enums\Penalty;
 use App\Models\Discipline\FactObserved;
-use App\Models\Discipline\Settings\Faults;
-
-
-use Illuminate\Validation\Rule;
-
 use Illuminate\Support\Str;
 
 class FactObservedForm extends Component

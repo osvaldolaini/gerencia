@@ -507,8 +507,12 @@
                                                 natureza. - Medida disciplinar: @if ($dacision_days)
                                                     {{ $dacision_days }} dia de
                                                 @endif
-                                                {{ Penalty::fromDb($decision)?->label() ?? 'Advertência' }} (FAFD nº
-                                                {{ $number }}/{{ $year }} - {{ $cia }},
+                                                @if ($decision)
+                                                    {{ Penalty::fromDb($decision)?->label() ?? 'Advertência' }} (FAFD
+                                                    nº
+                                                    {{ $number }}/{{ $year }} - {{ $cia }}
+                                                @endif
+                                                ,
                                                 de
                                                 {{ $f_date }}).
                                 </code>

@@ -150,7 +150,7 @@
         <div class="section">
             <div class="section-title">Fatos observados</div>
             @if ($student->fo->count() > 1)
-                <table class="w-full">
+                <table class="w-full" style="border-collapse: collapse;">
                     <tr>
                         <th class="text-center">Data</th>
                         <th class="text-center">Tipo</th>
@@ -173,7 +173,7 @@
                                     <span class="badge badge-success">FO!</span>
                                 @endif
                             </td>
-                            <td>
+                            <td class="border-bottom">
                                 {{ $fo->fact }}
                             </td>
                             <td class="text-center border-bottom">
@@ -198,7 +198,7 @@
             <div class="section-title">Faltas</div>
             @if ($student->faults->where('active', 1)->count() > 1)
 
-                <table class="w-full">
+                <table class="w-full" style="border-collapse: collapse;">
                     <tr>
                         <th class="text-center">Data</th>
                         <th class="text-center">Períodos</th>

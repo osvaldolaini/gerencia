@@ -139,6 +139,10 @@ class FactObservedEdit extends Component
             'fact_observer_function'   => 'required',
         ];
 
+        if ($this->fact_type == 'positivo') {
+            $this->faults = NULL;
+        }
+
         $this->validate();
         FactObserved::updateOrCreate([
             'id'    => $this->id,

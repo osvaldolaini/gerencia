@@ -140,7 +140,7 @@ class FactObservedEdit extends Component
         ];
 
         if ($this->fact_type == 'positivo') {
-            $this->faults = '';
+            $this->faults = NULL;
         }
 
         $this->validate();

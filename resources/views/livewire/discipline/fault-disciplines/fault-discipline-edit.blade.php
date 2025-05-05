@@ -504,7 +504,8 @@
                                                     {{ $repeat_number }} vezes
                                                 @endif em faltas
                                                 desta
-                                                natureza. - Medida disciplinar: Repreensão (FAFD nº
+                                                natureza. - Medida disciplinar:
+                                                {{ Penalty::fromDb($decision)?->label() ?? 'Advertência' }} (FAFD nº
                                                 {{ $number }}/{{ $year }} - {{ $cia }},
                                                 de
                                                 {{ $f_date }}).

@@ -134,7 +134,7 @@
                                 {{ $fafd->fact }}
                             </td>
                             <td class="text-center border-bottom">
-                                {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : '' }}
+                                {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}
                             </td>
                             <td class="text-center border-bottom">
                                 {{ $fafd->grau }}

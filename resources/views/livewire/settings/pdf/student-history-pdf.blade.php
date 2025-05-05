@@ -107,11 +107,11 @@
                         <th class="text-center">Desconto</th>
                     </tr>
                     @foreach ($student->fafd->sortByDesc('fact_date') as $fafd)
-                        <tr class="linha-tabela">
+                        <tr class="linha-tabela" style="border-bottom: 1px solid #333">
                             <td class="text-center" style="border-bottom: 1px solid #333">
                                 {{ $fafd->number }}
                             </td>
-                            <td class="text-center ">
+                            <td class="text-center " style="border-bottom: 1px solid #333">
                                 {{ $fafd->f_date }}
                             </td>
 

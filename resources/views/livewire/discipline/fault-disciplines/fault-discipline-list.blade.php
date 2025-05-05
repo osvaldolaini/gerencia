@@ -145,7 +145,7 @@
                                                 <hr />
                                             @endif
                                             <div class="timeline-start">
-                                                @if ($item->bi_date)
+                                                @if ($item->solution_date)
                                                     {{ Carbon::createFromFormat('Y-m-d', $item->solution_date)->format('d/m') }}
                                                 @endif
 

@@ -108,7 +108,7 @@
                     </tr>
                     @foreach ($student->fafd->sortByDesc('fact_date') as $fafd)
                         <tr class="linha-tabela">
-                            <td class="text-center">
+                            <td class="text-center" style="border-bottom: 1px solid #333">
                                 {{ $fafd->number }}
                             </td>
                             <td class="text-center ">
@@ -132,7 +132,7 @@
                             <td class="text-center">
                                 {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : '' }}
                             </td>
-                            <td>
+                            <td class="text-center">
                                 {{ $fafd->grau }}
                             </td>
                         </tr>

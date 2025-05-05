@@ -144,7 +144,7 @@ class FactObservedEdit extends Component
         }
 
         $this->validate();
-        FactObserved::updateOrCreate([
+        $fact = FactObserved::updateOrCreate([
             'id'    => $this->id,
         ], [
             'student_id'               => $this->student_id,
@@ -155,16 +155,18 @@ class FactObservedEdit extends Component
             'fact'                     => $this->fact,
             'fact_hour'                => $this->fact_hour,
             'fact_date'                => $this->fact_date,
-            'fact_type'                => $this->fact_type,
-            'faults'                   => $this->faults,
+            // 'faults'                   => $this->faults,
             'fact_observer'            => $this->fact_observer,
             'fact_observer_function'   => $this->fact_observer_function,
             'fact_observer_id'         => $this->fact_observer_id,
             'fafd'                     => $this->fafd,
-
-
             'sincomil_date'            => $this->sincomil_date,
         ]);
+
+        if ($this->fact_type == 'negativo') {
+            $fact->faults = $this->faults;
+            $fact->save();
+        }
 
         $id = false;
         $msg = 'Registro editado com sucesso.';

@@ -41,7 +41,7 @@
                                         </span>
                                     </div>
 
-                                    @if ($item->faults != '')
+                                    @if ($item->faults != '' or $item->faults != null)
                                         <div class="btn btn-outline btn-accent">
                                             <p>Falta(s) nr</p>
                                             @foreach ($item->json_faults as $faults)

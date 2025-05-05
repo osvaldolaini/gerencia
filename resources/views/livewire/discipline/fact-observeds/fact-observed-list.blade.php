@@ -216,7 +216,7 @@
 
                                         </x-layout.table-options>
                                     </div>
-                                    @if ($item->faults != '')
+                                    @if ($item->faults != '' or $item->faults != null)
                                         <div class="btn btn-outline btn-error">
                                             <p>Reincidente na(s) falta(s) nr</p>
                                             @foreach ($item->json_faults as $faults)

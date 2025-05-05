@@ -97,7 +97,7 @@
         <div class="section">
             <div class="section-title">Formulários de apuração de falta</div>
             @if ($student->fafd->count() > 1)
-                <table class="w-full">
+                <table class="w-full" style="border-collapse: collapse;">
                     <tr>
                         <th class="text-center">Nr</th>
                         <th class="text-center">Data</th>

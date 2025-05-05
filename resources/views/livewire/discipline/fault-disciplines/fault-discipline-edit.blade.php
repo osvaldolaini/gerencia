@@ -504,7 +504,9 @@
                                                     {{ $repeat_number }} vezes
                                                 @endif em faltas
                                                 desta
-                                                natureza. - Medida disciplinar:
+                                                natureza. - Medida disciplinar: @if ($dacision_days)
+                                                    {{ $dacision_days }} dia de
+                                                @endif
                                                 {{ Penalty::fromDb($decision)?->label() ?? 'Advertência' }} (FAFD nº
                                                 {{ $number }}/{{ $year }} - {{ $cia }},
                                                 de

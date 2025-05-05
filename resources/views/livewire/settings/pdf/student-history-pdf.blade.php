@@ -110,7 +110,7 @@
                         <th class="text-center">Solução</th>
                         <th class="text-center">Desconto</th>
                     </tr>
-                    @foreach ($student->fafd->sortByDesc('fact_date') as $fafd)
+                    @foreach ($student->fafd->where('active', 1)->sortByDesc('fact_date') as $fafd)
                         <tr class="linha-tabela">
                             <td class="text-center border-bottom">
                                 {{ $fafd->number }}
@@ -157,12 +157,12 @@
                         <th class="text-center">FO</th>
                         <th class="text-center">Falta(s)</th>
                     </tr>
-                    @foreach ($student->fo->sortByDesc('fact_date') as $fo)
+                    @foreach ($student->fo->where('active', 1)->sortByDesc('fact_date') as $fo)
                         <tr class="border-t">
-                            <td class="text-center ">
+                            <td class="text-center border-bottom">
                                 {{ $fo->f_date }}
                             </td>
-                            <td class="text-center">
+                            <td class="text-center border-bottom">
                                 @if ($fo->fact_type == 'negativo')
                                     <span class="badge badge-error">FO-</span>
                                 @endif
@@ -176,7 +176,7 @@
                             <td>
                                 {{ $fo->fact }}
                             </td>
-                            <td class="text-center">
+                            <td class="text-center border-bottom">
                                 @if ($fo->faults)
                                     @php
                                         $vowels = ['[', ']'];
@@ -196,7 +196,7 @@
         </div>
         <div class="section">
             <div class="section-title">Faltas</div>
-            @if ($student->faults->count() > 1)
+            @if ($student->faults->where('active', 1)->count() > 1)
 
                 <table class="w-full">
                     <tr>
@@ -206,13 +206,13 @@
                     </tr>
                     @foreach ($student->faults->sortByDesc('date') as $faults)
                         <tr class="border-t">
-                            <td class="text-center ">
+                            <td class="text-center border-bottom">
                                 {{ $faults->date_view }}
                             </td>
-                            <td class="text-center ">
+                            <td class="text-center border-bottom">
                                 {{ $faults->qtd }}
                             </td>
-                            <td class="text-center">
+                            <td class="text-center border-bottom">
                                 @if ($faults->justified == 0)
                                     <span class="badge badge-error">Não</span>
                                 @endif

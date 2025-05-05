@@ -505,7 +505,7 @@
                                                 @endif em faltas
                                                 desta
                                                 natureza. - Medida disciplinar: @if ($dacision_days)
-                                                    {{ $dacision_days }} dia de
+                                                    {{ $dacision_days }} dia{{ $dacision_days > 1 ? 's' : '' }} de
                                                 @endif
                                                 @if ($decision)
                                                     {{ Penalty::fromDb($decision)?->label() ?? 'Advertência' }} (FAFD

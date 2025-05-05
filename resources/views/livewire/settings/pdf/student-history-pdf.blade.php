@@ -66,7 +66,7 @@
             padding: 6px 0;
         }
 
-        .linha-table td {
+        .border-bottom {
             border-bottom: 1px solid #333;
         }
 
@@ -112,14 +112,14 @@
                     </tr>
                     @foreach ($student->fafd->sortByDesc('fact_date') as $fafd)
                         <tr class="linha-tabela">
-                            <td class="text-center">
+                            <td class="text-center border-bottom">
                                 {{ $fafd->number }}
                             </td>
-                            <td class="text-center ">
+                            <td class="text-center border-bottom">
                                 {{ $fafd->f_date }}
                             </td>
 
-                            <td class="text-center">
+                            <td class="text-center border-bottom">
                                 @if ($fafd->faults)
                                     @php
                                         $vowels = ['[', ']'];
@@ -130,13 +130,13 @@
                                     {{-- @endforeach) --}}
                                 @endif
                             </td>
-                            <td>
+                            <td class="border-bottom">
                                 {{ $fafd->fact }}
                             </td>
-                            <td class="text-center">
+                            <td class="text-center border-bottom">
                                 {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : '' }}
                             </td>
-                            <td class="text-center">
+                            <td class="text-center border-bottom">
                                 {{ $fafd->grau }}
                             </td>
                         </tr>

@@ -107,7 +107,7 @@ class FactObserved extends Model
     {
         $this->attributes['fact_type'] = $value;
         if ($value == 'positivo') {
-            $this->attributes['faults'] = '';
+            $this->attributes['faults'] = NULL;
         }
     }
     public function getFactNumberAttribute()

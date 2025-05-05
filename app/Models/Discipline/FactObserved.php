@@ -103,13 +103,7 @@ class FactObserved extends Model
         return LogOptions::defaults()
             ->logOnly($this->fillable);
     }
-    public function getFactTypeAttribute($value)
-    {
-        $this->attributes['fact_type'] = $value;
-        if ($value == 'positivo') {
-            $this->attributes['faults'] = NULL;
-        }
-    }
+
     public function getFactNumberAttribute()
     {
         return $this->number . '/' . $this->year;

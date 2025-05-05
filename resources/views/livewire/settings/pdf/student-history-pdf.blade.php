@@ -66,6 +66,10 @@
             padding: 6px 0;
         }
 
+        .linha-table td {
+            border-bottom: 1px solid #333;
+        }
+
         .text-center {
             text-align: center;
         }
@@ -107,11 +111,11 @@
                         <th class="text-center">Desconto</th>
                     </tr>
                     @foreach ($student->fafd->sortByDesc('fact_date') as $fafd)
-                        <tr class="linha-tabela" style="border-bottom: 1px solid #333">
-                            <td class="text-center" style="border-bottom: 1px solid #333">
+                        <tr class="linha-tabela">
+                            <td class="text-center">
                                 {{ $fafd->number }}
                             </td>
-                            <td class="text-center " style="border-bottom: 1px solid #333">
+                            <td class="text-center ">
                                 {{ $fafd->f_date }}
                             </td>
 

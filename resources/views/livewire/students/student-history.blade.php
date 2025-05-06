@@ -179,31 +179,49 @@
                                         </tr>
                                         @php
                                             $acumulado = 0;
+                                            $faultsOrdenadas = $student->faults->sortBy('date'); // ordem CRESCENTE
+                                            $dados = [];
+
+                                            foreach ($faultsOrdenadas as $fault) {
+                                                $acumulado += $fault->qtd;
+                                                $percentual = number_format(
+                                                    ($acumulado / ($fault->students->company->workload ?? 1200)) * 100,
+                                                    2,
+                                                    ',',
+                                                    '',
+                                                );
+
+                                                $dados[] = [
+                                                    'date_view' => $fault->date_view,
+                                                    'qtd' => $fault->qtd,
+                                                    'justified' => $fault->justified,
+                                                    'percentual' => $percentual,
+                                                ];
+                                            }
                                         @endphp
-                                        @foreach ($student->faults->sortByDesc('date') as $faults)
-                                            @php
-                                                $acumulado += $faults->qtd;
-                                            @endphp
+
+                                        @foreach (array_reverse($dados) as $fault)
                                             <tr class="border-t">
-                                                <td class="text-center ">
-                                                    {{ $faults->date_view }}
-                                                </td>
-                                                <td class="text-center ">
-                                                    {{ $faults->qtd }}
+                                                <td class="text-center">
+                                                    {{ $fault['date_view'] }}
                                                 </td>
                                                 <td class="text-center">
-                                                    @if ($faults->justified == 0)
+                                                    {{ $fault['qtd'] }}
+                                                </td>
+                                                <td class="text-center">
+                                                    @if ($fault['justified'] == 0)
                                                         <span class="badge badge-error">Não</span>
                                                     @endif
-                                                    @if ($faults->justified == 1)
+                                                    @if ($fault['justified'] == 1)
                                                         <span class="badge badge-success">Sim</span>
                                                     @endif
                                                 </td>
                                                 <td class="px-2 py-1 font-bold text-center">
-                                                    {{ number_format((($acumulado ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%
+                                                    {{ $fault['percentual'] }}%
                                                 </td>
                                             </tr>
                                         @endforeach
+
                                     </table>
                                 </div>
                             @endif

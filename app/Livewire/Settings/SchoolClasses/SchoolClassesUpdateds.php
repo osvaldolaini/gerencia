@@ -81,11 +81,12 @@ class SchoolClassesUpdateds extends Component
                 $data->active = 0;
                 $data->save();
             }
+            $this->openAlert('success', 'Exclusão da turma realizada com sucesso');
         } else {
             $this->openAlert('error', 'Nenhum aluno selecionado');
         }
         $this->dispatch('update_list');
-        $this->openAlert('success', 'Exclusão da turma realizada com sucesso');
+
         $this->removeSelected = [];
     }
     public function openAlert($status, $msg)

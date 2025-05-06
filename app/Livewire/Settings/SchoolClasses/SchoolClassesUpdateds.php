@@ -51,7 +51,8 @@ class SchoolClassesUpdateds extends Component
                 'paginate' => $this->paginate,
                 'search' => $this->search,
                 'where' => [
-                    'school_classes_id' => $this->school_classes_id
+                    'school_classes_id' => $this->school_classes_id,
+                    'school_classes_students.active' => 1
                 ],
                 'customSearch' => $this->customSearch,
                 'active' => $this->active,

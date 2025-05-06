@@ -93,27 +93,29 @@
                     @php
                         $c = 0;
                     @endphp
-                    @foreach ($class->studentsPivot->sortBy('students.nick') as $pivot)
-                        @php
-                            $c += 1;
-                        @endphp
-                        <tr class="class">
-                            <td class="text-left border">{{ $pivot->students->number }}</td>
-                            <td class="text-left border">{{ $pivot->students->nick }}</td>
-                            <td class="text-center border"></td>
-                            <td class="text-center border"></td>
-                            <td class="text-center border"></td>
-                            <td class="text-center border"></td>
-                            <td class="text-center border"></td>
-                            <td></td>
-                            <td class="text-left border">{{ $pivot->students->number }}</td>
-                            <td class="text-left border">{{ $pivot->students->nick }}</td>
-                            <td class="text-center border"></td>
-                            <td class="text-center border"></td>
-                            <td class="text-center border"></td>
-                            <td class="text-center border"></td>
-                            <td class="text-center border"></td>
-                        </tr>
+                    @foreach ($class->studentsPivot->where('active', 1)->sortBy('students.nick') as $pivot)
+                        @if ($pivot->students->where('active', 1))
+                            @php
+                                $c += 1;
+                            @endphp
+                            <tr class="class">
+                                <td class="text-left border">{{ $pivot->students->number }}</td>
+                                <td class="text-left border">{{ $pivot->students->nick }}</td>
+                                <td class="text-center border"></td>
+                                <td class="text-center border"></td>
+                                <td class="text-center border"></td>
+                                <td class="text-center border"></td>
+                                <td class="text-center border"></td>
+                                <td></td>
+                                <td class="text-left border">{{ $pivot->students->number }}</td>
+                                <td class="text-left border">{{ $pivot->students->nick }}</td>
+                                <td class="text-center border"></td>
+                                <td class="text-center border"></td>
+                                <td class="text-center border"></td>
+                                <td class="text-center border"></td>
+                                <td class="text-center border"></td>
+                            </tr>
+                        @endif
                     @endforeach
                     <tr class="border">
                     <tr class="">

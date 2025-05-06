@@ -204,6 +204,7 @@
                         <th class="text-center">Data</th>
                         <th class="text-center">Períodos</th>
                         <th class="text-center">Justificada</th>
+                        <th class="text-center">%</th>
                     </tr>
                     @foreach ($student->faults->sortByDesc('date') as $faults)
                         <tr class="border-t">
@@ -221,6 +222,7 @@
                                     <span class="badge badge-success">Sim</span>
                                 @endif
                             </td>
+                            <td class="px-2 py-1 font-bold text-center">{{ $faults->acumulado }}</td>
                         </tr>
                     @endforeach
                 </table>

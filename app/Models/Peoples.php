@@ -114,7 +114,6 @@ class Peoples extends Model
         $nota = $this->grau;
         $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
 
-
         $dataReferencia = null;
 
         foreach ($punicoes as $index => $p) {
@@ -129,7 +128,7 @@ class Peoples extends Model
             }
 
             // Aplica punição
-            $nota -= $p->grau;
+            $nota -= floatval($p->grau);
             if ($nota < 0) {
                 $nota = 0.00;
             }

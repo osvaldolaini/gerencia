@@ -92,20 +92,20 @@ class Peoples extends Model
     {
         $this->attributes['birthday'] = $this->dbDate($value);
     }
-    public function getBirthAttribute($value)
+    public function getBirthAttribute()
     {
-        if ($value != "") {
-            return $this->viewDate($value);
+        if ($this->birthday != "") {
+            return $this->viewDate($this->birthday);
         }
     }
     public function setEntryDateAttribute($value)
     {
         $this->attributes['entry_date'] = $this->dbDate($value);
     }
-    public function getEntryAttribute($value)
+    public function getEntryAttribute()
     {
-        if ($value != "") {
-            return $this->viewDate($value);
+        if ($this->entry_date != "") {
+            return $this->viewDate($this->entry_date);
         }
     }
 

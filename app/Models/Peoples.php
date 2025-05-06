@@ -120,112 +120,112 @@ class Peoples extends Model
         }
     }
     //FUNÇÃO PARA PEGAR O GRAU
-    // public function getAdjustedGrauAttribute()
-    // {
-    //     $nota = floatval($this->grau);
-    //     $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
-
-    //     $dataReferencia = null;
-
-    //     foreach ($punicoes as $p) {
-    //         $dataP = Carbon::parse($p->bi_date);
-    //         // Aplica punição
-    //         $f = floatval($p->grau);
-    //         $nota -= $f;  // Aplica a punição
-
-    //         // Verifique o valor da nota após cada punição
-    //         Log::debug("Nota após punição: {$nota}");
-
-    //         if ($nota < 0) {
-    //             $nota = 0.00;
-    //         }
-
-    //         // Reinicia contagem com a nova punição
-    //         $dataReferencia = $dataP->copy()->addDays(90);
-
-    //         if ($dataReferencia && now()->gt($dataReferencia)) {
-    //             $dias = $dataReferencia->diffInDays(now());
-    //             $nota += $dias * 0.01;
-
-    //             // Garantir que a nota não ultrapasse 10.00
-    //             if ($nota > 10) {
-    //                 $nota = 10.00;
-    //             }
-
-    //             // Verifique o valor da nota após o aumento diário
-    //             Log::debug("Nota após aumento diário: {$nota} (Dias: {$dias})");
-    //         }
-
-    //         Log::debug("Data referência para a próxima punição: {$dataReferencia}");
-    //     }
-
-    //     // Se já passou dos 90 dias da última punição, sobe 0,01 por dia até hoje
-    //     if ($dataReferencia && now()->gt($dataReferencia)) {
-    //         $dias = $dataReferencia->diffInDays(now());
-    //         $nota += $dias * 0.01;
-    //         if ($nota > 10) {
-    //             $nota = 10.00;
-    //         }
-    //     }
-    //     Log::debug("Nota após punição: {$nota}");
-    //     // $nota = floatval($nota);
-
-    //     return number_format(floatval($nota), 2);
-    //     // return number_format(floatval($nota), 2);
-    // }
     public function getAdjustedGrauAttribute()
     {
-        // $nota = number_format(floatval($this->grau), 2);
-        $nota = number_format(floatval($this->grau), 2);
+        $nota = floatval($this->grau);
         $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
         $dataReferencia = null;
-        Log::debug("Nota inicial sem float: {$this->grau}");
-        Log::debug("Nota inicial: {$nota}");
+
+        Log::debug("Nota inicial: " . number_format($nota, 2, '.', ''));
 
         if ($punicoes->isEmpty()) {
-            if ($this->entry_date) {
-                $dias = Carbon::parse($this->entry_date)->diffInDays(now());
-                $nota += $dias * 0.01;
-                $nota = number_format(min($nota, 10.00), 2);
-                Log::debug("Sem punições. Dias desde matrícula: {$dias}. Nota final: {$nota}");
+            // Nenhuma punição, usa data de matrícula como referência
+            if ($this->data_matricula) {
+                $dataReferencia = Carbon::parse($this->data_matricula)->addDays(90);
+                if (now()->gt($dataReferencia)) {
+                    $dias = $dataReferencia->diffInDays(now());
+                    $nota += $dias * 0.01;
+                    if ($nota > 10) {
+                        $nota = 10.00;
+                    }
+                    Log::debug("Sem punições. Nota após aumento: " . number_format($nota, 2, '.', '') . " (Dias: {$dias})");
+                }
             }
-            return $nota;
+            return round($nota, 2);
         }
 
         foreach ($punicoes as $p) {
             $dataP = Carbon::parse($p->bi_date);
-            $grauPunicao = number_format(floatval($p->grau), 2);
+            $f = floatval($p->grau);
 
-            $nota -= $grauPunicao;
-            $nota = number_format(max($nota, 0.00), 2);
+            $nota -= $f;
+            Log::debug("Punição em {$p->bi_date}: -" . number_format($f, 2, '.', '') . ". Nota atual: " . number_format($nota, 2, '.', ''));
 
-            Log::debug("Punição em {$p->bi_date}: -{$grauPunicao}. Nota atual: {$nota}");
-
-            $dataReferencia = $dataP->copy()->addDays(90);
-            Log::debug("Nova data de referência após punição: {$dataReferencia->format('Y-m-d')}");
-
-            if (now()->gt($dataReferencia)) {
-                $dias = $dataReferencia->diffInDays(now());
-                $incremento = number_format($dias * 0.01, 2);
-                $nota += $incremento;
-                $nota = number_format(min($nota, 10.00), 2);
-
-                Log::debug("Passaram-se {$dias} dias após 90 dias. Aumento de {$incremento}. Nota atual: {$nota}");
+            if ($nota < 0) {
+                $nota = 0.00;
             }
+
+            // Reinicia contagem com nova punição
+            $dataReferencia = $dataP->copy()->addDays(90);
         }
 
-        // Considerar novamente o aumento final após a última punição
+        // Após a última punição, verifica se já passaram 90 dias
         if ($dataReferencia && now()->gt($dataReferencia)) {
             $dias = $dataReferencia->diffInDays(now());
-            $incremento = number_format($dias * 0.01, 2);
-            $nota += $incremento;
-            $nota = number_format(min($nota, 10.00), 2);
-
-            Log::debug("Ajuste final após última punição: +{$incremento} ({$dias} dias). Nota final: {$nota}");
+            $nota += $dias * 0.01;
+            if ($nota > 10) {
+                $nota = 10.00;
+            }
+            Log::debug("Nota após aumento diário final: " . number_format($nota, 2, '.', '') . " (Dias: {$dias})");
         }
 
-        return $nota;
+        Log::debug("Nota final ajustada: " . number_format($nota, 2, '.', ''));
+        return round($nota, 2);
     }
+
+    // public function getAdjustedGrauAttribute()
+    // {
+    //     // $nota = number_format(floatval($this->grau), 2);
+    //     $nota = number_format(floatval($this->grau), 2);
+    //     $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
+    //     $dataReferencia = null;
+
+    //     Log::debug("Nota inicial: {$nota}");
+
+    //     if ($punicoes->isEmpty()) {
+    //         if ($this->entry_date) {
+    //             $dias = Carbon::parse($this->entry_date)->diffInDays(now());
+    //             $nota += $dias * 0.01;
+    //             $nota = number_format(min($nota, 10.00), 2);
+    //             Log::debug("Sem punições. Dias desde matrícula: {$dias}. Nota final: {$nota}");
+    //         }
+    //         return $nota;
+    //     }
+
+    //     foreach ($punicoes as $p) {
+    //         $dataP = Carbon::parse($p->bi_date);
+    //         $grauPunicao = number_format(floatval($p->grau), 2);
+
+    //         $nota -= $grauPunicao;
+    //         $nota = number_format(max($nota, 0.00), 2);
+
+    //         Log::debug("Punição em {$p->bi_date}: -{$grauPunicao}. Nota atual: {$nota}");
+
+    //         $dataReferencia = $dataP->copy()->addDays(90);
+    //         Log::debug("Nova data de referência após punição: {$dataReferencia->format('Y-m-d')}");
+
+    //         if (now()->gt($dataReferencia)) {
+    //             $dias = $dataReferencia->diffInDays(now());
+    //             $incremento = number_format($dias * 0.01, 2);
+    //             $nota += $incremento;
+    //             $nota = number_format(min($nota, 10.00), 2);
+
+    //             Log::debug("Passaram-se {$dias} dias após 90 dias. Aumento de {$incremento}. Nota atual: {$nota}");
+    //         }
+    //     }
+
+    //     // Considerar novamente o aumento final após a última punição
+    //     if ($dataReferencia && now()->gt($dataReferencia)) {
+    //         $dias = $dataReferencia->diffInDays(now());
+    //         $incremento = number_format($dias * 0.01, 2);
+    //         $nota += $incremento;
+    //         $nota = number_format(min($nota, 10.00), 2);
+
+    //         Log::debug("Ajuste final após última punição: +{$incremento} ({$dias} dias). Nota final: {$nota}");
+    //     }
+
+    //     return $nota;
+    // }
 
 
 

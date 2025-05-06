@@ -170,12 +170,12 @@ class Peoples extends Model
     //     Log::debug("Nota após punição: {$nota}");
     //     // $nota = floatval($nota);
 
-    //     return round(floatval($nota), 2);
-    //     // return round(floatval($nota), 2);
+    //     return number_format(floatval($nota), 2);
+    //     // return number_format(floatval($nota), 2);
     // }
     public function getAdjustedGrauAttribute()
     {
-        $nota = round(floatval($this->grau), 2);
+        $nota = number_format($this->grau, 2);
         $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
         $dataReferencia = null;
 
@@ -185,7 +185,7 @@ class Peoples extends Model
             if ($this->entry_date) {
                 $dias = Carbon::parse($this->entry_date)->diffInDays(now());
                 $nota += $dias * 0.01;
-                $nota = round(min($nota, 10.00), 2);
+                $nota = number_format(min($nota, 10.00), 2);
                 Log::debug("Sem punições. Dias desde matrícula: {$dias}. Nota final: {$nota}");
             }
             return $nota;
@@ -193,10 +193,10 @@ class Peoples extends Model
 
         foreach ($punicoes as $p) {
             $dataP = Carbon::parse($p->bi_date);
-            $grauPunicao = round(floatval($p->grau), 2);
+            $grauPunicao = number_format(floatval($p->grau), 2);
 
             $nota -= $grauPunicao;
-            $nota = round(max($nota, 0.00), 2);
+            $nota = number_format(max($nota, 0.00), 2);
 
             Log::debug("Punição em {$p->bi_date}: -{$grauPunicao}. Nota atual: {$nota}");
 
@@ -205,9 +205,9 @@ class Peoples extends Model
 
             if (now()->gt($dataReferencia)) {
                 $dias = $dataReferencia->diffInDays(now());
-                $incremento = round($dias * 0.01, 2);
+                $incremento = number_format($dias * 0.01, 2);
                 $nota += $incremento;
-                $nota = round(min($nota, 10.00), 2);
+                $nota = number_format(min($nota, 10.00), 2);
 
                 Log::debug("Passaram-se {$dias} dias após 90 dias. Aumento de {$incremento}. Nota atual: {$nota}");
             }
@@ -216,9 +216,9 @@ class Peoples extends Model
         // Considerar novamente o aumento final após a última punição
         if ($dataReferencia && now()->gt($dataReferencia)) {
             $dias = $dataReferencia->diffInDays(now());
-            $incremento = round($dias * 0.01, 2);
+            $incremento = number_format($dias * 0.01, 2);
             $nota += $incremento;
-            $nota = round(min($nota, 10.00), 2);
+            $nota = number_format(min($nota, 10.00), 2);
 
             Log::debug("Ajuste final após última punição: +{$incremento} ({$dias} dias). Nota final: {$nota}");
         }

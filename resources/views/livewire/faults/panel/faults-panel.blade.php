@@ -5,7 +5,7 @@
             @livewire('faults.charts.faults-by-week')
         </div>
         <!-- Alunos com Mais Faltas -->
-        <div class="p-5 shadow-md  bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100 rounded-2xl">
+        <div class="p-5 shadow-md bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100 rounded-2xl">
             <h2 class="flex items-center gap-2 mb-4 text-xl font-semibold ">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-500" fill="currentColor"
                     viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +27,7 @@
                             </p>
                             <span class="inline-block px-3 py-1 text-sm text-red-800 bg-red-100 rounded-full">
                                 {{ $student->total_faults }} {{ Str::plural('falta', $student->total_faults) }}
-                                ({{ number_format((($student->total_faults ?? 0) / 1200) * 100, 2, ',', '') }}%)
+                                ({{ number_format((($fault->acumulado ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%%)
                             </span>
                         </div>
                     </li>
@@ -35,7 +35,7 @@
             </ul>
         </div>
 
-        <div class="p-5 shadow-md  bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100 rounded-2xl">
+        <div class="p-5 shadow-md bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100 rounded-2xl">
             <h2 class="flex items-center gap-2 mb-4 text-xl font-semibold ">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">

@@ -73,6 +73,10 @@
         .text-center {
             text-align: center;
         }
+
+        .w-full {
+            width: 100%
+        }
     </style>
 </head>
 
@@ -222,7 +226,9 @@
                                     <span class="badge badge-success">Sim</span>
                                 @endif
                             </td>
-                            <td class="px-2 py-1 font-bold text-center">{{ $faults->acumulado }}</td>
+                            <td class="text-center border-bottom">
+                                {{ number_format((($fault->acumulado ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%
+                            </td>
                         </tr>
                     @endforeach
                 </table>

@@ -62,7 +62,7 @@
                                     {{ $fault->students->name }}
                                 </p>
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
-                                    {{ \Carbon\Carbon::parse($fault->date)->format('d/m/Y') }}
+                                    {{ $fault->f_date }}
                                 </p>
                             </div>
                             <span class="inline-block px-3 py-1 text-sm text-blue-800 bg-blue-100 rounded-full">

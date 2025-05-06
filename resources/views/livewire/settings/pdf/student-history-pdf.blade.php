@@ -234,14 +234,14 @@
                     @endphp
 
                     @foreach (array_reverse($dados) as $fault)
-                        <tr class="border-t">
-                            <td class="text-center">
+                        <tr>
+                            <td class="text-center border-bottom">
                                 {{ $fault['date_view'] }}
                             </td>
-                            <td class="text-center">
+                            <td class="text-center border-bottom">
                                 {{ $fault['qtd'] }}
                             </td>
-                            <td class="text-center">
+                            <td class="text-center border-bottom">
                                 @if ($fault['justified'] == 0)
                                     <span class="badge badge-error">Não</span>
                                 @endif
@@ -249,7 +249,7 @@
                                     <span class="badge badge-success">Sim</span>
                                 @endif
                             </td>
-                            <td class="px-2 py-1 font-bold text-center">
+                            <td class="text-center border-bottom">
                                 {{ $fault['percentual'] }}%
                             </td>
                         </tr>

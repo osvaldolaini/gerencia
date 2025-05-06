@@ -75,7 +75,7 @@
                                     <span class="error">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="col-span-full sm:col-span-1 ">
+                            <div class="col-span-full sm:col-span-2 ">
                                 <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
                                     Matricula</label>
                                 <input type="date" wire:model="entry_date"

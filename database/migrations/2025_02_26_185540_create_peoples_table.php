@@ -21,6 +21,8 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->boolean('type');
             $table->decimal('grau', $precision = 10, $scale = 2)->nullable();
+            $table->date('entry_date')->nullable();
+
             $table->integer('number')->nullable();
             $table->string('name')->nullable();
             $table->date('birthday')->nullable();

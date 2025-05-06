@@ -116,16 +116,18 @@
                     $c = 0;
                 @endphp
                 @foreach ($school_classes as $class)
-                    @foreach ($class->studentsPivot->where('students.sex', 'M')->sortBy('students.nick') as $pivot)
-                        @php
-                            $c += 1;
-                        @endphp
-                        <tr class="class">
-                            <td class="text-left border">{{ $pivot->students->number }}</td>
-                            <td class="text-left border">{{ $pivot->students->nick }}</td>
-                            <td class="text-left border">{{ $pivot->students->al_class->title }}</td>
-                            <td class="text-center border"></td>
-                        </tr>
+                    @foreach ($class->studentsPivot->where('active', 1)->where('students.sex', 'M')->sortBy('students.nick') as $pivot)
+                        @if ($pivot->students->where('active', 1))
+                            @php
+                                $c += 1;
+                            @endphp
+                            <tr class="class">
+                                <td class="text-left border">{{ $pivot->students->number }}</td>
+                                <td class="text-left border">{{ $pivot->students->nick }}</td>
+                                <td class="text-left border">{{ $pivot->students->al_class->title }}</td>
+                                <td class="text-center border"></td>
+                            </tr>
+                        @endif
                     @endforeach
                 @endforeach
                 <tr class="border">

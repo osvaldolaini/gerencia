@@ -1,5 +1,17 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.3.14
+
+> Novidades
+
+    ->Calculo do grau do aluno no PDF
+
+> Correções
+
+    ->Erro ao remover aluno da turma.
+    ->Erro de data na lista de FAFD
+    ->Erro ao inserir FO+
+
 ## Versão Santos Dumont 1.3.12
 
 > Novidades

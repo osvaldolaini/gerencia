@@ -19,6 +19,7 @@ use Spatie\Activitylog\LogOptions;
 
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class Peoples extends Model
 {
@@ -45,6 +46,9 @@ class Peoples extends Model
         'created_by',
         'deleted_by',
         'deleted_at'
+    ];
+    protected $casts = [
+        'grau' => 'float',  // Força o grau a ser interpretado como número
     ];
     protected static function boot()
     {
@@ -111,30 +115,41 @@ class Peoples extends Model
 
     public function getAdjustedGrauAttribute()
     {
-        $nota = $this->grau;
+        $nota = floatval($this->grau);
         $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
 
         $dataReferencia = null;
 
-        foreach ($punicoes as $index => $p) {
+        foreach ($punicoes as $p) {
             $dataP = Carbon::parse($p->bi_date);
-
-            if ($dataReferencia) {
-                $dias = $dataReferencia->diffInDays($dataP);
-                $nota += $dias * 0.01;
-                if ($nota > 10) {
-                    $nota = 10.00;
-                }
-            }
-
             // Aplica punição
-            $nota -= floatval($p->grau);
+            $f = floatval($p->grau);
+            $nota -= $f;  // Aplica a punição
+
+            // Verifique o valor da nota após cada punição
+            Log::debug("Nota após punição: {$nota}");
+
             if ($nota < 0) {
                 $nota = 0.00;
             }
 
             // Reinicia contagem com a nova punição
             $dataReferencia = $dataP->copy()->addDays(90);
+
+            if ($dataReferencia && now()->gt($dataReferencia)) {
+                $dias = $dataReferencia->diffInDays(now());
+                $nota += $dias * 0.01;
+
+                // Garantir que a nota não ultrapasse 10.00
+                if ($nota > 10) {
+                    $nota = 10.00;
+                }
+
+                // Verifique o valor da nota após o aumento diário
+                Log::debug("Nota após aumento diário: {$nota} (Dias: {$dias})");
+            }
+
+            Log::debug("Data referência para a próxima punição: {$dataReferencia}");
         }
 
         // Se já passou dos 90 dias da última punição, sobe 0,01 por dia até hoje
@@ -145,8 +160,10 @@ class Peoples extends Model
                 $nota = 10.00;
             }
         }
+        Log::debug("Nota após punição: {$nota}");
+        // $nota = floatval($nota);
 
-        return round($nota, 2);
+        return round(floatval($nota), 2);
     }
 
 

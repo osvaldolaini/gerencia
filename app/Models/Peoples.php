@@ -175,10 +175,11 @@ class Peoples extends Model
     // }
     public function getAdjustedGrauAttribute()
     {
+        // $nota = number_format(floatval($this->grau), 2);
         $nota = number_format(floatval($this->grau), 2);
         $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
         $dataReferencia = null;
-
+        Log::debug("Nota inicial sem float: {$this->grau}");
         Log::debug("Nota inicial: {$nota}");
 
         if ($punicoes->isEmpty()) {

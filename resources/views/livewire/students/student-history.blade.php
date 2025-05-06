@@ -178,6 +178,9 @@
                                             <th class="text-center">Acumulado</th>
                                         </tr>
                                         @foreach ($student->faults->sortByDesc('date') as $faults)
+                                            @php
+                                                $acumulado += $faults->qtd;
+                                            @endphp
                                             <tr class="border-t">
                                                 <td class="text-center ">
                                                     {{ $faults->date_view }}
@@ -194,9 +197,7 @@
                                                     @endif
                                                 </td>
                                                 <td class="px-2 py-1 font-bold text-center">
-                                                    {{ $student->total_faults }}
-                                                    {{ Str::plural('falta', $student->total_faults) }}
-                                                    {{ number_format((($fault->acumulado ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%
+                                                    {{ number_format((($acumulado ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -40,6 +40,7 @@ class Peoples extends Model
         'posto_grad',
         'function',
         'grau',
+        'entry_date',
         'english_level',
         'code',
         'updated_by',
@@ -92,6 +93,16 @@ class Peoples extends Model
         $this->attributes['birthday'] = $this->dbDate($value);
     }
     public function getBirthAttribute($value)
+    {
+        if ($value != "") {
+            return $this->viewDate($value);
+        }
+    }
+    public function setEntryDateAttribute($value)
+    {
+        $this->attributes['entry_date'] = $this->dbDate($value);
+    }
+    public function getEntryAttribute($value)
     {
         if ($value != "") {
             return $this->viewDate($value);
@@ -160,6 +171,7 @@ class Peoples extends Model
         // $nota = floatval($nota);
 
         return round(floatval($nota), 2);
+        // return round(floatval($nota), 2);
     }
 
 

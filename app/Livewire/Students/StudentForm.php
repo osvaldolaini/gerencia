@@ -23,6 +23,7 @@ class StudentForm extends Component
     public $number;
     public $sex;
     public $grau;
+    public $entry_date;
     public $english_level;
 
 
@@ -35,6 +36,7 @@ class StudentForm extends Component
             $this->number       = $students->number;
             $this->sex          = $students->sex;
             $this->grau         = $students->grau;
+            $this->entry_date   = $students->entry;
             $this->english_level         = $students->english_level;
         }
     }
@@ -64,7 +66,8 @@ class StudentForm extends Component
             'sex'   => 'required',
             'name'  => 'required',
             'nick'  => 'required',
-            'grau'  => 'required|lte:10'
+            'grau'  => 'required|lte:10',
+            'entry_date' => 'required'
         ];
         $this->validate();
         if ($this->id) {
@@ -77,6 +80,7 @@ class StudentForm extends Component
                 'sex' => $this->sex,
                 'grau' => $this->grau,
                 'english_level' => $this->english_level,
+                'entry_date' => $this->entry_date,
             ]);
 
             $id = false;
@@ -89,6 +93,7 @@ class StudentForm extends Component
                 'sex'       => $this->sex,
                 'number'    => $this->number,
                 'english_level' => $this->english_level,
+                'entry_date' => $this->entry_date,
                 'grau'      => $this->grau,
                 'type'      => 1,
                 'code'      => Str::uuid(),

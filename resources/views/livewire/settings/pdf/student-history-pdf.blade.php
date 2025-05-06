@@ -227,7 +227,7 @@
                                 @endif
                             </td>
                             <td class="text-center border-bottom">
-                                {{ number_format((($fault->acumulado ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%
+                                {{ number_format((($faults->acumulado ?? 0) / ($faults->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%
                             </td>
                         </tr>
                     @endforeach

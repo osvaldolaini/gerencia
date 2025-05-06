@@ -210,27 +210,51 @@
                         <th class="text-center">Justificada</th>
                         <th class="text-center">%</th>
                     </tr>
-                    @foreach ($student->faults->sortByDesc('date') as $faults)
+                    @php
+                        $acumulado = 0;
+                        $faultsOrdenadas = $student->faults->sortBy('date'); // ordem CRESCENTE
+                        $dados = [];
+
+                        foreach ($faultsOrdenadas as $fault) {
+                            $acumulado += $fault->qtd;
+                            $percentual = number_format(
+                                ($acumulado / ($fault->students->company->workload ?? 1200)) * 100,
+                                2,
+                                ',',
+                                '',
+                            );
+
+                            $dados[] = [
+                                'date_view' => $fault->date_view,
+                                'qtd' => $fault->qtd,
+                                'justified' => $fault->justified,
+                                'percentual' => $percentual,
+                            ];
+                        }
+                    @endphp
+
+                    @foreach (array_reverse($dados) as $fault)
                         <tr class="border-t">
-                            <td class="text-center border-bottom">
-                                {{ $faults->date_view }}
+                            <td class="text-center">
+                                {{ $fault['date_view'] }}
                             </td>
-                            <td class="text-center border-bottom">
-                                {{ $faults->qtd }}
+                            <td class="text-center">
+                                {{ $fault['qtd'] }}
                             </td>
-                            <td class="text-center border-bottom">
-                                @if ($faults->justified == 0)
+                            <td class="text-center">
+                                @if ($fault['justified'] == 0)
                                     <span class="badge badge-error">Não</span>
                                 @endif
-                                @if ($faults->justified == 1)
+                                @if ($fault['justified'] == 1)
                                     <span class="badge badge-success">Sim</span>
                                 @endif
                             </td>
-                            <td class="text-center border-bottom">
-                                {{ number_format((($faults->acumulado ?? 0) / ($faults->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%
+                            <td class="px-2 py-1 font-bold text-center">
+                                {{ $fault['percentual'] }}%
                             </td>
                         </tr>
                     @endforeach
+
                 </table>
             @else
                 <div class="linha-tabela">Não possui</div>

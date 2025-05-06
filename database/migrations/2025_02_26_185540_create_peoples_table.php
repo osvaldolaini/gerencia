@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('logo_path', 100)->nullable();
             $table->string('nick')->nullable();
             $table->string('sex')->nullable();
+            $table->string('english_level')->nullable();
             $table->string('code')->nullable();
 
             $table->string('function')->nullable();

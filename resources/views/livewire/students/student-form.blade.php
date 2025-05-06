@@ -75,6 +75,15 @@
                                     <span class="error">{{ $message }}</span>
                                 @enderror
                             </div>
+                            <div class="col-span-full sm:col-span-2 ">
+                                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                                    Grau ajustado</label>
+                                <x-layout.input-value value="{{ $grau }}" field="grau"
+                                    placeholder="Grau ajustado"></x-layout.input-value>
+                                {{-- @error('grau')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror --}}
+                            </div>
                         </div>
                     </div>
                 </div>

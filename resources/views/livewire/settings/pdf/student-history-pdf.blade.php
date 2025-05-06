@@ -92,7 +92,8 @@
                         <div class="linha-info"><strong>Nome aluno:</strong> {{ $student->nick }}</div>
                         <div class="linha-info"><strong>Nr:</strong> {{ $student->number }}</div>
                         <div class="linha-info"><strong>Turma:</strong> {{ $student->people_class }}</div>
-                        <div class="linha-info"><strong>Grau de comportamento:</strong> 0,00</div>
+                        <div class="linha-info"><strong>Grau de comportamento:</strong> {{ $student->adjusted_grau }}
+                        </div>
                     </td>
 
                 </tr>

@@ -36,6 +36,7 @@ class Peoples extends Model
         'posto_grad',
         'function',
         'grau',
+        'english_level',
         'code',
         'updated_by',
         'created_by',
@@ -88,6 +89,21 @@ class Peoples extends Model
         if ($value != "") {
             return $this->viewDate($value);
         }
+    }
+
+    public function setGrauAttribute($value)
+    {
+        $this->attributes['grau'] = $this->dbValue($value);
+    }
+    public function getGrauAttribute($value)
+    {
+        if ($value != "") {
+            return $this->viewValue($value);
+        }
+    }
+    public function getAdjustedGrauAttribute()
+    {
+        return $this->grau;
     }
 
     public function getStudentTitleAttribute()

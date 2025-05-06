@@ -22,6 +22,9 @@ class StudentForm extends Component
     public $nick;
     public $number;
     public $sex;
+    public $grau;
+    public $english_level;
+
 
     public function mount(Peoples $students)
     {
@@ -31,6 +34,8 @@ class StudentForm extends Component
             $this->nick         = $students->nick;
             $this->number       = $students->number;
             $this->sex          = $students->sex;
+            $this->grau         = $students->grau;
+            $this->english_level         = $students->english_level;
         }
     }
 
@@ -57,8 +62,9 @@ class StudentForm extends Component
         $this->rules = [
             // 'number' => 'max:5|required|' . Rule::unique('peoples')->ignore($this->id),
             'sex'   => 'required',
-            'name'   => 'required',
-            'nick'   => 'required',
+            'name'  => 'required',
+            'nick'  => 'required',
+            'grau'  => 'required|lte:10'
         ];
         $this->validate();
         if ($this->id) {
@@ -69,6 +75,8 @@ class StudentForm extends Component
                 'nick' => $this->nick,
                 'number' => $this->number,
                 'sex' => $this->sex,
+                'grau' => $this->grau,
+                'english_level' => $this->english_level,
             ]);
 
             $id = false;
@@ -80,6 +88,8 @@ class StudentForm extends Component
                 'nick'      => $this->nick,
                 'sex'       => $this->sex,
                 'number'    => $this->number,
+                'english_level' => $this->english_level,
+                'grau'      => $this->grau,
                 'type'      => 1,
                 'code'      => Str::uuid(),
             ]);
@@ -94,4 +104,13 @@ class StudentForm extends Component
     {
         $this->dispatch('openAlert', $status, $msg);
     }
+    // public function updated($property)
+    // {
+    //     if ($property === 'grau') {
+    //         if ($this->grau > 10.00) {
+    //             $this->dispatch('openAlert', 'error', 'O valor não pode ser maior que 10,00');
+    //             $this->grau = 0.00;
+    //         }
+    //     }
+    // }
 }

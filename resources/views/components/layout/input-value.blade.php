@@ -49,7 +49,7 @@
     }
 }" x-init="formatValue()" @input="formatValue()" class="w-full">
 
-    <input type="text" x-model="value" id="{{ $field }}" name="{{ $field }}"
+    <input type="text" x-model="value" id="{{ $field }}" name="{{ $field }}" maxlength="5"
         wire:model.lazy="{{ $field }}" placeholder="{{ $placeholder }}"
         {{ $attributes->merge([
             'class' =>

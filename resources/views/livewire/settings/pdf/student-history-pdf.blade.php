@@ -154,7 +154,7 @@
         </div>
         <div class="section">
             <div class="section-title">Fatos observados</div>
-            @if ($student->fo->count() > 1)
+            @if ($student->fo->count() > 0)
                 <table class="w-full" style="border-collapse: collapse;">
                     <tr>
                         <th class="text-center">Data</th>
@@ -201,7 +201,7 @@
         </div>
         <div class="section">
             <div class="section-title">Faltas</div>
-            @if ($student->faults->where('active', 1)->count() > 1)
+            @if ($student->faults->where('active', 1)->count() > 0)
 
                 <table class="w-full" style="border-collapse: collapse;">
                     <tr>

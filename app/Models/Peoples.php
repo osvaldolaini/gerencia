@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
+
+use Carbon\Carbon;
+
 class Peoples extends Model
 {
     use HasFactory, LogsActivity, HasAttributeConversions;
@@ -101,10 +104,52 @@ class Peoples extends Model
             return $this->viewValue($value);
         }
     }
+    // public function getAdjustedGrauAttribute()
+    // {
+    //     return $this->grau;
+    // }
+
     public function getAdjustedGrauAttribute()
     {
-        return $this->grau;
+        $nota = $this->grau;
+        $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
+
+
+        $dataReferencia = null;
+
+        foreach ($punicoes as $index => $p) {
+            $dataP = Carbon::parse($p->bi_date);
+
+            if ($dataReferencia) {
+                $dias = $dataReferencia->diffInDays($dataP);
+                $nota += $dias * 0.01;
+                if ($nota > 10) {
+                    $nota = 10.00;
+                }
+            }
+
+            // Aplica punição
+            $nota -= $p->grau;
+            if ($nota < 0) {
+                $nota = 0.00;
+            }
+
+            // Reinicia contagem com a nova punição
+            $dataReferencia = $dataP->copy()->addDays(90);
+        }
+
+        // Se já passou dos 90 dias da última punição, sobe 0,01 por dia até hoje
+        if ($dataReferencia && now()->gt($dataReferencia)) {
+            $dias = $dataReferencia->diffInDays(now());
+            $nota += $dias * 0.01;
+            if ($nota > 10) {
+                $nota = 10.00;
+            }
+        }
+
+        return round($nota, 2);
     }
+
 
     public function getStudentTitleAttribute()
     {

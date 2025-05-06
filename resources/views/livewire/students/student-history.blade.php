@@ -175,6 +175,7 @@
                                             <th class="text-center">Data</th>
                                             <th class="text-center">Períodos</th>
                                             <th class="text-center">Justificada</th>
+                                            <th class="text-center">Acumulado</th>
                                         </tr>
                                         @foreach ($student->faults->sortByDesc('date') as $faults)
                                             <tr class="border-t">
@@ -191,6 +192,9 @@
                                                     @if ($faults->justified == 1)
                                                         <span class="badge badge-success">Sim</span>
                                                     @endif
+                                                </td>
+                                                <td class="px-2 py-1 font-bold text-center">
+                                                    {{ number_format((($fault->acumulado ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%%
                                                 </td>
                                             </tr>
                                         @endforeach

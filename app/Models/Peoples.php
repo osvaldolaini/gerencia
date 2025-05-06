@@ -119,113 +119,61 @@ class Peoples extends Model
             return $this->viewValue($this->grau);
         }
     }
-    //FUNÇÃO PARA PEGAR O GRAU
+
+
     public function getAdjustedGrauAttribute()
     {
-        $nota = floatval($this->grau);
+        $nota = number_format(floatval($this->grau), 2);
         $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
         $dataReferencia = null;
 
-        Log::debug("Nota inicial: " . number_format($nota, 2, '.', ''));
+        Log::debug("Nota inicial: {$nota}");
 
         if ($punicoes->isEmpty()) {
-            // Nenhuma punição, usa data de matrícula como referência
-            if ($this->data_matricula) {
-                $dataReferencia = Carbon::parse($this->data_matricula)->addDays(90);
+            if ($this->entry_date) {
+                $dataReferencia = Carbon::parse($this->entry_date)->addDays(90); // 90 dias após matrícula
                 if (now()->gt($dataReferencia)) {
                     $dias = $dataReferencia->diffInDays(now());
-                    $nota += $dias * 0.01;
-                    if ($nota > 10) {
-                        $nota = 10.00;
-                    }
-                    Log::debug("Sem punições. Nota após aumento: " . number_format($nota, 2, '.', '') . " (Dias: {$dias})");
+                    $incremento = number_format($dias * 0.01, 2);
+                    $nota += $incremento;
+                    $nota = number_format(min($nota, 10.00), 2);
+                    Log::debug("Sem punições. Dias após 90 da matrícula: {$dias}. Aumento: {$incremento}. Nota final: {$nota}");
+                } else {
+                    Log::debug("Sem punições. Ainda não passaram 90 dias desde a matrícula.");
                 }
             }
-            return round($nota, 2);
+            return $nota;
         }
 
         foreach ($punicoes as $p) {
             $dataP = Carbon::parse($p->bi_date);
-            $f = floatval($p->grau);
+            $grauPunicao = number_format(floatval($p->grau), 2);
 
-            $nota -= $f;
-            Log::debug("Punição em {$p->bi_date}: -" . number_format($f, 2, '.', '') . ". Nota atual: " . number_format($nota, 2, '.', ''));
+            $nota -= $grauPunicao;
+            $nota = number_format(max($nota, 0.00), 2);
 
-            if ($nota < 0) {
-                $nota = 0.00;
-            }
+            Log::debug("Punição em {$p->bi_date}: -{$grauPunicao}. Nota atual: {$nota}");
 
-            // Reinicia contagem com nova punição
-            $dataReferencia = $dataP->copy()->addDays(90);
+            // 90 dias após a punição
+            $dataReferencia = $dataP->copy()->addDays(90 + 90); // soma 180 dias no total
+            Log::debug("Nova data de referência após punição (90+90 dias): {$dataReferencia->format('Y-m-d')}");
         }
 
-        // Após a última punição, verifica se já passaram 90 dias
+        // Ajuste final após a última punição, se já se passaram os 180 dias
         if ($dataReferencia && now()->gt($dataReferencia)) {
             $dias = $dataReferencia->diffInDays(now());
-            $nota += $dias * 0.01;
-            if ($nota > 10) {
-                $nota = 10.00;
-            }
-            Log::debug("Nota após aumento diário final: " . number_format($nota, 2, '.', '') . " (Dias: {$dias})");
+            $incremento = number_format($dias * 0.01, 2);
+            $nota += $incremento;
+            $nota = number_format(min($nota, 10.00), 2);
+
+            Log::debug("Ajuste final após 180 dias da última punição: +{$incremento} ({$dias} dias). Nota final: {$nota}");
+        } else {
+            Log::debug("Ainda não passaram 180 dias desde a última punição.");
         }
 
-        Log::debug("Nota final ajustada: " . number_format($nota, 2, '.', ''));
-        return round($nota, 2);
+        return $nota;
     }
 
-    // public function getAdjustedGrauAttribute()
-    // {
-    //     // $nota = number_format(floatval($this->grau), 2);
-    //     $nota = number_format(floatval($this->grau), 2);
-    //     $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
-    //     $dataReferencia = null;
-
-    //     Log::debug("Nota inicial: {$nota}");
-
-    //     if ($punicoes->isEmpty()) {
-    //         if ($this->entry_date) {
-    //             $dias = Carbon::parse($this->entry_date)->diffInDays(now());
-    //             $nota += $dias * 0.01;
-    //             $nota = number_format(min($nota, 10.00), 2);
-    //             Log::debug("Sem punições. Dias desde matrícula: {$dias}. Nota final: {$nota}");
-    //         }
-    //         return $nota;
-    //     }
-
-    //     foreach ($punicoes as $p) {
-    //         $dataP = Carbon::parse($p->bi_date);
-    //         $grauPunicao = number_format(floatval($p->grau), 2);
-
-    //         $nota -= $grauPunicao;
-    //         $nota = number_format(max($nota, 0.00), 2);
-
-    //         Log::debug("Punição em {$p->bi_date}: -{$grauPunicao}. Nota atual: {$nota}");
-
-    //         $dataReferencia = $dataP->copy()->addDays(90);
-    //         Log::debug("Nova data de referência após punição: {$dataReferencia->format('Y-m-d')}");
-
-    //         if (now()->gt($dataReferencia)) {
-    //             $dias = $dataReferencia->diffInDays(now());
-    //             $incremento = number_format($dias * 0.01, 2);
-    //             $nota += $incremento;
-    //             $nota = number_format(min($nota, 10.00), 2);
-
-    //             Log::debug("Passaram-se {$dias} dias após 90 dias. Aumento de {$incremento}. Nota atual: {$nota}");
-    //         }
-    //     }
-
-    //     // Considerar novamente o aumento final após a última punição
-    //     if ($dataReferencia && now()->gt($dataReferencia)) {
-    //         $dias = $dataReferencia->diffInDays(now());
-    //         $incremento = number_format($dias * 0.01, 2);
-    //         $nota += $incremento;
-    //         $nota = number_format(min($nota, 10.00), 2);
-
-    //         Log::debug("Ajuste final após última punição: +{$incremento} ({$dias} dias). Nota final: {$nota}");
-    //     }
-
-    //     return $nota;
-    // }
 
 
 

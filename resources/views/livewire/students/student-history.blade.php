@@ -177,6 +177,9 @@
                                             <th class="text-center">Justificada</th>
                                             <th class="text-center">Acumulado</th>
                                         </tr>
+                                        @php
+                                            $acumulado = 0;
+                                        @endphp
                                         @foreach ($student->faults->sortByDesc('date') as $faults)
                                             @php
                                                 $acumulado += $faults->qtd;

@@ -27,7 +27,7 @@
                             </p>
                             <span class="inline-block px-3 py-1 text-sm text-red-800 bg-red-100 rounded-full">
                                 {{ $student->total_faults }} {{ Str::plural('falta', $student->total_faults) }}
-                                ({{ number_format((($fault->acumulado ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%%)
+                                ({{ number_format((($student->total_faults ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%)
                             </span>
                         </div>
                     </li>
@@ -62,7 +62,7 @@
                                 </p>
                             </div>
                             <span class="inline-block px-3 py-1 text-sm text-blue-800 bg-blue-100 rounded-full">
-                                {{ $fault->qtd }} {{ Str::plural('falta', $fault->qtd) }}
+                                {{ $fault->qtd }} {{ Str::plural('período', $fault->qtd) }}
 
                             </span>
                         </div>

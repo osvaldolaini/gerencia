@@ -19,7 +19,7 @@ class SchoolClassesUpdateds extends Component
     public $sorts = ['peoples.number' => 'asc'];
     public $relationTables =  "peoples,peoples.id,school_classes_students.people_id"; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'peoples.id,peoples.name,peoples.number,peoples.nick,peoples.logo_path,peoples.sex,school_classes_students.active as status';
+    public $columnsInclude = 'peoples.id as ids,peoples.name,peoples.number,peoples.nick,peoples.logo_path,peoples.sex,school_classes_students.active as status';
     public $searchable = 'peoples.name,peoples.number,peoples.nick'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
@@ -77,7 +77,9 @@ class SchoolClassesUpdateds extends Component
     {
         if (!empty($this->removeSelected)) {
             foreach ($this->removeSelected as $key => $value) {
-                $data = SchoolClassesStudent::find($value);
+                $id = intval($value);
+                $data = SchoolClassesStudent::find($id);
+                // dd($data);
                 $data->active = 0;
                 $data->save();
             }

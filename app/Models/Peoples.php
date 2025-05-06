@@ -182,8 +182,8 @@ class Peoples extends Model
         Log::debug("Nota inicial: {$nota}");
 
         if ($punicoes->isEmpty()) {
-            if ($this->data_matricula) {
-                $dias = Carbon::parse($this->data_matricula)->diffInDays(now());
+            if ($this->entry_date) {
+                $dias = Carbon::parse($this->entry_date)->diffInDays(now());
                 $nota += $dias * 0.01;
                 $nota = round(min($nota, 10.00), 2);
                 Log::debug("Sem punições. Dias desde matrícula: {$dias}. Nota final: {$nota}");

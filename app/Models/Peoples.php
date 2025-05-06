@@ -113,7 +113,7 @@ class Peoples extends Model
     {
         $this->attributes['grau'] = $this->dbValue($value);
     }
-    public function getGrauAttribute($value)
+    public function getGrauViewAttribute($value)
     {
         if ($value != "") {
             return $this->viewValue($value);
@@ -176,7 +176,7 @@ class Peoples extends Model
     public function getAdjustedGrauAttribute()
     {
         // $nota = number_format(floatval($this->grau), 2);
-        $nota = number_format(floatval($this->grau), 2, '.', '');
+        $nota = number_format(floatval($this->grau), 2);
         $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
         $dataReferencia = null;
         Log::debug("Nota inicial sem float: {$this->grau}");

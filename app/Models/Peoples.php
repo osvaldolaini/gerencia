@@ -113,7 +113,7 @@ class Peoples extends Model
     {
         $this->attributes['grau'] = $this->dbValue($value);
     }
-    public function getGrauAttribute($value)
+    public function getGrauViewAttribute($value)
     {
         if ($value != "") {
             return $this->viewValue($value);

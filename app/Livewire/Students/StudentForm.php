@@ -35,7 +35,7 @@ class StudentForm extends Component
             $this->nick         = $students->nick;
             $this->number       = $students->number;
             $this->sex          = $students->sex;
-            $this->grau         = $students->grau;
+            $this->grau         = $students->grau_view;
             $this->entry_date   = $students->entry;
             $this->english_level         = $students->english_level;
         }

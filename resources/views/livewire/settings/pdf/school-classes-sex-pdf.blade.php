@@ -87,7 +87,7 @@
                                 <td class="text-left border">{{ $pivot->students->al_class->title }}</td>
                                 <td class="text-center border"></td>
                             </tr>
-                        @endforeach
+                        @endif
                     @endforeach
                 @endforeach
                 <tr class="border">

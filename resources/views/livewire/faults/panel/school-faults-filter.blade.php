@@ -133,26 +133,28 @@
         </thead>
         <tbody>
             @foreach ($faults as $fault)
-                <tr class="border-b">
-                    <td class="px-2 py-1">{{ \Carbon\Carbon::parse($fault->date)->format('d/m/Y') }}</td>
-                    <td class="px-2 py-1">{{ $fault->students->name ?? '-' }}</td>
-                    <td class="px-2 py-1 text-center">{{ $fault->companies->name ?? '-' }}</td>
-                    <td class="px-2 py-1 text-center">{{ $fault->grades->name ?? '-' }}</td>
-                    <td class="px-2 py-1 text-center">{{ $fault->class->title ?? '-' }}</td>
-                    <td class="px-2 py-1 text-center">{{ $fault->qtd }}</td>
-                    <td class="px-2 py-1 text-center">
-                        <span class="badge {{ $fault->justified ? 'badge-success' : 'badge-error' }}">
-                            {{ $fault->justified ? 'Sim' : 'Não' }}
-                        </span>
-                    </td>
-                    <td class="px-2 py-1 font-bold text-center">{{ $fault->acumulado }}</td>
-                    <td class="px-2 py-1 font-bold text-center">
-                        {{ number_format((($fault->acumulado ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%
-                    </td>
+                @if ($fault->students->where('active', 1))
+                    <tr class="border-b">
+                        <td class="px-2 py-1">{{ \Carbon\Carbon::parse($fault->date)->format('d/m/Y') }}</td>
+                        <td class="px-2 py-1">{{ $fault->students->name ?? '-' }}</td>
+                        <td class="px-2 py-1 text-center">{{ $fault->companies->name ?? '-' }}</td>
+                        <td class="px-2 py-1 text-center">{{ $fault->grades->name ?? '-' }}</td>
+                        <td class="px-2 py-1 text-center">{{ $fault->class->title ?? '-' }}</td>
+                        <td class="px-2 py-1 text-center">{{ $fault->qtd }}</td>
+                        <td class="px-2 py-1 text-center">
+                            <span class="badge {{ $fault->justified ? 'badge-success' : 'badge-error' }}">
+                                {{ $fault->justified ? 'Sim' : 'Não' }}
+                            </span>
+                        </td>
+                        <td class="px-2 py-1 font-bold text-center">{{ $fault->acumulado }}</td>
+                        <td class="px-2 py-1 font-bold text-center">
+                            {{ number_format((($fault->acumulado ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%
+                        </td>
 
-                    {{-- <td>{{ $acumuladoPeriodo[$fault->students->id] }}</td>
-                    <td>{{ $acumuladoTotal[$fault->students->id] ?? 0 }}</td> <!-- acumulado do ano --> --}}
-                </tr>
+                        {{-- <td>{{ $acumuladoPeriodo[$fault->students->id] }}</td>
+                <td>{{ $acumuladoTotal[$fault->students->id] ?? 0 }}</td> <!-- acumulado do ano --> --}}
+                    </tr>
+                @endif
             @endforeach
         </tbody>
     </table>

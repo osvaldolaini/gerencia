@@ -108,11 +108,7 @@ class Peoples extends Model
             return $this->viewValue($value);
         }
     }
-    // public function getAdjustedGrauAttribute()
-    // {
-    //     return $this->grau;
-    // }
-
+    //FUNÇÃO PARA PEGAR O GRAU
     public function getAdjustedGrauAttribute()
     {
         $nota = floatval($this->grau);
@@ -195,7 +191,11 @@ class Peoples extends Model
     }
     public function getCompanyAttribute()
     {
-        return $this->al_class->classGrade->company;
+        if ($this->active == 1) {
+            return $this->al_class->classGrade->company;
+        } else {
+            return false;
+        }
     }
     public function getPeopleGradeAttribute()
     {

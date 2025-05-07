@@ -16,7 +16,6 @@ class SchoolFaultStudents extends Component
     public $array = false;
     public function mount($class_id, $array = null)
     {
-
         $this->class_id = $class_id;
         if ($array) {
             $this->array = true;

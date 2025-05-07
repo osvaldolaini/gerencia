@@ -49,10 +49,12 @@ class UserProfile extends Component
             $this->activities       = $this->user->activities;
 
             // $this->name = $this->user->name;
-            $this->nick         = $this->user->people->nick;
-            $this->posto_grad   = $this->user->people->posto_grad;
-            $this->function     = $this->user->people->function;
-            $this->sex          = $this->user->people->sex;
+            if ($this->user->people) {
+                $this->nick         = $this->user->people->nick;
+                $this->posto_grad   = $this->user->people->posto_grad;
+                $this->function     = $this->user->people->function;
+                $this->sex          = $this->user->people->sex;
+            }
         }
         $this->groups = UserGroups::cases();
 

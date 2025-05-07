@@ -49,17 +49,19 @@ class InputSearch extends Component
                 $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
                     ->where('type', 1)
                     ->where('active', 1)
-                    ->whereIn('id', $this->pluckStudent)
                     ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
+
+                    ->whereIn('id', $this->pluckStudent)
                     ->orwhere('number', 'LIKE', '%' . $this->inputSearch . '%')
                     ->limit(5)
                     ->get();
             } else {
                 $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
-                    ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
-                    ->orwhere('number', 'LIKE', '%' . $this->inputSearch . '%')
                     ->where('type', 1)
                     ->where('active', 1)
+                    ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
+                    ->orwhere('number', 'LIKE', '%' . $this->inputSearch . '%')
+
                     ->limit(5)
                     ->get();
             }

@@ -52,9 +52,9 @@ class SelectStudents extends Component
     {
         if ($this->inputSearch != '') {
             $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
+                ->where('type', 1)
                 ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
                 ->orwhere('number', 'LIKE', '%' . $this->inputSearch . '%')
-                ->where('type', 1)
                 ->limit(5)
                 ->get();
             if ($this->field) {

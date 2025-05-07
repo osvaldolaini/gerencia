@@ -8,6 +8,9 @@
             <div class="grid grid-cols-1">
                 <div class="col-span-full" wire:ignore>
                     @livewire('app.settings.select-faults', [$faults])
+                    @error('faults')
+                        <span class="error">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="col-span-full" wire:ignore>
                     @livewire('app.settings.select-students')

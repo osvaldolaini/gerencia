@@ -79,52 +79,58 @@ class AppFactObservedNegative extends Component
             'fact'                     => 'required',
             'fact_hour'                => 'required',
             'fact_date'                => 'required',
+            // 'faults'                   => 'required'
         ];
+        // dd($this->validate());
 
         $this->validate();
-        $user = Auth::user();
-        foreach ($this->students as $key => $value) {
-            $this->student_id       = $value['id'];
-            $people                 = Peoples::find($this->student_id);
 
-            $this->al_nick          = $people->nick;
-            $this->al_name          = $people->name;
-            $this->al_number        = $people->number;
-            $this->al_class         = $people->al_class->title;
-            $this->cmt_cia_posto    = MilitaryRank::from(intval($people->al_class->classGrade->company->comandant->posto_grad))->label();
-            $this->cmt_cia          = $people->al_class->classGrade->company->comandant->name;
-            $this->cia              = $people->al_class->classGrade->company->name;
-            $this->company_id       = $people->al_class->classGrade->company->id;
+        if ($this->faults == '') {
+            // dd($this->faults);
+            $this->dispatch('openAlert', 'error', 'Selecione uma falta disciplinar');
+        } else {
+            $user = Auth::user();
+            foreach ($this->students as $key => $value) {
+                $this->student_id       = $value['id'];
+                $people                 = Peoples::find($this->student_id);
 
-            // dd($people->al_class->classGrade->company->comandant->posto_grad);
-            $fo = FactObserved::create([
-                'active'    => 1,
-                'cia'                      => $this->cia,
-                'company_id'               => $this->company_id,
-                'cmt_cia_posto'            => $this->cmt_cia_posto,
-                'cmt_cia'                  => $this->cmt_cia,
-                'student_id'               => $this->student_id,
-                'al_nick'                  => $this->al_nick,
-                'al_name'                  => $this->al_name,
-                'al_number'                => $this->al_number,
-                'al_class'                 => $this->al_class,
-                'fact'                     => $this->fact,
-                'fact_hour'                => $this->fact_hour,
-                'fact_date'                => $this->fact_date,
-                'fact_type'                => 'negativo',
-                'faults'                   => $this->faults,
-                'fact_observer'            => $this->fact_observer,
-                'fact_observer_function'   => $this->fact_observer_function,
-                'fact_observer_id'         => $this->fact_observer_id,
-                'code'      => Str::uuid(),
-            ]);
-            $id = $fo->id;
+                $this->al_nick          = $people->nick;
+                $this->al_name          = $people->name;
+                $this->al_number        = $people->number;
+                $this->al_class         = $people->al_class->title;
+                $this->cmt_cia_posto    = MilitaryRank::from(intval($people->al_class->classGrade->company->comandant->posto_grad))->label();
+                $this->cmt_cia          = $people->al_class->classGrade->company->comandant->name;
+                $this->cia              = $people->al_class->classGrade->company->name;
+                $this->company_id       = $people->al_class->classGrade->company->id;
 
-            $msg = 'FO- criado com sucesso.';
+                // dd($people->al_class->classGrade->company->comandant->posto_grad);
+                $fo = FactObserved::create([
+                    'active'    => 1,
+                    'cia'                      => $this->cia,
+                    'company_id'               => $this->company_id,
+                    'cmt_cia_posto'            => $this->cmt_cia_posto,
+                    'cmt_cia'                  => $this->cmt_cia,
+                    'student_id'               => $this->student_id,
+                    'al_nick'                  => $this->al_nick,
+                    'al_name'                  => $this->al_name,
+                    'al_number'                => $this->al_number,
+                    'al_class'                 => $this->al_class,
+                    'fact'                     => $this->fact,
+                    'fact_hour'                => $this->fact_hour,
+                    'fact_date'                => $this->fact_date,
+                    'fact_type'                => 'negativo',
+                    'faults'                   => $this->faults,
+                    'fact_observer'            => $this->fact_observer,
+                    'fact_observer_function'   => $this->fact_observer_function,
+                    'fact_observer_id'         => $this->fact_observer_id,
+                    'code'      => Str::uuid(),
+                ]);
+                $id = $fo->id;
+
+                $msg = 'FO- criado com sucesso.';
+            }
+            return redirect('aplicativo')->with('success', $msg);
         }
-
-
-        return redirect('aplicativo')->with('success', $msg);
     }
     public function openAlert($status, $msg)
     {

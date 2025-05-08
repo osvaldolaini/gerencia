@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 
 use App\Models\Admin\Settings\Settings;
+use App\Models\Discipline\Settings\Faults;
 use App\Models\Settings\Companies;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,12 +61,45 @@ class FaultDisciplineJustification extends Component
         // dd($mpdf);
 
         // Renderize a view do Livewire
+        $allFaults = Faults::where('active', 1)->get();
+        $selectedFaults = $allFaults
+            ->filter(fn($case) => in_array($case->number, $this->fault_discipline->json_faults))
+            ->mapWithKeys(fn($case) => [$case->number => $case->title]) // Usa 'number' como chave
+            ->toArray();
+
+        if ($this->fault_discipline->json_aggravating) {
+
+            $selectedAggravating = collect(\App\Enums\Aggravating::cases())
+                ->filter(fn($case) => in_array($case->value, $this->fault_discipline->json_aggravating))
+                ->mapWithKeys(fn($case) => [$case->value => $case->label()])
+                ->toArray();
+
+            ksort($selectedAggravating); // Ordena os itens pela chave (crescente)
+        } else {
+            $selectedAggravating = false;
+        }
+        if ($this->fault_discipline->json_mitigating) {
+            $selectedMitigating = collect(\App\Enums\Mitigating::cases())
+                ->filter(fn($case) => in_array($case->value, $this->fault_discipline->json_mitigating))
+                ->mapWithKeys(fn($case) => [$case->value => $case->label()])
+                ->toArray();
+
+            ksort($selectedMitigating); // Ordena os itens pela chave (crescente)
+        } else {
+            $selectedMitigating = false;
+        }
+
+
+
         $html = view(
             'livewire.discipline.fault-disciplines.pdfs.justification-pdf',
             [
                 'fault_discipline'  => $this->fault_discipline,
                 'config'            => $config,
                 'companies'         => $companies,
+                'selectedFaults'    => $selectedFaults,
+                'selectedMitigating'    => $selectedMitigating,
+                'selectedAggravating'    => $selectedAggravating,
                 'title_postfix'     => 'FAFD Nº ' . $this->fault_discipline->number . '/' . $this->fault_discipline->year,
                 'subtext'           => 'FAFD Nº ' . $this->fault_discipline->number . '/' . $this->fault_discipline->year,
                 'responsible'       => Auth::user()->name,

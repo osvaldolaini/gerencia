@@ -278,7 +278,7 @@ class FaultDisciplineEdit extends Component
         foreach ($this->faults as $key => $value) {
             $this->sugestion .= strtolower(Faults::find($value)->title) . ' ';
         }
-        $this->sugestion .= $this->fact . '.';
+        $this->sugestion .= 'Na ocasião ' . $this->fact;
 
         // $this->sugestion .= ' não sendo reincidente em falta desta natureza, de acordo com o Regimento Interno dos Colégios Militares (RICM)';
 

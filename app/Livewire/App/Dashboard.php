@@ -62,7 +62,10 @@ class Dashboard extends Component
         if (request()->userAgent() && str_contains(request()->userAgent(), 'Mobile')) {
             return view('livewire.app.dashboard-mobile')->layout('layouts.' . $this->layout . '-mobile');
         } else {
+            //Painel antigo usuário
             // return view('livewire.app.dashboard')->layout('layouts.' . $this->layout);
+
+            //Painel igual usuário e admin
             if (SchoolClassesYears::where('active', 1)->first()) {
                 $this->school_years = SchoolClassesYears::where('active', 1)->first();
                 $this->school_classes_year_id = $this->school_years->id;
@@ -76,9 +79,9 @@ class Dashboard extends Component
             }
             $this->config = Settings::find(1);
 
-            // if (Auth::user()->panel == 'user') {
-            //     $this->redirect('aplicativo');
-            // }
+            if (Auth::user()->panel == 'user') {
+                $this->redirect('aplicativo');
+            }
 
             $this->students = Peoples::where('active', 1)->where('type', 1)->get()->count();
             $this->school_grades = SchoolGrades::where('active', 1)->orderBy('nick', 'asc')->get();

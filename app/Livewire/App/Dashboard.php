@@ -57,7 +57,8 @@ class Dashboard extends Component
         if (request()->userAgent() && str_contains(request()->userAgent(), 'Mobile')) {
             return view('livewire.app.dashboard-mobile')->layout('layouts.' . $this->layout . '-mobile');
         } else {
-            return view('livewire.app.dashboard')->layout('layouts.' . $this->layout);
+            // return view('livewire.app.dashboard')->layout('layouts.' . $this->layout);
+            return view('livewire.admin.page.panel');
         }
     }
     public function fo_form()

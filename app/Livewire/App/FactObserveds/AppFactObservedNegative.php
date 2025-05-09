@@ -71,9 +71,10 @@ class AppFactObservedNegative extends Component
     #[On('foUpdateStudents')]
     public function updateStudents($students)
     {
-        // dd($this->students);
         $this->students = $students;
+        // dd($this->students);
     }
+
 
     public function save()
     {
@@ -137,5 +138,11 @@ class AppFactObservedNegative extends Component
     public function openAlert($status, $msg)
     {
         $this->dispatch('openAlert', $status, $msg);
+    }
+
+    #[On('resetAll')]
+    public function resetAll()
+    {
+        $this->reset(['fact', 'fact_date', 'fact_hour']);
     }
 }

@@ -44,6 +44,14 @@ class SchoolFaultStudents extends Component
         // Disparar evento com a lista atualizada
         $this->dispatch('updateStudents', $this->selectedStudents);
     }
+
+    #[On('resetStudents')]
+    public function resetStudents()
+    {
+        $this->selectedStudents = [];
+        $this->dispatch('updateStudents', $this->selectedStudents);
+    }
+
     #[On('removeAll')]
     public function removeAll()
     {

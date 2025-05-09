@@ -121,4 +121,9 @@ class FaultInsert extends Component
     {
         $this->dispatch('openAlert', $status, $msg);
     }
+    #[On('resetAll')]
+    public function resetAll()
+    {
+        $this->reset(['date', 'qtd', 'companies_id', 'school_grades_id', 'school_classes_id']);
+    }
 }

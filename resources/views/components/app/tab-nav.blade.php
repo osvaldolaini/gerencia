@@ -1,6 +1,6 @@
 <div>
     @props(['tab' => null])
-    <a href="#{{ $tab }}"
+    <a href="#{{ $tab }}" wire:click='resetAll'
         :class="activeTab === '#{{ $tab }}' ?
             'flex flex-col active items-center text-gray-600 dark:text-white' :
             'flex flex-col items-center text-gray-600 dark:text-white'"

@@ -9,6 +9,7 @@
 > Correções
 
     ->Efetivo aparecendo no FO e Faltas
+    ->Alunos não eram excluidos nos FO e nas faltas
 
 ## Versão Santos Dumont 1.3.14
 

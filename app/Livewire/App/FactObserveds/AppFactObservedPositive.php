@@ -123,4 +123,9 @@ class AppFactObservedPositive extends Component
     {
         $this->dispatch('openAlert', $status, $msg);
     }
+    #[On('resetAll')]
+    public function resetAll()
+    {
+        $this->reset(['fact', 'fact_date', 'fact_hour']);
+    }
 }

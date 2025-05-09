@@ -89,4 +89,10 @@ class Dashboard extends Component
     {
         $this->dispatch('openAlert', $status, $msg);
     }
+
+    public function resetAll()
+    {
+        $this->dispatch('resetAll');
+        $this->dispatch('resetStudents');
+    }
 }

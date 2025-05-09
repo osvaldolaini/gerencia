@@ -86,9 +86,15 @@ class SelectStudents extends Component
         if (isset($this->selectedStudents[$value])) {
             unset($this->selectedStudents[$value]);
             $this->selectedStudents = array_values($this->selectedStudents); // Reindexa o array
-        }
 
-        // Disparar evento com a lista atualizada
+            // Disparar evento com a lista atualizada
+            $this->dispatch('foUpdateStudents', $this->selectedStudents);
+        }
+    }
+    #[On('resetAll')]
+    public function resetAll()
+    {
+        $this->selectedStudents = [];
         $this->dispatch('foUpdateStudents', $this->selectedStudents);
     }
 }

@@ -1,4 +1,4 @@
-{{-- <div class="pt-3 w-100 sm:rounded-lg">
+<div class="pt-3 w-100 sm:rounded-lg">
     <div class="flex flex-wrap sm:justify-center">
         <div class="w-full">
             @if ($companies)
@@ -51,7 +51,9 @@
                                                 <div class="flex justify-center col-span-1 mx-2 rounded-sm ">
                                                     @if (count($grade->classes($school_years->id)) > 0)
                                                         <div class="flex justify-center font-medium duration-200">
+                                                            {{-- Opções visíveis em telas grandes --}}
                                                             <div class="flex space-x-1">
+                                                                {{-- @livewire('settings.pdf.buttons', ['print_battalion', $school_years->id, $grade->id]) --}}
                                                                 @livewire('settings.pdf.buttons', ['print_classes', $school_years->id, $grade->id])
                                                                 @livewire('settings.pdf.buttons', ['print_call', $school_years->id, $grade->id])
                                                             </div>
@@ -61,8 +63,9 @@
                                                 <div class="flex justify-center col-span-1 mx-2 rounded-sm ">
                                                     @if (count($grade->classes($school_years->id)) > 0)
                                                         <div class="flex justify-center font-medium duration-200">
+                                                            {{-- Opções visíveis em telas grandes --}}
                                                             <div class="flex space-x-1">
-
+                                                                {{-- @livewire('settings.pdf.buttons', ['print_battalion', $school_years->id, $grade->id]) --}}
                                                                 @livewire('settings.pdf.buttons', ['print_classes_sex', $school_years->id, $grade->id])
                                                             </div>
                                                         </div>
@@ -81,5 +84,4 @@
             @endif
         </div>
     </div>
-</div> --}}
-@livewire('admin.page.panel')
+</div>

@@ -57,8 +57,6 @@
                     <label for="my-drawer-3" class="drawer-overlay"></label>
                     {{-- @livewire('app.side-bar') --}}
                     @livewire('admin.page.side-bar')
-
-
                 </div>
             </div>
         </main>

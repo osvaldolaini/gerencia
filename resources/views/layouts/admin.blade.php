@@ -62,11 +62,11 @@
                 </div>
                 <div class="drawer-side">
                     <label for="my-drawer-3" class="drawer-overlay"></label>
-                    @if (auth()->user()->panel == 'user')
+                    {{-- @if (auth()->user()->panel == 'user')
                         @livewire('app.side-bar')
-                    @else
-                        @livewire('admin.page.side-bar')
-                    @endif
+                    @else --}}
+                    @livewire('admin.page.side-bar')
+                    {{-- @endif --}}
                 </div>
             </div>
         </main>

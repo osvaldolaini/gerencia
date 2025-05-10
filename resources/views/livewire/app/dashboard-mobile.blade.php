@@ -4,7 +4,7 @@
             <x-application-logo width="h-8"></x-application-logo>
             <h1 class="text-lg font-bold ">{{ $this->config->nick ?? 'GerenCia' }}</h1>
         </div>
-        <p class="text-sm text-gray-500 dark:text-white">Uma descrição ou slogan aqui</p>
+        <p class="text-sm text-gray-500 dark:text-white">{{ $this->config->name }}</p>
     </div>
     <x-app.tabs>
         <x-slot name="content">

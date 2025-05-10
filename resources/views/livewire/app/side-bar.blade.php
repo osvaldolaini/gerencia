@@ -178,6 +178,7 @@
                     Versões
                 </x-slot>
             </x-layout.side-bar-nav-link>
+
         </nav>
     </div>
 </div>

@@ -124,6 +124,48 @@
                                                                     stroke-linecap="round" stroke-linejoin="round" />
                                                             </svg>
                                                         </button>
+                                                        <button @click="$wire.classroom(item.id)"
+                                                            class="btn btn-outline dark:btn-accent btn-sm">
+                                                            Espelho
+                                                            <svg class="w-6 h-6 mr-2" viewBox="0 0 192 192"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                xml:space="preserve" fill="none"
+                                                                stroke="currentColor">
+
+                                                                <g style="stroke-width:11.9994;stroke-dasharray:none"
+                                                                    transform="matrix(1.00006 0 0 1.00005 -.005 -.005)">
+
+                                                                    <circle cx="149.333" cy="42.666" r="20.663"
+                                                                        style="fill:none;fill-opacity:.4;stroke-width:11.9994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:5;stroke-dasharray:none;stroke-opacity:1" />
+
+                                                                    <circle cx="149.333" cy="96" r="20.663"
+                                                                        style="fill:none;fill-opacity:.4;stroke-width:11.9994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:5;stroke-dasharray:none;stroke-opacity:1" />
+
+                                                                    <circle cx="149.333" cy="149.334" r="20.663"
+                                                                        style="fill:none;fill-opacity:.4;stroke-width:11.9994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:5;stroke-dasharray:none;stroke-opacity:1" />
+
+                                                                    <circle cx="96" cy="42.666" r="20.663"
+                                                                        style="fill:none;fill-opacity:.4;stroke-width:11.9994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:5;stroke-dasharray:none;stroke-opacity:1" />
+
+                                                                    <circle cx="96" cy="96" r="20.663"
+                                                                        style="fill:none;fill-opacity:.4;stroke-width:11.9994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:5;stroke-dasharray:none;stroke-opacity:1" />
+
+                                                                    <circle cx="96" cy="149.334" r="20.663"
+                                                                        style="fill:none;fill-opacity:.4;stroke-width:11.9994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:5;stroke-dasharray:none;stroke-opacity:1" />
+
+                                                                    <circle cx="42.666" cy="42.666" r="20.663"
+                                                                        style="fill:none;fill-opacity:.4;stroke-width:11.9994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:5;stroke-dasharray:none;stroke-opacity:1" />
+
+                                                                    <circle cx="42.666" cy="96" r="20.663"
+                                                                        style="fill:none;fill-opacity:.4;stroke-width:11.9994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:5;stroke-dasharray:none;stroke-opacity:1" />
+
+                                                                    <circle cx="42.666" cy="149.334" r="20.663"
+                                                                        style="fill:none;fill-opacity:.4;stroke-width:11.9994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:5;stroke-dasharray:none;stroke-opacity:1" />
+
+                                                                </g>
+
+                                                            </svg>
+                                                        </button>
                                                         <button @click="$wire.showStudents(item.id)"
                                                             class="btn btn-outline dark:btn-accent btn-sm">
                                                             Ver alunos

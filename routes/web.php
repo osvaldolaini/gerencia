@@ -42,6 +42,7 @@ use App\Livewire\Settings\SchoolClasses\SchoolClassesStudents;
 use App\Livewire\Settings\SchoolClasses\SchoolClassesView;
 use App\Livewire\Settings\SchoolClassesYears\SchoolClassesYearForm;
 use App\Livewire\Settings\SchoolClassesYears\SchoolClassesYearList;
+use App\Livewire\Settings\SchoolClassroomSeats\SchoolClassroomSeatForm;
 use App\Livewire\Settings\SchoolGrades\SchoolGradeForm;
 use App\Livewire\Settings\SchoolGrades\SchoolGradeList;
 use App\Livewire\Students\StudentForm;
@@ -182,7 +183,12 @@ Route::middleware([
         ->name('school-classes-edit');
     Route::get('/companhias/turmas/{school_classes}/alunos', SchoolClassesStudents::class)
         ->name('school-classes-students');
+
+    //Espelho de classe
+    Route::get('/companhias/turmas/{school_classes}/espelho-de-classe', SchoolClassroomSeatForm::class)
+        ->name('school-classes-classroom-seats');
 });
+
 
 //Batalhão
 Route::middleware([

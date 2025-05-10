@@ -179,6 +179,10 @@ class SchoolClassesList extends Component
     {
         redirect()->route('school-classes-students', ['school_classes' => $id]);
     }
+    public function classroom($id)
+    {
+        redirect()->route('school-classes-classroom-seats', ['school_classes' => $id]);
+    }
 
     //DELETE
     public function showModalDelete($id)

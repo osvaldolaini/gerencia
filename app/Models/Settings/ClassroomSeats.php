@@ -89,4 +89,8 @@ class ClassroomSeats extends Model
             ->whereIn('school_classes_id', $class)->get();
         return $students->count();
     }
+    public function students(): BelongsTo
+    {
+        return $this->belongsTo(Peoples::class, 'people_id', 'id');
+    }
 }

@@ -28,7 +28,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->unsignedTinyInteger('rows')->default(5)->nullable(); // número de fileiras
             $table->unsignedTinyInteger('columns')->default(5)->nullable(); // número de colunas
-            $table->enum('door_side', ['left', 'right'])->default('left')->nullable(); // lado da porta
+            $table->enum('door_side', ['left', 'right', 'top_left', 'top_right', 'bottom_left', 'bottom_right'])->default('left')->nullable(); // lado da porta
             $table->string('code')->nullable();
             $table->timestamps();
             $table->string('created_by', 50)->nullable();

@@ -30,6 +30,10 @@
                             <option value="">Selecione...</option>
                             <option value="right">Direita</option>
                             <option value="left">Esquerda</option>
+                            <option value="top_right">Direita frente</option>
+                            <option value="top_left">Esquerda frente</option>
+                            <option value="bottom_right">Direita fundo</option>
+                            <option value="bottom_left">Esquerda fundo</option>
                         </select>
                         @error('door_side')
                             <span class="error">{{ $message }}</span>

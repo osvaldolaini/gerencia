@@ -4,7 +4,8 @@
 
 > Novidades
 
-    ->Espelho de class
+    ->Configuração da sala para espelho de classe
+    ->Montagem do espelho de classe
 
 ## Versão Santos Dumont 1.3.15
 

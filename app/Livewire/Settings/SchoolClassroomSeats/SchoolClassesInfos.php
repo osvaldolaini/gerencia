@@ -15,6 +15,8 @@ class SchoolClassesInfos extends Component
     public $columns;
     public $door_side;
 
+
+
     public function mount(SchoolClasses $school_classes)
     {
         if ($school_classes->getAttributes()) {

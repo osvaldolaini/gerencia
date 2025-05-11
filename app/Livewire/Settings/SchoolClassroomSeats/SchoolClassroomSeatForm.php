@@ -8,10 +8,12 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 
 use App\Models\Peoples;
+use App\Models\Settings\SchoolClassesYears;
 
 class SchoolClassroomSeatForm extends Component
 {
     public $breadcrumb = 'Turma: ';
+
     public $school_classes;
     //Fields
     public $school_classes_id;
@@ -19,6 +21,10 @@ class SchoolClassroomSeatForm extends Component
     public $columns;
     public $door_side;
 
+
+    public $title;
+    public $year;
+    public $otherClasses;
 
     public $modalSearch = false;
     public $inputSearch;
@@ -34,7 +40,16 @@ class SchoolClassroomSeatForm extends Component
     public function mount(SchoolClasses $school_classes)
     {
         if ($school_classes->getAttributes()) {
+            $school_classes_year_id = $school_classes->classYears->id;
+            $this->otherClasses = SchoolClassesYears::find($school_classes_year_id)->classes
+                ->where('school_grade_id', $school_classes->school_grade_id);
+
+            $this->title        = $school_classes->title;
+            $this->year         = $school_classes->school_classes_year_id;
+            $this->school_classes = $school_classes;
+
             $this->school_classes_id = $school_classes->id;
+            $this->field = $school_classes->school_grade_id;
             $this->rows = $school_classes->rows;
             $this->columns = $school_classes->columns;
             $this->door_side = $school_classes->door_side;
@@ -45,20 +60,21 @@ class SchoolClassroomSeatForm extends Component
     public function render()
     {
         if ($this->inputSearch != '') {
-            $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
-                ->where('nick', 'LIKE', '%' . $this->inputSearch . '%')
-                ->where('type', 1)
-                ->orderBy('nick', 'asc')
-                ->limit(5)
-                ->get();
+            // $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
+            //     ->where('nick', 'LIKE', '%' . $this->inputSearch . '%')
+            //     ->where('type', 1)
+            //     ->orderBy('nick', 'asc')
+            //     ->limit(5)
+            //     ->get();
 
             if ($this->field) {
                 $pluckStudents = [];
-                $classes = SchoolClasses::where('school_grade_id', $this->field)->where('active', 1)->get();
-                foreach ($classes as $class) {
-                    $pluckStudents = array_merge($pluckStudents, $class->studentsPivot->pluck('people_id')->toArray());
-                }
+                // $classes = SchoolClasses::where('school_grade_id', $this->field)->where('active', 1)->get();
+                // foreach ($classes as $class) {
+                //     $pluckStudents = array_merge($pluckStudents, $class->studentsPivot->pluck('people_id')->toArray());
+                // }
                 // dd($pluckStudents);
+                $pluckStudents = $this->school_classes->studentsPivot->pluck('people_id')->toArray();
                 $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
                     ->where('nick', 'LIKE', '%' . $this->inputSearch . '%')
                     ->whereIn('id', $pluckStudents)
@@ -113,5 +129,17 @@ class SchoolClassroomSeatForm extends Component
         ], [
             'people_id' => $id,
         ]);
+    }
+    public function remove(ClassroomSeats $seats)
+    {
+        $seats->delete();
+        $msg = 'Removido com sucesso.';
+
+        $this->dispatch('resetSeats');
+        $this->openAlert('success', $msg);
+    }
+    public function openAlert($status, $msg)
+    {
+        $this->dispatch('openAlert', $status, $msg);
     }
 }

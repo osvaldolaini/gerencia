@@ -149,16 +149,21 @@
                         <td class="{{ $classe }}">
 
                             @if ($seat?->students)
-                                <table style="border-collapse: collapse; border:none;">
-                                    <tr>
-                                        <td style="border:none;">
+                                <table style="border-collapse: collapse; border:none; margin: 0px; padding:0px;">
+                                    <tr style="margin: 0px; padding:0px;">
+                                        <td style="border:none; margin: 0px; padding:0px;">
                                             <img src="{{ url('storage/student/' . $seat?->students?->id . '/' . $seat?->students?->code_image . '_list.png') }}"
                                                 alt="{{ $seat?->students?->name }}">
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td style="border:none;">
-                                            Nr {{ $number }}
+                                    <tr style="margin: 0px; padding:0px;">
+                                        <td style="border:1px solid #000;; margin: 0px; padding:0px;">
+                                            {{ $seat?->students?->nick }}
+                                        </td>
+                                    </tr>
+                                    <tr style="margin: 0px; padding:0px;">
+                                        <td style="border:none; margin: 0px; padding:0px;">
+                                            {{ $number }}
                                         </td>
                                     </tr>
                                 </table>

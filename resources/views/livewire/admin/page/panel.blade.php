@@ -191,11 +191,13 @@
                                             </div>
                                         </div>
                                         <div class="col-span-1">
-
                                             <div class="flex ml-1 mr-2 space-x-1 rounded-sm">
                                                 @livewire('settings.pdf.buttons', ['print_classroom', $school_years->id, $grade->id])
+                                                @livewire('settings.pdf.buttons', ['print_grau', $school_years->id, $grade->id])
                                             </div>
+
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

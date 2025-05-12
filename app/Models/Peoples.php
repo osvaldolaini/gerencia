@@ -21,9 +21,11 @@ use Spatie\Activitylog\LogOptions;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
+use App\Traits\HasAdjustedGrau;
+
 class Peoples extends Model
 {
-    use HasFactory, LogsActivity, HasAttributeConversions;
+    use HasFactory, LogsActivity, HasAttributeConversions, HasAdjustedGrau;
 
     protected $table = 'peoples';
 
@@ -119,62 +121,6 @@ class Peoples extends Model
             return $this->viewValue($this->grau);
         }
     }
-
-
-    public function getAdjustedGrauAttribute()
-    {
-        $nota = number_format(floatval($this->grau), 2);
-        $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
-        $dataReferencia = null;
-
-        Log::debug("Nota inicial: {$nota}");
-
-        if ($punicoes->isEmpty()) {
-            if ($this->entry_date) {
-                $dataReferencia = Carbon::parse($this->entry_date)->addDays(90); // 90 dias após matrícula
-                if (now()->gt($dataReferencia)) {
-                    $dias = $dataReferencia->diffInDays(now());
-                    $incremento = number_format($dias * 0.01, 2);
-                    $nota += $incremento;
-                    $nota = number_format(min($nota, 10.00), 2);
-                    Log::debug("Sem punições. Dias após 90 da matrícula: {$dias}. Aumento: {$incremento}. Nota final: {$nota}");
-                } else {
-                    Log::debug("Sem punições. Ainda não passaram 90 dias desde a matrícula.");
-                }
-            }
-            return $nota;
-        }
-
-        foreach ($punicoes as $p) {
-            $dataP = Carbon::parse($p->bi_date);
-            $grauPunicao = number_format(floatval($p->grau), 2);
-
-            $nota -= $grauPunicao;
-            $nota = number_format(max($nota, 0.00), 2);
-
-            Log::debug("Punição em {$p->bi_date}: -{$grauPunicao}. Nota atual: {$nota}");
-
-            // 90 dias após a punição
-            $dataReferencia = $dataP->copy()->addDays(90 + 90); // soma 180 dias no total
-            Log::debug("Nova data de referência após punição (90+90 dias): {$dataReferencia->format('Y-m-d')}");
-        }
-
-        // Ajuste final após a última punição, se já se passaram os 180 dias
-        if ($dataReferencia && now()->gt($dataReferencia)) {
-            $dias = $dataReferencia->diffInDays(now());
-            $incremento = number_format($dias * 0.01, 2);
-            $nota += $incremento;
-            $nota = number_format(min($nota, 10.00), 2);
-
-            Log::debug("Ajuste final após 180 dias da última punição: +{$incremento} ({$dias} dias). Nota final: {$nota}");
-        } else {
-            Log::debug("Ainda não passaram 180 dias desde a última punição.");
-        }
-
-        return $nota;
-    }
-
-
 
 
     public function getStudentTitleAttribute()

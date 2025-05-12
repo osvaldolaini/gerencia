@@ -139,7 +139,7 @@
                         {{ $class->rows - 1 }}
                     @endif
 
-                    @for ($c = 1; $c <= $class->columns; $c++)
+                    @for ($c = $class->columns; $c >= 1; $c--)
                         @php
 
                             $seat = $class->seats->first(fn($s) => (int) $s->row === $r && (int) $s->column === $c);

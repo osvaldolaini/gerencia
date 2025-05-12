@@ -22,7 +22,7 @@
             font-size: 12px;
         }
 
-        .porta {
+        . <svg fill="#000000" class="w-10 h-10" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4,23H20a1,1,0,0,0,0-2V2a1,1,0,0,0-1-1H5A1,1,0,0,0,4,2V21a1,1,0,0,0,0,2ZM6,3H18V21H6Zm3,8v2a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Z" /></svg> {
             background-color: #facc15;
             font-weight: bold;
         }
@@ -58,10 +58,28 @@
         }
 
         .door {
-            background-color: #e0e411;
+            background-color: #fbfcd5;
             text-align: center;
             font-size: 16pt;
             max-width: 10%;
+
+        }
+
+        .top_bottom_door {
+            /* background-color: #e0e411; */
+            text-align: top;
+            font-size: 16pt;
+            width: 10%;
+            background-color: #fbfcd5;
+        }
+
+        .door_icon {
+            background-color: #d3d610;
+            border-radius: 10px;
+            border: solid 1px #d3d610;
+            padding: 20px;
+            margin: 20px;
+            width: 50px;
 
         }
 
@@ -75,26 +93,49 @@
 <body>
     @foreach ($school_classes as $class)
         <h2 class="h2">Espelho da Turma: {{ $class->title }}</h2>
-        <table style="margin-bottom: 5px;">
+        <table>
             <tr>
-                @if ($class->door_side === 'top_left')
-                    <td class="door" rowspan="{{ $class->rows }}">PORTA</td>
-                @endif
+                <td class="top_bottom_door" style="width:20%;align-items: left; text-align:center;align-items: center; "
+                    rowspan="{{ $class->rows }}">
+                    @if ($class->door_side === 'top_left')
+                        <div class="door_icon"><svg fill="#000000" class="w-10 h-10" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4,23H20a1,1,0,0,0,0-2V2a1,1,0,0,0-1-1H5A1,1,0,0,0,4,2V21a1,1,0,0,0,0,2ZM6,3H18V21H6Zm3,8v2a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Z" />
+                            </svg>
+                        </div>
+                    @endif
+                </td>
+                <td class="square" style="width:80%;height:40px;">Quadro</td>
 
-
-                <td class="square" colspan="{{ $class->columns }}">Quadro</td>
-
-                @if ($class->door_side === 'top_right')
-                    <td class="door" rowspan="{{ $class->rows }}">PORTA</td>
-                @endif
+                <td class="top_bottom_door" style="width:20%;text-align:center;align-items: center;"
+                    rowspan="{{ $class->rows }}">
+                    @if ($class->door_side === 'top_right')
+                        <div class="door_icon" style="padding:10px;display:flex;">
+                            <svg fill="#000000" width="30px;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4,23H20a1,1,0,0,0,0-2V2a1,1,0,0,0-1-1H5A1,1,0,0,0,4,2V21a1,1,0,0,0,0,2ZM6,3H18V21H6Zm3,8v2a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Z" />
+                            </svg>
+                        </div>
+                    @endif
+                </td>
             </tr>
         </table>
         <table class="table">
-
             @for ($r = 1; $r <= $class->rows; $r++)
                 <tr>
-                    @if ($class->door_side === 'left' && $r === 1)
-                        <td class="door" rowspan="{{ $class->rows }}">PORTA</td>
+                    @if ($r === 1)
+                        <td class="door" style="width:10%;align-items: top; vertical-align:top;"
+                            rowspan="{{ $class->rows }}">
+                            @if ($class->door_side === 'left')
+                                <div class="door_icon"><svg fill="#000000" class="w-10 h-10" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M4,23H20a1,1,0,0,0,0-2V2a1,1,0,0,0-1-1H5A1,1,0,0,0,4,2V21a1,1,0,0,0,0,2ZM6,3H18V21H6Zm3,8v2a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Z" />
+                                    </svg>
+                                </div>
+                            @endif
+                        </td>
                         {{ $class->rows - 1 }}
                     @endif
 
@@ -172,26 +213,51 @@
                         </td>
                     @endfor
 
-                    @if ($class->door_side === 'right' && $r === 1)
-                        <td class="door" rowspan="{{ $class->rows }}">PORTA</td>
+                    @if ($r === 1)
+                        <td class="door" style="width:10%;align-items: top; vertical-align:top;"
+                            rowspan="{{ $class->rows }}">
+                            @if ($class->door_side === 'right')
+                                <div class="door_icon">
+                                    <svg fill="#000000" class="w-10 h-10" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M4,23H20a1,1,0,0,0,0-2V2a1,1,0,0,0-1-1H5A1,1,0,0,0,4,2V21a1,1,0,0,0,0,2ZM6,3H18V21H6Zm3,8v2a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Z" />
+                                    </svg>
+                                </div>
+                            @endif
+                        </td>
+                        {{ $class->rows - 1 }}
                     @endif
                 </tr>
             @endfor
         </table>
-        @if ($class->door_side === 'bottom_left' or $class->door_side === 'bottom_right')
-        @endif
-        <table style="margin-bottom: 5px; width:100%">
+
+        <table style="margin-bottom: 5px;">
             <tr>
-                @if ($class->door_side === 'bottom_left')
-                    <td class="door" rowspan="{{ $class->rows }}">PORTA</td>
-                @endif
+                <td class="top_bottom_door" style="width:20%;align-items: left; text-align:center;align-items: center; "
+                    rowspan="{{ $class->rows }}">
+                    @if ($class->door_side === 'bottom_left')
+                        <div class="door_icon"><svg fill="#000000" class="w-10 h-10" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4,23H20a1,1,0,0,0,0-2V2a1,1,0,0,0-1-1H5A1,1,0,0,0,4,2V21a1,1,0,0,0,0,2ZM6,3H18V21H6Zm3,8v2a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Z" />
+                            </svg>
+                        </div>
+                    @endif
+                </td>
+                <td class="square_bottom" style="width:80%;">FUNDO</td>
 
-
-                <td class="square_bottom" colspan="{{ $class->columns }}">Fundo</td>
-
-                @if ($class->door_side === 'bottom_right')
-                    <td class="door" rowspan="{{ $class->rows }}">PORTA</td>
-                @endif
+                <td class="top_bottom_door" style="width:20%;text-align:center;align-items: center;"
+                    rowspan="{{ $class->rows }}">
+                    @if ($class->door_side === 'bottom_right')
+                        <div class="door_icon" style=" padding:10px;">
+                            <svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M4,23H20a1,1,0,0,0,0-2V2a1,1,0,0,0-1-1H5A1,1,0,0,0,4,2V21a1,1,0,0,0,0,2ZM6,3H18V21H6Zm3,8v2a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Z" />
+                            </svg>
+                        </div>
+                    @endif
+                </td>
             </tr>
         </table>
 

@@ -157,7 +157,7 @@
                                         </td>
                                     </tr>
                                     <tr style="margin: 0px; padding:0px;">
-                                        <td style="border:1px solid #000;; margin: 0px; padding:0px;">
+                                        <td style="border:1px solid #000; margin: 0px; padding:0px;">
                                             {{ $seat?->students?->nick }}
                                         </td>
                                     </tr>
@@ -219,7 +219,7 @@
                     @endfor
 
                     @if ($r === 1)
-                        <td class="door" style="width:10%;align-items: top; vertical-align:top;"
+                        <td class="door" style="width:10%;align-items: top; vertical-align:top; "
                             rowspan="{{ $class->rows }}">
                             @if ($class->door_side === 'right')
                                 <div class="door_icon">

@@ -192,7 +192,7 @@
                                         </div>
                                         <div class="col-span-1">
 
-                                            <div class="flex mx-2 space-x-1 rounded-sm">
+                                            <div class="flex mr-2 space-x-1 rounded-sm">
                                                 @livewire('settings.pdf.buttons', ['print_classroom', $school_years->id, $grade->id])
                                             </div>
                                         </div>

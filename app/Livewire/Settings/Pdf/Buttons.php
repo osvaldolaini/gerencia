@@ -3,6 +3,7 @@
 namespace App\Livewire\Settings\Pdf;
 
 use App\Models\Admin\Settings\Settings;
+use App\Models\Settings\ClassroomSeats;
 use App\Models\Settings\SchoolBattalions;
 use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolGrades;
@@ -19,6 +20,7 @@ class Buttons extends Component
     public $print_classes_sex   = false;
     public $print_call      = false;
     public $print_battalion = false;
+    public $print_classroom = false;
 
     public $school_classes;
     public $grade;
@@ -32,6 +34,7 @@ class Buttons extends Component
 
         $this->school_classes_year_id = $year;
         $this->school_classes = SchoolClasses::where('active', 1)
+            ->with(['seats'])
             ->where('school_classes_year_id', $year)
             ->where('school_grade_id', $grade)
             ->get();
@@ -41,6 +44,7 @@ class Buttons extends Component
         $this->print_classes_sex    = $button == 'print_classes_sex' ?? true;
         $this->print_call       = $button == 'print_call' ?? true;
         $this->print_battalion  = $button == 'print_battalion' ?? true;
+        $this->print_classroom  = $button == 'print_classroom' ?? true;
 
         $this->battalion_id = SchoolBattalions::where('active', 1)->first();
         $this->company = $this->grade->getCompany;
@@ -147,6 +151,84 @@ class Buttons extends Component
             [
                 'logoPath'          => $logoPath,
                 'school_classes'    => $this->school_classes,
+                'grade'             => $this->grade->name,
+                'config'            => $config,
+                'companies'         => $this->company,
+                'subtext'           => 'Turmas do ' . $this->grade->name,
+                'responsible'       => Auth::user()->name,
+            ]
+        )->render();
+
+        // Adicione o conteúdo HTML ao PDF
+        $mpdf->SetHTMLHeader('
+             <table width="100%">
+                 <tr >
+                     <td width="50%">
+                         <img width="50" src="' . $logoPath . '" alt="Logo">
+                     </td>
+                     <td width="50%" style="text-align: right;">
+                         <strong>' . $config->name . '</strong><br>
+                         ' . $this->company->name . '<br>
+                         Turmas do ' . $this->grade->name . '
+                     </td>
+                 </tr>
+             </table>
+             ');
+        $mpdf->SetHTMLFooter('
+      <table width="100%">
+          <tr>
+              <td width="66%">Impressão realizada em {DATE j/m/Y} às {DATE H:i:s}</td>
+              <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
+          </tr>
+      </table>');
+        $mpdf->WriteHTML($html);
+
+        // Salve o PDF temporariamente
+        $file = trim('chamada_' . $this->grade->name . '_' . Str::uuid() . '.pdf');
+
+        if (!is_dir(storage_path('app/public/pdf-tmp'))) {
+            mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário
+        }
+
+        $down = storage_path('app/public/pdf-tmp/' . $file);
+        $pdfPath = url('storage/pdf-tmp/' . $file);
+
+        $mpdf->Output($down, 'F');
+
+        $this->dispatch('openPdfInNewTabClasses', pdfPath: $pdfPath);
+    }
+    //PDF
+    public function classroom()
+    {
+
+        // dd($this->school_classes);
+        $config = Settings::find(1);
+
+        $logoPath = Storage::exists('public/companies/' . $this->company->id)
+            ? url('storage/companies/' . $this->company->id . '/' . $this->company->code_image . '_list.png')
+            : url('storage/logos-school/logo-header.png');
+
+        // $seats = ClassroomSeats::with('students')
+        //     ->where('school_classes_id', $this->school_classes_id)
+        //     ->get();
+        // Crie uma instância do mPDF
+        $mpdf = new \Mpdf\Mpdf([
+            'mode'          => 'utf-8',
+            // 'orientation'        => 'P', //[P,L]
+            'format' => 'A4-P',
+            'margin_left'   => 15,
+            'margin_top'    => 15,
+            'default_font_size'  => 9,
+            'default_font'  => 'arial',
+        ]);
+        // dd($this->school_classes->first()->seats);
+        // dd($mpdf);
+        $html = view(
+            'livewire.settings.pdf.school-classrom-seats-pdf',
+            [
+                'logoPath'          => $logoPath,
+                'school_classes'    => $this->school_classes,
+                // 'seats'             => $seats,
                 'grade'             => $this->grade->name,
                 'config'            => $config,
                 'companies'         => $this->company,

@@ -130,4 +130,8 @@ class SchoolClasses extends Model
     {
         return $this->hasMany(SchoolClassesStudent::class, 'school_classes_id', 'id');
     }
+    public function seats(): HasMany
+    {
+        return $this->hasMany(ClassroomSeats::class, 'school_classes_id', 'id');
+    }
 }

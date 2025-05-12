@@ -124,10 +124,10 @@
                                                         @livewire('settings.pdf.buttons', ['print_classes', $school_years->id, $grade->id])
                                                         @livewire('settings.pdf.buttons', ['print_call', $school_years->id, $grade->id])
                                                     </div>
+
                                                 </div>
                                             @endif
                                         </div>
-
                                         <div>
                                             <div class="col-span-1">
                                                 <div class="flex justify-center font-medium duration-200">
@@ -188,6 +188,12 @@
                                                     </div>
                                                 </div>
 
+                                            </div>
+                                        </div>
+                                        <div class="col-span-1">
+
+                                            <div class="flex mx-2 space-x-1 rounded-sm">
+                                                @livewire('settings.pdf.buttons', ['print_classroom', $school_years->id, $grade->id])
                                             </div>
                                         </div>
                                     </div>

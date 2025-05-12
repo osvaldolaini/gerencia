@@ -63,6 +63,7 @@
                 <tr class="class">
                     <td class="text-center border">Nr</td>
                     <td class="text-center border">Aluna</td>
+                    <td class="text-center border">Nome completo</td>
                     <td class="text-center border">Turma</td>
                     <td class="text-center border">Grau de comportamento</td>
                 </tr>
@@ -78,6 +79,7 @@
                             <tr class="class">
                                 <td class="text-center border">{{ $pivot?->students?->number }}</td>
                                 <td class="text-center border">{{ $pivot?->students?->nick }}</td>
+                                <td class="text-center border">{{ $pivot?->students?->name }}</td>
                                 <td class="text-center border">{{ $pivot?->students?->al_class->title }}</td>
                                 <td class="text-center border">{{ $pivot?->students?->adjusted_grau }}</td>
                             </tr>

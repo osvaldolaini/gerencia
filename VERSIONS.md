@@ -6,6 +6,7 @@
 
     ->PDF comportamento
     ->Comportamento na lista de alunos
+    ->Faltas na lista de alunos
 
 ## Versão Santos Dumont 1.4.0
 

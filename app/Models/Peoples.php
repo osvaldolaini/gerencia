@@ -183,6 +183,14 @@ class Peoples extends Model
         }
         return false;
     }
+    public function getTotalFaultsAttribute()
+    {
+        return $this->faults->sum('qtd');
+    }
+    public function getTotalFaultsPercentAttribute()
+    {
+        return ($this->total_faults ?? 0) / ($this?->company?->workload ?? 1200) * 100;
+    }
 
     public function getCodeImageAttribute()
     {

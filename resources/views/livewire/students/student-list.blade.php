@@ -114,9 +114,10 @@
                                 </li>
                                 <li class="py-1">
 
-                                    <span class="badge badge-accent">
+                                    <span
+                                        class="badge {{ $item->total_faults_percent > 7.5 ? 'badge-error' : 'badge-accent' }}">
                                         Faltas: {{ $item->total_faults }}
-                                        ({{ number_format((($item->total_faults ?? 0) / ($item?->company?->workload ?? 1200)) * 100, 2, ',', '') }}%)
+                                        ({{ number_format($item->total_faults_percent, 2, ',', '') }}%)
                                     </span>
 
                                 </li>

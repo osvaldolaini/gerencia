@@ -44,13 +44,13 @@
                             </span>
                             <h1
                                 class="flex flex-col font-black leading-none text-blue-800 uppercase text-7xl font-bebas-neue sm:text-8xl ">
-                                Gerên
+                                Geren
                                 <span class="text-6xl text-red-800 sm:text-7xl">
                                     Cia
                                 </span>
                             </h1>
                             <p class="text-lg text-black sm:text-base ">
-                                Ferramenta destinada auxiliar na gestão de colégios militares.
+                                Ferramenta destinada auxiliar na gestão de companhias dos colégios militares.
                             </p>
                             <div class="flex mt-8">
                                 <a href="{{ route('login') }}"

@@ -114,8 +114,7 @@
                                 </li>
                                 <li class="py-1">
 
-                                    <span
-                                        class="badge {{ $item->total_faults_percent > 7.5 ? 'badge-error' : 'badge-accent' }}">
+                                    <span class="badge badge-{{ $item->total_faults_color }}">
                                         Faltas: {{ $item->total_faults }}
                                         ({{ number_format($item->total_faults_percent, 2, ',', '') }}%)
                                     </span>

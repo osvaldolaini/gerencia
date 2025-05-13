@@ -191,6 +191,19 @@ class Peoples extends Model
     {
         return ($this->total_faults ?? 0) / ($this?->company?->workload ?? 1200) * 100;
     }
+    public function getTotalFaultsColorAttribute()
+    {
+        $nota = $this->total_faults_percent;
+        if ($nota >= 25) {
+            return 'error';
+        } elseif ($nota >= 7.5) {
+            return 'error';
+        } elseif ($nota >= 6.0) {
+            return 'warning';
+        } else {
+            return 'accent';
+        }
+    }
 
     public function getCodeImageAttribute()
     {

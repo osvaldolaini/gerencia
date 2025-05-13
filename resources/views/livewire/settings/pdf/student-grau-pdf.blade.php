@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <title>Comportamento do {{ $grade }}</title>
     <style>
-        .container {
+        /* .container {
             margin-top: 50px;
             padding-top: 50px;
-        }
+        } */
 
         .class {
             width: 100%;

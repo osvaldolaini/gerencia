@@ -47,7 +47,7 @@
                     </th>
                     <th scope="col"
                         class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
-                        Turma atual
+                        Informações
                     </th>
                     {{-- <th scope="col"
                         class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
@@ -65,7 +65,7 @@
                 @foreach ($dataTable as $item)
                     <tr wire:key="item-{{ $item->id }}">
                         <td
-                            class="relative flex items-center px-4 py-1 space-x-2 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
+                            class="flex flex-col items-center px-4 py-1 space-x-2 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
 
                             @if ($item->code_image)
                                 <div class="avatar">
@@ -75,14 +75,6 @@
                                             alt="{{ $item->name }}">
                                     </div>
                                 </div>
-                                {{--
-                                <!-- Foto maior ao passar o mouse -->
-                                <div x-show="show" x-transition.opacity
-                                    class="fixed z-50 w-32 h-32 p-1 bg-white border-2 border-gray-300 rounded-lg shadow-lg"
-                                    :style="'top: ' + (y + 10) + 'px; left: ' + (x + 10) + 'px;'">
-                                    <img src="{{ url('storage/student/' . $item->id . '/' . $item->code_image . '_list.png') }}"
-                                        alt="Foto grande" class="w-full h-full rounded-lg">
-                                </div> --}}
                             @else
                                 <div class="avatar">
                                     <div class="relative w-8 rounded-full cursor-pointer">
@@ -110,7 +102,25 @@
 
                         <td
                             class="w-2/5 px-4 py-1 text-sm font-normal text-center text-gray-500 justify-stretch dark:text-gray-400">
-                            {{ $item->people_class }}
+
+                            <ul>
+                                <li class="py-1">
+                                    <span class="badge badge-accent">Turma atual: {{ $item->people_class }}</span>
+                                </li>
+                                <li class="py-1">
+                                    <span class="badge badge-{{ $item->grau_status_color }}">
+                                        Comportamento: {{ $item->adjusted_grau }}
+                                    </span>
+                                </li>
+                                <li class="py-1">
+
+                                    <span class="badge badge-accent">
+                                        Faltas: {{ $item->total_faults }}
+                                        ({{ number_format((($item->total_faults ?? 0) / ($item?->company?->workload ?? 1200)) * 100, 2, ',', '') }}%)
+                                    </span>
+
+                                </li>
+                            </ul>
                         </td>
 
                         <td class="w-1/6 px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">

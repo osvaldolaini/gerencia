@@ -11,6 +11,53 @@ trait HasAdjustedGrau
     {
         return $this->calculateAdjustedGrau();
     }
+    public function getGrauStatusAttribute()
+    {
+        return $this->getGrauStatus($this->adjusted_grau);
+    }
+    public function getGrauStatusColorAttribute()
+    {
+        return $this->getGrauStatusColor($this->adjusted_grau);
+    }
+
+    function getGrauStatus($grau)
+    {
+        $grau = floatval($grau);
+
+        if ($grau === 10.0) {
+            return 'EXCEPCIONAL';
+        } elseif ($grau >= 9.0) {
+            return 'ÓTIMO';
+        } elseif ($grau >= 6.0) {
+            return 'BOM';
+        } elseif ($grau >= 5.0) {
+            return 'REGULAR';
+        } elseif ($grau >= 3.0) {
+            return 'INSUFICIENTE';
+        } else {
+            return 'MAU';
+        }
+    }
+    function getGrauStatusColor($nota)
+    {
+        $nota = floatval($nota);
+
+        if ($nota === 10.0) {
+            return 'accent';
+        } elseif ($nota >= 9.0) {
+            return 'success';
+        } elseif ($nota >= 6.0) {
+            return 'info';
+        } elseif ($nota >= 5.0) {
+            return 'warning';
+        } elseif ($nota >= 3.0) {
+            return 'error';
+        } else {
+            return 'error';
+        }
+    }
+
+
 
     protected function calculateAdjustedGrau()
     {

@@ -12,13 +12,12 @@
 
         .class {
             width: 100%;
-            font-size: 8pt;
+            font-size: 10pt;
         }
 
         .turmas-table {
-
             width: 100%;
-            font-size: 6pt;
+            font-size: 10pt;
         }
 
         .border {
@@ -65,7 +64,8 @@
                     <td class="text-center border">Aluna</td>
                     <td class="text-center border">Nome completo</td>
                     <td class="text-center border">Turma</td>
-                    <td class="text-center border">Grau de comportamento</td>
+                    <td class="text-center border">Grau</td>
+                    <td class="text-center border">Comportamento</td>
                 </tr>
                 @php
                     $c = 0;
@@ -82,6 +82,7 @@
                                 <td class="text-center border">{{ $pivot?->students?->name }}</td>
                                 <td class="text-center border">{{ $pivot?->students?->al_class->title }}</td>
                                 <td class="text-center border">{{ $pivot?->students?->adjusted_grau }}</td>
+                                <td class="text-center border">{{ $pivot?->students?->grau_status }}</td>
                             </tr>
                         @endif
                     @endforeach

@@ -39,7 +39,7 @@ class StudentList extends Component
     public $sorts = ['number' => 'asc'];
     public $relationTables; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'name,nick,sex,number,logo_path,active as status';
+    public $columnsInclude = 'name,nick,sex,number,logo_path,grau,active as status';
     public $searchable = 'name,nick,sex,number'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
@@ -148,10 +148,17 @@ class StudentList extends Component
     public function history(Peoples $student)
     {
         $config = Settings::find(1);
-        $company = $student->al_class->classGrade->getCompany;
-        $logoPath = Storage::exists('public/companies/' . $company->id)
-            ? url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png')
-            : url('storage/logos-school/logo-header.png');
+        $company = $student?->al_class?->classGrade?->getCompany ?? false;
+        if ($company) {
+            $logoPath = Storage::exists('public/companies/' . $company->id)
+                ? url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png')
+                : url('storage/logos-school/logo-header.png');
+        } else {
+            $logoPath = url('storage/logos-school/logo-header.png');
+        }
+        // $logoPath = Storage::exists('public/companies/' . $company->id)
+        //     ? url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png')
+        //     : url('storage/logos-school/logo-header.png');
 
         $studentImage = Storage::exists('public/student/' . $student->id)
             ? url('storage/student/' . $student->id . '/' . $student->code_image . '_list.png')
@@ -176,7 +183,7 @@ class StudentList extends Component
                 'student'           => $student,
                 'config'            => $config,
                 'companies'         => $company,
-                'subtext'           => 'Aluno da ' . $company->nick,
+                'subtext'           => 'Aluno da ' . ($company ? $company->nick : ''),
                 'responsible'       => Auth::user()->name,
             ]
         )->render();
@@ -190,7 +197,7 @@ class StudentList extends Component
                     </td>
                     <td width="50%" style="text-align: right;">
                         <strong>' . $config->name . '</strong><br>
-                        ' . $company->name . '<br>
+                        ' . ($company ? $company->name : '') . '<br>
                     </td>
                 </tr>
             </table>

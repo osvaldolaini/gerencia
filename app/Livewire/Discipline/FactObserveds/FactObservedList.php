@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Discipline\FactObserveds;
 
+use App\Enums\MilitaryRank;
 use App\Models\Discipline\FactObserved;
 use App\Models\Discipline\FaultDiscipline;
 use App\Services\LaiGuz\TableService;
@@ -164,8 +165,8 @@ class FactObservedList extends Component
             'year'                     => $fact->year,
             'cia'                      => $fact->cia,
             'company_id'               => $fact->company_id,
-            'cmt_cia'                  => $fact?->company->cmt_cia,
-            'cmt_cia_posto'            => $fact?->company->cmt_cia_posto,
+            'cmt_cia'                  => $fact?->company?->comandant?->name ?? '',
+            'cmt_cia_posto'            => MilitaryRank::fromDb($fact?->company?->comandant?->posto_grad)?->label() ?? '',
             'student_id'               => $fact->student_id,
             'al_nick'                  => $fact->al_nick,
             'al_name'                  => $fact->al_name,

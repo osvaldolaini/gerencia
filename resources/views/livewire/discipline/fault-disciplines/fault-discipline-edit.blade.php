@@ -497,7 +497,7 @@
                                             @else
                                                 sem atenuante,
                                             @endif
-                                            previstos no Apêndice 1 do RICM 2024,
+                                            previstos no apêndice 1 do anexo F do RICM 2024,
                                             @if ($repeat == 0)
                                                 {{ $repeat }}
                                                 @endif sendo reincidente, @if ($repeat == 1)

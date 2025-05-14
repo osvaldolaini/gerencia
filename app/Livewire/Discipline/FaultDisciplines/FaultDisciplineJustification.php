@@ -44,7 +44,7 @@ class FaultDisciplineJustification extends Component
                 // dd($signature[4]);
                 $this->signature = url('storage/companies/' . $company->id . '/signature/small/' . $signature[5]); // Nome do arquivo
             } else {
-                $this->signature = '';
+                $this->signature = false;
             }
         }
     }

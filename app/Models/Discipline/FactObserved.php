@@ -4,6 +4,7 @@ namespace App\Models\Discipline;
 
 use App\Models\Discipline\Settings\Faults;
 use App\Models\Peoples;
+use App\Models\Settings\Companies;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -142,6 +143,10 @@ class FactObserved extends Model
     public function students(): BelongsTo
     {
         return $this->belongsTo(Peoples::class, 'student_id', 'id');
+    }
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Companies::class, 'company_id', 'id');
     }
     public function observers(): BelongsTo
     {

@@ -63,8 +63,8 @@ class FactObservedEdit extends Component
             $this->year                     = $fact_observed->year;
             $this->cia                      = $fact_observed->cia;
             $this->company_id               = $fact_observed->company_id;
-            $this->cmt_cia                  = $fact_observed?->company?->comandant?->name ?? '';
-            $this->cmt_cia_posto            = MilitaryRank::fromDb($fact_observed?->company?->comandant?->posto_grad)?->label() ?? '';
+            $this->cmt_cia                  = $fact_observed->cmt_cia;
+            $this->cmt_cia_posto            = $fact_observed->cmt_cia_posto;
             $this->people_id                = $fact_observed->people_id;
             $this->al_number                = $fact_observed->al_number;
             $this->al_nick                  = $fact_observed->al_nick;

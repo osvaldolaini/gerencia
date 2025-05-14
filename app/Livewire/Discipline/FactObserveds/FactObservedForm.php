@@ -8,6 +8,7 @@ use App\Enums\MilitaryRank;
 
 use Livewire\Attributes\On;
 use App\Models\Discipline\FactObserved;
+use App\Models\Settings\Companies;
 use Illuminate\Support\Str;
 
 class FactObservedForm extends Component
@@ -118,11 +119,14 @@ class FactObservedForm extends Component
             $this->cia              = $people->al_class->classGrade->company->name;
             $this->company_id       = $people->al_class->classGrade->company->id;
 
+            $comandant = Companies::find($this->company_id)->comandant;
+
             $fo = FactObserved::create([
                 'active'    => 1,
                 'cia'                      => $this->cia,
                 'company_id'               => $this->company_id,
-                'cmt_cia'                  => $this->cmt_cia,
+                'cmt_cia'                  => $comandant->cmt_cia ?? '',
+                'cmt_cia_posto'            => MilitaryRank::fromDb($comandant->posto_grad)?->label() ?? '',
                 'student_id'               => $this->student_id,
                 'al_nick'                  => $this->al_nick,
                 'al_name'                  => $this->al_name,

@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Discipline\FaultDisciplines;
 
+use App\Enums\MilitaryRank;
 use App\Models\Discipline\FaultDiscipline;
 use App\Models\Peoples;
+use App\Models\Settings\Companies;
 use Livewire\Component;
 
 use Livewire\Attributes\On;
@@ -90,11 +92,14 @@ class FaultDisciplineForm extends Component
         ];
         $this->validate();
 
+        $comandant = Companies::find($this->ccompany_id)->comandant;
+
         $fault_discipline = FaultDiscipline::create([
             'active'                   => 1,
             'cia'                      => $this->cia,
             'company_id'               => $this->company_id,
-            'cmt_cia'                  => $this->cmt_cia,
+            'cmt_cia'                  => $comandant->cmt_cia ?? '',
+            'cmt_cia_posto'            => MilitaryRank::fromDb($comandant->posto_grad)?->label() ?? '',
             'student_id'               => $this->student_id,
             'al_nick'                  => $this->al_nick,
             'al_name'                  => $this->al_name,

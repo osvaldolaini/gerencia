@@ -5,6 +5,7 @@ namespace App\Livewire\Discipline\FactObserveds;
 use App\Enums\MilitaryRank;
 use App\Models\Discipline\FactObserved;
 use App\Models\Discipline\FaultDiscipline;
+use App\Models\Settings\Companies;
 use App\Services\LaiGuz\TableService;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -158,15 +159,15 @@ class FactObservedList extends Component
         foreach (json_decode($fact->faults, true) as $value) {
             $f[] = $value;
         }
-
+        $comandant = Companies::find($fact->company_id)->comandant;
         $fafd = FaultDiscipline::create([
             'active'                   => 1,
             // 'number'                   => $fact->number,
             'year'                     => $fact->year,
             'cia'                      => $fact->cia,
             'company_id'               => $fact->company_id,
-            'cmt_cia'                  => $fact?->company?->comandant?->name ?? '',
-            'cmt_cia_posto'            => MilitaryRank::fromDb($fact?->company?->comandant?->posto_grad)?->label() ?? '',
+            'cmt_cia'                  => $comandant->cmt_cia ?? '',
+            'cmt_cia_posto'            => MilitaryRank::fromDb($comandant->posto_grad)?->label() ?? '',
             'student_id'               => $fact->student_id,
             'al_nick'                  => $fact->al_nick,
             'al_name'                  => $fact->al_name,

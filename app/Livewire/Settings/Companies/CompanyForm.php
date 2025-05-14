@@ -36,7 +36,8 @@ class CompanyForm extends Component
             $this->id           = $companies->id;
             $this->name         = $companies->name;
             $this->nick         = $companies->nick;
-            $this->workload         = $companies->workload;
+            $this->people_id    = $companies->people_id;
+            $this->workload     = $companies->workload;
         }
     }
 

@@ -215,8 +215,8 @@
                         width: 100%;
                         text-align: center;
                         padding-top: 30px;">
-                        {{ mb_strtoupper($fault_discipline->company?->cmt_cia_posto ?? $fault_discipline?->company?->comandant?->posto_grad) }}
-                        {{ mb_strtoupper($fault_discipline->company?->cmt_cia ?? $fault_discipline?->company?->comandant?->posto_grad) }}
+                        {{ mb_strtoupper($fault_discipline?->cmt_cia_posto ?? $fault_discipline?->company?->comandant?->posto_grad) }}
+                        {{ mb_strtoupper($fault_discipline?->cmt_cia ?? $fault_discipline?->company?->comandant?->posto_grad) }}
                         <p>
                             COMANDANTE DA {{ mb_strtoupper($fault_discipline->cia) }}
                         </p>

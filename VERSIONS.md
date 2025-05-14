@@ -5,6 +5,7 @@
 > Novidades
 
     ->Assiantura co cmt da cia na abertura do processo de FAFD
+    ->Upload de imagem da assinatura (opcional)
 
 ## Versão Santos Dumont 1.4.1
 

@@ -26,6 +26,7 @@ class FaultDisciplineJustification extends Component
     public $rules;
     public $fault_discipline;
     public $paste;
+    public $signature;
 
     public function mount(FaultDiscipline $fault_discipline)
     {
@@ -34,6 +35,17 @@ class FaultDisciplineJustification extends Component
             $this->fafd = Peoples::find($fault_discipline->id);
             $this->paste = Storage::fileExists('public/fafd/' . $this->fault_discipline->id . '/fafd_n_' . $this->fault_discipline->number . '.pdf');
             // dd($this->paste);
+        }
+        if ($fault_discipline->company_id) {
+            $company = Companies::find($fault_discipline->company_id);
+            $files = Storage::files('public/companies/' . $company->id . '/signature/small');
+            if ($files) {
+                $signature = explode('/', $files[0]);
+                // dd($signature[4]);
+                $this->signature = url('storage/companies/' . $company->id . '/signature/small/' . $signature[5]); // Nome do arquivo
+            } else {
+                $this->signature = '';
+            }
         }
     }
     public function render()
@@ -97,6 +109,7 @@ class FaultDisciplineJustification extends Component
                 'fault_discipline'  => $this->fault_discipline,
                 'config'            => $config,
                 'companies'         => $companies,
+                'signature'         => $this->signature,
                 'selectedFaults'    => $selectedFaults,
                 'selectedMitigating'    => $selectedMitigating,
                 'selectedAggravating'    => $selectedAggravating,

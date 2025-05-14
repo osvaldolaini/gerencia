@@ -214,13 +214,23 @@
                         style="border-top: 1px solid black;
                         width: 100%;
                         text-align: center;
-                        padding-top: 30px;">
-                        {{ mb_strtoupper($fault_discipline?->cmt_cia_posto ?? $fault_discipline?->company?->comandant?->posto_grad) }}
-                        {{ mb_strtoupper($fault_discipline?->cmt_cia ?? $fault_discipline?->company?->comandant?->posto_grad) }}
-                        <p>
+                        padding-top: 15px;">
+
+                        {{-- Imagem da assinatura acima do texto --}}
+                        <img src="{{ $signature }}" style="width: 150px; margin-bottom: -25px;">
+
+                        {{-- Nome do comandante --}}
+                        <p style="margin: 0;">
+                            {{ mb_strtoupper($fault_discipline?->cmt_cia_posto ?? $fault_discipline?->company?->comandant?->posto_grad) }}
+                            {{ mb_strtoupper($fault_discipline?->cmt_cia ?? $fault_discipline?->company?->comandant?->posto_grad) }}
+                        </p>
+
+                        {{-- Cargo abaixo --}}
+                        <p style="margin: 0;">
                             COMANDANTE DA {{ mb_strtoupper($fault_discipline->cia) }}
                         </p>
                     </td>
+
                 </tr>
                 <tr>
                     <td colspan="4" style="border-top: 1px solid black;">

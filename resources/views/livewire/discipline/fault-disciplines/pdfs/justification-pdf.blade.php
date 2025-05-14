@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+@php
+    use App\Enums\MilitaryRank;
+@endphp
 
 <head>
     <meta charset="UTF-8">

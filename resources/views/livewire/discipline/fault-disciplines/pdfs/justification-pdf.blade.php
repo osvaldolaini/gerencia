@@ -141,7 +141,7 @@
                     <td>
                         <div class="title">FICHA DE APURAÇÃO DE FALTA DISCIPLINAR/ELOGIO</div>
                         <div style="font-size: 16px;">
-                            Nr:</span>{{ $fault_discipline->number }}/{{ $fault_discipline->year }} <br>
+                            Nr:{{ $fault_discipline->number }}/{{ $fault_discipline->year }} <br>
                         </div>
 
                     </td>
@@ -376,7 +376,8 @@
                 </tr>
                 <tr>
                     <td colspan="4" style="border: 1px solid black;">
-                        Recebi a presente Ficha de Informação de Ocorrência em ___/___/20___
+                        Recebi a Ficha de Informação de Ocorrência
+                        nr:{{ $fault_discipline->number }}/{{ $fault_discipline->year }} em ___/___/20___
                     </td>
                 </tr>
                 <tr>
@@ -462,7 +463,8 @@
                 </tr>
                 <tr>
                     <td colspan="4" style="border-top: 1px solid black;border-right: 1px solid black;">
-                        Tomei ciência da presente Ficha de Informação de Ocorrência em ___/___/20___
+                        Tomei ciência da Ficha de Informação de Ocorrência
+                        nr:{{ $fault_discipline->number }}/{{ $fault_discipline->year }} em ___/___/20___
                     </td>
                 </tr>
                 <tr>

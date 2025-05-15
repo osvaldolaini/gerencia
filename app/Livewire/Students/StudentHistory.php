@@ -3,6 +3,8 @@
 namespace App\Livewire\Students;
 
 use App\Models\Peoples;
+use App\Models\Settings\Companies;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class StudentHistory extends Component
@@ -11,6 +13,7 @@ class StudentHistory extends Component
     public $read;
     public $showReadModal = false;
     public $activeTab = 'fafd';
+    public $signature;
 
     public function mount(Peoples $student)
     {

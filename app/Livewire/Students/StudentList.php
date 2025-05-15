@@ -149,10 +149,20 @@ class StudentList extends Component
     {
         $config = Settings::find(1);
         $company = $student?->al_class?->classGrade?->getCompany ?? false;
+        $signature = false;
         if ($company) {
             $logoPath = Storage::exists('public/companies/' . $company->id)
                 ? url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png')
                 : url('storage/logos-school/logo-header.png');
+
+            $files = Storage::files('public/companies/' . $company->id . '/signature/small');
+            if ($files) {
+                $sign = explode('/', $files[0]);
+                // dd($signature[4]);
+                $signature = url('storage/companies/' . $company->id . '/signature/small/' . $sign[5]); // Nome do arquivo
+            } else {
+                $signature = false;
+            }
         } else {
             $logoPath = url('storage/logos-school/logo-header.png');
         }
@@ -180,6 +190,7 @@ class StudentList extends Component
             [
                 'logoPath'          => $logoPath,
                 'studentImage'      => $studentImage,
+                'signature'         => $signature,
                 'student'           => $student,
                 'config'            => $config,
                 'companies'         => $company,

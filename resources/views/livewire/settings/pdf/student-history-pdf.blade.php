@@ -6,6 +6,7 @@
 <head>
     @php
         use App\Enums\Penalty;
+        use App\Enums\MilitaryRank;
     @endphp
     <meta charset="UTF-8">
     <title>Ficha individual</title>
@@ -260,6 +261,37 @@
                 <div class="linha-tabela">Não possui</div>
             @endif
         </div>
+        @if ($signature)
+            <table>
+                <tr>
+                    <td
+                        style="
+                    width: 55%;
+                    text-align: center;
+                    padding-top: 30px;">
+                        &nbsp;</td>
+                    <td
+                        style="
+                            width: 45%;
+                            text-align: center;
+                            padding-top: 30px;">
+
+                        {{-- Imagem da assinatura acima do texto --}}
+                        <img src="{{ $signature }}" style="width: 150px; margin-bottom: -25px;">
+                        {{-- Nome do comandante --}}
+                        <p style="margin: 0;">
+                            {{ mb_strtoupper(MilitaryRank::fromDb($student?->company?->comandant->posto_grad)?->label() ?? '') }}
+                            {{ mb_strtoupper($student?->company?->comandant->name) }}
+                        </p>
+
+                        {{-- Cargo abaixo --}}
+                        <p style="margin: 0;">
+                            COMANDANTE DA {{ mb_strtoupper($student?->company?->name) }}
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        @endif
 
     </div>
 </body>

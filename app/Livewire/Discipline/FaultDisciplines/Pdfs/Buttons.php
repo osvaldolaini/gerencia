@@ -168,7 +168,7 @@ class Buttons extends Component
             // 'orientation'        => 'P', //[P,L]
             'format' => 'A4-P',
             'margin_left'   => 15,
-            'margin_top'    => 15,
+            'margin_top'    => 25,
             'default_font_size'  => 9,
             'default_font'  => 'arial',
         ]);

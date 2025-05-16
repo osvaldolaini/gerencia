@@ -141,7 +141,7 @@
                 @endphp
 
                 <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
-
+                    {{ $fafd->bi_number }}
                     Em {{ $fafd->f_date }}, Al Nr {{ $fafd->al_number }},
                     {{ $fafd->al_name ? $fafd->al_name . '(' . $fafd->al_nick . ')' : $fafd->al_nick }},
                     turma {{ $fafd->al_class }} -

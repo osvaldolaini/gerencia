@@ -144,9 +144,12 @@
                             </td>
                             <td class="text-center border-bottom">
                                 {{ $fafd->grau }}
-                                @if ($fafd->decision != 'fo' or $fafd->decision)
-                                    *
+                                @if ($fafd->decision)
+                                    @if ($fafd->decision != 'fo')
+                                        *
+                                    @endif
                                 @endif
+
                                 {{-- {{ $fafd->decision != 'fo' ? ($fafd->bi_number ? '' : '*') : '' }} --}}
                             </td>
                         </tr>

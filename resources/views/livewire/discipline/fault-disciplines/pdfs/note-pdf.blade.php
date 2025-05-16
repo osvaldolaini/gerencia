@@ -116,22 +116,23 @@
 
             </table>
             <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
+
                 Em {{ $fault_discipline->f_date }}, Al Nr {{ $fault_discipline->al_number }},
                 {{ $fault_discipline->al_name ? $fault_discipline->al_name . '(' . $fault_discipline->al_nick . ')' : $fault_discipline->al_nick }},
                 turma {{ $fault_discipline->al_class }} -
-                Motivo: {{ $fault_discipline->solution }} Falta disciplinar nº @if (is_array($fault_discipline->json_faults) && count($fault_discipline->json_faults) > 0)
-                    @foreach ($fault_discipline->json_faults as $key => $item)
-                        {{ $item }}@if ($loop->remaining === 1)
+                Motivo: {{ $fault_discipline->solution }} Falta disciplinar nº @if (is_array($fault_discipline->faults) && count($fault_discipline->faults) > 0)
+                    @foreach ($fault_discipline->faults as $fault_discipline->key => $fault_discipline->item)
+                        {{ $fault_discipline->item }}@if ($fault_discipline->loop->remaining === 1)
                             e
-                        @elseif (!$loop->last)
+                        @elseif (!$fault_discipline->loop->last)
                             ,
                         @endif
                     @endforeach
-                    @endif, @if (is_array($fault_discipline->json_aggravating) && count($fault_discipline->json_aggravating) > 0)
+                    @endif, @if (is_array($fault_discipline->aggravating) && count($fault_discipline->aggravating) > 0)
                         com agravante(s) nr
-                        @foreach ($fault_discipline->json_aggravating as $key => $item)
-                            {{ $item }}
-                            @if ($loop->remaining === 1)
+                        @foreach ($fault_discipline->aggravating as $fault_discipline->key => $fault_discipline->item)
+                            {{ $fault_discipline->item }}
+                            @if ($fault_discipline->loop->remaining === 1)
                                 e
                             @else
                                 ,
@@ -139,11 +140,11 @@
                         @endforeach
                     @else
                         sem agravantes,
-                        @endif @if (is_array($fault_discipline->json_mitigating) && count($fault_discipline->json_mitigating) > 0)
+                        @endif @if (is_array($fault_discipline->mitigating) && count($fault_discipline->mitigating) > 0)
                             com atenuante(s) nr
-                            @foreach ($fault_discipline->json_mitigating as $key => $item)
-                                {{ $item }}
-                                @if ($loop->remaining === 1)
+                            @foreach ($fault_discipline->mitigating as $fault_discipline->key => $fault_discipline->item)
+                                {{ $fault_discipline->item }}
+                                @if ($fault_discipline->loop->remaining === 1)
                                     e
                                 @else
                                     ,
@@ -152,18 +153,27 @@
                         @else
                             sem atenuante,
                         @endif
-                        previstos no Apêndice 1 do RICM 2024,
+                        previstos no apêndice 1 do anexo F do RICM 2024,
                         @if ($fault_discipline->repeat == 0)
                             {{ $fault_discipline->repeat }}
                             @endif sendo reincidente, @if ($fault_discipline->repeat == 1)
                                 {{ $fault_discipline->repeat_number }} vezes
                             @endif em faltas
                             desta
-                            natureza. - Medida disciplinar: Repreensão (FAFD nº
-                            {{ $fault_discipline->number }}/{{ $fault_discipline->year }} -
-                            {{ $fault_discipline->cia }},
+                            natureza. - Medida disciplinar: @if ($fault_discipline->dacision_days)
+                                {{ $fault_discipline->dacision_days }}
+                                dia{{ $fault_discipline->dacision_days > 1 ? 's' : '' }} de
+                            @endif
+                            @if ($fault_discipline->decision)
+                                {{ Penalty::fromDb($fault_discipline->decision)?->label() ?? 'Advertência' }} (FAFD
+                                nº
+                                {{ $fault_discipline->number }}/{{ $fault_discipline->year }} -
+                                {{ $fault_discipline->cia }}
+                            @endif
+                            ,
                             de
                             {{ $fault_discipline->f_date }}).
+
             </div>
 
             <table class="identification">

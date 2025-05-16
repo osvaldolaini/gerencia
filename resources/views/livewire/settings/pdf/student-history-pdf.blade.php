@@ -143,12 +143,13 @@
                                 {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}
                             </td>
                             <td class="text-center border-bottom">
-                                {{ $fafd->grau }}{{ $fafd->bi_number ? '' : '*' }}
+                                {{ $fafd->grau }}{{ ($fafd->decision ? Penalty::from($fafd->decision)->label() : $fafd->bi_number) ? '' : '*' }}
                             </td>
                         </tr>
                     @endforeach
 
                 </table>
+                <div class="linha-tabela">*Aguardando publicação</div>
             @else
                 <div class="linha-tabela">Não possui</div>
             @endif

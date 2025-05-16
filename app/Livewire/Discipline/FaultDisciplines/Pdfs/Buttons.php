@@ -109,7 +109,9 @@ class Buttons extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Solução',
-                'data'              => FaultDiscipline::where('active', 1)->where('solution_date', NULL)->get(),
+                'data'              => FaultDiscipline::where('active', 1)
+                    ->where('justification_date', '!=', NULL)
+                    ->where('solution_date', NULL)->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]

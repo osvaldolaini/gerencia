@@ -181,9 +181,9 @@ class Buttons extends Component
                 'data'              => FaultDiscipline::where('active', 1)
                     ->where('justification_date', '!=', NULL)
                     ->where('solution_date', '!=', NULL)
-                    ->where('bi_number', NULL)
+                    ->where('bi_number', '')
                     ->where('decision', '!=', NULL)
-                    ->orWhere('decision', '!=', 'fo')
+                    // ->orWhere('decision', '!=', 'fo')
                     ->orderBy('decision', 'ASC')->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,

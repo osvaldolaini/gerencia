@@ -90,6 +90,39 @@
                 </tr>
             </table>
         @endif
+        @if ($title == 'Solução')
+            <div>
+                <h2 style="text-align: center;padding:20px;">Aguardando {{ $title }}</h2>
+            </div>
+            <table class="turmas-table">
+                <tr class="class">
+                    <td class="text-left border">FAFD Nº</td>
+                    <td class="text-left border">Nr</td>
+                    <td class="text-left border">Aluno</td>
+                    <td class="text-left border">Turma</td>
+                    <td class="text-center border">Data justificativa</td>
+                </tr>
+                @php
+                    $c = 0;
+                @endphp
+                @foreach ($data as $fafd)
+                    @php
+                        $c += 1;
+                    @endphp
+                    <tr class="class">
+                        <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
+                        <td class="text-left border">{{ $fafd?->students?->number }}</td>
+                        <td class="text-left border">{{ $fafd?->students?->nick }}</td>
+                        <td class="text-left border">{{ $fafd?->students?->al_class->title }}</td>
+                        <td class="text-center border">{{ $fafd->just_date }}</td>
+                    </tr>
+                @endforeach
+                <tr class="border">
+                    <td colspan="4" class="text-right border">Total</td>
+                    <td class="text-center border">{{ $c }}</td>
+                </tr>
+            </table>
+        @endif
 
 
     </div>

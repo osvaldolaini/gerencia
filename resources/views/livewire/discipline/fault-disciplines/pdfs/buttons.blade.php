@@ -46,7 +46,7 @@
             </svg>
         </button>
     </div>
-    <div class="p-0 tooltip tooltip-top" data-tip="Solução" wire:ignore>
+    <div class="p-0 tooltip tooltip-top" wire:click='solution()' data-tip="Solução" wire:ignore>
         <button
             class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 512 512"

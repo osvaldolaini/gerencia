@@ -33,7 +33,7 @@ class Buttons extends Component
             'format' => 'A4-P',
             'margin_left'   => 15,
             'margin_top'    => 15,
-            'default_font_size'  => 12,
+            'default_font_size'  => 9,
             'default_font'  => 'arial',
         ]);
         // dd($mpdf);

@@ -12,13 +12,13 @@
 
         .class {
             width: 100%;
-            font-size: 8pt;
+            font-size: 12pt;
         }
 
         .turmas-table {
 
             width: 100%;
-            font-size: 6pt;
+            font-size: 12pt;
         }
 
         .border {

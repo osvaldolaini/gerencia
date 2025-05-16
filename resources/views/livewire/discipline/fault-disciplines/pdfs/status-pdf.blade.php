@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+@php
+
+    use App\Enums\Penalty;
+@endphp
 
 <head>
     <meta charset="UTF-8">

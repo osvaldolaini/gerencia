@@ -143,7 +143,11 @@
                                 {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}
                             </td>
                             <td class="text-center border-bottom">
-                                {{ $fafd->grau }}{{ $fafd->decision != 'fo' or ($fafd->decision ? ($fafd->bi_number ? '' : '*') : '') }}
+                                {{ $fafd->grau }}
+                                @if ($fafd->decision != 'fo' && $fafd->decision)
+                                    *
+                                @endif
+                                {{-- {{ $fafd->decision != 'fo' ? ($fafd->bi_number ? '' : '*') : '' }} --}}
                             </td>
                         </tr>
                     @endforeach

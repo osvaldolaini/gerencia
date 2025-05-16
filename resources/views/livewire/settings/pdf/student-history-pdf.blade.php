@@ -117,7 +117,8 @@
                         <th class="text-center">Desconto</th>
                     </tr>
                     @foreach ($student->fafd->where('active', 1)->sortByDesc('fact_date') as $fafd)
-                        <tr class="linha-tabela">
+                        <tr class="linha-tabela"
+                            style="{{ $fafd->decision ? ($fafd->bi_number ? '' : 'background-color:#222;') : '' }}">
                             <td class="text-center border-bottom">
                                 {{ $fafd->number }}
                             </td>

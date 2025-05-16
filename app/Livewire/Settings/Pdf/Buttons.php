@@ -32,7 +32,6 @@ class Buttons extends Component
 
     public function mount($button, $year, $grade)
     {
-
         $this->school_classes_year_id = $year;
         $this->school_classes = SchoolClasses::where('active', 1)
             ->with(['seats'])

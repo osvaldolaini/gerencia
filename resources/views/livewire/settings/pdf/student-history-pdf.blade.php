@@ -101,7 +101,6 @@
                             ({{ $student->adjusted_grau }})
                         </div>
                     </td>
-
                 </tr>
             </table>
         </div>
@@ -144,7 +143,7 @@
                                 {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}
                             </td>
                             <td class="text-center border-bottom">
-                                {{ $fafd->grau }}
+                                {{ $fafd->grau }}{{ $fafd->bi_number ? '' : '*' }}
                             </td>
                         </tr>
                     @endforeach

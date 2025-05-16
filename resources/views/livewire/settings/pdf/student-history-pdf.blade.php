@@ -280,8 +280,9 @@
                         <img src="{{ $signature }}" style="width: 150px; margin-bottom: -25px;">
                         {{-- Nome do comandante --}}
                         <p style="margin: 0;">
+                            {{ mb_strtoupper($student?->company?->comandant->name) }} -
                             {{ mb_strtoupper(MilitaryRank::fromDb($student?->company?->comandant->posto_grad)?->label() ?? '') }}
-                            {{ mb_strtoupper($student?->company?->comandant->name) }}
+
                         </p>
 
                         {{-- Cargo abaixo --}}

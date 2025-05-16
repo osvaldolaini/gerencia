@@ -58,6 +58,9 @@
 <body>
     <div class="container">
         @if ($title == 'Justificativa')
+            <div>
+                <h2 style="text-align: center;padding:20px;">Aguardando {{ $title }}</h2>
+            </div>
             <table class="turmas-table">
                 <tr class="class">
                     <td class="text-left border">FAFD Nº</td>

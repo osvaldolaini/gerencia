@@ -147,8 +147,6 @@
                                 @if ($fafd->decision)
                                     {{ $fafd->decision != 'fo' ? ($fafd->bi_number ? '' : '*') : '' }}
                                 @endif
-
-
                             </td>
                         </tr>
                     @endforeach

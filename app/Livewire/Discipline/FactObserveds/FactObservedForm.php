@@ -125,7 +125,7 @@ class FactObservedForm extends Component
                 'active'    => 1,
                 'cia'                      => $this->cia,
                 'company_id'               => $this->company_id,
-                'cmt_cia'                  => $comandant->cmt_cia ?? '',
+                'cmt_cia'                  => $comandant->name ?? '',
                 'cmt_cia_posto'            => MilitaryRank::fromDb($comandant->posto_grad)?->label() ?? '',
                 'student_id'               => $this->student_id,
                 'al_nick'                  => $this->al_nick,

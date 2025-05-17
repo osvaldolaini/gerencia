@@ -35,7 +35,7 @@ class StudentForm extends Component
             $this->nick         = $students->nick;
             $this->number       = $students->number;
             $this->sex          = $students->sex;
-            $this->grau         = $students->grau_view;
+            $this->grau         = $students->grau;
             $this->entry_date   = $students->entry_date;
             $this->english_level  = $students->english_level;
         }
@@ -61,6 +61,7 @@ class StudentForm extends Component
 
     public function real_save()
     {
+        dd()
         $this->rules = [
             // 'number' => 'max:5|required|' . Rule::unique('peoples')->ignore($this->id),
             'sex'   => 'required',

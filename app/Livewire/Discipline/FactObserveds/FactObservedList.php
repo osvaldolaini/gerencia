@@ -166,7 +166,7 @@ class FactObservedList extends Component
             'year'                     => $fact->year,
             'cia'                      => $fact->cia,
             'company_id'               => $fact->company_id,
-            'cmt_cia'                  => $comandant->cmt_cia ?? '',
+            'cmt_cia'                  => $comandant->name ?? '',
             'cmt_cia_posto'            => MilitaryRank::fromDb($comandant->posto_grad)?->label() ?? '',
             'student_id'               => $fact->student_id,
             'al_nick'                  => $fact->al_nick,

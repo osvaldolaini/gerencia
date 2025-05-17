@@ -64,7 +64,9 @@ trait HasAdjustedGrau
         $nota = number_format(floatval($this->grau), 2);
         $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
         $dataReferencia = null;
-
+        if ($this->entry_date) {
+            $dataReferencia = Carbon::parse($this->entry_date)->addDays(90);
+        }
         Log::debug("Nota inicial: {$nota}");
 
         if ($punicoes->isEmpty()) {

@@ -131,7 +131,6 @@
             <div>
                 <h2 style="text-align: center;padding:20px;">Aguardando {{ $title }}</h2>
             </div>
-
             @php
                 $c = 0;
             @endphp
@@ -139,7 +138,6 @@
                 @php
                     $c += 1;
                 @endphp
-
                 <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
                     {{ $fafd->bi_number }}
                     Em {{ $fafd->f_date }}, Al Nr {{ $fafd->al_number }},

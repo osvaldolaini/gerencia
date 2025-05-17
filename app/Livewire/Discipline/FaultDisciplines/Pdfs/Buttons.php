@@ -184,7 +184,7 @@ class Buttons extends Component
                     ->where('bi_date', NULL)
                     // ->where('bi_number', NULL)
                     ->where('decision', '!=', NULL)
-                    // ->orWhere('decision', '!=', 'fo')
+                    ->where('decision', '!=', 'fo')
                     ->orderBy('decision', 'ASC')->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,

@@ -44,7 +44,6 @@ class Peoples extends Model
         'grau',
         'entry_date',
         'english_level',
-        'entry_date',
         'code',
         'updated_by',
         'created_by',

@@ -92,8 +92,8 @@ trait HasAdjustedGrau
 
             Log::debug("Punição em {$p->bi_date}: -{$grauPunicao}. Nota atual: {$nota}");
 
-            $dataReferencia = $dataP->copy()->addDays(180);
-            Log::debug("Nova data de referência após punição (90+90 dias): {$dataReferencia->format('Y-m-d')}");
+            $dataReferencia = $dataP->copy()->addDays(90);
+            Log::debug("Nova data de referência após punição (90 dias): {$dataReferencia->format('Y-m-d')}");
         }
 
         if ($dataReferencia && now()->gt($dataReferencia)) {
@@ -102,9 +102,9 @@ trait HasAdjustedGrau
             $nota += $incremento;
             $nota = number_format(min($nota, 10.00), 2);
 
-            Log::debug("Ajuste final após 180 dias da última punição: +{$incremento} ({$dias} dias). Nota final: {$nota}");
+            Log::debug("Ajuste final após 90 dias da última punição: +{$incremento} ({$dias} dias). Nota final: {$nota}");
         } else {
-            Log::debug("Ainda não passaram 180 dias desde a última punição.");
+            Log::debug("Ainda não passaram 90 dias desde a última punição.");
         }
 
         return $nota;

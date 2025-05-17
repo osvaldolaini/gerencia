@@ -80,7 +80,7 @@ trait HasAdjustedGrau
                 Log::debug("Sem punições. Ainda não passaram 90 dias desde a matrícula.");
             }
         }
-        return $nota;
+        // return $nota;
         // }
 
         foreach ($punicoes as $p) {

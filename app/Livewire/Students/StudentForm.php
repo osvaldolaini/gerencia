@@ -29,7 +29,6 @@ class StudentForm extends Component
 
     public function mount(Peoples $students)
     {
-        dd($students->entry);
         if ($students->getAttributes()) {
             $this->id           = $students->id;
             $this->name         = $students->name;

@@ -67,21 +67,21 @@ trait HasAdjustedGrau
 
         Log::debug("Nota inicial: {$nota}");
 
-        // if ($punicoes->isEmpty()) {
-        if ($this->entry_date) {
-            $dataReferencia = Carbon::parse($this->entry_date)->addDays(90);
-            if (now()->gt($dataReferencia)) {
-                $dias = $dataReferencia->diffInDays(now());
-                $incremento = number_format($dias * 0.01, 2);
-                $nota += $incremento;
-                $nota = number_format(min($nota, 10.00), 2);
-                Log::debug("Sem punições. Dias após 90 da matrícula: {$dias}. Aumento: {$incremento}. Nota final: {$nota}");
-            } else {
-                Log::debug("Sem punições. Ainda não passaram 90 dias desde a matrícula.");
+        if ($punicoes->isEmpty()) {
+            if ($this->entry_date) {
+                $dataReferencia = Carbon::parse($this->entry_date)->addDays(90);
+                if (now()->gt($dataReferencia)) {
+                    $dias = $dataReferencia->diffInDays(now());
+                    $incremento = number_format($dias * 0.01, 2);
+                    $nota += $incremento;
+                    $nota = number_format(min($nota, 10.00), 2);
+                    Log::debug("Sem punições. Dias após 90 da matrícula: {$dias}. Aumento: {$incremento}. Nota final: {$nota}");
+                } else {
+                    Log::debug("Sem punições. Ainda não passaram 90 dias desde a matrícula.");
+                }
             }
+            return $nota;
         }
-        // return $nota;
-        // }
 
         foreach ($punicoes as $p) {
             $dataP = Carbon::parse($p->bi_date);

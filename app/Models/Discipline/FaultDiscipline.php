@@ -201,7 +201,7 @@ class FaultDiscipline extends Model
 
     public function getTotalGrauAttribute()
     {
-        return floatval($this->grau) * floatval($this->decision_days);
+        return floatval($this->grau) * $this->dacision_days;
     }
     public function students(): BelongsTo
     {

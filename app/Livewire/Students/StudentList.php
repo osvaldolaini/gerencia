@@ -167,7 +167,7 @@ class StudentList extends Component
             $logoPath = url('storage/logos-school/logo-header.png');
         }
 
-        dd($student->fafd);
+
         $studentImage = Storage::exists('public/student/' . $student->id)
             ? url('storage/student/' . $student->id . '/' . $student->code_image . '_list.png')
             : $logoPath;

@@ -106,7 +106,7 @@
         </div>
         <div class="section">
             <div class="section-title">Formulários de Apuração de Falta Disciplinar (FAFD)</div>
-            @if ($student->fafd->count() > 1)
+            @if ($student->fafd->count() > 0)
                 <table class="w-full" style="border-collapse: collapse;">
                     <tr>
                         <th class="text-center">Nr</th>

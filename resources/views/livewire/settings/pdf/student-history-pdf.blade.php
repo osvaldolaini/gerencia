@@ -20,7 +20,7 @@
 
         .section {
             margin-bottom: 20px;
-            page-break-inside: avoid;
+            /* page-break-inside: avoid; */
         }
 
         .section-title {

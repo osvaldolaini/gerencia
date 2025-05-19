@@ -270,13 +270,13 @@
                 <tr>
                     <td
                         style="
-                    width: 55%;
+                    width: 45%;
                     text-align: center;
                     padding-top: 30px;">
                         &nbsp;</td>
                     <td
                         style="
-                            width: 45%;
+                            width: 55%;
                             text-align: center;
                             padding-top: 30px;">
 

@@ -514,7 +514,7 @@
                                                 @endif
                                                 ,
                                                 de
-                                                {{ $f_date }}).
+                                                {{ $f_date }}) grau atualizado {{ $students->adjusted_grau }}.
                                 </code>
                             </div>
                         </div>

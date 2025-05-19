@@ -143,7 +143,7 @@
                                 {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}
                             </td>
                             <td class="text-center border-bottom">
-                                {{ $fafd->grau }}
+                                {{ floatval($fafd->grau) * floatval($fafd->decision_days) }}
                                 @if ($fafd->decision)
                                     {{ $fafd->decision != 'fo' ? ($fafd->bi_number ? '' : '*') : '' }}
                                 @endif

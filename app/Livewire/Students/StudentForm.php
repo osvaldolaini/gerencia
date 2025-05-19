@@ -39,6 +39,7 @@ class StudentForm extends Component
             $this->entry_date   = $students->entry_date;
             $this->english_level  = $students->english_level;
         }
+        dd($this->grau);
     }
 
     public function render()

@@ -198,6 +198,11 @@ class FaultDiscipline extends Model
     {
         return $this->viewDate($this->justification_date);
     }
+
+    public function getTotalGrauAttribute()
+    {
+        return floatval($this->grau) * floatval($this->decision_days);
+    }
     public function students(): BelongsTo
     {
         return $this->belongsTo(Peoples::class, 'student_id', 'id');
@@ -211,7 +216,4 @@ class FaultDiscipline extends Model
     {
         return $this->belongsTo(Faults::class, 'fault_id', 'id');
     }
-
-
-   
 }

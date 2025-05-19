@@ -194,7 +194,7 @@
                                 @endif
                                 ,
                                 de
-                                {{ $fafd->f_date }}) grau atualizado {{ $fafd->students->adjusted_grau }}.
+                                {{ $fafd->f_date }}).
 
                 </div>
             @endforeach

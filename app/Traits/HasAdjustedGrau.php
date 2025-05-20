@@ -102,7 +102,9 @@ trait HasAdjustedGrau
             $dataP = Carbon::parse($p->bi_date);
             $grauPunicao = floatval($p->grau);
 
-            $nota -= $grauPunicao * $p->dacision_days;
+            // $nota -= $grauPunicao * $p->dacision_days;
+            $nota -= $grauPunicao;
+
             $nota = max($nota, 0.00);
 
             Log::debug("Punição em {$p->bi_date}: -{$grauPunicao}. Nota atual: {$nota}");

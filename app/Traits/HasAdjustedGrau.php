@@ -103,7 +103,13 @@ trait HasAdjustedGrau
             $grauPunicao = floatval($p->grau);
 
             // $nota -= $grauPunicao * $p->dacision_days;
-            $nota -= $grauPunicao;
+            if ($p->dacision_days > 0 and $p->dacision_days) {
+
+                $nota -= $grauPunicao * $p->dacision_days;
+            } else {
+
+                $nota -= $grauPunicao;
+            }
 
             $nota = max($nota, 0.00);
 

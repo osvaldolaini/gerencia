@@ -123,6 +123,7 @@ class FaultDisciplineEdit extends Component
             $this->sincomil_date    = $fault_discipline->sincomil_date;
             $this->bi_text          = $fault_discipline->bi_text;
             $this->bi_number        = $fault_discipline->bi_number;
+            $this->supplement_number = $fault_discipline->supplement_number;
 
             $this->b_date           = $fault_discipline->b_date;
             $this->bi_date          = $fault_discipline->bi_date;

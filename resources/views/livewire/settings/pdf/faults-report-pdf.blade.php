@@ -73,7 +73,7 @@
                         <td class="text-center">{{ $fault->justified ? 'Sim' : 'Não' }}</td>
                         <td class="text-center">{{ $fault->acumulado }}</td>
                         <td class="px-2 py-1 font-bold text-center">
-                            {{ number_format((($fault->acumulado ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%%
+                            {{ number_format((($fault->acumulado ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%
                         </td>
                     </tr>
                 @endforeach

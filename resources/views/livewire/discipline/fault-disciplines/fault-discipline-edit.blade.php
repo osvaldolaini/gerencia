@@ -507,23 +507,25 @@
                                                 sem atenuante,
                                             @endif
                                             previstos no apêndice 1 do anexo F do RICM 2024,
-                                            @if ($repeat == 0)
-                                                {{ $repeat }}
-                                                @endif sendo reincidente, @if ($repeat == 1)
-                                                    {{ $repeat_number }} vezes
-                                                @endif em faltas
-                                                desta
-                                                natureza. - Medida disciplinar: @if ($dacision_days)
-                                                    {{ $dacision_days }} dia{{ $dacision_days > 1 ? 's' : '' }} de
-                                                @endif
-                                                @if ($decision)
-                                                    {{ Penalty::fromDb($decision)?->label() ?? 'Advertência' }} (FAFD
-                                                    nº
-                                                    {{ $number }}/{{ $year }} - {{ $cia }}
-                                                @endif
-                                                ,
-                                                de
-                                                {{ $f_date }}).
+                                            {{-- @if ($repeat == 0)
+                                                não
+                                            @endif --}}
+                                            @if ($repeat == 1)
+                                                sendo reincidente,
+                                                {{ $repeat_number }} vezes
+                                            @endif em faltas
+                                            desta
+                                            natureza.
+                                            @endif - Medida disciplinar: @if ($dacision_days)
+                                                {{ $dacision_days }} dia{{ $dacision_days > 1 ? 's' : '' }} de
+                                            @endif
+                                            @if ($decision)
+                                                {{ Penalty::fromDb($decision)?->label() ?? 'Advertência' }} (FAFD
+                                                nº
+                                                {{ $number }}/{{ $year }} - {{ $cia }}
+                                            @endif,
+                                            de
+                                            {{ $f_date }}).
                                 </code>
                             </div>
                         </div>

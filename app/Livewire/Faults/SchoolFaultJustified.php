@@ -61,11 +61,15 @@ class SchoolFaultJustified extends Component
 
             $directory = 'public/school_faults/' . $this->school_faults->id;
             Storage::deleteDirectory($directory);
+            $path = storage_path('app/public/school_faults/' . $this->school_faults->id);
 
-            $oldUmask = umask(0000); // ou 0022
             Storage::makeDirectory($directory, 0755, true, true);
-            umask($oldUmask); // restaura depois
-            // Storage::makeDirectory($directory, 0755, true, true);
+            chmod($path, 0755);
+
+            // Aplica permissão aos arquivos existentes também
+            foreach (glob($path . '/*') as $file) {
+                chmod($file, 0644);
+            }
 
             $extension = $this->uploadPdf->getClientOriginalExtension();
             $filename = Str::random(20) . '.pdf';

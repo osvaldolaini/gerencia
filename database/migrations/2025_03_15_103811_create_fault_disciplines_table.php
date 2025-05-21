@@ -72,6 +72,7 @@ return new class extends Migration
 
             $table->date('bi_date')->nullable();
             $table->date('bi_number')->nullable();
+            $table->date('supplement_number')->nullable();
             $table->string('bi_text')->nullable();
 
             $table->date('sincomil_date')->nullable();

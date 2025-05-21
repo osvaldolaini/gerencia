@@ -57,6 +57,7 @@ class FaultDiscipline extends Model
         'bi_date',
         'bi_text',
         'bi_number',
+        'supplement_number',
         'sincomil_date',
         'code',
         'updated_by',

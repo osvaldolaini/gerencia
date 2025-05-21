@@ -57,6 +57,7 @@ class FaultDisciplineEdit extends Component
     public $sincomil_date;
     public $bi_text;
     public $bi_number;
+    public $supplement_number;
     public $b_date;
     public $bi_date;
     public $s_date;
@@ -241,6 +242,7 @@ class FaultDisciplineEdit extends Component
             'grau'                     => $this->grau,
             'bi_date'                  => $this->bi_date,
             'bi_text'                  => $this->bi_text,
+            'supplement_number'        => $this->supplement_number,
             'bi_number'                => $this->bi_number,
             'sincomil_date'            => $this->sincomil_date,
         ]);

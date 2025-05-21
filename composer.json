@@ -9,10 +9,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "dompdf/dompdf": "^3.1",
         "endroid/qr-code": "^6.0",
         "erusev/parsedown": "^1.7",
         "geekcom/validator-docs": "^3.10",
-        "intervention/image": "^3.7",
+        "intervention/image": "^3.11",
         "laravel/framework": "^11.9",
         "laravel/jetstream": "^5.1",
         "laravel/sanctum": "^4.0",
@@ -23,6 +24,9 @@
         "opcodesio/log-viewer": "^3.10",
         "phpseclib/phpseclib": "^3.0",
         "setasign/fpdf": "^1.8",
+        "smalot/pdfparser": "^2.12",
+        "spatie/browsershot": "^5.0",
+        "spatie/image": "^3.8",
         "spatie/laravel-activitylog": "^4.8"
     },
     "require-dev": {

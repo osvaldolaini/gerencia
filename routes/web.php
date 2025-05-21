@@ -53,6 +53,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/umask', function () {
+    return decoct(umask());
+});
 
 Route::middleware([
     'auth:sanctum',

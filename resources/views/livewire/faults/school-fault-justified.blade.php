@@ -135,7 +135,7 @@
                                                                         ou </span> arraste e solte
                                                                 </p>
                                                                 <p class="text-xs text-gray-500 dark:text-gray-400">
-                                                                    somente PDF (Max 1mb)</p>
+                                                                    somente (pdf,jpg,jpeg,png)</p>
                                                             </div>
                                                             <div class="col-span-1" x-data="{ isUploading: false, progress: 0 }"
                                                                 x-on:livewire-upload-start="isUploading = true"

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 
+use Spatie\Browsershot\Browsershot;
 
 class SchoolFaultJustified extends Component
 {
@@ -47,35 +48,62 @@ class SchoolFaultJustified extends Component
 
     public function render()
     {
+
         return view('livewire.faults.school-fault-justified');
     }
 
     public function updated($property)
-    // public function uploaddoc()
     {
         if ($property === 'uploadPdf') {
-            $this->rules = [
-                'uploadPdf'   => ['nullable', 'mimes:pdf', 'max:1024'],
-            ];
-            $this->logo_path = 'teste';
-            $this->validate();
+            $this->validate([
+                'uploadPdf' => ['required', 'mimes:pdf,jpg,jpeg,png', 'max:10240'], // até 10MB
+            ]);
 
-            if (Storage::directoryMissing('public/school_faults/' . $this->school_faults->id)) {
-                Storage::makeDirectory('public/school_faults/' . $this->school_faults->id, 755, true, true);
+            $directory = 'public/school_faults/' . $this->school_faults->id;
+            Storage::deleteDirectory($directory);
+
+            $oldUmask = umask(0000); // ou 0022
+            Storage::makeDirectory($directory, 0755, true, true);
+            umask($oldUmask); // restaura depois
+            // Storage::makeDirectory($directory, 0755, true, true);
+
+            $extension = $this->uploadPdf->getClientOriginalExtension();
+            $filename = Str::random(20) . '.pdf';
+            $outputPath = storage_path('app/' . $directory . '/' . $filename);
+
+            if (in_array($extension, ['jpg', 'jpeg', 'png'])) {
+                $this->convertImageToPdf($this->uploadPdf->getRealPath(), $outputPath);
             } else {
-                Storage::deleteDirectory('public/school_faults/' . $this->school_faults->id);
+                // Move PDF original
+                $this->uploadPdf->storeAs($directory, $filename);
+                // $originalPath = storage_path("app/{$directory}/{$filename}");
+                // $this->compressPdfWithBrowsershot($originalPath, $outputPath);
             }
 
-
-            if (isset($this->uploadPdf)) {
-                $new_name = $this->logo_path . '.pdf';
-                $this->uploadPdf->storeAs('public/school_faults/' . $this->school_faults->id, $new_name);
-            }
-            $this->school_faults->logo_path = $new_name;
+            $this->school_faults->logo_path = $filename;
             $this->school_faults->save();
             $this->paste = true;
         }
     }
+
+    public function convertImageToPdf($imagePath, $outputPath)
+    {
+        $imageData = base64_encode(file_get_contents($imagePath));
+        $mime = mime_content_type($imagePath);
+        $base64Image = "data:$mime;base64,$imageData";
+
+        $html = "<html><body style='margin:0;padding:0;'><img src='{$base64Image}' style='width:100%;height:auto;'></body></html>";
+
+        Browsershot::html($html)
+            ->showBackground()
+            ->margins(0, 0, 0, 0)
+            ->deviceScaleFactor(1)
+            ->setOption('quality', 60)
+            ->save($outputPath);
+    }
+
+
+
     public function excluirTemp()
     {
         $this->uploadPdf = '';

@@ -507,13 +507,15 @@
                                                 sem atenuante,
                                             @endif
                                             previstos no apêndice 1 do anexo F do RICM 2024,
-                                            @if ($repeat == 0)não sendo
-                                                reincidente @endif
+                                            @if ($repeat == 0)
+                                                não sendo
+                                                reincidente
+                                            @endif
                                             @if ($repeat == 1)
                                                 sendo reincidente,
                                                 {{ $repeat_number }} vezes
                                             @endif em faltas, desta natureza.
-                                            @endif - Medida disciplinar: @if ($dacision_days)
+                                            - Medida disciplinar: @if ($dacision_days)
                                                 {{ $dacision_days }} dia{{ $dacision_days > 1 ? 's' : '' }} de
                                             @endif
                                             @if ($decision)

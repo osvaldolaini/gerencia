@@ -212,7 +212,7 @@
                     <tr>
                         <th class="text-center">Data</th>
                         <th class="text-center">Períodos</th>
-                        <th class="text-center">Justificada</th>
+                        {{-- <th class="text-center">Justificada</th> --}}
                         <th class="text-center">%</th>
                     </tr>
                     @php
@@ -246,14 +246,14 @@
                             <td class="text-center border-bottom">
                                 {{ $fault['qtd'] }}
                             </td>
-                            <td class="text-center border-bottom">
+                            {{-- <td class="text-center border-bottom">
                                 @if ($fault['justified'] == 0)
                                     <span class="badge badge-error">Não</span>
                                 @endif
                                 @if ($fault['justified'] == 1)
                                     <span class="badge badge-success">Sim</span>
                                 @endif
-                            </td>
+                            </td> --}}
                             <td class="text-center border-bottom">
                                 {{ $fault['percentual'] }}%
                             </td>

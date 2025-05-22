@@ -221,7 +221,7 @@ class StudentList extends Component
         $mpdf->WriteHTML($html);
 
         // Salve o PDF temporariamente
-        $file = trim('ficha_individual_' . $student->number . '_' . Str::uuid() . '.pdf');
+        $file = trim('ficha_individual_' . $student->number . '_' . $student->nick . '_' . Str::uuid() . '.pdf');
 
         if (!is_dir(storage_path('app/public/pdf-tmp'))) {
             mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário

@@ -179,7 +179,7 @@
             <table class="identification">
                 <tr>
                     <td colspan="2" style="border-top: 1px solid black;border-right: 1px solid">
-                        Nota p/Bol Nr: {{ $fault_discipline->bi_number }}
+                        Nota p/Bol Nr: {{ $fault_discipline->supplement_number }} / {{ $fault_discipline->bi_number }}
                     </td>
                     <td colspan="1" style="border-top: 1px solid black;border-right: 1px solid">
                         BAR Nr _____________

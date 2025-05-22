@@ -145,7 +145,7 @@
                             <td class="text-center border-bottom">
                                 {{ $fafd->total_grau }}
                                 @if ($fafd->decision)
-                                    {{ $fafd->decision != 'fo' ? ($fafd->bi_number ? '' : '*') : '' }}
+                                    {{ $fafd->decision != 'fo' ? ($fafd->supplement_number ? '' : '*') : '' }}
                                 @endif
                             </td>
                         </tr>

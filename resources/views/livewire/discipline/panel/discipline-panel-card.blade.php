@@ -34,7 +34,7 @@
                         <span class="flex flex-col items-center justify-center text-center">
                             Em aberto
                             <span class="flex text-center badge badge-warning">
-                                {{ $fafd->where('decision', '!=', 'fo')->where('bi_number', null)->count() }}
+                                {{ $fafd->where('decision', '!=', 'fo')->where('supplement_number', null)->count() }}
                             </span>
                         </span>
                         <span class="flex flex-col items-center justify-center text-center">

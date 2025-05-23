@@ -62,15 +62,16 @@ class SchoolFaultJustified extends Component
             $directory = 'public/school_faults/' . $this->school_faults->id;
             Storage::deleteDirectory($directory);
 
-            Storage::makeDirectory($directory, 0755, true, true);
-
             // Storage::makeDirectory($directory, 0755, true, true);
-            // chmod($path, 0755);
+            $path = url('app/public/school_faults/' . $this->school_faults->id);
 
-            // // Aplica permissão aos arquivos existentes também
-            // foreach (glob($path . '/*') as $file) {
-            //     chmod($file, 0644);
-            // }
+            Storage::makeDirectory($directory, 0755, true, true);
+            chmod($path, 0755);
+
+            // Aplica permissão aos arquivos existentes também
+            foreach (glob($path . '/*') as $file) {
+                chmod($file, 0644);
+            }
 
             $extension = $this->uploadPdf->getClientOriginalExtension();
             $filename = Str::random(20) . '.pdf';

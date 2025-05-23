@@ -185,7 +185,7 @@ class Peoples extends Model
     }
     public function getTotalFaultsAttribute()
     {
-        return $this->faults->sum('qtd');
+        return $this->faults->where('active', 1)->sum('qtd');
     }
     public function getTotalFaultsPercentAttribute()
     {

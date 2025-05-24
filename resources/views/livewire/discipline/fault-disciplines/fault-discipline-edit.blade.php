@@ -525,7 +525,7 @@
                                             @endif
                                             de
                                             {{ $f_date }}) - Grau de comportamento
-                                            {{ $students->calculateAdjustedGrau(Carbon::parse($b_date)) }}.
+                                            {{ $students->calculateAdjustedGrau($bi_date) }}.
                                 </code>
                             </div>
                         </div>

@@ -3,6 +3,8 @@
         use App\Enums\FunctionsObserver;
         use App\Enums\Penalty;
         use App\Enums\Rank;
+
+        use Carbon\Carbon;
     @endphp
 
     <div class="py-4 rounded-2xl dark:bg-gray-700 ">
@@ -525,7 +527,7 @@
                                             @endif
                                             de
                                             {{ $f_date }}) - Grau de comportamento
-                                            {{ $students->calculateAdjustedGrau($b_date) }}.
+                                            {{ $students->calculateAdjustedGrau(Carbon::parse($bi_date)) }}.
                                 </code>
                             </div>
                         </div>

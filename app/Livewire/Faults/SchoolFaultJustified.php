@@ -31,6 +31,8 @@ class SchoolFaultJustified extends Component
     public $justified;
     public $logo_path;
 
+    public $diretory;
+
 
 
     public function mount(SchoolFaults $school_faults)
@@ -40,8 +42,9 @@ class SchoolFaultJustified extends Component
             $this->justified        = $school_faults->justified;
             $this->school_faults    = $school_faults;
             $this->logo_path        = $school_faults->logo_path;
+            $this->diretory = 'public/school_faults/' . $this->school_faults->id;
 
-            if (Storage::fileExists('public/school_faults/' . $this->school_faults->id . '/' . $this->logo_path)) {
+            if (Storage::fileExists($this->diretory . '/' . $this->logo_path)) {
                 $this->paste = true;
             }
         }
@@ -61,14 +64,14 @@ class SchoolFaultJustified extends Component
                 'uploadPdf' => ['required', 'mimes:pdf,jpg,jpeg,png', 'max:10240'], // até 10MB
             ]);
 
-            $directory = 'public/school_faults/' . $this->school_faults->id;
+            $directory = $this->diretory;
+
+            if (Storage::directoryMissing($directory)) {
+                Storage::makeDirectory($directory, 0755, true, true);
+            }
             Storage::deleteDirectory($directory);
 
-            // Storage::makeDirectory($directory, 0755, true, true);
-
-            $oldUmask = umask(0000); // ou 0022
             Storage::makeDirectory($directory, 0755, true, true);
-            umask($oldUmask); // restaura depois
 
             $extension = $this->uploadPdf->getClientOriginalExtension();
             $filename = Str::random(20) . '.pdf';
@@ -112,33 +115,16 @@ class SchoolFaultJustified extends Component
         $mpdf->Output($outputPath, \Mpdf\Output\Destination::FILE); // salva no disco
     }
 
-    // public function convertImageToPdf($imagePath, $outputPath)
-    // {
-    //     $imageData = base64_encode(file_get_contents($imagePath));
-    //     $mime = mime_content_type($imagePath);
-    //     $base64Image = "data:$mime;base64,$imageData";
-
-    //     $html = "<html><body style='margin:0;padding:0;'>
-    //             <img src='{$base64Image}' style='width:100%;height:auto;'>
-    //          </body></html>";
-
-    //     $pdf = Pdf::loadHTML($html);
-    //     Storage::put(str_replace(storage_path('app/'), '', $outputPath), $pdf->output());
-    // }
-
-
-
-
     public function excluirTemp()
     {
         $this->uploadPdf = '';
     }
     public function excluirDoc()
     {
-        if (Storage::directoryMissing('public/school_faults/' . $this->school_faults->id)) {
-            Storage::makeDirectory('public/school_faults/' . $this->school_faults->id);
+        if (Storage::directoryMissing($this->diretory)) {
+            Storage::makeDirectory($this->diretory);
         }
-        Storage::deleteDirectory('public/school_faults/' . $this->school_faults->id);
+        Storage::deleteDirectory($this->diretory);
         $this->paste = false;
     }
 

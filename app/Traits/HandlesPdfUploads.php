@@ -56,10 +56,10 @@ trait HandlesPdfUploads
     }
     public function deletePdfDirectory($directory)
     {
-        if (Storage::directoryMissing($this->diretory)) {
-            Storage::makeDirectory($this->diretory);
+        if (Storage::directoryMissing($directory)) {
+            Storage::makeDirectory($directory);
         }
-        Storage::deleteDirectory($this->diretory);
+        Storage::deleteDirectory($directory);
         return false;
     }
 }

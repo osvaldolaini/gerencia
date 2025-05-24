@@ -23,6 +23,9 @@ trait HandlesPdfUploads
 
         // Gera nome aleatório
         $extension = $file->getClientOriginalExtension();
+        if (!$filename) {
+            $filename = Str::random(20) . '.pdf';
+        }
         $filename = $filename . Str::random(20) . '.pdf';
         $outputPath = storage_path('app/' . $directory . '/' . $filename);
 

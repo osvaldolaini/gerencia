@@ -20,6 +20,7 @@ use Spatie\Activitylog\LogOptions;
 
 
 use App\Traits\HasAdjustedGrau;
+use Carbon\Carbon;
 
 class Peoples extends Model
 {
@@ -235,5 +236,52 @@ class Peoples extends Model
     public function contacts(): HasMany
     {
         return $this->hasMany(StudentContacts::class, 'student_id', 'id');
+    }
+
+    //calcula o grau no momento da punição
+    public function getAdjustedGrauAtePenaAttribute()
+    {
+        return $this->calculateAdjustedGrau(Carbon::parse($this->bi_date));
+    }
+    protected function calculateAdjustedGrau(?Carbon $dataFinal = null)
+    {
+        $nota = floatval($this->grau);
+        $dataFinal = $dataFinal ?? now();
+        $punicoes = $this->fafd()
+            ->whereNotNull('bi_date')
+            ->where('bi_date', '<=', $dataFinal) // só considera até a data final
+            ->orderBy('bi_date')
+            ->get();
+
+        $dataReferencia = null;
+
+        if ($punicoes->isEmpty()) {
+            if ($this->entry_date) {
+                $dataReferencia = Carbon::parse($this->entry_date)->addDays(90);
+                if ($dataFinal->gt($dataReferencia)) {
+                    $dias = $dataReferencia->diffInDays($dataFinal);
+                    $nota += $dias * 0.01;
+                    $nota = min($nota, 10.00);
+                }
+            }
+            return number_format($nota, 2);
+        }
+
+        foreach ($punicoes as $p) {
+            $dataP = Carbon::parse($p->bi_date);
+            $grauPunicao = floatval($p->grau);
+            $nota -= $grauPunicao;
+            $nota = max($nota, 0.00);
+
+            $dataReferencia = $dataP->copy()->addDays(90);
+        }
+
+        if ($dataReferencia && $dataFinal->gt($dataReferencia)) {
+            $dias = $dataReferencia->diffInDays($dataFinal);
+            $nota += $dias * 0.01;
+            $nota = min($nota, 10.00);
+        }
+
+        return number_format($nota, 2);
     }
 }

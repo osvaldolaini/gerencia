@@ -173,7 +173,7 @@
                             ,
                             de
                             {{ $fault_discipline->f_date }}) - Grau de comportamento
-                            {{ $fault_discipline->student->calculateAdjustedGrau(Carbon::parse($fault_discipline->bi_date)) }}.
+                            {{ $fault_discipline->students->calculateAdjustedGrau(Carbon::parse($fault_discipline->bi_date)) }}.
 
             </div>
 
@@ -190,7 +190,7 @@
                     </td>
                     <td colspan="2" style="border-top: 1px solid black;border-right: 1px solid">
                         Grau de Comportamento:
-                        {{ $fault_discipline->student->calculateAdjustedGrau(Carbon::parse($fault_discipline->bi_date)) }}
+                        {{ $fault_discipline->students->calculateAdjustedGrau(Carbon::parse($fault_discipline->bi_date)) }}
                     </td>
                 </tr>
                 <tr>

@@ -17,6 +17,8 @@ trait HandlesPdfUploads
         if ($deleteDirectory) {
             Storage::deleteDirectory($directory);
             Storage::makeDirectory($directory, 0755, true, true);
+        } else {
+            Storage::delete($directory . '/' . $filename);
         }
 
         // Gera nome aleatório

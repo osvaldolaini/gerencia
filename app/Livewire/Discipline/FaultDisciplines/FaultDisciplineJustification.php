@@ -146,27 +146,41 @@ class FaultDisciplineJustification extends Component
     {
         $this->dispatch('submitForm');
     }
+    // public function updated($property)
+    // // public function uploaddoc()
+    // {
+    //     if ($property === 'uploadPdf') {
+    //         $this->rules = [
+    //             'uploadPdf'   => ['nullable', 'mimes:pdf', 'max:1024'],
+    //         ];
+
+    //         $this->validate();
+    //         if (Storage::directoryMissing('public/fafd/' . $this->fault_discipline->id)) {
+    //             Storage::makeDirectory('public/fafd/' . $this->fault_discipline->id, 0755, true, true);
+    //         }
+    //         Storage::delete('public/fafd/' . $this->fault_discipline->id . '/fafd_n_' . $this->fault_discipline->number . '.pdf');
+    //         if (isset($this->uploadPdf)) {
+    //             $ext = $this->uploadPdf->getClientOriginalExtension();
+    //             $new_name = 'fafd_n_' . $this->fault_discipline->number . '.pdf';
+
+    //             $this->uploadPdf->storeAs('public/fafd/' . $this->fault_discipline->id, $new_name);
+    //         }
+    //     }
+    //     $this->paste = true;
+    // }
     public function updated($property)
-    // public function uploaddoc()
     {
         if ($property === 'uploadPdf') {
-            $this->rules = [
-                'uploadPdf'   => ['nullable', 'mimes:pdf', 'max:1024'],
-            ];
+            $this->validate([
+                'uploadPdf' => ['required', 'mimes:pdf,jpg,jpeg,png', 'max:10240'],
+            ]);
 
-            $this->validate();
-            if (Storage::directoryMissing('public/fafd/' . $this->fault_discipline->id)) {
-                Storage::makeDirectory('public/fafd/' . $this->fault_discipline->id, 0755, true, true);
-            }
-            Storage::delete('public/fafd/' . $this->fault_discipline->id . '/fafd_n_' . $this->fault_discipline->number . '.pdf');
-            if (isset($this->uploadPdf)) {
-                $ext = $this->uploadPdf->getClientOriginalExtension();
-                $new_name = 'fafd_n_' . $this->fault_discipline->number . '.pdf';
+            $directory = 'public/fafd/' . $this->fault_discipline->id;
+            $filename = 'fafd_n_' . $this->fault_discipline->number . '.pdf';
+            $filename = $this->handlePdfUpload($this->uploadPdf, $directory, $filename, false);
 
-                $this->uploadPdf->storeAs('public/fafd/' . $this->fault_discipline->id, $new_name);
-            }
+            $this->paste = true;
         }
-        $this->paste = true;
     }
     public function excluirTemp()
     {

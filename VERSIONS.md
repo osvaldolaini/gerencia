@@ -1,16 +1,23 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.4.4
+
+> Melhorias
+
+    ->Cadastro de contatos no perfil do aluno
+
 ## Versão Santos Dumont 1.4.3
 
 > Melhorias
 
-    ->Upload de imagem nas justificativa de falta, e na FAFD
+    ->Upload de imagem nas justificativa de falta e na FAFD
+    ->Grau de comportamento na publicação
 
 ## Versão Santos Dumont 1.4.2
 
 > Novidades
 
-    ->Assiantura co cmt da cia na abertura do processo de FAFD
+    ->Assiantura do cmt da cia na abertura do processo de FAFD
     ->Upload de imagem da assinatura (opcional)
 
 ## Versão Santos Dumont 1.4.1

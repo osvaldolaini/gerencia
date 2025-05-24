@@ -27,7 +27,7 @@
                             {{ $email->subject }}
                         </td>
                         <td>
-                            {{ $email->from }}
+                            {{ $email->studentContact->parent }}
                             <br />
                             <span class="badge badge-ghost badge-sm">
                                 <{{ $email->from }}>

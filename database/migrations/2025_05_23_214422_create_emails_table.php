@@ -19,6 +19,11 @@ return new class extends Migration
                 ->constrained('student_contacts')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreignId('student_id')
+                ->nullable()
+                ->constrained('peoples')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->string('code')->nullable();
             $table->string('from')->nullable();
             $table->string('subject')->nullable();

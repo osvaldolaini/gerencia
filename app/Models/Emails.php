@@ -21,6 +21,7 @@ class Emails extends Model
     protected $fillable = [
         'status',
         'student_contacts_id',
+        'student_id',
         'from',
         'subject',
         'contact',
@@ -70,5 +71,9 @@ class Emails extends Model
     public function studentContact(): BelongsTo
     {
         return $this->belongsTo(StudentContacts::class, 'student_contacts_id', 'id');
+    }
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Peoples::class, 'student_id', 'id');
     }
 }

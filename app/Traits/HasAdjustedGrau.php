@@ -62,7 +62,7 @@ trait HasAdjustedGrau
         $nota = floatval($this->grau);
         $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
         $dataReferencia = null;
-
+        // Log::debug("Sem punições. Dias após 90 da matrícula: {$dias}. Aumento: {$incremento}. Nota final: {$nota}");
         Log::debug("Nota inicial: {$nota}");
 
         if ($punicoes->isEmpty()) {
@@ -116,8 +116,8 @@ trait HasAdjustedGrau
             Log::debug("Punição em {$p->bi_date}: -{$grauPunicao}. Nota atual: {$nota}");
 
             // Atualiza data referência para o último castigo
-            $dataReferencia = $dataP->copy()->addDays(180);
-            Log::debug("Nova data de referência após punição (90+90 dias): {$dataReferencia->format('Y-m-d')}");
+            $dataReferencia = $dataP->copy()->addDays(90);
+            Log::debug("Nova data de referência após punição (90 dias): {$dataReferencia->format('Y-m-d')}");
         }
 
         // Ajuste final se já passaram 180 dias da última punição
@@ -127,9 +127,9 @@ trait HasAdjustedGrau
             $nota += $incremento;
             $nota = min($nota, 10.00);
 
-            Log::debug("Ajuste final após 180 dias da última punição: +{$incremento} ({$dias} dias). Nota final: {$nota}");
+            Log::debug("Ajuste final após 90 dias da última punição: +{$incremento} ({$dias} dias). Nota final: {$nota}");
         } else {
-            Log::debug("Ainda não passaram 180 dias desde a última punição.");
+            Log::debug("Ainda não passaram 90 dias desde a última punição.");
         }
 
         return number_format($nota, 2);

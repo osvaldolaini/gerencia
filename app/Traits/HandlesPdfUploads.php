@@ -8,18 +8,20 @@ use Mpdf\Mpdf;
 
 trait HandlesPdfUploads
 {
-    public function handlePdfUpload($file, $directory)
+    public function handlePdfUpload($file, $directory, $filename = null, $deleteDirectory = true)
     {
         // Cria ou recria o diretório
         if (Storage::directoryMissing($directory)) {
             Storage::makeDirectory($directory, 0755, true, true);
         }
-        Storage::deleteDirectory($directory);
-        Storage::makeDirectory($directory, 0755, true, true);
+        if ($deleteDirectory) {
+            Storage::deleteDirectory($directory);
+            Storage::makeDirectory($directory, 0755, true, true);
+        }
 
         // Gera nome aleatório
         $extension = $file->getClientOriginalExtension();
-        $filename = Str::random(20) . '.pdf';
+        $filename = $filename . Str::random(20) . '.pdf';
         $outputPath = storage_path('app/' . $directory . '/' . $filename);
 
         // Converte imagem ou move PDF

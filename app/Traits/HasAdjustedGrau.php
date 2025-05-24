@@ -64,6 +64,7 @@ trait HasAdjustedGrau
         $dataReferencia = null;
         // Log::debug("Sem punições. Dias após 90 da matrícula: {$dias}. Aumento: {$incremento}. Nota final: {$nota}");
         Log::debug("Nota inicial: {$nota}");
+        Log::debug("Data matricula {$this->entry_date}");
 
         if ($punicoes->isEmpty()) {
             if ($this->entry_date) {
@@ -83,6 +84,10 @@ trait HasAdjustedGrau
 
         // ✅ Ajuste adicional ANTES da primeira punição
         $primeiraPunição = Carbon::parse($punicoes->first()->bi_date);
+        Log::debug("Data 1ª {$primeiraPunição}");
+
+        $dataEntradaMais90 = Carbon::parse($this->entry_date)->addDays(90);
+        Log::debug("Data 1ª {$dataEntradaMais90}");
         if ($this->entry_date) {
             $dataEntradaMais90 = Carbon::parse($this->entry_date)->addDays(90);
 

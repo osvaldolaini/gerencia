@@ -9,6 +9,7 @@ use App\Models\Settings\SchoolBattalionStudents;
 use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolClassesStudent;
 use App\Models\Settings\SchoolClassesYears;
+use App\Models\Students\StudentContacts;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,9 +18,6 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
-
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
 use App\Traits\HasAdjustedGrau;
 
@@ -233,5 +231,9 @@ class Peoples extends Model
     public function faults(): HasMany
     {
         return $this->hasMany(SchoolFaults::class, 'student_id', 'id');
+    }
+    public function contacts(): HasMany
+    {
+        return $this->hasMany(StudentContacts::class, 'student_id', 'id');
     }
 }

@@ -4,6 +4,8 @@
     @php
 
         use App\Enums\Penalty;
+
+        use Carbon\Carbon;
     @endphp
     <meta charset="UTF-8">
     <x-favicons></x-favicons>

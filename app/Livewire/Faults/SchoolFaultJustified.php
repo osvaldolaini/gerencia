@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use Spatie\Browsershot\Browsershot;
 
 class SchoolFaultJustified extends Component
@@ -93,15 +95,37 @@ class SchoolFaultJustified extends Component
         $mime = mime_content_type($imagePath);
         $base64Image = "data:$mime;base64,$imageData";
 
-        $html = "<html><body style='margin:0;padding:0;'><img src='{$base64Image}' style='width:100%;height:auto;'></body></html>";
+        $html = "<html><body style='margin:0;padding:0;'>
+                    <img src='{$base64Image}' style='width:100%;height:auto;'>
+                 </body></html>";
 
-        Browsershot::html($html)
-            ->showBackground()
-            ->margins(0, 0, 0, 0)
-            ->deviceScaleFactor(1)
-            ->setOption('quality', 60)
-            ->save($outputPath);
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            'margin_top' => 0,
+            'margin_bottom' => 0,
+            'margin_left' => 0,
+            'margin_right' => 0,
+        ]);
+
+        $mpdf->WriteHTML($html);
+        $mpdf->Output($outputPath, \Mpdf\Output\Destination::FILE); // salva no disco
     }
+
+    // public function convertImageToPdf($imagePath, $outputPath)
+    // {
+    //     $imageData = base64_encode(file_get_contents($imagePath));
+    //     $mime = mime_content_type($imagePath);
+    //     $base64Image = "data:$mime;base64,$imageData";
+
+    //     $html = "<html><body style='margin:0;padding:0;'>
+    //             <img src='{$base64Image}' style='width:100%;height:auto;'>
+    //          </body></html>";
+
+    //     $pdf = Pdf::loadHTML($html);
+    //     Storage::put(str_replace(storage_path('app/'), '', $outputPath), $pdf->output());
+    // }
+
 
 
 

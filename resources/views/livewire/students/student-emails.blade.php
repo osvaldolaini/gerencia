@@ -1,6 +1,6 @@
 <div>
     <div class="flex justify-center mb-5">
-        <span wire:click="addRow"
+        <span wire:click="sentEmail()"
             class="flex justify-between px-3 py-1 text-white transition-colors duration-200 bg-gray-700 border border-gray-500 rounded-md cursor-pointer hover:text-white dark:hover:bg-blue-500 hover:hover:bg-blue-500 whitespace-nowrap">
             Enviar ficha indivídual <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 ml-2 " viewBox="0 0 24 24"
                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -9,11 +9,11 @@
             </svg>
         </span>
     </div>
-    <div class="overflow-x-auto">
-        <table class="table">
+    <div class="overflow-x-auto dark:text-white">
+        <table class="table dark:text-white">
             <!-- head -->
             <thead>
-                <tr>
+                <tr class="dark:text-white">
                     <th>Assunto</th>
                     <th>Para</th>
                     <th>Data</th>
@@ -29,8 +29,8 @@
                         <td>
                             {{ $email->studentContact->parent }}
                             <br />
-                            <span class="badge badge-ghost badge-sm">
-                                <{{ $email->from }}>
+                            <span class="badge badge-ghost badge-sm ">
+                                <{{ $email->to }}>
                             </span>
                         </td>
                         <td>

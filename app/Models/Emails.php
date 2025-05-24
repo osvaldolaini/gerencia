@@ -22,9 +22,8 @@ class Emails extends Model
         'status',
         'student_contacts_id',
         'student_id',
-        'from',
+        'to',
         'subject',
-        'contact',
         'message',
         'attachment',
         'code',
@@ -45,11 +44,7 @@ class Emails extends Model
         });
         static::creating(function ($transaction) {
             $transaction->created_by = Auth::user()->name;
-            $transaction->updated_by = Auth::user()->name;
-        });
-
-        static::updating(function ($transaction) {
-            $transaction->updated_by = Auth::user()->name;
+            // $transaction->updated_by = Auth::user()->name;
         });
     }
     public function setUpperCaseAttributes(array $attributes)

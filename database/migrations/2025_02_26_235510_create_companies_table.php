@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nick')->nullable();
             $table->string('code')->nullable();
             $table->string('logo_path', 100)->nullable();
+            $table->string('email')->nullable();
             $table->integer('workload')->nullable();
             $table->foreignId('people_id')
                 ->nullable()

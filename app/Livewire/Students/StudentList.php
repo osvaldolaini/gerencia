@@ -144,6 +144,11 @@ class StudentList extends Component
     {
         $this->dispatch('openAlert', $status, $msg);
     }
+    #[On('closeModal')]
+    public function closeModal()
+    {
+        $this->showModalForm = false;
+    }
     //Turmas
     public function history(Peoples $student)
     {

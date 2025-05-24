@@ -25,7 +25,7 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->string('code')->nullable();
-            $table->string('from')->nullable();
+            $table->string('to')->nullable();
             $table->string('subject')->nullable();
             $table->string('message')->nullable();
             $table->string('attachment')->nullable();

@@ -24,6 +24,7 @@ class Companies extends Model
         'name',
         'nick',
         'code',
+        'email',
         'logo_path',
         'workload',
         'updated_by',

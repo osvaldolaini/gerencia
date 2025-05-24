@@ -25,6 +25,7 @@ class CompanyForm extends Component
     public $nick;
     public $people_id;
     public $workload;
+    public $email;
 
     public $people;
 
@@ -36,6 +37,7 @@ class CompanyForm extends Component
             $this->id           = $companies->id;
             $this->name         = $companies->name;
             $this->nick         = $companies->nick;
+            $this->email        = $companies->email;
             $this->people_id    = $companies->people_id;
             $this->workload     = $companies->workload;
         }
@@ -70,6 +72,7 @@ class CompanyForm extends Component
         $this->rules = [
             'name' => 'required|' . Rule::unique('companies')->ignore($this->id),
             'workload' => 'required',
+            'email' => 'email',
         ];
         $this->validate();
         if ($this->id) {
@@ -77,6 +80,7 @@ class CompanyForm extends Component
                 'id'    => $this->id,
             ], [
                 'name' => $this->name,
+                'email' => $this->email,
                 'nick' => $this->nick,
                 'workload' => $this->workload,
                 'people_id' => $this->people_id,
@@ -90,6 +94,7 @@ class CompanyForm extends Component
                 'name'      => $this->name,
                 'nick'      => $this->nick,
                 'workload' => $this->workload,
+                'email'     => $this->email,
                 'people_id' => $this->people_id,
 
                 'code'      => Str::uuid(),

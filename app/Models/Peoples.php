@@ -238,11 +238,7 @@ class Peoples extends Model
         return $this->hasMany(StudentContacts::class, 'student_id', 'id');
     }
 
-    //calcula o grau no momento da punição
-    public function getAdjustedGrauBiDateAttribute()
-    {
-        return $this->calculateAdjustedGrau(Carbon::parse($this->bi_date));
-    }
+
     protected function calculateAdjustedGrau(?Carbon $dataFinal = null)
     {
         $nota = floatval($this->grau);

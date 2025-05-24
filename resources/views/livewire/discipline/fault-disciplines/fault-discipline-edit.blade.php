@@ -525,7 +525,7 @@
                                             @endif
                                             de
                                             {{ $f_date }}) - Grau de comportamento
-                                            {{ $students->adjusted_grau_bi_date($bi_date) }}.
+                                            {{ $students->adjusted_grau_bi_date }}.
                                 </code>
                             </div>
                         </div>

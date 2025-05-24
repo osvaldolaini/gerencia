@@ -277,6 +277,6 @@ class Peoples extends Model
             $nota = min($nota, 10.00);
         }
 
-        return number_format($nota, 2);
+        return number_format($nota, 2, ',');
     }
 }

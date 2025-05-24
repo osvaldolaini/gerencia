@@ -524,7 +524,8 @@
                                                 {{ $number }}/{{ $year }} - {{ $cia }},
                                             @endif
                                             de
-                                            {{ $f_date }}).
+                                            {{ $f_date }}) - Grau de comportamento
+                                            {{ $student->calculateAdjustedGrau(Carbon::parse($bi_date)) }}.
                                 </code>
                             </div>
                         </div>

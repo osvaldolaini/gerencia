@@ -239,7 +239,7 @@ class Peoples extends Model
     }
 
     //calcula o grau no momento da punição
-    public function getAdjustedGrauAtePenaAttribute()
+    public function getAdjustedGrauBiDateAttribute()
     {
         return $this->calculateAdjustedGrau(Carbon::parse($this->bi_date));
     }

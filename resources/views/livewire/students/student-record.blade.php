@@ -36,14 +36,13 @@
                                         <p>
                                             Nela, constam informações importantes para o acompanhamento pelos
                                             Responsáveis, dentre elas, o grau de comportamento, medidas disciplinares e
-                                            o percentual
-                                            de faltas.
+                                            o percentual de faltas.
                                         </p>
                                         <p>
                                             Respeitosamente,
                                         </p>
                                         <p>
-                                            Comandante da companhia
+                                            Comandante da {{ strtolower($company->name) }}
                                         </p>
                                     </td>
                                 </tr>

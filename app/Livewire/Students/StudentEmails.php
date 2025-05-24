@@ -39,7 +39,8 @@ class StudentEmails extends Component
                         $send = Mail::send(
                             new \App\Mail\StudentRecordNew([
                                 'contact' => $contact,
-                                'attachment' => $this->attachment
+                                'attachment' => $this->attachment,
+                                'company' => $this->student->company
                             ])
                         );
                         if ($send) {

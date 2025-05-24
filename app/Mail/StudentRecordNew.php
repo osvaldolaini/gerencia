@@ -15,6 +15,7 @@ class StudentRecordNew extends Mailable
     use Queueable, SerializesModels;
     public $contact;
     public $attachment;
+    public $company;
     /**
      * Create a new message instance.
      */
@@ -23,6 +24,7 @@ class StudentRecordNew extends Mailable
     ) {
         $this->contact = $data['contact'];
         $this->attachment = $data['attachment'];
+        $this->company = $data['company'];
     }
 
     /**
@@ -32,7 +34,7 @@ class StudentRecordNew extends Mailable
     {
         $config = Settings::find(1);
         return new Envelope(
-            from: new Address('test@teste', $config->name),
+            from: new Address($this->data['company']->email, $config->name),
             to: [
                 new Address($this->data['contact']->contact, $this->data['contact']->parent),
             ],

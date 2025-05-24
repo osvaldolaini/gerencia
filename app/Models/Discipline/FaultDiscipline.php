@@ -151,10 +151,10 @@ class FaultDiscipline extends Model
     {
         $this->attributes['bi_date'] = $this->dbDate($value);
     }
-    public function getBDateAttribute($value)
+    public function getBDateAttribute()
     {
-        if ($value != "") {
-            return $this->viewDate($value);
+        if ($this->bi_date != "") {
+            return $this->viewDate($this->bi_date);
         }
     }
     public function setSincomilDateAttribute($value)

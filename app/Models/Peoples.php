@@ -21,6 +21,7 @@ use Spatie\Activitylog\LogOptions;
 
 use App\Traits\HasAdjustedGrau;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class Peoples extends Model
 {
@@ -238,43 +239,79 @@ class Peoples extends Model
         return $this->hasMany(StudentContacts::class, 'student_id', 'id');
     }
 
-    public function calculateAdjustedGrau(?Carbon $dataFinal = null)
+    protected function calculateAdjustedGrau(?Carbon $dataFinal = null)
     {
         $nota = floatval($this->grau);
         $dataFinal = $dataFinal ?? now();
         $punicoes = $this->fafd()
             ->whereNotNull('bi_date')
-            ->where('bi_date', '<=', $dataFinal) // só considera até a data final
+            ->where('bi_date', '<=', $dataFinal)
             ->orderBy('bi_date')
             ->get();
 
         $dataReferencia = null;
+        Log::debug("Nota inicial: {$nota}");
+        Log::debug("Data matrícula: {$this->entry_date}");
 
         if ($punicoes->isEmpty()) {
             if ($this->entry_date) {
                 $dataReferencia = Carbon::parse($this->entry_date)->addDays(90);
                 if ($dataFinal->gt($dataReferencia)) {
                     $dias = $dataReferencia->diffInDays($dataFinal);
-                    $nota += $dias * 0.01;
+                    $incremento = $dias * 0.01;
+                    $nota += $incremento;
                     $nota = min($nota, 10.00);
+                    Log::debug("Sem punições. Dias após 90 da matrícula: {$dias}. Aumento: {$incremento}. Nota final: {$nota}");
+                } else {
+                    Log::debug("Sem punições. Ainda não passaram 90 dias desde a matrícula.");
                 }
             }
             return number_format($nota, 2);
         }
 
+        // Antes da primeira punição: incremento se aplicável
+        $primeiraPunição = Carbon::parse($punicoes->first()->bi_date);
+        $dataEntradaMais90 = Carbon::parse($this->entry_date)->addDays(90);
+        Log::debug("Data 1ª punição: {$primeiraPunição}");
+        Log::debug("90 dias após matrícula: {$dataEntradaMais90}");
+
+        if ($this->entry_date && $primeiraPunição->gt($dataEntradaMais90)) {
+            $dias = $dataEntradaMais90->diffInDays($primeiraPunição);
+            $incremento = $dias * 0.01;
+            $nota += $incremento;
+            $nota = min($nota, 10.00);
+            Log::debug("Antes da 1ª punição. Dias entre 90 dias após matrícula e 1ª punição: {$dias}. Aumento: {$incremento}. Nota atual: {$nota}");
+        } else {
+            Log::debug("Não houve tempo entre os 90 dias da matrícula e a 1ª punição para acréscimo.");
+        }
+
+        // Aplica punições
         foreach ($punicoes as $p) {
             $dataP = Carbon::parse($p->bi_date);
             $grauPunicao = floatval($p->grau);
-            $nota -= $grauPunicao;
+
+            if ($p->dacision_days > 0) {
+                $nota -= $grauPunicao * $p->dacision_days;
+            } else {
+                $nota -= $grauPunicao;
+            }
+
             $nota = max($nota, 0.00);
+            Log::debug("Punição em {$p->bi_date}: -{$grauPunicao}. Nota atual: {$nota}");
 
             $dataReferencia = $dataP->copy()->addDays(90);
+            Log::debug("Nova data de referência após punição (90 dias): {$dataReferencia->format('Y-m-d')}");
         }
 
+        // Ajuste final se já passaram 90 dias da última punição
         if ($dataReferencia && $dataFinal->gt($dataReferencia)) {
             $dias = $dataReferencia->diffInDays($dataFinal);
-            $nota += $dias * 0.01;
+            $incremento = $dias * 0.01;
+            $nota += $incremento;
             $nota = min($nota, 10.00);
+            Log::debug("Ajuste final após 90 dias da última punição: +{$incremento} ({$dias} dias). Nota final: {$nota}");
+        } else {
+            Log::debug("Ainda não passaram 90 dias desde a última punição.");
         }
 
         return number_format($nota, 2, ',');

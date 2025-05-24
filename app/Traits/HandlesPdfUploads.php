@@ -54,4 +54,12 @@ trait HandlesPdfUploads
         $mpdf->WriteHTML($html);
         $mpdf->Output($outputPath, \Mpdf\Output\Destination::FILE);
     }
+    public function deletePdfDirectory($directory)
+    {
+        if (Storage::directoryMissing($this->diretory)) {
+            Storage::makeDirectory($this->diretory);
+        }
+        Storage::deleteDirectory($this->diretory);
+        return false;
+    }
 }

@@ -11,13 +11,15 @@ use Livewire\WithFileUploads;
 
 use App\Models\Admin\Settings\Settings;
 use App\Models\Settings\Companies;
+use App\Traits\HandlesPdfUploads;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Str;
 
 class FaultDisciplineNote extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads;      // ⬅️ Necessário para lidar com uploads
+    use HandlesPdfUploads;    // ⬅️ Sua trait personalizada
 
     public $uploadPdf;
     public $fafd;

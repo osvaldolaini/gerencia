@@ -11,7 +11,7 @@
 <body style="margin: 0; padding: 0;">
     <table align="center" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
         <tr>
-            <td align="center" bgcolor="#007bff" style="padding: 20px 0 20px 0;">
+            <td align="center" bgcolor="#cccccc" style="padding: 20px 0 20px 0;">
                 <img width="10%" src="{{ url('storage/logos-school/logo-header.png') }}" alt="Feliz aniversário."
                     style="display: block;" />
                 <h4 style="margin: 0; padding: 0; font-family:arial; color:#fff;">{{ $config->nick }}</h4>
@@ -55,7 +55,7 @@
         </tr>
         <tr>
             <td width="260" valign="top">
-                *Caso você não queira mais receber nossos emails informe o colégio.
+                *Caso você não queira mais receber nossos emails informe a {{ strtolower($company->name) }}.
             </td>
         </tr>
 

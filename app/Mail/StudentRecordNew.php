@@ -66,7 +66,7 @@ class StudentRecordNew extends Mailable
     {
         // dd(storage_path('app/pdf-tmp/' . $this->data['attachment']));
         return [
-            Attachment::fromPath(url('storage/pdf-tmp/ficha_individual_38000_LAINI_ba8de2bb-b414-472d-8b67-fe2a38d6186c.pdf'))
+            Attachment::fromPath(url('storage/pdf-tmp/' . $this->data['attachment']))
                 ->as($this->data['attachment'])
                 ->withMime('application/pdf')
         ];

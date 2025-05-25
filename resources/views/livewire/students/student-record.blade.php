@@ -14,8 +14,8 @@
             <td align="center" bgcolor="#cccccc" style="padding: 20px 0 20px 0;">
                 <img width="10%" src="{{ url('storage/logos-school/logo-header.png') }}" alt="Feliz aniversário."
                     style="display: block;" />
-                <h4 style="margin: 0; padding: 0; font-family:arial; color:#fff;">{{ $config->nick }}</h4>
-                <h6 style="margin: 0; padding: 0;font-family:arial; color:#fff;">
+                <h4 style="margin: 0; padding: 0; font-family:arial; color:#292626;">{{ $config->nick }}</h4>
+                <h6 style="margin: 0; padding: 0;font-family:arial; color:rgb(61, 58, 58)626;">
                     {{ $config->name }}
                 </h6>
             </td>

@@ -30,7 +30,7 @@
                             {{ $email->studentContact->parent }}
                             <br />
                             <span class="badge badge-ghost badge-sm ">
-                                <{{ $email->to }}>
+                                {{ $email->studentContact->contact }}
                             </span>
                         </td>
                         <td>

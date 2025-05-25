@@ -35,7 +35,7 @@ class StudentRecordNew extends Mailable
     {
         $config = Settings::find(1);
         return new Envelope(
-            from: new Address($this->data['company']->email, $config->name),
+            from: new Address($this->data['company']->email, $this->data['company']->nick . ' - ' . $config->nick),
             to: [
                 new Address($this->data['contact']->contact, $this->data['contact']->parent),
             ],

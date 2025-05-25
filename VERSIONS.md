@@ -1,5 +1,11 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.5.0 2025-05-24
+
+> Novidades
+
+    ->Disparo da ficha individual direto do cadastro do aluno
+
 ## Versão Santos Dumont 1.4.4
 
 > Melhorias

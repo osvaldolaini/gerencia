@@ -23,8 +23,10 @@ class Buttons extends Component
     {
         $config = Settings::find(1);
 
-        Storage::deleteDirectory('public/pdf-tmp');
-        Storage::makeDirectory('public/pdf-tmp'); // recria vazia se necessário
+        if (Storage::exists($directory)) {
+            $files = Storage::allFiles($directory);
+            Storage::delete($files);
+        }
 
         $logoPath = url('storage/logos-school/logo-header.png');
 

@@ -23,8 +23,10 @@ class Buttons extends Component
     {
         $config = Settings::find(1);
 
-        if (Storage::exists($directory)) {
-            $files = Storage::allFiles($directory);
+
+
+        if (Storage::exists('public/pdf-tmp')) {
+            $files = Storage::allFiles('public/pdf-tmp');
             Storage::delete($files);
         }
 

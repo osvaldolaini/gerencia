@@ -14,12 +14,15 @@ use Livewire\WithPagination;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Admin\Settings\Settings;
+use App\Traits\HandlesTmpUploads;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class StudentList extends Component
 {
     use WithPagination;
+
+    use HandlesTmpUploads;
     public $breadcrumb = 'Estudantes';
     public $modal = true;
     public $showJetModal = false;
@@ -152,6 +155,9 @@ class StudentList extends Component
     //Turmas
     public function history(Peoples $student)
     {
+        //Apagar itens do diretório temporário
+        $this->clearTmpDirectory('public/pdf-tmp');
+
         $config = Settings::find(1);
         $company = $student?->al_class?->classGrade?->getCompany ?? false;
         $signature = false;

@@ -7,6 +7,7 @@ use App\Models\Settings\ClassroomSeats;
 use App\Models\Settings\SchoolBattalions;
 use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolGrades;
+use App\Traits\HandlesTmpUploads;
 use Livewire\Component;
 
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,9 @@ use Illuminate\Support\Str;
 
 class Buttons extends Component
 {
+
+    use HandlesTmpUploads;
+
     public $print_classes   = false;
     public $print_classes_sex   = false;
     public $print_call      = false;
@@ -57,6 +61,9 @@ class Buttons extends Component
     //Turmas
     public function classes()
     {
+        //Apagar itens do diretório temporário
+        $this->clearTmpDirectory('public/pdf-tmp');
+
         $config = Settings::find(1);
 
         $logoPath = Storage::exists('public/companies/' . $this->company->id)
@@ -129,6 +136,9 @@ class Buttons extends Component
     //Turmas
     public function classes_sex()
     {
+        //Apagar itens do diretório temporário
+        $this->clearTmpDirectory('public/pdf-tmp');
+
         $config = Settings::find(1);
 
         $logoPath = Storage::exists('public/companies/' . $this->company->id)
@@ -201,6 +211,9 @@ class Buttons extends Component
     //PDF
     public function classroom()
     {
+
+        //Apagar itens do diretório temporário
+        $this->clearTmpDirectory('public/pdf-tmp');
 
         // dd($this->school_classes);
         $config = Settings::find(1);
@@ -279,6 +292,9 @@ class Buttons extends Component
     //Turmas
     public function grau()
     {
+        //Apagar itens do diretório temporário
+        $this->clearTmpDirectory('public/pdf-tmp');
+
         $config = Settings::find(1);
 
         $logoPath = Storage::exists('public/companies/' . $this->company->id)

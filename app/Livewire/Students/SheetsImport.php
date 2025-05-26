@@ -3,6 +3,7 @@
 namespace App\Livewire\Students;
 
 use App\Imports\PlanilhaImport;
+use App\Traits\HandlesTmpUploads;
 use Maatwebsite\Excel\Facades\Excel;
 use Livewire\Component;
 
@@ -11,6 +12,8 @@ use Livewire\WithFileUploads;
 class SheetsImport extends Component
 {
     use WithFileUploads;
+
+    use HandlesTmpUploads;
 
     public $sheet;
     public $alertSession = false;
@@ -31,6 +34,9 @@ class SheetsImport extends Component
 
     public function importExcel()
     {
+        //Apagar itens do diretório temporário
+        $this->clearTmpDirectory('imports');
+
         $this->validate([
             'sheet' => 'required|file|mimes:xlsx|max:2048',
         ]);

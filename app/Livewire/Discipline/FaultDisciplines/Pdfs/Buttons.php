@@ -94,6 +94,9 @@ class Buttons extends Component
     //Solução
     public function solution()
     {
+        //Apagar itens do diretório temporário
+        $this->clearTmpDirectory('public/pdf-tmp');
+
         $config = Settings::find(1);
 
         $logoPath = url('storage/logos-school/logo-header.png');
@@ -163,6 +166,9 @@ class Buttons extends Component
     //Publicação
     public function publi()
     {
+        //Apagar itens do diretório temporário
+        $this->clearTmpDirectory('public/pdf-tmp');
+
         $config = Settings::find(1);
 
         $logoPath = url('storage/logos-school/logo-header.png');

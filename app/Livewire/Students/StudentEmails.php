@@ -74,6 +74,8 @@ class StudentEmails extends Component
             if ($error > 0) {
                 $this->openAlert('error', $error . ' email(s) não foram por erro no cadastro ou falta de email.');
             }
+        } else {
+            $this->dispatch('openAlertModal', 'error', 'Nenhum contato cadastrado');
         }
         $this->emails   = $this->student->emails->sortByDesc('created_at');
     }
@@ -81,6 +83,7 @@ class StudentEmails extends Component
     public function openAlert($status, $msg)
     {
         $this->dispatch('openAlert', $status, $msg);
+        $this->dispatch('openAlertModal', $status, $msg);
         $this->dispatch('closeModal');
     }
     //Turmas

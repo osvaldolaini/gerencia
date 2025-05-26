@@ -148,6 +148,8 @@ class UserForm extends Component
                 'name'      => $user->name,
                 'nick'      => null,
                 'user_id'   => $user->id,
+                'posto_grad' => 0,
+                'function'  => 'outros',
                 'type'      => 0,
                 'code'      => Str::uuid(),
             ]);

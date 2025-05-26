@@ -26,13 +26,15 @@ class StudentEmails extends Component
         $this->emails   =  $student->emails;
         $this->contacts =  $student->contacts;
     }
+
     public function render()
     {
+        $this->emails   = $this->student->emails;
         return view('livewire.students.student-emails');
     }
+
     public function sentEmail()
     {
-
         $countMail = 0;
         $totalEmails = $this->contacts->count();
         if ($this->contacts->count() > 0) {
@@ -73,7 +75,9 @@ class StudentEmails extends Component
                 $this->openAlert('error', $error . ' email(s) não foram por erro no cadastro ou falta de email.');
             }
         }
+        $this->emails   = $this->student->emails;
     }
+
     public function openAlert($status, $msg)
     {
         $this->dispatch('openAlert', $status, $msg);

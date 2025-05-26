@@ -10,9 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Str;
 
+use App\Traits\HandlesTmpUploads;
+
 class Buttons extends Component
 {
     public $title;
+
+    use HandlesTmpUploads;
+
 
     public function render()
     {
@@ -21,15 +26,10 @@ class Buttons extends Component
     //Justificativa
     public function justify()
     {
+        //Apagar itens do diretório temporário
+        $this->clearPdfTmpDirectory('public/pdf-tmp');
+
         $config = Settings::find(1);
-
-
-
-        if (Storage::exists('public/pdf-tmp')) {
-            $files = Storage::allFiles('public/pdf-tmp');
-            Storage::delete($files);
-        }
-
         $logoPath = url('storage/logos-school/logo-header.png');
 
 

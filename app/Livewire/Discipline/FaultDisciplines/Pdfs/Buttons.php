@@ -23,6 +23,9 @@ class Buttons extends Component
     {
         $config = Settings::find(1);
 
+        Storage::deleteDirectory('public/pdf-tmp');
+        Storage::makeDirectory('public/pdf-tmp'); // recria vazia se necessário
+
         $logoPath = url('storage/logos-school/logo-header.png');
 
 
@@ -82,7 +85,6 @@ class Buttons extends Component
         $pdfPath = url('storage/pdf-tmp/' . $file);
 
         $mpdf->Output($down, 'F');
-
         $this->dispatch('openPdfInNewTabClasses', pdfPath: $pdfPath);
     }
     //Solução

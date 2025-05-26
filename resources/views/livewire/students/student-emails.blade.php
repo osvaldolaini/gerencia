@@ -1,9 +1,9 @@
 <div>
     <div class="flex justify-center mb-5">
         <span wire:click="sentEmail()"
-            class="flex justify-between px-3 py-1 text-white transition-colors duration-200 bg-green-500 border border-gray-500 rounded-md cursor-pointer hover:text-white dark:hover:bg-blue-500 hover:hover:bg-blue-500 whitespace-nowrap">
-            Enviar ficha indivídual <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 ml-2 " version="1.1"
-                id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            class="flex items-center justify-between px-3 py-1 text-white transition-colors duration-200 bg-green-500 border border-gray-500 rounded-md cursor-pointer hover:text-white dark:hover:bg-blue-500 hover:hover:bg-blue-500 whitespace-nowrap">
+            Enviar ficha indivídual <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 ml-2 "
+                version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 512 512" xml:space="preserve">
                 <g>
                     <g>

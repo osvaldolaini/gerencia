@@ -27,7 +27,7 @@ class Buttons extends Component
     public function justify()
     {
         //Apagar itens do diretório temporário
-        $this->clearPdfTmpDirectory('public/pdf-tmp');
+        $this->clearTmpDirectory('public/pdf-tmp');
 
         $config = Settings::find(1);
         $logoPath = url('storage/logos-school/logo-header.png');

@@ -6,6 +6,14 @@
 
     ->Disparo da ficha individual direto do cadastro do aluno
 
+> Melhorias
+
+    ->Pasta 'pdf-tmp' para não acumular pdfs
+
+> Correção
+
+    ->Erro ao criar efetivo a partir de um usuário
+
 ## Versão Santos Dumont 1.4.4
 
 > Melhorias

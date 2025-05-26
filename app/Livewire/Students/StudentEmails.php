@@ -23,13 +23,13 @@ class StudentEmails extends Component
     public function mount(Peoples $student)
     {
         $this->student  =  $student;
-        $this->emails   =  $student->emails;
+        $this->emails   = $this->student->emails->sortByDesc('created_at');
         $this->contacts =  $student->contacts;
     }
 
     public function render()
     {
-        $this->emails   = $this->student->emails;
+        $this->emails   = $this->student->emails->sortByDesc('created_at');
         return view('livewire.students.student-emails');
     }
 
@@ -75,7 +75,7 @@ class StudentEmails extends Component
                 $this->openAlert('error', $error . ' email(s) não foram por erro no cadastro ou falta de email.');
             }
         }
-        $this->emails   = $this->student->emails;
+        $this->emails   = $this->student->emails->sortByDesc('created_at');
     }
 
     public function openAlert($status, $msg)

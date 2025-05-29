@@ -198,7 +198,9 @@ class Buttons extends Component
                     ->where('decision', '!=', NULL)
                     ->where('decision', '!=', 'fo')
                     ->where('decision', '!=', 'justificado')
-                    ->orderBy('decision', 'ASC')->get(),
+                    ->orderBy('decision', 'asc')
+                    ->orderBy('fact_date', 'desc')
+                    ->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]

@@ -120,7 +120,7 @@ Route::middleware([
         ->name('student-list');
     Route::get('/cadastros/alunos/novo', StudentForm::class)
         ->name('student-create');
-    Route::get('/cadastros/alunos/{peoples}/editar', StudentForm::class)
+    Route::get('/cadastros/alunos/{students}/editar', StudentForm::class)
         ->name('student-edit');
 });
 

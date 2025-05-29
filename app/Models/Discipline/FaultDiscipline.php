@@ -202,7 +202,7 @@ class FaultDiscipline extends Model
 
     public function getTotalGrauAttribute()
     {
-        if ($this->dacision_days) {
+        if ($this->dacision == 'retirada_cm') {
             return floatval($this->grau) * $this->dacision_days;
         } else {
             return floatval($this->grau);

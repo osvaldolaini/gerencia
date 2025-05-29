@@ -10,6 +10,7 @@ use App\Enums\MilitaryRank;
 use Livewire\Attributes\On;
 
 use App\Enums\Penalty;
+use App\Models\Discipline\FactObserved;
 use App\Models\Discipline\Settings\Faults;
 
 class FaultDisciplineEdit extends Component
@@ -18,6 +19,8 @@ class FaultDisciplineEdit extends Component
 
     public $back = 'fault-discipline-list';
     public $route = 'fault-discipline';
+
+    public $seeModalJustify = false;
 
     public $breadcrumb;
     //Fields
@@ -162,7 +165,6 @@ class FaultDisciplineEdit extends Component
         }
     }
 
-
     public function render()
     {
         return view('livewire.discipline.fault-disciplines.fault-discipline-edit');
@@ -286,5 +288,46 @@ class FaultDisciplineEdit extends Component
         // $this->sugestion .= ' não sendo reincidente em falta desta natureza, de acordo com o Regimento Interno dos Colégios Militares (RICM)';
 
         $this->solution = $this->sugestion;
+    }
+    public function modalJustify()
+    {
+        $this->seeModalJustify = true;
+    }
+    public function justify()
+    {
+        FaultDiscipline::updateOrCreate([
+            'id'    => $this->id,
+        ], [
+            'fact'                     => $this->fact,
+            'fact_hour'                => $this->fact_hour,
+            'fact_date'                => $this->fact_date,
+            'fact_type'                => $this->fact_type,
+            'faults'                   => $this->faults,
+            'fact_observer'            => $this->fact_observer,
+            'fact_observer_function'   => $this->fact_observer_function,
+            'fact_observer_id'         => $this->fact_observer_id,
+            'delivered_date'           => $this->delivered_date,
+            'justification_date'       => $this->justification_date,
+            'aggravating'              => $this->aggravating,
+            'mitigating'               => $this->mitigating,
+            'repeat'                   => $this->repeat,
+            'repeat_number'            => $this->repeat_number,
+            'solution'                 => 'O fato foi considerado justificado e o FO foi removido',
+            'solution_date'            => date('d/m/Y'),
+            'decision'                 => 'justificado',
+            'dacision_days'            => 0,
+            'grau'                     => 0.0,
+            'bi_text'                  => 'O fato foi considerado justificado e o FO foi removido',
+
+        ]);
+
+        $data = FactObserved::where('fafd_id', $this->id)->first();
+        $data->active = 0;
+        $data->save();
+
+
+        $msg = 'O fato foi considerado justificado e o FO foi removido com sucesso.';
+
+        redirect()->route($this->route . '-list')->with('success', $msg);
     }
 }

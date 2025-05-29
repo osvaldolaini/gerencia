@@ -3,7 +3,6 @@
         use App\Enums\FunctionsObserver;
         use App\Enums\Penalty;
         use App\Enums\Rank;
-
         use Carbon\Carbon;
     @endphp
 
@@ -362,7 +361,20 @@
                             <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
                                 Decisão
                             </label>
-                            @foreach (Penalty::cases() as $item)
+                            <div class="p-0 tooltip tooltip-top" data-tip="Justificado" wire:click='modalJustify()'>
+                                <label
+                                    class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
+                                    rounded-md cursor-pointer
+                                    {{ 'justificado' == $decision ? 'bg-red-500 text-white' : 'bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900' }}">
+                                    <input type="radio" value="justificado" class="hidden peer"
+                                        {{ 'justificado' == $decision ? 'checked' : '' }}>
+
+                                    <span class="text-xs">
+                                        Justificado
+                                    </span>
+                                </label>
+                            </div>
+                            @foreach (Penalty::permitidos() as $item)
                                 <div class="p-0 tooltip tooltip-top" data-tip="{{ $item->label() }}">
                                     <label
                                         class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
@@ -563,4 +575,26 @@
             Salvar e sair
         </button>
     </div>
+    {{-- MODAL SEND MAIL --}}
+    <x-confirmation-modal wire:model="seeModalJustify">
+        <x-slot name="title">
+            FAFD justificada
+        </x-slot>
+
+        <x-slot name="content">
+            <h2 class="h2">A FAFD foi realmente considerada justificada?</h2>
+            <p>O FO que gerou o formulário será excluído.</p>
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$toggle('seeModalJustify')" wire:loading.attr="disabled">
+                Cancelar
+            </x-secondary-button>
+
+            <x-danger-button class="ml-2" wire:click="justify()" wire:loading.attr="disabled">
+                Enviar
+            </x-danger-button>
+        </x-slot>
+    </x-confirmation-modal>
+
 </div>

@@ -1,5 +1,15 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.5.1 2025-05-29
+
+> Melhorias
+
+    ->Opção de FAFD "justificada"
+
+> Correção
+
+    ->AOE não multiplica grau pelo numerpo de dias (grau fixo em 0.5)
+
 ## Versão Santos Dumont 1.5.0 2025-05-24
 
 > Novidades

@@ -85,7 +85,7 @@
             </tbody>
         </table>
     </div>
-    {{-- MODAL DELETE --}}
+    {{-- MODAL SEND MAIL --}}
     <x-confirmation-modal wire:model="showModalConfirm">
         <x-slot name="title">
             Enviar ficha individual

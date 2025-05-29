@@ -483,64 +483,6 @@
                         </div>
                         <div class="col-span-full ">
                             <div class="mockup-code">
-                                {{-- <code>
-                                    Em {{ $f_date }}, Al Nr {{ $al_number }},
-                                    {{ $al_name ? $al_name . '(' . $al_nick . ')' : $al_nick }},
-                                    turma {{ $al_class }} -
-                                    Motivo: {{ $solution }} Falta disciplinar nº @if (is_array($faults) && count($faults) > 0)
-                                        @foreach ($faults as $key => $item)
-                                            {{ $item }}@if ($loop->remaining === 1)
-                                                e
-                                            @elseif (!$loop->last)
-                                                ,
-                                            @endif
-                                        @endforeach
-                                        @endif, @if (is_array($aggravating) && count($aggravating) > 0)
-                                            com agravante(s) nr
-                                            @foreach ($aggravating as $key => $item)
-                                                {{ $item }}
-                                                @if ($loop->remaining === 1)
-                                                    e
-                                                @else
-                                                    ,
-                                                @endif
-                                            @endforeach
-                                        @else
-                                            sem agravantes,
-                                            @endif @if (is_array($mitigating) && count($mitigating) > 0)
-                                                com atenuante(s) nr
-                                                @foreach ($mitigating as $key => $item)
-                                                    {{ $item }}
-                                                    @if ($loop->remaining === 1)
-                                                        e
-                                                    @else
-                                                        ,
-                                                    @endif
-                                                @endforeach
-                                            @else
-                                                sem atenuante,
-                                            @endif
-                                            previstos no apêndice 1 do anexo F do RICM 2024,
-                                            @if ($repeat == 0)
-                                                não sendo
-                                                reincidente
-                                            @endif
-                                            @if ($repeat == 1)
-                                                sendo reincidente,
-                                                {{ $repeat_number }} vezes
-                                            @endif em faltas desta natureza.
-                                            - Medida disciplinar: @if ($dacision_days)
-                                                {{ $dacision_days }} dia{{ $dacision_days > 1 ? 's' : '' }} de
-                                            @endif
-                                            @if ($decision)
-                                                {{ Penalty::fromDb($decision)?->label() ?? 'Advertência' }} (FAFD
-                                                nº
-                                                {{ $number }}/{{ $year }} - {{ $cia }},
-                                            @endif
-                                            de
-                                            {{ $f_date }}) - Grau de comportamento
-                                            {{ $students->calculateAdjustedGrau(Carbon::parse($bi_date)) }}.
-                                </code> --}}
                                 <code>
                                     {{ $note }}
                                 </code>

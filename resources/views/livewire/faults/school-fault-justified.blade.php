@@ -1,6 +1,7 @@
 <div>
     @php
         use Carbon\Carbon;
+        use App\Enums\SchoolFault;
     @endphp
     <form>
         <x-layout.tabs>
@@ -72,7 +73,25 @@
                             </h2>
                         </div>
                         <div class="grid grid-cols-2 gap-2 mb-1 sm:grid-cols-6 sm:gap-3 sm:mb-5">
-                            <div class="col-span-full sm:col-span-1">
+                            <div class="col-span-full ">
+                                @foreach (SchoolFault::cases() as $item)
+                                    <div class="p-0 tooltip tooltip-top" data-tip="{{ $item->label() }}">
+                                        <label
+                                            class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
+                                        rounded-md cursor-pointer
+                                        {{ $item->value == $justified ? 'bg-blue-500 text-gray-800' : 'bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900' }}">
+                                            <input type="radio" wire:model.live="justified"
+                                                value="{{ $item->value }}" class="hidden peer"
+                                                {{ $item->value == $justified ? 'checked' : '' }}>
+
+                                            <span class="text-xs">
+                                                {{ $item->label() }}
+                                            </span>
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                            {{-- <div class="col-span-full sm:col-span-1">
                                 <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
                                     Justificado?
                                 </label>
@@ -81,7 +100,8 @@
                                 @error('justified')
                                     <span class="error">{{ $message }}</span>
                                 @enderror
-                            </div>
+                            </div> --}}
+
                             @if ($justified == 1)
                                 <div class="col-span-full sm:col-span-full ">
                                     <label class="block text-sm font-medium text-gray-900 dark:text-white"
@@ -159,7 +179,8 @@
                                                                 <div wire:loading wire:target="uploadPdf">Enviando...
                                                                 </div>
                                                             </div>
-                                                            <input id="dropzone-file" type="file" class="hidden" />
+                                                            <input id="dropzone-file" type="file"
+                                                                class="hidden" />
                                                         </label>
                                                     </div>
                                                 </form>

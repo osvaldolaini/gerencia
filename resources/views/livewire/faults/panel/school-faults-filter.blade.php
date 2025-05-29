@@ -1,4 +1,7 @@
 <div>
+    @php
+        use App\Enums\SchoolFault;
+    @endphp
     <div class="grid grid-cols-2 gap-2 mb-1 sm:grid-cols-6 sm:gap-3 sm:mb-5">
         <div class="col-span-full">
             <label class="block text-sm font-medium text-gray-900 dark:text-white" for="qtd"
@@ -60,6 +63,7 @@
                 <option value="">Todos</option>
                 <option value="1">Sim</option>
                 <option value="0">Não</option>
+                <option value="2">Abonada</option>
             </select>
         </div>
         <div class="col-span-full ">
@@ -142,8 +146,9 @@
                         <td class="px-2 py-1 text-center">{{ $fault->class->title ?? '-' }}</td>
                         <td class="px-2 py-1 text-center">{{ $fault->qtd }}</td>
                         <td class="px-2 py-1 text-center">
-                            <span class="badge {{ $fault->justified ? 'badge-success' : 'badge-error' }}">
-                                {{ $fault->justified ? 'Sim' : 'Não' }}
+
+                            <span class="badge {{ SchoolFault::from($fault->justified)->badge() }}">
+                                {{ SchoolFault::from($fault->justified)->text() }}
                             </span>
                         </td>
                         <td class="px-2 py-1 font-bold text-center">{{ $fault->acumulado }}</td>

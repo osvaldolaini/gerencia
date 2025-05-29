@@ -7,6 +7,7 @@
     @php
         use App\Enums\Penalty;
         use App\Enums\MilitaryRank;
+        use App\Enums\SchoolFault;
     @endphp
     <meta charset="UTF-8">
     <title>Ficha individual</title>
@@ -232,7 +233,7 @@
                             $dados[] = [
                                 'date_view' => $fault->date_view,
                                 'qtd' => $fault->qtd,
-                                'justified' => $fault->justified,
+                                'justified' => {{ SchoolFault::from($fault->justified)->label() }},
                                 'percentual' => $percentual,
                             ];
                         }

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 
+@php
+    use App\Enums\SchoolFault;
+@endphp
 
 <head>
     <meta charset="UTF-8">
@@ -70,7 +73,7 @@
                         <td class="text-center">{{ \Carbon\Carbon::parse($fault->date)->format('d/m/Y') }}</td>
                         <td class="text-center">{{ $fault->class->title ?? '-' }}</td>
                         <td class="text-center">{{ $fault->qtd }}</td>
-                        <td class="text-center">{{ $fault->justified ? 'Sim' : 'Não' }}</td>
+                        <td class="text-center"> {{ SchoolFault::from($fault->justified)->label() }}</td>
                         <td class="text-center">{{ $fault->acumulado }}</td>
                         <td class="px-2 py-1 font-bold text-center">
                             {{ number_format((($fault->acumulado ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%

@@ -5,6 +5,8 @@
 > Melhorias
 
     ->Opção de FAFD "justificada"
+    ->Opção de falta abonada
+    ->Botão de justificar a falta na lista
 
 > Correção
 

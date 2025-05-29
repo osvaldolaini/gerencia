@@ -92,7 +92,11 @@ class SchoolFaultsFilter extends Component
         $acumulados = [];
         foreach ($faultsOrdered as $fault) {
             $studentId = $fault->student_id;
-            $acumulados[$studentId] = ($acumulados[$studentId] ?? 0) + $fault->qtd;
+            if ($fault->justified != 2) {
+                $acumulados[$studentId] = ($acumulados[$studentId] ?? 0) + $fault->qtd;
+            } else {
+                $acumulados[$studentId] = ($acumulados[$studentId] ?? 0);
+            }
             $fault->acumulado = $acumulados[$studentId];
         }
 
@@ -113,6 +117,7 @@ class SchoolFaultsFilter extends Component
 
         // Coleta as faltas em ordem crescente para calcular acumulado
         $faultsOrdered = SchoolFaults::query()
+
             ->when($this->student_id, fn($q) => $q->where('student_id', $this->student_id))
             ->when($this->qtd, fn($q) => $q->where('qtd', $this->qtd))
             ->when($this->companies_id, fn($q) => $q->where('companies_id', $this->companies_id))
@@ -125,9 +130,14 @@ class SchoolFaultsFilter extends Component
 
         // Calcula o acumulado
         $acumulados = [];
+
         foreach ($faultsOrdered as $fault) {
             $studentId = $fault->student_id;
-            $acumulados[$studentId] = ($acumulados[$studentId] ?? 0) + $fault->qtd;
+            if ($fault->justified != 2) {
+                $acumulados[$studentId] = ($acumulados[$studentId] ?? 0) + $fault->qtd;
+            } else {
+                $acumulados[$studentId] = ($acumulados[$studentId] ?? 0);
+            }
             $fault->acumulado = $acumulados[$studentId];
         }
 

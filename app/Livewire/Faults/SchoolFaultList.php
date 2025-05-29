@@ -129,4 +129,9 @@ class SchoolFaultList extends Component
     {
         $this->dispatch('openAlert', $status, $msg);
     }
+    public function justify(SchoolFaults $school_faults, $justify)
+    {
+        $school_faults->justified = $justify;
+        $school_faults->save();
+    }
 }

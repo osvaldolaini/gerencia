@@ -37,6 +37,8 @@ class StudentEmails extends Component
 
     public function sentEmail()
     {
+        $user = Auth::user();
+        dd($user?->people);
         $countMail = 0;
         $totalEmails = $this->contacts->count();
         if ($this->contacts->count() > 0) {
@@ -79,7 +81,7 @@ class StudentEmails extends Component
                 $cia              = $this->student->al_class->classGrade->company->name;
                 $company_id       = $this->student->al_class->classGrade->company->id;
 
-                $user = Auth::user();
+
 
                 if ($user?->people) {
                     $fact_observer = MilitaryRank::from($user?->people?->posto_grad)->label() . ' ' . $user?->people?->nick;

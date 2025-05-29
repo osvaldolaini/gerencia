@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Students;
 
+use App\Enums\MilitaryRank;
 use App\Models\Admin\Settings\Settings;
+use App\Models\Discipline\FactObserved;
 use App\Models\Emails;
 use App\Models\Peoples;
 use Illuminate\Support\Facades\Auth;
@@ -66,6 +68,46 @@ class StudentEmails extends Component
                         }
                     }
                 }
+            }
+            if ($countMail > 0) {
+                $al_nick          = $this->student->nick;
+                $al_name          = $this->student->name;
+                $al_number        = $this->student->number;
+                $al_class         = $this->student->al_class->title;
+                $cmt_cia_posto    = MilitaryRank::from(intval($this->student->al_class->classGrade->company->comandant->posto_grad))->label();
+                $cmt_cia          = $this->student->al_class->classGrade->company->comandant->name;
+                $cia              = $this->student->al_class->classGrade->company->name;
+                $company_id       = $this->student->al_class->classGrade->company->id;
+
+                $user = Auth::user();
+
+                if ($user?->people) {
+                    $fact_observer = MilitaryRank::from($user?->people?->posto_grad)->label() . ' ' . $user?->people?->nick;
+                    $fact_observer_function = $user?->people?->function;
+                    $fact_observer_id = $user?->people?->id;
+                }
+
+                FactObserved::create([
+                    'active'    => 1,
+                    'cia'                      => $cia,
+                    'company_id'               => $company_id,
+                    'cmt_cia_posto'            => $cmt_cia_posto,
+                    'cmt_cia'                  => $cmt_cia,
+                    'student_id'               => $this->student->id,
+                    'al_nick'                  => $al_nick,
+                    'al_name'                  => $al_name,
+                    'al_number'                => $al_number,
+                    'al_class'                 => $al_class,
+                    'fact'                     => 'Foi enviado a ficha individual do aluno para os responsáveis.',
+                    'fact_hour'                => date('h:i:s'),
+                    'fact_date'                => date('d/m/Y'),
+                    'fact_type'                => 'informativo',
+                    // 'faults'                   => $faults,
+                    'fact_observer'            => $fact_observer,
+                    'fact_observer_function'   => $fact_observer_function,
+                    'fact_observer_id'         => $fact_observer_id,
+                    'code'      => Str::uuid(),
+                ]);
             }
 
             $error = $totalEmails - $countMail;

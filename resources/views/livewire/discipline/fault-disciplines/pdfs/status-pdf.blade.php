@@ -133,13 +133,19 @@
             </div>
             @php
                 $c = 0;
+                $decision = 'null';
+                $newdecision = 'advertencia';
             @endphp
-            @foreach ($data as $fafd)
+            @foreach ($data->orderBy('decision') as $fafd)
+                @if ($newdecision != $decision)
+                    <h2>{{ strtoupper($newdecision) }}</h2>
+                @endif
                 @php
                     $c += 1;
+                    $newdecision = $fafd->decision;
                 @endphp
+
                 <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
-                    {{ $fafd->bi_number }}
                     Em {{ $fafd->f_date }}, Al Nr {{ $fafd->al_number }},
                     {{ $fafd->al_name ? $fafd->al_name . '(' . $fafd->al_nick . ')' : $fafd->al_nick }},
                     turma {{ $fafd->al_class }} -
@@ -190,11 +196,13 @@
                                 @if ($fafd->decision)
                                     {{ Penalty::fromDb($fafd->decision)?->label() ?? 'Advertência' }} (FAFD
                                     nº
-                                    {{ $fafd->number }}/{{ $fafd->year }} - {{ $fafd->cia }}
+                                    {{ $fafd->number }}/{{ $fafd->year }} -
+                                    {{ $fafd->cia }}
                                 @endif
                                 ,
                                 de
-                                {{ $fafd->f_date }}).
+                                {{ $fafd->f_date }}) - Grau de comportamento
+                                {{ $fafd->students->calculateAdjustedGrau(Carbon::parse($fafd->bi_date)) }}.
 
                 </div>
             @endforeach

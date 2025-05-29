@@ -24,7 +24,7 @@ class StudentList extends Component
 
     use HandlesTmpUploads;
     public $breadcrumb = 'Estudantes';
-    public $modal = false;
+    public $modal = true;
     public $showJetModal = false;
     public $showModalForm = false;
 
@@ -93,7 +93,7 @@ class StudentList extends Component
             $this->showModalForm = true;
             $this->students = '';
         } else {
-            redirect()->route('students-create');
+            redirect()->route('student-create');
         }
     }
 
@@ -105,7 +105,7 @@ class StudentList extends Component
             $this->showModalForm = true;
             $this->students = Peoples::find($id);
         } else {
-            redirect()->route('students-edit', $id);
+            redirect()->route('student-edit', $id);
         }
     }
 

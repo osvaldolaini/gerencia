@@ -140,6 +140,9 @@
             @endphp
             @foreach ($data as $fafd)
                 @if ($newdecision != $decision)
+                    @php
+                        $decision = $newdecision;
+                    @endphp
                     <h2>{{ strtoupper($newdecision) }}</h2>
                 @endif
                 @php

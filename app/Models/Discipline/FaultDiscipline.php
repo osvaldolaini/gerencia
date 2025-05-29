@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
+use Illuminate\Support\Carbon;
+use App\Enums\Penalty;
+
 class FaultDiscipline extends Model
 {
     use HasFactory, LogsActivity, HasAttributeConversions;
@@ -98,6 +101,55 @@ class FaultDiscipline extends Model
         static::updating(function ($transaction) {
             $transaction->updated_by = Auth::user()->name;
         });
+    }
+
+    public function getNoteAttribute(): string
+    {
+        $aluno = $this->al_name ? "{$this->al_name} ({$this->al_nick})" : $this->al_nick;
+        $faltas = is_array($this->faults) && count($this->faults) > 0
+            ? 'Falta disciplinar nº ' . $this->formatList($this->faults)
+            : '';
+
+        $agravantes = is_array($this->aggravating) && count($this->aggravating) > 0
+            ? 'com agravante(s) nr ' . $this->formatList($this->aggravating)
+            : 'sem agravantes';
+
+        $atenuantes = is_array($this->mitigating) && count($this->mitigating) > 0
+            ? 'com atenuante(s) nr ' . $this->formatList($this->mitigating)
+            : 'sem atenuante';
+
+        $reincidencia = $this->repeat == 0
+            ? 'sendo reincidente'
+            : ($this->repeat == 1 ? "{$this->repeat_number} vezes em faltas desta natureza" : '');
+
+        $medida = '';
+        if ($this->dacision_days) {
+            $medida .= "{$this->dacision_days} dia" . ($this->dacision_days > 1 ? 's' : '') . ' de ';
+        }
+
+        if ($this->decision) {
+            $penalidade = Penalty::fromDb($this->decision)?->label() ?? 'Advertência';
+            $medida .= "$penalidade (FAFD nº {$this->number}/{$this->year} - {$this->cia})";
+        }
+
+        $grau = $this->students?->calculateAdjustedGrau(Carbon::parse($this->bi_date));
+
+        return "Em {$this->f_date}, Al Nr {$this->al_number}, {$aluno}, turma {$this->al_class} - " .
+            "Motivo: {$this->solution} {$faltas}, {$agravantes}, {$atenuantes}, previstos no apêndice 1 do anexo F do RICM 2024, " .
+            "{$reincidencia} - Medida disciplinar: {$medida}, de {$this->f_date}) - Grau de comportamento {$grau}.";
+    }
+
+    private function formatList(array $itens): string
+    {
+        $total = count($itens);
+        return collect($itens)->map(function ($item, $index) use ($total) {
+            if ($index === $total - 2) {
+                return "{$item} e";
+            } elseif ($index === $total - 1) {
+                return $item;
+            }
+            return "{$item},";
+        })->implode(' ');
     }
     public function setUpperCaseAttributes(array $attributes)
     {

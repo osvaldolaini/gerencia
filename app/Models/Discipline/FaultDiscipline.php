@@ -111,11 +111,11 @@ class FaultDiscipline extends Model
             : '';
 
         $agravantes = is_array($this->json_aggravating) && count($this->json_aggravating) > 0
-            ? 'com agravante(s) nr ' . $this->formatList($this->json_aggravating)
+            ? 'com agravante(s) do nr ' . $this->formatList($this->json_aggravating)
             : 'sem agravantes';
 
         $atenuantes = is_array($this->json_mitigating) && count($this->json_mitigating) > 0
-            ? 'com atenuante(s) nr ' . $this->formatList($this->json_mitigating)
+            ? 'com atenuante(s) do nr ' . $this->formatList($this->json_mitigating)
             : 'sem atenuante';
 
         $reincidencia = $this->repeat == 0

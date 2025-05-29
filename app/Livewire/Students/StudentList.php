@@ -24,7 +24,7 @@ class StudentList extends Component
 
     use HandlesTmpUploads;
     public $breadcrumb = 'Estudantes';
-    public $modal = true;
+    public $modal = false;
     public $showJetModal = false;
     public $showModalForm = false;
 

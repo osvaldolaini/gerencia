@@ -136,7 +136,7 @@
                 $decision = 'null';
                 $newdecision = 'advertencia';
             @endphp
-            @foreach ($data->orderBy('decision') as $fafd)
+            @foreach ($data as $fafd)
                 @if ($newdecision != $decision)
                     <h2>{{ strtoupper($newdecision) }}</h2>
                 @endif

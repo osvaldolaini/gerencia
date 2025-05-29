@@ -483,7 +483,7 @@
                         </div>
                         <div class="col-span-full ">
                             <div class="mockup-code">
-                                <code>
+                                {{-- <code>
                                     Em {{ $f_date }}, Al Nr {{ $al_number }},
                                     {{ $al_name ? $al_name . '(' . $al_nick . ')' : $al_nick }},
                                     turma {{ $al_class }} -
@@ -540,6 +540,9 @@
                                             de
                                             {{ $f_date }}) - Grau de comportamento
                                             {{ $students->calculateAdjustedGrau(Carbon::parse($bi_date)) }}.
+                                </code> --}}
+                                <code>
+                                    {{ $note }}
                                 </code>
                             </div>
                         </div>

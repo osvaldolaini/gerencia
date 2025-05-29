@@ -110,17 +110,17 @@ class FaultDiscipline extends Model
             ? 'Falta disciplinar nº ' . $this->formatList($this->json_faults)
             : '';
 
-        $agravantes = is_array($this->aggravating) && count($this->aggravating) > 0
-            ? 'com agravante(s) nr ' . $this->formatList($this->aggravating)
+        $agravantes = is_array($this->json_aggravating) && count($this->json_aggravating) > 0
+            ? 'com agravante(s) nr ' . $this->formatList($this->json_aggravating)
             : 'sem agravantes';
 
-        $atenuantes = is_array($this->mitigating) && count($this->mitigating) > 0
-            ? 'com atenuante(s) nr ' . $this->formatList($this->mitigating)
+        $atenuantes = is_array($this->json_mitigating) && count($this->json_mitigating) > 0
+            ? 'com atenuante(s) nr ' . $this->formatList($this->json_mitigating)
             : 'sem atenuante';
 
         $reincidencia = $this->repeat == 0
-            ? 'sendo reincidente'
-            : ($this->repeat == 1 ? "{$this->repeat_number} vezes em faltas desta natureza" : '');
+            ? 'não sendo reincidente'
+            : 'sendo reincidente ' . ($this->repeat == 1 ? $this->repeat_number . " vez" . ($this->repeat_number > 1 ? 'es' : '') . " em faltas desta natureza" : '');
 
         $medida = '';
         if ($this->dacision_days) {

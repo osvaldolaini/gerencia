@@ -117,7 +117,7 @@
 
 
             </table>
-            <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
+            {{-- <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
 
                 Em {{ $fault_discipline->f_date }}, Al Nr {{ $fault_discipline->al_number }},
                 {{ $fault_discipline->al_name ? $fault_discipline->al_name . '(' . $fault_discipline->al_nick . ')' : $fault_discipline->al_nick }},
@@ -177,6 +177,9 @@
                             {{ $fault_discipline->f_date }}) - Grau de comportamento
                             {{ $fault_discipline->students->calculateAdjustedGrau(Carbon::parse($fault_discipline->bi_date)) }}.
 
+            </div> --}}
+            <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
+                {{ $fault_discipline->note }}
             </div>
 
             <table class="identification">

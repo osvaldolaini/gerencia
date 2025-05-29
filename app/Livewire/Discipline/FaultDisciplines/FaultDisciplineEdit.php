@@ -79,9 +79,12 @@ class FaultDisciplineEdit extends Component
     public $old_faults;
     public $relatedFaults;
 
+    public $note;
+
     public function mount(FaultDiscipline $fault_discipline)
     {
         if ($fault_discipline->getAttributes()) {
+            $this->note = $fault_discipline->note;
 
             $this->students                 = $fault_discipline->students;
             $this->id                       = $fault_discipline->id;

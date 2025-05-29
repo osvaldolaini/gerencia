@@ -3,8 +3,6 @@
 @php
 
     use App\Enums\Penalty;
-
-    use Carbon\Carbon;
 @endphp
 
 <head>
@@ -143,7 +141,7 @@
                     @php
                         $decision = $newdecision;
                     @endphp
-                    <h2>{{ strtoupper($newdecision) }}</h2>
+                    <h2>{{ strtoupper(Penalty::from($newdecision)->label()) }}</h2>
                 @endif
                 @php
                     $c += 1;

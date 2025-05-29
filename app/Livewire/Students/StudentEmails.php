@@ -22,6 +22,8 @@ class StudentEmails extends Component
     public $student;
     public $attachment;
 
+    public $showModalConfirm = false;
+
     public function mount(Peoples $student)
     {
         $this->student  =  $student;
@@ -33,6 +35,14 @@ class StudentEmails extends Component
     {
         $this->emails   = $this->student->emails->sortByDesc('created_at');
         return view('livewire.students.student-emails');
+    }
+    public function showConfirm()
+    {
+        if ($this->contacts->count() > 0) {
+            $this->showModalConfirm = true;
+        } else {
+            $this->dispatch('openAlert', 'error', 'Nenhum contato cadastrado');
+        }
     }
 
     public function sentEmail()

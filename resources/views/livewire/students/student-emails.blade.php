@@ -1,7 +1,7 @@
 <div>
     <div class="flex justify-center mb-5">
-        @livewire('message-alert-modal')
-        <span wire:click="sentEmail()"
+        {{-- @livewire('message-alert-modal') --}}
+        <span wire:click="showConfirm()"
             class="flex items-center justify-between px-3 py-1 text-white transition-colors duration-200 bg-green-500 border border-gray-500 rounded-md cursor-pointer hover:text-white dark:hover:bg-blue-500 hover:hover:bg-blue-500 whitespace-nowrap">
             Enviar ficha indivídual <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 ml-2 "
                 version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -85,4 +85,43 @@
             </tbody>
         </table>
     </div>
+    {{-- MODAL DELETE --}}
+    <x-confirmation-modal wire:model="showModalConfirm">
+        <x-slot name="title">
+            Enviar ficha individual
+        </x-slot>
+
+        <x-slot name="content">
+            <h2 class="h2">Deseja realmente enviar a ficha do aluno?</h2>
+            <p>A ficha será enviada para:</p>
+            <ul>
+                @foreach ($contacts->where('type', 'email')->where('active', 1) as $contact)
+                    <li class="flex items-center">
+                        <svg class="w-6 h-6 text-green-500" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 12.6111L8.92308 17.5L20 6.5" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="p-2 m-2">
+                            {{ strtoupper($contact->parent) }}</span>
+                        <span class="badge badge-ghost badge-sm ">
+
+                            {{ $contact->contact }}
+                        </span>
+                    </li>
+                @endforeach
+
+            </ul>
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$toggle('showModalConfirm')" wire:loading.attr="disabled">
+                Cancelar
+            </x-secondary-button>
+
+            <x-danger-button class="ml-2" wire:click="sentEmail()" wire:loading.attr="disabled">
+                Enviar
+            </x-danger-button>
+        </x-slot>
+    </x-confirmation-modal>
 </div>

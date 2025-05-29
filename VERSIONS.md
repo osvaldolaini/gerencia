@@ -5,6 +5,7 @@
 > Novidades
 
     ->Disparo da ficha individual direto do cadastro do aluno
+    ->Criação de um FO informativo após o disparo do email
 
 > Melhorias
 

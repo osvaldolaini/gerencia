@@ -60,7 +60,7 @@ trait HasAdjustedGrau
     protected function calculateAdjustedGrau()
     {
         $nota = floatval($this->grau);
-        $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
+        $punicoes = $this->fafd()->whereNotNull('supplement_number')->orderBy('bi_date')->get();
         $dataReferencia = null;
         // Log::debug("Sem punições. Dias após 90 da matrícula: {$dias}. Aumento: {$incremento}. Nota final: {$nota}");
         Log::debug("Nota inicial: {$nota}");

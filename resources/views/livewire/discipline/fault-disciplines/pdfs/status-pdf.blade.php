@@ -141,7 +141,7 @@
                     @php
                         $decision = $newdecision;
                     @endphp
-                    <h2>{{ strtoupper(Penalty::from($newdecision)->label()) }}</h2>
+                    <h2>{{ mb_strtoupper(Penalty::from($newdecision)->label()) }}</h2>
                 @endif
                 @php
                     $c += 1;

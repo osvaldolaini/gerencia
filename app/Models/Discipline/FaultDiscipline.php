@@ -106,8 +106,8 @@ class FaultDiscipline extends Model
     public function getNoteAttribute(): string
     {
         $aluno = $this->al_name ? "{$this->al_name} ({$this->al_nick})" : $this->al_nick;
-        $faltas = is_array($this->faults) && count($this->faults) > 0
-            ? 'Falta disciplinar nº ' . $this->formatList($this->faults)
+        $faltas = is_array($this->json_faults) && count($this->json_faults) > 0
+            ? 'Falta disciplinar nº ' . $this->formatList($this->json_faults)
             : '';
 
         $agravantes = is_array($this->aggravating) && count($this->aggravating) > 0

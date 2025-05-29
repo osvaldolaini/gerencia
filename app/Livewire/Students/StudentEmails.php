@@ -37,8 +37,6 @@ class StudentEmails extends Component
 
     public function sentEmail()
     {
-        $user = Auth::user();
-        dd($user?->people);
         $countMail = 0;
         $totalEmails = $this->contacts->count();
         if ($this->contacts->count() > 0) {
@@ -81,35 +79,34 @@ class StudentEmails extends Component
                 $cia              = $this->student->al_class->classGrade->company->name;
                 $company_id       = $this->student->al_class->classGrade->company->id;
 
-
+                $user = Auth::user();
 
                 if ($user?->people) {
                     $fact_observer = MilitaryRank::from($user?->people?->posto_grad)->label() . ' ' . $user?->people?->nick;
                     $fact_observer_function = $user?->people?->function;
                     $fact_observer_id = $user?->people?->id;
+                    FactObserved::create([
+                        'active'    => 1,
+                        'cia'                      => $cia,
+                        'company_id'               => $company_id,
+                        'cmt_cia_posto'            => $cmt_cia_posto,
+                        'cmt_cia'                  => $cmt_cia,
+                        'student_id'               => $this->student->id,
+                        'al_nick'                  => $al_nick,
+                        'al_name'                  => $al_name,
+                        'al_number'                => $al_number,
+                        'al_class'                 => $al_class,
+                        'fact'                     => 'Foi enviado a ficha individual do aluno para os responsáveis.',
+                        'fact_hour'                => date('h:i:s'),
+                        'fact_date'                => date('d/m/Y'),
+                        'fact_type'                => 'informativo',
+                        // 'faults'                   => $faults,
+                        'fact_observer'            => $fact_observer,
+                        'fact_observer_function'   => $fact_observer_function,
+                        'fact_observer_id'         => $fact_observer_id,
+                        'code'      => Str::uuid(),
+                    ]);
                 }
-
-                FactObserved::create([
-                    'active'    => 1,
-                    'cia'                      => $cia,
-                    'company_id'               => $company_id,
-                    'cmt_cia_posto'            => $cmt_cia_posto,
-                    'cmt_cia'                  => $cmt_cia,
-                    'student_id'               => $this->student->id,
-                    'al_nick'                  => $al_nick,
-                    'al_name'                  => $al_name,
-                    'al_number'                => $al_number,
-                    'al_class'                 => $al_class,
-                    'fact'                     => 'Foi enviado a ficha individual do aluno para os responsáveis.',
-                    'fact_hour'                => date('h:i:s'),
-                    'fact_date'                => date('d/m/Y'),
-                    'fact_type'                => 'informativo',
-                    // 'faults'                   => $faults,
-                    'fact_observer'            => $fact_observer,
-                    'fact_observer_function'   => $fact_observer_function,
-                    'fact_observer_id'         => $fact_observer_id,
-                    'code'      => Str::uuid(),
-                ]);
             }
 
             $error = $totalEmails - $countMail;

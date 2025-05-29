@@ -3,6 +3,8 @@
 @php
 
     use App\Enums\Penalty;
+
+    use Carbon\Carbon;
 @endphp
 
 <head>

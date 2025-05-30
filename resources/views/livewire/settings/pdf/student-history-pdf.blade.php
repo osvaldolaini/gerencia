@@ -141,6 +141,7 @@
                                 {{ $fafd->fact }}
                             </td>
                             <td class="text-center border-bottom">
+                                {{ $fafd->decision }}
                                 {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}
                             </td>
                             <td class="text-center border-bottom">

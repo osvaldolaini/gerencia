@@ -7,6 +7,7 @@
     ->Opção de FAFD "justificada"
     ->Opção de falta abonada
     ->Botão de justificar a falta na lista
+    ->Botão de justificar a falta no app
 
 > Correção
 

@@ -34,6 +34,8 @@ class FaultInsertSimple extends Component
     public $grades;
     public $classes;
     public $students;
+    public $justified;
+    public $text;
 
     public function render()
     {
@@ -61,6 +63,8 @@ class FaultInsertSimple extends Component
             'active'                => 1,
             'id'                    => $this->id,
             'student_id'            => $this->student_id,
+            'justified'             => $this->justified,
+            'text'                  => $this->text,
             'date'                  => $this->date,
             'companies_id'          => $this->companies->id,
             'school_grades_id'      => $this->grades->id,

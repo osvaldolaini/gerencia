@@ -1,4 +1,5 @@
-<div
+<div @php
+use App\Enums\SchoolFault; @endphp
     class="min-h-screen px-6 pt-6 pb-20 border-2 rounded-r-lg rounded-bl-lg bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100">
     <form>
         <div role="tabpanel" class="">
@@ -24,6 +25,38 @@
                         <span class="error">{{ $message }}</span>
                     @enderror
                 </div>
+                <div class="py-2 col-span-full ">
+                    <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                        Justificado?</label>
+                    <div class="w-full flex-nowrap justify-stretch">
+                        @foreach (SchoolFault::cases() as $item)
+                            <div class="p-0 tooltip tooltip-top" data-tip="{{ $item->label() }}">
+                                <label
+                                    class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
+                                            rounded-md cursor-pointer {{ $item->value == $justified ? 'bg-blue-500 text-gray-800' : 'bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900' }}">
+                                    <input type="radio" wire:model.live="justified" value="{{ $item->value }}"
+                                        class="hidden peer" {{ $item->value == $justified ? 'checked' : '' }}>
+
+                                    <span class="text-xs">
+                                        {{ $item->label() }}
+                                    </span>
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @if ($justified != 0)
+                    <div class="col-span-full ">
+                        <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                            Relato</label>
+                        <textarea wire:model="text" rows="5"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+
+                        @error('text')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
+                    </div>
+                @endif
 
                 @if ($companies)
                     <div class="py-2 col-span-full">

@@ -233,7 +233,7 @@
                             $dados[] = [
                                 'date_view' => $fault->date_view,
                                 'qtd' => $fault->qtd,
-                                'justified' => {{ SchoolFault::from($fault->justified)->label() }},
+                                'justified' => SchoolFault::from($fault->justified)->label(),
                                 'percentual' => $percentual,
                             ];
                         }

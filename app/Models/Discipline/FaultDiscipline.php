@@ -254,6 +254,7 @@ class FaultDiscipline extends Model
 
     public function getTotalGrauAttribute()
     {
+        return $this->dacision;
         if ($this->dacision == 'retirada_cm') {
             return $this->dacision_days;
         } else {

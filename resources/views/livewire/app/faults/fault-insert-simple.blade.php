@@ -65,20 +65,26 @@ use App\Enums\SchoolFault; @endphp
                         <h2>{{ $companies->name }}</h2>
                     </div>
                 @endif
-                @if ($grades)
-                    <div class="py-2 col-span-full">
-                        <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
-                            Ano:</label>
-                        <h2>{{ $grades->name }}</h2>
+
+                <div class="py-2 col-span-full">
+                    <div class="grid grid-cols-2">
+                        @if ($grades)
+                            <div class="col-span-1 py-2">
+                                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                                    Ano:</label>
+                                <h2>{{ $grades->name }}</h2>
+                            </div>
+                        @endif
+                        @if ($classes)
+                            <div class="col-span-1 py-2">
+                                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                                    Turma:</label>
+                                <h2>{{ $classes->title }}</h2>
+                            </div>
+                        @endif
                     </div>
-                @endif
-                @if ($classes)
-                    <div class="py-2 col-span-full">
-                        <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
-                            Turma:</label>
-                        <h2>{{ $classes->title }}</h2>
-                    </div>
-                @endif
+                </div>
+
             </div>
 
         </div>

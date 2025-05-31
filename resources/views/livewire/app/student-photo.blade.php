@@ -1,10 +1,40 @@
-<div class="max-w-md p-4 mx-auto shadow-xl rounded-box">
+<div class="max-w-md p-4 mx-auto shadow-xl rounded-box pb-60">
     @push('styles')
         <link rel="stylesheet" href="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.css" />
     @endpush
+    <div class="container flex flex-col items-center justify-center w-full mx-auto">
+        <ul class="flex flex-col w-full">
+
+            <li class="flex flex-row w-full mb-2 border-gray-400 cursor-pointer">
+                <div
+                    class="flex items-center flex-1 p-4 bg-white border rounded-md shadow cursor-pointer select-none dark:bg-gray-800">
+                    <div class="flex flex-col items-center justify-center w-10 h-10 mr-4">
+                        <span class="relative block">
+                            @if ($student->logo_path)
+                                <img src="{{ url('storage/student/' . $student->id . '/' . $student->code_image . '_big.png') }}"
+                                    class="object-cover w-10 h-10 mx-auto rounded-full ">
+                            @else
+                                <x-application-logo width="h-12"></x-application-logo>
+                            @endif
+                        </span>
+                    </div>
+                    <div class="flex-1 pl-1 md:mr-16">
+                        <div class="font-medium dark:text-white">
+                            Al {{ $student->nick }} - <span class="badge badge-success">
+                                {{ $student->people_class }}
+                            </span>
+                        </div>
+                        <div class="text-xs text-gray-600 dark:text-gray-200">
+                            {{ $student->name }}
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
     <form wire:submit.prevent="save" class="space-y-4">
 
-        {{-- Botão de Foto com DaisyUI e SVG --}}
         <div>
             <label for="upload" class="flex items-center cursor-pointer btn btn-square dark:btn-outline btn-success">
                 Tirar Foto
@@ -30,6 +60,19 @@
 
                 <div class="relative w-full aspect-[3/4] max-h-80">
                     <img id="image-to-crop" src="{{ $foto->temporaryUrl() }}" alt="Pré-visualização"
+                        class="mx-auto max-h-80 rounded-box" />
+                </div>
+
+                <div class="flex justify-end mt-2">
+                    <button type="button" onclick="cropImage()" class="btn btn-sm btn-primary">Usar esta foto</button>
+                </div>
+            </div>
+        @elseif($old_photo)
+            <div class="p-2 mt-4 border rounded-box bg-base-200">
+                <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
+
+                <div class="relative w-full aspect-[3/4] max-h-80">
+                    <img id="image-to-crop" src="{{ url('storage/student/' . $old_photo) }}" alt="Pré-visualização"
                         class="mx-auto max-h-80 rounded-box" />
                 </div>
 

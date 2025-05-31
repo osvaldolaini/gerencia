@@ -5,10 +5,12 @@ namespace App\Livewire\App;
 use App\Models\Peoples;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\On;
 
 class StudentPhoto extends Component
 {
     public $student;
+    public $old_photo;
     use WithFileUploads;
 
     protected $listeners = ['fotoCortada' => 'setFotoFinal'];
@@ -21,9 +23,11 @@ class StudentPhoto extends Component
         $this->fotoFinal = $base64;
     }
 
+    #[On('getStudent')]
     public function mount(Peoples $student)
     {
         $this->student = $student;
+        $this->old_photo = $this->student->id . '/' . $this->student->logo_path;
     }
     public function render()
     {

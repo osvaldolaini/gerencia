@@ -52,10 +52,10 @@ class Classes extends Component
             ->whereIn('school_classes_id', $classIds)
             ->get();
     }
-    // public function seeStudentProfile(Peoples $student)
-    // {
-    //     redirect()->route('student-photo', $student);
-    // }
+    public function seeStudentProfile(Peoples $student)
+    {
+        $this->dispatch('getStudent', $student);
+    }
 
     #[On('seeBattalion')]
     public function seeBattalion(SchoolGrades $grade)

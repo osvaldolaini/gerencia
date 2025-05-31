@@ -3,6 +3,8 @@
         Options -MultiViews -Indexes
     </IfModule>
 
+
+
     Options +FollowSymlinks
 
     RewriteEngine On
@@ -21,6 +23,10 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+    <IfModule mod_headers.c>
+        Header set Access-Control-Allow-Origin "*"
+    </IfModule>
 
 # php -- BEGIN cPanel-generated handler, do not edit
 # Defina o pacote “ea-php82” como a linguagem padrão de programação “PHP”.

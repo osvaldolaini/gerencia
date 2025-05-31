@@ -104,20 +104,21 @@
                 function initCropper() {
                     const image = document.getElementById('image-to-crop');
                     if (image) {
-                        if (cropper) {
-                            cropper.destroy();
-                        }
-                        cropper = new Cropper(image, {
-                            aspectRatio: 3 / 4,
-                            viewMode: 1,
-                            autoCropArea: 1,
-                            responsive: true,
-                            movable: true,
-                            scalable: false,
-                            zoomable: true,
-                        });
+                        image.onload = () => {
+                            if (cropper) cropper.destroy();
+                            cropper = new Cropper(image, {
+                                aspectRatio: 3 / 4,
+                                viewMode: 1,
+                                autoCropArea: 1,
+                                responsive: true,
+                                movable: true,
+                                scalable: false,
+                                zoomable: true,
+                            });
+                        };
                     }
                 }
+
 
                 Livewire.on('resetCropper', () => {
                     if (cropper) {

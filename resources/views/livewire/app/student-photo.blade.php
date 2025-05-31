@@ -51,7 +51,10 @@
                 <span class="block mt-1 text-sm text-error">{{ $message }}</span>
             @enderror
         </div>
-
+        <div wire:loading wire:target="foto" class="mt-4 text-center">
+            <span class="loading loading-spinner loading-lg text-success"></span>
+            <p class="mt-2 text-sm text-gray-600">Carregando imagem...</p>
+        </div>
         @if ($foto)
             <div class="p-2 mt-4 border rounded-box bg-base-200">
                 <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
@@ -95,7 +98,9 @@
                 });
 
                 window.addEventListener('livewire:update', function() {
-                    initCropper();
+                    setTimeout(() => {
+                        initCropper();
+                    }, 100); // garante que o DOM foi atualizado
                 });
 
                 function initCropper() {
@@ -107,21 +112,27 @@
                         cropper = null;
                     }
 
-                    // Esperar imagem carregar antes de iniciar o cropper
-                    image.onload = () => {
-                        cropper = new Cropper(image, {
+                    function startCropper(img) {
+                        cropper = new Cropper(img, {
                             aspectRatio: 3 / 4,
                             viewMode: 1,
                             autoCropArea: 1,
                             responsive: true,
                             movable: true,
                             scalable: false,
-                            zoomable: true, // Você pode colocar false se quiser desabilitar zoom no gesto também
+                            zoomable: true,
                         });
-                    };
+                    }
+
+                    // Garante que funcione mesmo se a imagem já estiver carregada
+                    if (image.complete && image.naturalHeight !== 0) {
+                        startCropper(image);
+                    } else {
+                        image.onload = () => {
+                            startCropper(image);
+                        };
+                    }
                 }
-
-
 
                 Livewire.on('resetCropper', () => {
                     if (cropper) {

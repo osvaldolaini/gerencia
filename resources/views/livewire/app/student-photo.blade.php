@@ -87,12 +87,9 @@
             <button type="submit" class="btn btn-success">Cadastrar Aluno</button>
         </div> --}}
     </form>
-    @if ($foto)
-        {{-- ... conteúdo da imagem e corte ... --}}
-
+    @if ($foto || $old_photo)
         @push('scripts')
             <script src="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.js"></script>
-
             <script>
                 let cropper;
 
@@ -106,7 +103,10 @@
 
                 function initCropper() {
                     const image = document.getElementById('image-to-crop');
-                    if (image && !cropper) {
+                    if (image) {
+                        if (cropper) {
+                            cropper.destroy();
+                        }
                         cropper = new Cropper(image, {
                             aspectRatio: 3 / 4,
                             viewMode: 1,
@@ -118,6 +118,13 @@
                         });
                     }
                 }
+
+                Livewire.on('resetCropper', () => {
+                    if (cropper) {
+                        cropper.destroy();
+                        cropper = null;
+                    }
+                });
 
                 function cropImage() {
                     if (cropper) {
@@ -136,4 +143,5 @@
             </script>
         @endpush
     @endif
+
 </div>

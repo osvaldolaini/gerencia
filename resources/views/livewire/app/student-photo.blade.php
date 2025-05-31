@@ -58,9 +58,11 @@
                 <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
 
                 <div class="relative w-full aspect-[3/4] max-h-80">
-                    <div wire:loading wire:target="foto" class="absolute mt-4 text-center">
-                        <span class="loading loading-spinner loading-lg text-success"></span>
-                        <p class="mt-2 text-sm text-gray-600">Carregando imagem...</p>
+                    {{-- Overlay de loading enquanto carrega a imagem --}}
+                    <div wire:loading wire:target="foto"
+                        class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50 rounded-box">
+                        <span class="text-white loading loading-spinner loading-lg"></span>
+                        <p class="mt-2 text-sm text-white">Carregando imagem...</p>
                     </div>
                     <img id="image-to-crop" src="{{ $foto->temporaryUrl() }}" alt="Pré-visualização"
                         class="mx-auto max-h-80 rounded-box" />
@@ -75,9 +77,11 @@
                 <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
 
                 <div class="relative w-full aspect-[3/4] max-h-80">
-                    <div wire:loading wire:target="foto" class="absolute mt-4 text-center">
-                        <span class="loading loading-spinner loading-lg text-success"></span>
-                        <p class="mt-2 text-sm text-gray-600">Carregando imagem...</p>
+                    {{-- Overlay de loading enquanto carrega a imagem --}}
+                    <div wire:loading wire:target="foto"
+                        class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50 rounded-box">
+                        <span class="text-white loading loading-spinner loading-lg"></span>
+                        <p class="mt-2 text-sm text-white">Carregando imagem...</p>
                     </div>
                     <img id="image-to-crop" src="{{ url('storage/student/' . $old_photo) }}" alt="Pré-visualização"
                         class="mx-auto max-h-80 rounded-box" />

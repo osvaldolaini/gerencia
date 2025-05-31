@@ -7,11 +7,12 @@
     <meta content='yes' name='mobile-web-app-capable' />
     <meta name="theme-color" content="#ffffff" />
     <meta name="apple-mobile-web-app-status-bar" content="#ffffff">
+
     <link rel="apple-touch-icon" href="{{ asset('favicons/pwa-logos/icon-192x192-apple.png') }}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="keywords" content="api,colegios,aplicativos">
     <meta name="description" content="Sistema de Gerenciamento de companhias de colégios militares.">
 
@@ -27,6 +28,9 @@
     <!-- Styles -->
     @livewireStyles
     @yield('styles')
+
+    <link rel="stylesheet" href="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.css" />
+
     <style>
         .ck-editor__editable_inline {
             min-height: 400px;
@@ -56,7 +60,9 @@
                 .catch((error) => console.log('Erro ao registrar Service Worker', error));
         }
     </script>
+    <script src="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.js"></script>
     @yield('scripts')
+
     @yield('push')
 </body>
 

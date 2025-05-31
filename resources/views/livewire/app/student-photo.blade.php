@@ -1,7 +1,5 @@
 <div class="max-w-md p-4 mx-auto shadow-xl rounded-box pb-60">
-    @push('styles')
-        <link rel="stylesheet" href="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.css" />
-    @endpush
+
     <div class="container flex flex-col items-center justify-center w-full mx-auto">
         <ul class="flex flex-col w-full">
 
@@ -89,7 +87,6 @@
     </form>
     @if ($foto || $old_photo)
         @push('scripts')
-            <script src="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.js"></script>
             <script>
                 let cropper;
 
@@ -103,21 +100,27 @@
 
                 function initCropper() {
                     const image = document.getElementById('image-to-crop');
-                    if (image) {
-                        image.onload = () => {
-                            if (cropper) cropper.destroy();
-                            cropper = new Cropper(image, {
-                                aspectRatio: 3 / 4,
-                                viewMode: 1,
-                                autoCropArea: 1,
-                                responsive: true,
-                                movable: true,
-                                scalable: false,
-                                zoomable: true,
-                            });
-                        };
+                    if (!image) return;
+
+                    if (cropper) {
+                        cropper.destroy();
+                        cropper = null;
                     }
+
+                    // Esperar imagem carregar antes de iniciar o cropper
+                    image.onload = () => {
+                        cropper = new Cropper(image, {
+                            aspectRatio: 3 / 4,
+                            viewMode: 1,
+                            autoCropArea: 1,
+                            responsive: true,
+                            movable: true,
+                            scalable: false,
+                            zoomable: true, // Você pode colocar false se quiser desabilitar zoom no gesto também
+                        });
+                    };
                 }
+
 
 
                 Livewire.on('resetCropper', () => {

@@ -1,4 +1,4 @@
-<div class="max-w-md p-4 mx-auto shadow-xl rounded-box pb-60">
+<div class="max-w-md p-4 mx-auto shadow-xl rounded-box ">
 
     <div class="container flex flex-col items-center justify-center w-full mx-auto">
         <ul class="flex flex-col w-full">
@@ -34,7 +34,8 @@
     <form wire:submit.prevent="save" class="space-y-4">
 
         <div>
-            <label for="upload" class="flex items-center cursor-pointer btn btn-square dark:btn-outline btn-success">
+            <label for="upload"
+                class="flex items-center w-full cursor-pointer btn btn-square dark:btn-outline btn-success">
                 Tirar Foto
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 16 16"
                     id="photo-camera-16px" xmlns="http://www.w3.org/2000/svg">
@@ -54,10 +55,9 @@
 
         @if ($foto)
             <div class="p-2 mt-4 border rounded-box bg-base-200">
-
                 <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
 
-                <div class="relative w-full aspect-[3/4] max-h-80">
+                <div class="relative w-full aspect-[3/4] max-h-80 items-center">
                     {{-- Overlay de loading enquanto carrega a imagem --}}
                     <div wire:loading wire:target="foto"
                         class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50 rounded-box">
@@ -79,7 +79,6 @@
                 <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
 
                 <div class="relative w-full aspect-[3/4] max-h-80">
-
                     <img id="image-to-crop" src="{{ url('storage/student/' . $old_photo) }}" alt="Pré-visualização"
                         class="mx-auto max-h-80 rounded-box" />
                 </div>

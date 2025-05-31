@@ -9,8 +9,18 @@ use Livewire\WithFileUploads;
 class StudentPhoto extends Component
 {
     public $student;
-    public $foto;
     use WithFileUploads;
+
+    protected $listeners = ['fotoCortada' => 'setFotoFinal'];
+
+    public $foto;
+    public $fotoFinal;
+
+    public function setFotoFinal($base64)
+    {
+        $this->fotoFinal = $base64;
+    }
+
     public function mount(Peoples $student)
     {
         $this->student = $student;
@@ -22,5 +32,22 @@ class StudentPhoto extends Component
     public function openAlert($status, $msg)
     {
         $this->dispatch('openAlert', $status, $msg);
+    }
+
+
+    protected function saveBase64Image($base64, $path)
+    {
+        $image = explode(',', $base64)[1]; // remove header
+        file_put_contents($path, base64_decode($image));
+    }
+    public function save()
+    {
+        if ($this->fotoFinal) {
+            $filename = 'foto_' . time() . '.jpg';
+            $path = storage_path('app/public/alunos/' . $filename);
+            $this->saveBase64Image($this->fotoFinal, $path);
+        }
+
+        // continue o restante do cadastro...
     }
 }

@@ -51,15 +51,17 @@
                 <span class="block mt-1 text-sm text-error">{{ $message }}</span>
             @enderror
         </div>
-        <div wire:loading wire:target="foto" class="mt-4 text-center">
-            <span class="loading loading-spinner loading-lg text-success"></span>
-            <p class="mt-2 text-sm text-gray-600">Carregando imagem...</p>
-        </div>
+
         @if ($foto)
             <div class="p-2 mt-4 border rounded-box bg-base-200">
+
                 <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
 
                 <div class="relative w-full aspect-[3/4] max-h-80">
+                    <div wire:loading wire:target="foto" class="absolute mt-4 text-center">
+                        <span class="loading loading-spinner loading-lg text-success"></span>
+                        <p class="mt-2 text-sm text-gray-600">Carregando imagem...</p>
+                    </div>
                     <img id="image-to-crop" src="{{ $foto->temporaryUrl() }}" alt="Pré-visualização"
                         class="mx-auto max-h-80 rounded-box" />
                 </div>
@@ -73,6 +75,10 @@
                 <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
 
                 <div class="relative w-full aspect-[3/4] max-h-80">
+                    <div wire:loading wire:target="foto" class="absolute mt-4 text-center">
+                        <span class="loading loading-spinner loading-lg text-success"></span>
+                        <p class="mt-2 text-sm text-gray-600">Carregando imagem...</p>
+                    </div>
                     <img id="image-to-crop" src="{{ url('storage/student/' . $old_photo) }}" alt="Pré-visualização"
                         class="mx-auto max-h-80 rounded-box" />
                 </div>

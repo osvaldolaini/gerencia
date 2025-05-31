@@ -2,6 +2,7 @@
 
 namespace App\Livewire\App;
 
+use App\Models\Peoples;
 use App\Models\Settings\Companies;
 use App\Models\Settings\SchoolClassesStudent;
 use App\Models\Settings\SchoolClassesYears;
@@ -51,6 +52,10 @@ class Classes extends Component
             ->whereIn('school_classes_id', $classIds)
             ->get();
     }
+    // public function seeStudentProfile(Peoples $student)
+    // {
+    //     redirect()->route('student-photo', $student);
+    // }
 
     #[On('seeBattalion')]
     public function seeBattalion(SchoolGrades $grade)

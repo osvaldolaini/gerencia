@@ -11,6 +11,7 @@ use App\Livewire\App\Dashboard as App;
 use App\Livewire\App\Discipline\MyFosList;
 use App\Livewire\App\Faults\FaultInsert;
 use App\Livewire\App\Faults\MyFaultsList;
+use App\Livewire\App\StudentPhoto;
 use App\Livewire\Discipline\FactObserveds\FactObservedEdit;
 use App\Livewire\Discipline\FactObserveds\FactObservedForm;
 use App\Livewire\Discipline\FactObserveds\FactObservedList;
@@ -315,4 +316,6 @@ Route::middleware([
         ->name('insert-faults');
     Route::get('/faltas/faltas-lancadas', SchoolFaultList::class)
         ->name('my-insert-faults');
+    // Route::get('/student-photo/{student}', StudentPhoto::class)
+    //     ->name('student-photo');
 });

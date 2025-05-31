@@ -75,6 +75,9 @@
                     {!! $readmeContent !!}
                 </div>
             </div>
+            <div id="tab6" x-show="activeTab === '#tab6'">
+                @livewire('app.student-photo')
+            </div>
         </x-slot>
 
         <x-slot name="nav">

@@ -148,7 +148,8 @@
             <div class="container flex flex-col items-center justify-center w-full mx-auto">
                 <ul class="flex flex-col w-full">
                     @forelse ($list as $item)
-                        <li class="flex flex-row w-full mb-2 border-gray-400">
+                        <li class="flex flex-row w-full mb-2 border-gray-400 cursor-pointer"
+                            @click="activeTab = '#tab6'">
                             <div
                                 class="flex items-center flex-1 p-4 bg-white border rounded-md shadow cursor-pointer select-none dark:bg-gray-800">
                                 <div class="flex flex-col items-center justify-center w-10 h-10 mr-4">

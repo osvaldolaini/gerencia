@@ -2,7 +2,6 @@
 
     <div class="container flex flex-col items-center justify-center w-full mx-auto">
         <ul class="flex flex-col w-full mt-5">
-
             <li class="flex flex-row w-full mb-2 border-gray-400 cursor-pointer">
                 <div
                     class="flex items-center flex-1 p-4 bg-white border rounded-md shadow cursor-pointer select-none dark:bg-gray-800">
@@ -18,9 +17,8 @@
                     </div>
                     <div class="flex-1 pl-1 md:mr-16">
                         <div class="font-medium dark:text-white">
-                            Al {{ $student->nick }} - <span class="badge badge-success">
-                                {{ $student->people_class }}
-                            </span>
+                            Al {{ $student->nick }} -
+                            <span class="badge badge-success">{{ $student->people_class }}</span>
                         </div>
                         <div class="text-xs text-gray-600 dark:text-gray-200">
                             {{ $student->name }}
@@ -28,45 +26,44 @@
                     </div>
                 </div>
             </li>
-
         </ul>
     </div>
+
     <form wire:submit.prevent="save" class="space-y-4">
 
         <div>
             <label for="upload"
                 class="flex items-center w-full cursor-pointer btn btn-square dark:btn-outline btn-success">
                 Tirar Foto
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 16 16"
-                    id="photo-camera-16px" xmlns="http://www.w3.org/2000/svg">
-                    <path id="Path_62" data-name="Path 62"
-                        d="M-9.5,4h-1.154L-11.789.973A1.506,1.506,0,0,0-13.193,0h-3.614a1.506,1.506,0,0,0-1.4.973L-19.346,4H-20.5A2.5,2.5,0,0,0-23,6.5v7A2.5,2.5,0,0,0-20.5,16h11A2.5,2.5,0,0,0-7,13.5v-7A2.5,2.5,0,0,0-9.5,4Zm-7.775-2.675A.5.5,0,0,1-16.807,1h3.614a.5.5,0,0,1,.468.325l1,2.675h-6.556ZM-8,13.5A1.5,1.5,0,0,1-9.5,15h-11A1.5,1.5,0,0,1-22,13.5v-7A1.5,1.5,0,0,1-20.5,5h11A1.5,1.5,0,0,1-8,6.5ZM-15,6a4,4,0,0,0-4,4,4,4,0,0,0,4,4,4,4,0,0,0,4-4A4,4,0,0,0-15,6Zm0,7a3,3,0,0,1-3-3,3,3,0,0,1,3-3,3,3,0,0,1,3,3A3,3,0,0,1-15,13Zm.5-4.5A.5.5,0,0,1-15,9a1,1,0,0,0-1,1,.5.5,0,0,1-.5.5A.5.5,0,0,1-17,10a2,2,0,0,1,2-2A.5.5,0,0,1-14.5,8.5Z"
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M-9.5,4h-1.154L-11.789.973A1.506,1.506,0,0,0-13.193,0h-3.614a1.506,1.506,0,0,0-1.4.973L-19.346,4H-20.5A2.5,2.5,0,0,0-23,6.5v7A2.5,2.5,0,0,0-20.5,16h11A2.5,2.5,0,0,0-7,13.5v-7A2.5,2.5,0,0,0-9.5,4Z"
                         transform="translate(23)" />
                 </svg>
             </label>
 
-            {{-- <input type="file" id="upload" wire:model="foto" accept="image/*" capture="environment"
-                class="hidden" /> --}}
             <input type="file" id="upload" wire:model="foto" accept="image/*" class="hidden" />
-
             @error('foto')
                 <span class="block mt-1 text-sm text-error">{{ $message }}</span>
             @enderror
         </div>
 
         @if ($foto)
-            <div class="p-2 mt-4 border rounded-box ">
+            <div class="p-2 mt-4 border rounded-box" x-data="{ carregandoImagem: true }" x-init="window.addEventListener('livewire:update', () => {
+                setTimeout(() => carregandoImagem = false, 300);
+            });">
+
                 <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
 
                 <div class="relative w-full aspect-[3/4] max-h-80 items-center">
-                    {{-- Overlay de loading enquanto carrega a imagem --}}
-                    <div wire:loading wire:target="foto"
-                        class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50 rounded-box">
-                        <span class="text-white loading loading-spinner loading-lg"></span>
-                        <p class="mt-2 text-sm text-white">Carregando imagem...</p>
-                    </div>
+                    <template x-if="carregandoImagem">
+                        <div
+                            class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50 rounded-box">
+                            <span class="text-white loading loading-spinner loading-lg"></span>
+                            <p class="mt-2 text-sm text-white">Carregando imagem...</p>
+                        </div>
+                    </template>
 
-                    {{-- Preview da imagem --}}
                     <img id="image-to-crop" src="{{ $foto->temporaryUrl() }}" alt="Pré-visualização"
                         class="mx-auto max-h-80 rounded-box" />
                 </div>
@@ -76,11 +73,10 @@
                 </div>
             </div>
         @elseif($old_photo)
-            <div class="p-2 mt-4 border rounded-box ">
+            <div class="p-2 mt-4 border rounded-box">
                 <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
 
                 <div class="relative w-full aspect-[3/4] max-h-80 items-center">
-                    {{-- Overlay de loading enquanto carrega a imagem --}}
                     <div wire:loading wire:target="foto"
                         class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50 rounded-box">
                         <span class="text-white loading loading-spinner loading-lg"></span>
@@ -96,11 +92,8 @@
             </div>
         @endif
 
-        {{-- Botão Submit --}}
-        {{-- <div class="text-right">
-            <button type="submit" class="btn btn-success">Cadastrar Aluno</button>
-        </div> --}}
     </form>
+
     @if ($foto || $old_photo)
         @push('scripts')
             <script>
@@ -113,7 +106,7 @@
                 window.addEventListener('livewire:update', function() {
                     setTimeout(() => {
                         initCropper();
-                    }, 300); // tempo maior para garantir montagem no iOS
+                    }, 300);
                 });
 
                 function initCropper() {
@@ -138,7 +131,6 @@
                         console.log('✅ Cropper iniciado');
                     }
 
-                    // Força o recarregamento da imagem para disparar onload no iOS
                     const originalSrc = image.src;
                     image.onload = () => {
                         console.log('✅ Imagem carregada');
@@ -147,7 +139,6 @@
                     image.src = '';
                     image.src = originalSrc;
 
-                    // Garante fallback caso onload falhe
                     if (image.complete && image.naturalHeight !== 0) {
                         console.log('✅ Imagem já completa, iniciando direto');
                         startCropper(image);

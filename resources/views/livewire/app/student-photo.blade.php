@@ -1,7 +1,7 @@
-<div class="max-w-md p-4 mx-auto shadow-xl rounded-box ">
+<div class="max-w-md px-4 mx-auto shadow-xl rounded-box ">
 
     <div class="container flex flex-col items-center justify-center w-full mx-auto">
-        <ul class="flex flex-col w-full">
+        <ul class="flex flex-col w-full mt-5">
 
             <li class="flex flex-row w-full mb-2 border-gray-400 cursor-pointer">
                 <div
@@ -54,7 +54,7 @@
         </div>
 
         @if ($foto)
-            <div class="p-2 mt-4 border rounded-box bg-base-200">
+            <div class="p-2 mt-4 border rounded-box ">
                 <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
 
                 <div class="relative w-full aspect-[3/4] max-h-80 items-center">
@@ -75,10 +75,16 @@
                 </div>
             </div>
         @elseif($old_photo)
-            <div class="p-2 mt-4 border rounded-box bg-base-200">
+            <div class="p-2 mt-4 border rounded-box ">
                 <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
 
-                <div class="relative w-full aspect-[3/4] max-h-80">
+                <div class="relative w-full aspect-[3/4] max-h-80 items-center">
+                    {{-- Overlay de loading enquanto carrega a imagem --}}
+                    <div wire:loading wire:target="foto"
+                        class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50 rounded-box">
+                        <span class="text-white loading loading-spinner loading-lg"></span>
+                        <p class="mt-2 text-sm text-white">Carregando imagem...</p>
+                    </div>
                     <img id="image-to-crop" src="{{ url('storage/student/' . $old_photo) }}" alt="Pré-visualização"
                         class="mx-auto max-h-80 rounded-box" />
                 </div>

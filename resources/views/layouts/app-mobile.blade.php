@@ -51,8 +51,9 @@
     </div>
 
     @stack('modals')
-
+    <script src="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.js"></script>
     @livewireScripts
+    @stack('scripts')
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js')
@@ -60,7 +61,8 @@
                 .catch((error) => console.log('Erro ao registrar Service Worker', error));
         }
     </script>
-    <script src="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.js"></script>
+
+
     @yield('scripts')
 
     @yield('push')

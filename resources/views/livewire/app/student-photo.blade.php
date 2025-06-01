@@ -45,8 +45,9 @@
                 </svg>
             </label>
 
-            <input type="file" id="upload" wire:model="foto" accept="image/*" capture="environment"
-                class="hidden" />
+            {{-- <input type="file" id="upload" wire:model="foto" accept="image/*" capture="environment"
+                class="hidden" /> --}}
+            <input type="file" id="upload" wire:model="foto" accept="image/*" class="hidden" />
 
             @error('foto')
                 <span class="block mt-1 text-sm text-error">{{ $message }}</span>
@@ -112,7 +113,7 @@
                 window.addEventListener('livewire:update', function() {
                     setTimeout(() => {
                         initCropper();
-                    }, 100); // garante que o DOM foi atualizado
+                    }, 300); // tempo maior para garantir montagem no iOS
                 });
 
                 function initCropper() {
@@ -134,15 +135,22 @@
                             scalable: false,
                             zoomable: true,
                         });
+                        console.log('✅ Cropper iniciado');
                     }
 
-                    // Garante que funcione mesmo se a imagem já estiver carregada
-                    if (image.complete && image.naturalHeight !== 0) {
+                    // Força o recarregamento da imagem para disparar onload no iOS
+                    const originalSrc = image.src;
+                    image.onload = () => {
+                        console.log('✅ Imagem carregada');
                         startCropper(image);
-                    } else {
-                        image.onload = () => {
-                            startCropper(image);
-                        };
+                    };
+                    image.src = '';
+                    image.src = originalSrc;
+
+                    // Garante fallback caso onload falhe
+                    if (image.complete && image.naturalHeight !== 0) {
+                        console.log('✅ Imagem já completa, iniciando direto');
+                        startCropper(image);
                     }
                 }
 

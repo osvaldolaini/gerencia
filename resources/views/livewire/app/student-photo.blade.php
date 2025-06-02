@@ -43,8 +43,9 @@
                 </svg>
             </label>
 
-            <input type="file" class="hidden" id="upload" wire:model="uploadimage" accept="image/*"
-                capture="environment" />
+            <input type="file" class="hidden" id="upload" wire:model="uploadimage" accept="image/*" />
+            {{-- <input type="file" class="hidden" id="upload" wire:model="uploadimage" accept="image/*"
+                capture="environment" /> --}}
 
             @error('foto')
                 <span class="block mt-1 text-sm text-error">{{ $message }}</span>
@@ -54,7 +55,7 @@
             <span class="loading loading-spinner loading-lg text-success"></span>
             <p class="mt-2 text-sm text-gray-600">Carregando imagem...</p>
         </div>
-        <div class="p-2 mt-4 border rounded-box bg-base-200">
+        <div class="p-2 mt-4 border rounded-box bg-base-200 {{ $seePhoto ? 'hidden' : '' }}">
 
             <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
             <div class="relative w-full h-full">
@@ -65,7 +66,7 @@
 
                 <!-- Spinner e texto sobre a imagem antiga -->
                 <div wire:loading wire:target="uploadimage"
-                    class="absolute inset-0 z-30 flex flex-col items-center justify-center text-sm text-center text-white bg-black bg-opacity-50 rounded">
+                    class="absolute inset-0 z-30 flex flex-col items-center justify-center text-sm text-center text-green-500 bg-black rounded">
                     <span class="mb-2 loading loading-spinner loading-lg"></span>
                     <p>Carregando imagem...</p>
                 </div>
@@ -92,11 +93,11 @@
                 <!-- Foto antiga sobreposta -->
                 <img id="preview-old"
                     src="{{ url('storage/student/' . $student->id . '/' . $student->code_image . '_big.png') }}"
-                    class="absolute inset-0 z-20 flex justify-center mx-auto rounded {{ $seeOldPhoto ? '' : 'hidden' }}">
-
+                    class=" overflow-hidden inset-0 z-20 flex justify-center mx-auto rounded-box {{ $seeOldPhoto ? '' : 'hidden' }}">
             </div>
         </div>
     </div>
+
 
     <link rel="stylesheet" href="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.css" />
     <script src="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.js"></script>

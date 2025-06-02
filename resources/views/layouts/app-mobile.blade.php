@@ -29,8 +29,6 @@
     @livewireStyles
     @yield('styles')
 
-    <link rel="stylesheet" href="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.css" />
-
     <style>
         .ck-editor__editable_inline {
             min-height: 400px;
@@ -51,7 +49,7 @@
     </div>
 
     @stack('modals')
-    <script src="https://unpkg.com/cropperjs@1.5.13/dist/cropper.min.js"></script>
+
     @livewireScripts
     @stack('scripts')
     <script>

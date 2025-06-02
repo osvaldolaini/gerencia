@@ -8,7 +8,7 @@
                     <div class="flex flex-col items-center justify-center w-10 h-10 mr-4">
                         <span class="relative block">
                             @if ($student->logo_path)
-                                <img src="{{ url('storage/student/' . $student->id . '/' . $student->code_image . '_big.png') }}"
+                                <img src="{{ url('storage/student/' . $student->id . '/' . $student->code_image . '_small.png') }}"
                                     class="object-cover w-10 h-10 mx-auto rounded-full ">
                             @else
                                 <x-application-logo width="h-12"></x-application-logo>

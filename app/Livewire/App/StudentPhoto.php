@@ -68,6 +68,9 @@ class StudentPhoto extends Component
         file_put_contents($fullPath  . '/' . $new_name, $imageData);
 
         // Apaga apenas a imagem anterior, se existir
+        if (Storage::directoryMissing('public/student/' . $this->student->id)) {
+            Storage::makeDirectory('public/student/' . $this->student->id, 0755, true, true);
+        }
         if ($this->student->logo_path) {
             Storage::delete($directory . '/' . $this->student->logo_path);
         }

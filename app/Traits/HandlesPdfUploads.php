@@ -25,7 +25,7 @@ trait HandlesPdfUploads
             // // chmod($directory, 0755); // Garante a permissão correta
             // umask(0); // Remove restrições do sistema
             // mkdir($directory, 0755, true);
-            chmod($directory, 0755); // Garante a permissão correta
+            chmod(storage_path('app/' . $directory), 0755); // Garante a permissão correta
 
         } else {
             Storage::delete($directory . '/' . $filename);

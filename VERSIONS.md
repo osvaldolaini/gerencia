@@ -1,5 +1,12 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.5.3 2025-06-03
+
+> Correção
+
+    ->Upload da foto do aluno
+    ->Permissão das pastas após upload
+
 ## Versão Santos Dumont 1.5.2 2025-05-30
 
 > Melhorias

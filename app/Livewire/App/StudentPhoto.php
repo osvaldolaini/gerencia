@@ -77,7 +77,6 @@ class StudentPhoto extends Component
                 mkdir($fullPath, 0755, true);
             }
             chmod($fullPath, 0755); // Garante a permissão correta
-            // Storage::makeDirectory('public/student/' . $this->student->id);
         }
 
 

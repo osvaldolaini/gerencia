@@ -17,12 +17,15 @@ trait HandlesPdfUploads
         if ($deleteDirectory) {
             Storage::deleteDirectory($directory);
             Storage::makeDirectory($directory, 0755, true, true);
-            // Criar diretório com permissões forçadas
-            // if (!file_exists($directory)) {
-            //     umask(0); // Remove restrições do sistema
-            //     mkdir($directory, 0755, true);
-            // }
-            // chmod($directory, 0755); // Garante a permissão correta
+            // // Criar diretório com permissões forçadas
+            // // if (!file_exists($directory)) {
+            // //     umask(0); // Remove restrições do sistema
+            // //     mkdir($directory, 0755, true);
+            // // }
+            // // chmod($directory, 0755); // Garante a permissão correta
+            // umask(0); // Remove restrições do sistema
+            // mkdir($directory, 0755, true);
+            chmod($directory, 0755); // Garante a permissão correta
 
         } else {
             Storage::delete($directory . '/' . $filename);

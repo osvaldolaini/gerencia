@@ -67,7 +67,13 @@ class StudentPhoto extends Component
 
         // Apaga apenas a imagem anterior, se existir
         if (Storage::directoryMissing('public/student/' . $this->student->id)) {
-            Storage::makeDirectory('public/student/' . $this->student->id, 0755, true, true);
+            // Criar diretório com permissões forçadas
+            if (!file_exists($fullPath)) {
+                umask(0); // Remove restrições do sistema
+                mkdir($fullPath, 0755, true);
+            }
+            chmod($fullPath, 0755); // Garante a permissão correta
+            // Storage::makeDirectory('public/student/' . $this->student->id);
         }
         if ($this->student->logo_path) {
             Storage::delete($directory . '/' . $this->student->logo_path);

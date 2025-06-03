@@ -65,8 +65,6 @@ class StudentPhoto extends Component
 
         Log::debug('Caminho: ' . $fullPath);
 
-        file_put_contents($fullPath  . '/' . $new_name, $imageData);
-
         // Apaga apenas a imagem anterior, se existir
         if (Storage::directoryMissing('public/student/' . $this->student->id)) {
             Storage::makeDirectory('public/student/' . $this->student->id, 0755, true, true);
@@ -74,6 +72,10 @@ class StudentPhoto extends Component
         if ($this->student->logo_path) {
             Storage::delete($directory . '/' . $this->student->logo_path);
         }
+
+        file_put_contents($fullPath  . '/' . $new_name, $imageData);
+
+
 
         // Atualizar o caminho da imagem no banco
         $this->student->logo_path = $new_name;

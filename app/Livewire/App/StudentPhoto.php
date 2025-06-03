@@ -66,7 +66,7 @@ class StudentPhoto extends Component
         Log::debug('Caminho: ' . $fullPath);
 
         if ($this->student->logo_path) {
-            Storage::delete($directory . '/' . $this->student->logo_path);
+            Storage::deleteDirectory($directory);
         }
 
         // Apaga apenas a imagem anterior, se existir

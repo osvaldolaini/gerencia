@@ -577,20 +577,20 @@
                     @endforeach
                 @endif
 
-                @if ($item->json_faults != '' or $item->json_faults != null)
+                @if ($fault_discipline->faults != '' or $fault_discipline->faults != null)
                     <tr>
                         <td colspan="4" Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
                             Reincidente na(s) falta(s) nr
                         </td>
                     </tr>
-                    @foreach ($item->json_faults as $faults)
-                        @if ($item->reincident($faults, $item->fact_date, $item->student_id) > 0)
+                    @foreach ($fault_discipline->json_faults as $faults)
+                        @if ($fault_discipline->reincident($faults, $fault_discipline->fact_date, $fault_discipline->student_id) > 0)
                             <tr>
                                 <td style="text-align:center;border-top: 1px solid black;">
                                     {{ $faults }}
                                 </td>
                                 <td style="text-align:center;border-top: 1px solid black;">
-                                    {{ $item->reincident($faults, $item->fact_date, $item->student_id) }}x
+                                    {{ $fault_discipline->reincident($faults, $fault_discipline->fact_date, $fault_discipline->student_id) }}x
                                 </td>
                             </tr>
                         @endif

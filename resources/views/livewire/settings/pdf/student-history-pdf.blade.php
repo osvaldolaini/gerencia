@@ -218,7 +218,7 @@
                     </tr>
                     @php
                         $acumulado = 0;
-                        $faultsOrdenadas = $student->faults->where('active', 1)->where('fafd', 0)->sortBy('date'); // ordem CRESCENTE
+                        $faultsOrdenadas = $student->faults->where('active', 1)->where('fafd', '!=', 1)->sortBy('date'); // ordem CRESCENTE
                         $dados = [];
 
                         foreach ($faultsOrdenadas as $fault) {

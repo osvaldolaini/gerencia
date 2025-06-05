@@ -95,19 +95,19 @@ class FaultDisciplinePanel extends Component
             ->whereNotNull('fault_disciplines.supplement_number')
             ->whereNotNull('fault_disciplines.decision')
             ->where('fault_disciplines.active', 1)
-            // ->whereBetween('fault_disciplines.bi_date', [$this->date_start, $this->date_end])
+            ->whereBetween('fault_disciplines.bi_date', [$this->date_start, $this->date_end])
             ->groupBy('school_grades.name', 'fault_disciplines.decision')
             ->orderBy('school_grades.name')
             ->orderBy('fault_disciplines.decision');
 
-        $sql = $query->toSql();
-        $bindings = $query->getBindings();
+        $results = $query->get();
+
 
         $count = FaultDiscipline::whereBetween('bi_date', [$this->date_start, $this->date_end])
             ->count();
 
 
-        dd($sql, $bindings, $count);
+        dd($results, $count);
 
         $tabela = [];
 

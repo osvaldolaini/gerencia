@@ -274,4 +274,12 @@ class FaultDiscipline extends Model
     {
         return $this->belongsTo(Faults::class, 'fault_id', 'id');
     }
+    public function reincident($number, $date, $student_id)
+    {
+        $reincident = $this->where('student_id', $student_id)
+            ->where('faults', 'LIKE', '%' . $number . '%')
+            ->where('fact_date', '<', $date)
+            ->get()->count();
+        return $reincident;
+    }
 }

@@ -577,13 +577,13 @@
                     @endforeach
                 @endif
 
-                @if ($fault_discipline->faults != '' or $fault_discipline->faults != null)
+                @if ($selectedFaults)
                     <tr>
                         <td colspan="4" Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
                             Reincidente na(s) falta(s) nr
                         </td>
                     </tr>
-                    @foreach ($fault_discipline->json_faults as $faults)
+                    @foreach ($selectedFaults as $faults)
                         @if ($fault_discipline->reincident($faults, $fault_discipline->fact_date, $fault_discipline->student_id) > 0)
                             <tr>
                                 <td style="text-align:center;border-top: 1px solid black;">

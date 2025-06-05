@@ -157,9 +157,9 @@
                                                 alt="{{ $seat?->students?->name }}">
                                         </td>
                                     </tr>
-                                    <tr style="margin: 0px; padding:0px; font-size:7pt;">
-                                        <td style="margin: 0px; padding:0px; font-size:7pt;">
-                                            <span style="border:1px solid #000; ">
+                                    <tr style="margin: 0px; padding:0px;">
+                                        <td style="margin: 0px; padding:0px; font-size:8pt;">
+                                            <span>
                                                 {{ $seat?->students?->nick }}
                                             </span>
 

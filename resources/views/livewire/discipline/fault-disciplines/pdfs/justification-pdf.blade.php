@@ -595,7 +595,7 @@
                             </tr>
                         @endif
                     @endforeach
-
+                @endif
             </table>
         </div>
     </div>

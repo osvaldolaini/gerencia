@@ -158,8 +158,11 @@
                                         </td>
                                     </tr>
                                     <tr style="margin: 0px; padding:0px; font-size:7pt;">
-                                        <td style="border:1px solid #000; margin: 0px; padding:0px; font-size:7pt;">
-                                            {{ $seat?->students?->nick }}
+                                        <td style="margin: 0px; padding:0px; font-size:7pt;">
+                                            <span style="border:1px solid #000; ">
+                                                {{ $seat?->students?->nick }}
+                                            </span>
+
                                         </td>
                                     </tr>
                                     <tr style="margin: 0px; padding:0px; font-size:6pt;">

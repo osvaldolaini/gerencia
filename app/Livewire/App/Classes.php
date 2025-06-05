@@ -19,6 +19,7 @@ class Classes extends Component
     public $school_classes_year_id;
 
     public $title;
+    public $search;
     public $list = [];
 
     public $battalion;
@@ -35,10 +36,14 @@ class Classes extends Component
             $this->companies = Companies::where('active', 1)->get();
         }
     }
+
     public function render()
     {
+
         return view('livewire.app.classes');
     }
+
+
     public function view_students(SchoolGrades $grade, $school_classes_year_id)
     {
         $this->showModalView = true;
@@ -48,8 +53,15 @@ class Classes extends Component
 
         // Busca os estudantes ativos do ano letivo e classes específicas
         $this->list = SchoolClassesStudent::where('active', 1)
+            ->with(['students'])
             ->where('school_classes_year_id', $school_classes_year_id)
             ->whereIn('school_classes_id', $classIds)
+            ->where(function ($query) {
+                $query->orWhereHas('students', function ($q) {
+                    $q->where('nick', 'LIKE', '%' . $this->search . '%')
+                        ->orWhere('number', 'LIKE', '%' . $this->search . '%');
+                });
+            })
             ->get();
     }
     public function seeStudentProfile(Peoples $student)

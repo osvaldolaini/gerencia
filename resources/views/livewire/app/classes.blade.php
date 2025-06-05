@@ -73,6 +73,7 @@
                                                                     </span>
                                                                 </div>
                                                             </div>
+                                                            {{-- @livewire('app.students-grade', ['grade' => $grade->id, 'school_classes_year_id' => $school_classes_year_id]) --}}
                                                         </div>
                                                     @endif
                                                 </div>
@@ -142,10 +143,13 @@
         </x-slot>
     </x-dialog-modal>
     {{-- MODAL READ --}}
-    <x-dialog-modal wire:model="showModalView">
-        <x-slot name="title">Alunos do {{ $title ? $title : '' }}</x-slot>
+    {{-- <x-dialog-modal wire:model="showModalView">
+        <x-slot name="title">Alunos do {{ $title ? $title : '' }} {{ $search }}</x-slot>
         <x-slot name="content">
             <div class="container flex flex-col items-center justify-center w-full mx-auto">
+                <input type="text" placeholder="Pesquisar" wire:model.live="search"
+                    class="w-full py-3 pl-10 mb-5 text-sm text-gray-900 border-blue-500 rounded-2xl focus:ring-primary-500 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500"
+                    autofocus />
                 <ul class="flex flex-col w-full">
                     @forelse ($list as $item)
                         <li class="flex flex-row w-full mb-2 border-gray-400 cursor-pointer"
@@ -187,5 +191,5 @@
                 Fechar
             </x-secondary-button>
         </x-slot>
-    </x-dialog-modal>
-</div>)
+    </x-dialog-modal> --}}
+</div>

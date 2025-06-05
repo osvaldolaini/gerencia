@@ -577,6 +577,25 @@
                     @endforeach
                 @endif
 
+                @if ($item->faults != '' or $item->faults != null)
+                    <tr>
+                        <td colspan="4" Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
+                            Reincidente na(s) falta(s) nr
+                        </td>
+                    </tr>
+                    @foreach ($item->json_faults as $faults)
+                        @if ($item->reincident($faults, $item->fact_date, $item->student_id) > 0)
+                            <tr>
+                                <td style="text-align:center;border-top: 1px solid black;">
+                                    {{ $faults }}
+                                </td>
+                                <td style="text-align:center;border-top: 1px solid black;">
+                                    {{ $item->reincident($faults, $item->fact_date, $item->student_id) }}x
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
+
             </table>
         </div>
     </div>

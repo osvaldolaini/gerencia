@@ -121,7 +121,7 @@
                 </td>
             </tr>
         </table>
-        <table class="table" style="border-collapse: collapse; border:none; margin: 0px; padding:0px;">
+        <table class="table" style=" border:none; margin: 0px; padding:0px;">
             @for ($r = 1; $r <= $class->rows; $r++)
                 <tr style="margin: 0px; padding:0px;">
                     @if ($r === 1)

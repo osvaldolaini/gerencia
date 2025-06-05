@@ -121,9 +121,9 @@
                 </td>
             </tr>
         </table>
-        <table class="table">
+        <table class="table" style="border-collapse: collapse; border:none; margin: 0px; padding:0px;">
             @for ($r = 1; $r <= $class->rows; $r++)
-                <tr>
+                <tr style="margin: 0px; padding:0px;">
                     @if ($r === 1)
                         <td class="door" style="width:10%;align-items: top; vertical-align:top;"
                             rowspan="{{ $class->rows }}">
@@ -146,7 +146,7 @@
                             $number = $seat?->students?->number ?? 'Vazio';
                             $classe = $seat?->students ? 'ocupado' : 'vazio';
                         @endphp
-                        <td class="{{ $classe }}">
+                        <td class="{{ $classe }}" style="margin: 0px; padding:0px;">
 
                             @if ($seat?->students)
                                 <table style="border-collapse: collapse; border:none; margin: 0px; padding:0px;">
@@ -157,8 +157,8 @@
                                                 alt="{{ $seat?->students?->name }}">
                                         </td>
                                     </tr>
-                                    <tr style="margin: 0px; padding:0px; font-size:8pt;">
-                                        <td style="border:1px solid #000; margin: 0px; padding:0px; font-size:8pt;">
+                                    <tr style="margin: 0px; padding:0px; font-size:7pt;">
+                                        <td style="border:1px solid #000; margin: 0px; padding:0px; font-size:7pt;">
                                             {{ $seat?->students?->nick }}
                                         </td>
                                     </tr>

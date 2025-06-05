@@ -577,7 +577,7 @@
                     @endforeach
                 @endif
 
-                @if ($item->faults != '' or $item->faults != null)
+                @if ($item->json_faults != '' or $item->json_faults != null)
                     <tr>
                         <td colspan="4" Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
                             Reincidente na(s) falta(s) nr

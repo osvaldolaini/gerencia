@@ -86,7 +86,7 @@ class FaultDisciplinePanel extends Component
 
 
         $punitions = FaultDiscipline::select([
-            'school_grades.name as grade',
+            // 'school_grades.name as grade',
             'fault_disciplines.decision',
             DB::raw('COUNT(*) as total'),
         ])

@@ -85,7 +85,7 @@ class FaultDisciplinePanel extends Component
 
 
 
-        $sql = FaultDiscipline::select([
+        $query = FaultDiscipline::select([
             'school_grades.name as grade',
             'fault_disciplines.decision',
             DB::raw('COUNT(*) as total'),
@@ -93,16 +93,18 @@ class FaultDisciplinePanel extends Component
             ->join('school_classes', 'school_classes.id', '=', 'fault_disciplines.school_classes_id')
             ->join('school_grades', 'school_grades.id', '=', 'school_classes.school_grade_id')
             ->whereNotNull('fault_disciplines.bi_date')
-            // ->whereNotNull('fault_disciplines.decision')
-            // ->where('fault_disciplines.active', true)
-            ->whereBetween('fault_disciplines.bi_date', [$this->date_start, $this->date_end])
+            ->whereNotNull('fault_disciplines.decision')
+            ->where('fault_disciplines.active', true)
+            // ->whereBetween('fault_disciplines.bi_date', [$this->date_start, $this->date_end])
             ->groupBy('school_grades.name', 'fault_disciplines.decision')
             ->orderBy('school_grades.name')
-            ->orderBy('fault_disciplines.decision')
-            ->toSql();
+            ->orderBy('fault_disciplines.decision');
 
+        $sql = $query->toSql();
+        $bindings = $query->getBindings();
 
-        dd($sql);
+        dd($sql, $bindings);
+
         $tabela = [];
 
         foreach ($punitions as $row) {

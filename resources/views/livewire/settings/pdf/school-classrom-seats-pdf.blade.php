@@ -152,7 +152,8 @@
                                 <table style="border-collapse: collapse; border:none; margin: 0px; padding:0px;">
                                     <tr style="margin: 0px; padding:0px;">
                                         <td style="border:none; margin: 0px; padding:0px;">
-                                            <img src="{{ url('storage/student/' . $seat?->students?->id . '/' . $seat?->students?->code_image . '_list.png') }}"
+                                            <img width="20px"
+                                                src="{{ url('storage/student/' . $seat?->students?->id . '/' . $seat?->students?->code_image . '_list.png') }}"
                                                 alt="{{ $seat?->students?->name }}">
                                         </td>
                                     </tr>

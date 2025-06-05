@@ -123,7 +123,7 @@
         </table>
         <table class="table" style=" border:none; margin: 0px; padding:0px;">
             @for ($r = 1; $r <= $class->rows; $r++)
-                <tr style="margin: 0px; padding:0px;">
+                <tr style="margin: 1px; padding:1px;">
                     @if ($r === 1)
                         <td class="door" style="width:10%;align-items: top; vertical-align:top;"
                             rowspan="{{ $class->rows }}">

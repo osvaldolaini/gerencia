@@ -5,7 +5,7 @@
 > Melhorias
 
     ->Nº de vezes de reincidência no pdf de abertura
-    ->Se gerou FAFD não aparece como FO-
+    ->Se gerou FAFD não aparece como FO- na ficha individual
 
 ## Versão Santos Dumont 1.5.3 2025-06-03
 

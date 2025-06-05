@@ -5,6 +5,7 @@
             <dl>
                 <dt class="text-sm font-medium leading-5 truncate">
                     Painel disciplina {{ date('Y') }}
+
                 </dt>
                 <dd class="mt-1 font-bold text-md">
                     <div class="grid w-full grid-cols-3 space-x-2">
@@ -45,6 +46,7 @@
                         </span>
                     </div>
                 </dd>
+
             </dl>
         </div>
     </div>

@@ -10,6 +10,7 @@ class FaultObservedPanel extends Component
 {
     public $recentFos;
     public $topStudentsFos;
+
     public function render()
     {
         $companiesAccess = Auth::user()->json_companies;

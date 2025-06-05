@@ -584,6 +584,8 @@
                         </td>
                     </tr>
                     @foreach ($selectedFaults as $faults)
+                        {{ $faults }}
+                        {{ $fault_discipline->reincident($faults, $fault_discipline->fact_date, $fault_discipline->student_id) }}
                         @if ($fault_discipline->reincident($faults, $fault_discipline->fact_date, $fault_discipline->student_id) > 0)
                             <tr>
                                 <td style="text-align:center;border-top: 1px solid black;">

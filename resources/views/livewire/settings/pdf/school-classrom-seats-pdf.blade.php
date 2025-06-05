@@ -123,7 +123,7 @@
         </table>
         <table class="table" style=" border:none; margin: 0px; padding:0px;">
             @for ($r = 1; $r <= $class->rows; $r++)
-                <tr style="margin: 1px; padding:1px;">
+                <tr style="margin: 0px; padding:0px;">
                     @if ($r === 1)
                         <td class="door" style="width:10%;align-items: top; vertical-align:top;"
                             rowspan="{{ $class->rows }}">
@@ -146,13 +146,13 @@
                             $number = $seat?->students?->number ?? 'Vazio';
                             $classe = $seat?->students ? 'ocupado' : 'vazio';
                         @endphp
-                        <td class="{{ $classe }}" style="margin: 0px; padding:0px;">
+                        <td class="{{ $classe }}" style="margin: 2px; padding:2px;">
 
                             @if ($seat?->students)
                                 <table style="border-collapse: collapse; border:none; margin: 0px; padding:0px;">
                                     <tr style="margin: 0px; padding:0px;">
                                         <td style="border:none; margin: 0px; padding:0px;">
-                                            <img width="35px"
+                                            <img width="45px"
                                                 src="{{ url('storage/student/' . $seat?->students?->id . '/' . $seat?->students?->code_image . '_list.png') }}"
                                                 alt="{{ $seat?->students?->name }}">
                                         </td>

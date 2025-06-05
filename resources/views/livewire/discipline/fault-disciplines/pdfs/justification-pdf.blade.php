@@ -583,16 +583,16 @@
                             Reincidente na(s) falta(s) nr
                         </td>
                     </tr>
-                    @foreach ($selectedFaults as $faults)
-                        {{ $faults }}
-                        {{ $fault_discipline->reincident($faults, $fault_discipline->fact_date, $fault_discipline->student_id) }}
-                        @if ($fault_discipline->reincident($faults, $fault_discipline->fact_date, $fault_discipline->student_id) > 0)
+                    @foreach ($selectedFaults as $number => $title)
+                        {{ $number }}
+                        {{ $fault_discipline->reincident($number, $fault_discipline->fact_date, $fault_discipline->student_id) }}
+                        @if ($fault_discipline->reincident($number, $fault_discipline->fact_date, $fault_discipline->student_id) > 0)
                             <tr>
                                 <td style="text-align:center;border-top: 1px solid black;">
-                                    {{ $faults }}
+                                    {{ $number }}
                                 </td>
                                 <td style="text-align:center;border-top: 1px solid black;">
-                                    {{ $fault_discipline->reincident($faults, $fault_discipline->fact_date, $fault_discipline->student_id) }}x
+                                    {{ $fault_discipline->reincident($number, $fault_discipline->fact_date, $fault_discipline->student_id) }}x
                                 </td>
                             </tr>
                         @endif

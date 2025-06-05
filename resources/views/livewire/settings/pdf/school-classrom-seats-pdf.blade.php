@@ -157,13 +157,13 @@
                                                 alt="{{ $seat?->students?->name }}">
                                         </td>
                                     </tr>
-                                    <tr style="margin: 0px; padding:0px;">
+                                    <tr style="margin: 0px; padding:0px; font-size:8pt;">
                                         <td style="border:1px solid #000; margin: 0px; padding:0px; font-size:8pt;">
                                             {{ $seat?->students?->nick }}
                                         </td>
                                     </tr>
-                                    <tr style="margin: 0px; padding:0px;">
-                                        <td style="border:none; margin: 0px; padding:0px;">
+                                    <tr style="margin: 0px; padding:0px; font-size:6pt;">
+                                        <td style="border:none; margin: 0px; padding:0px; font-size:6pt;">
                                             {{ $number }}
                                         </td>
                                     </tr>

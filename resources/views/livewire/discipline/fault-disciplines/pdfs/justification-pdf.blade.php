@@ -584,15 +584,20 @@
                         </td>
                     </tr>
                     @foreach ($selectedFaults as $number => $title)
-                        {{ $number }}
-                        {{ $fault_discipline->reincident($number, $fault_discipline->fact_date, $fault_discipline->student_id) }}
-                        @if ($fault_discipline->reincident($number, $fault_discipline->fact_date, $fault_discipline->student_id) > 0)
+                        @php
+                            $v = $fault_discipline->reincident(
+                                $number,
+                                $fault_discipline->fact_date,
+                                $fault_discipline->student_id,
+                            );
+                        @endphp
+                        @if ($v > 0)
                             <tr>
                                 <td style="text-align:center;border-top: 1px solid black;">
-                                    {{ $number }}
+                                    Item - {{ $number }}
                                 </td>
                                 <td style="text-align:center;border-top: 1px solid black;">
-                                    {{ $fault_discipline->reincident($number, $fault_discipline->fact_date, $fault_discipline->student_id) }}x
+                                    {{ $v }} vez{{ $v > 0 ? 'es' : '' }}
                                 </td>
                             </tr>
                         @endif

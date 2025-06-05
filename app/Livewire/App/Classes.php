@@ -17,6 +17,7 @@ class Classes extends Component
     public $school_grade;
     public $companies;
     public $school_classes_year_id;
+    public $select_grade;
 
     public $title;
     public $search;
@@ -50,24 +51,24 @@ class Classes extends Component
         // Obtém os IDs das classes da grade
         $classIds = $grade->getClasses->pluck('id')->toArray();
         $this->title = $grade->name;
+        $this->select_grade = $grade;
 
-        // Busca os estudantes ativos do ano letivo e classes específicas
-        $this->list = SchoolClassesStudent::where('active', 1)
-            ->with(['students'])
-            ->where('school_classes_year_id', $school_classes_year_id)
-            ->whereIn('school_classes_id', $classIds)
-            ->where(function ($query) {
-                $query->orWhereHas('students', function ($q) {
-                    $q->where('nick', 'LIKE', '%' . $this->search . '%')
-                        ->orWhere('number', 'LIKE', '%' . $this->search . '%');
-                });
-            })
-            ->get();
+        $this->school_classes_year_id = $school_classes_year_id;
+
+        // // Busca os estudantes ativos do ano letivo e classes específicas
+        // $this->list = SchoolClassesStudent::where('active', 1)
+        //     ->with(['students'])
+        //     ->where('school_classes_year_id', $school_classes_year_id)
+        //     ->whereIn('school_classes_id', $classIds)
+        //     ->where(function ($query) {
+        //         $query->orWhereHas('students', function ($q) {
+        //             $q->where('nick', 'LIKE', '%' . $this->search . '%')
+        //                 ->orWhere('number', 'LIKE', '%' . $this->search . '%');
+        //         });
+        //     })
+        //     ->get();
     }
-    public function seeStudentProfile(Peoples $student)
-    {
-        $this->dispatch('getStudent', $student);
-    }
+
 
     #[On('seeBattalion')]
     public function seeBattalion(SchoolGrades $grade)

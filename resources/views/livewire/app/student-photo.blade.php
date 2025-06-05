@@ -58,11 +58,13 @@
         <div class="p-2 mt-4 border rounded-box bg-base-200 {{ $seePhoto ? 'hidden' : '' }}">
 
             <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
-            <div class="relative w-full h-full">
+            <div class="relative w-full h-full bg-white">
                 <!-- Foto antiga sobreposta -->
-                <img id="preview-old"
-                    src="{{ url('storage/student/' . $student->id . '/' . $student->code_image . '_big.png') }}"
-                    class="absolute inset-0 z-20 flex justify-center mx-auto rounded {{ $seeOldPhoto ? '' : 'hidden' }}">
+                <div class="absolute inset-0 z-20 bg-white dark:bg-gray-900 {{ $seeOldPhoto ? '' : 'hidden' }} ">
+                    <img id="preview-old"
+                        src="{{ url('storage/student/' . $student->id . '/' . $student->code_image . '_big.png') }}"
+                        class="relative flex justify-center mx-auto rounded ">
+                </div>
 
                 <!-- Spinner e texto sobre a imagem antiga -->
                 <div wire:loading wire:target="uploadimage"

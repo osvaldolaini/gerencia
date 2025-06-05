@@ -31,6 +31,9 @@ class StudentPhoto extends Component
     {
         $this->student = $student;
         $this->old_photo = $this->student->id . '/' . $this->student->logo_path;
+        $this->uploadimage = '';
+        $this->seeOldPhoto = true;
+        $this->seePhoto = false;
     }
 
     public function render()

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\App;
 
+use App\Models\Peoples;
 use App\Models\Settings\SchoolClassesStudent;
 use App\Models\Settings\SchoolGrades;
 use Livewire\Component;
@@ -14,7 +15,7 @@ class StudentsGrade extends Component
     public $school_classes_year_id;
 
     public $title;
-    public $grade;
+    public $select_grade;
     public $search;
     public $list = [];
 
@@ -22,16 +23,18 @@ class StudentsGrade extends Component
 
     public function mount(SchoolGrades $grade, $school_classes_year_id)
     {
-
-        // Obtém os IDs das classes da grade
-        $classIds = $grade->getClasses->pluck('id')->toArray();
         $this->title = $grade->name;
-        $this->grade = $grade;
-
+        $this->select_grade = $grade;
+        $this->school_classes_year_id = $school_classes_year_id;
+    }
+    public function render()
+    {
+        // Obtém os IDs das classes da grade
+        $classIds = $this->select_grade->getClasses->pluck('id')->toArray();
         // Busca os estudantes ativos do ano letivo e classes específicas
         $this->list = SchoolClassesStudent::where('active', 1)
             ->with(['students'])
-            ->where('school_classes_year_id', $school_classes_year_id)
+            ->where('school_classes_year_id', $this->school_classes_year_id)
             ->whereIn('school_classes_id', $classIds)
             ->where(function ($query) {
                 $query->orWhereHas('students', function ($q) {
@@ -40,13 +43,11 @@ class StudentsGrade extends Component
                 });
             })
             ->get();
-    }
-    public function render()
-    {
         return view('livewire.app.students-grade');
     }
-    public function seeStudents()
+
+    public function seeStudentProfile(Peoples $student)
     {
-        $this->showModalView = true;
+        $this->dispatch('getStudent', $student);
     }
 }

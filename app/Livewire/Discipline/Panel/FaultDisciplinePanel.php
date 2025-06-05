@@ -98,7 +98,7 @@ class FaultDisciplinePanel extends Component
             // ->whereBetween('fault_disciplines.bi_date', [$this->date_start, $this->date_end])  // filtro pelo período
             // ->groupBy('school_grades.name', 'fault_disciplines.decision')
             // ->orderBy('school_grades.name')
-            ->orderBy('fault_disciplines.decision')
+            // ->orderBy('fault_disciplines.decision')
             ->get();
 
 

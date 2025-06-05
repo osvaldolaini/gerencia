@@ -123,7 +123,7 @@
                                                     alt="{{ $seat?->students?->name }}">
                                             </div>
                                         </div>
-                                        <div class="text-xs text-green-500 col-span-full ">
+                                        <div class="flex text-xs text-green-500 col-span-full">
                                             {{ $seat?->students?->nick }}
                                             <span>({{ $seat?->students?->number }})</span>
                                         </div>

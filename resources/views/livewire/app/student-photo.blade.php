@@ -60,7 +60,7 @@
             <p class="mb-2 text-sm font-semibold dark:text-white">Ajuste da foto (proporção 3x4)</p>
             <div class="relative w-full h-full bg-white">
                 <!-- Foto antiga sobreposta -->
-                <div class="absolute inset-0 z-20 bg-white dark:bg-gray-900 {{ $seeOldPhoto ? '' : 'hidden' }} ">
+                <div class="absolute inset-0 z-20  bg-gray-900 {{ $seeOldPhoto ? '' : 'hidden' }} ">
                     <img id="preview-old"
                         src="{{ url('storage/student/' . $student->id . '/' . $student->code_image . '_big.png') }}"
                         class="relative flex justify-center mx-auto rounded ">

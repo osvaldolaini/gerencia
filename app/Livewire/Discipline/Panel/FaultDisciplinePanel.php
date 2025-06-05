@@ -102,6 +102,7 @@ class FaultDisciplinePanel extends Component
             ->get();
 
 
+        dd($punitions);
         $tabela = [];
 
         foreach ($punitions as $row) {

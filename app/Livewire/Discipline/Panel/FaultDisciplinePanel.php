@@ -92,7 +92,7 @@ class FaultDisciplinePanel extends Component
         ])
             ->join('school_classes', 'school_classes.id', '=', 'fault_disciplines.school_classes_id')
             ->join('school_grades', 'school_grades.id', '=', 'school_classes.school_grade_id')
-            ->whereNotNull('fault_disciplines.supplement_number')
+            // ->whereNotNull('fault_disciplines.supplement_number')
             // ->whereNotNull('fault_disciplines.decision')
             ->where('fault_disciplines.active', 1)
             ->whereBetween('fault_disciplines.bi_date', [$this->date_start, $this->date_end])

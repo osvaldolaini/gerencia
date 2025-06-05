@@ -579,7 +579,7 @@
 
                 @if ($selectedFaults)
                     <tr>
-                        <td colspan="4" Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
+                        <td Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
                             Reincidente na(s) falta(s) nr
                         </td>
                     </tr>
@@ -594,10 +594,7 @@
                         @if ($v > 0)
                             <tr>
                                 <td style="text-align:center;border-top: 1px solid black;">
-                                    Item - {{ $number }}
-                                </td>
-                                <td style="text-align:center;border-top: 1px solid black;">
-                                    {{ $v }} vez{{ $v > 0 ? 'es' : '' }}
+                                    {{ $v }} vez{{ $v > 0 ? 'es' : '' }} no item {{ $number }}
                                 </td>
                             </tr>
                         @endif

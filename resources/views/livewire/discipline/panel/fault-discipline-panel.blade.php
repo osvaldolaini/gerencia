@@ -165,11 +165,12 @@
     {{-- MODAL READ --}}
 
     <x-dialog-modal wire:model="showModal">
-        <x-slot name="title">Mapa </x-slot>
+        <x-slot name="title">Mapa de faltas disciplinares</x-slot>
         <x-slot name="content">
-            <div id="modalContent" class="bg-white; border ">
+
+            <div id="modalContent" class="hidden bg-white border">
                 <h1 class="text-sm">MAPA DE FALTAS DISCIPLINARES</h1>
-                <div class="box">
+                <div class=" box">
                     <table>
                         <tr>
                             <td style="text-align: left;" width="75%">

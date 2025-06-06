@@ -1,5 +1,11 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.5.5 2025-06-06
+
+> Novidades
+
+    ->Mapa de faltas disciplinares
+
 ## Versão Santos Dumont 1.5.4 2025-06-05
 
 > Melhorias

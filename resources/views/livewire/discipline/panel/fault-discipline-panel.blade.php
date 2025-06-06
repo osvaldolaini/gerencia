@@ -330,7 +330,7 @@
 
         </x-slot>
         <x-slot name="footer">
-            <x-secondary-button onclick="printModalContent()">Imprimir
+            <x-secondary-button onclick="printModalContent()">Imprimir relatório
             </x-secondary-button>
         </x-slot>
     </x-dialog-modal>

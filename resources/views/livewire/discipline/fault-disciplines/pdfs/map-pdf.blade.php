@@ -42,7 +42,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($punicoes as $item)
+            @foreach ($punitions as $item)
                 <tr>
                     <td>{{ $item->grade }}</td>
                     <td>{{ $item->decision }}</td>

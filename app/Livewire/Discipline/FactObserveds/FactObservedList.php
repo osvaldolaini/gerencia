@@ -173,6 +173,7 @@ class FactObservedList extends Component
             'al_name'                  => $fact->al_name,
             'al_number'                => $fact->al_number,
             'al_class'                 => $fact->al_class,
+            'school_classes_id'        => $fact->school_classes_id,
             'fact'                     => $fact->fact,
             'fact_hour'                => $fact->fact_hour,
             'fact_date'                => $fact->fact_date,

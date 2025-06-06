@@ -83,31 +83,22 @@ class FaultDisciplinePanel extends Component
 
         $logoPath = url('storage/logos-school/logo-header.png');
 
-
-
-        $query = FaultDiscipline::select([
+        $punitions = FaultDiscipline::select([
             'school_grades.name as grade',
+            // 'school_classes.title as class',
             'fault_disciplines.decision',
             DB::raw('COUNT(*) as total'),
         ])
             ->join('school_classes', 'school_classes.id', '=', 'fault_disciplines.school_classes_id')
             ->join('school_grades', 'school_grades.id', '=', 'school_classes.school_grade_id')
-            // ->whereNotNull('fault_disciplines.supplement_number')
-            // ->whereNotNull('fault_disciplines.decision')
-            // ->where('fault_disciplines.active', 1)
-            // ->whereBetween('fault_disciplines.bi_date', [$this->date_start, $this->date_end])
+            ->whereNotNull('fault_disciplines.supplement_number')
+            ->whereNotNull('fault_disciplines.decision')
+            ->where('fault_disciplines.active', 1)
+            ->whereBetween('fault_disciplines.bi_date', [$this->date_start, $this->date_end])
             ->groupBy('school_grades.name', 'fault_disciplines.decision')
             ->orderBy('school_grades.name')
-            ->orderBy('fault_disciplines.decision');
-
-        $results = $query->get();
-
-
-        $count = FaultDiscipline::whereBetween('bi_date', [$this->date_start, $this->date_end])
-            ->count();
-
-
-        dd($results, $count);
+            ->orderBy('fault_disciplines.decision')
+            ->get();
 
         $tabela = [];
 
@@ -119,7 +110,7 @@ class FaultDisciplinePanel extends Component
             $tabela[$grade][$decision] = $total;
         }
 
-        dd($tabela);
+        // dd($tabela);
         // Crie uma instância do mPDF
         $mpdf = new \Mpdf\Mpdf([
             'mode'          => 'utf-8',

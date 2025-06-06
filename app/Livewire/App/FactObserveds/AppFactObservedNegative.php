@@ -36,6 +36,7 @@ class AppFactObservedNegative extends Component
     public $al_name;
     public $student_id;
     public $al_class;
+    public $school_classes_id;
     public $fact;
     public $fact_hour;
     public $fact_date;
@@ -101,6 +102,7 @@ class AppFactObservedNegative extends Component
                 $this->al_name          = $people->name;
                 $this->al_number        = $people->number;
                 $this->al_class         = $people->al_class->title;
+                $this->school_classes_id = $people->al_class->id;
                 $this->cmt_cia_posto    = MilitaryRank::from(intval($people->al_class->classGrade->company->comandant->posto_grad))->label();
                 $this->cmt_cia          = $people->al_class->classGrade->company->comandant->name;
                 $this->cia              = $people->al_class->classGrade->company->name;
@@ -118,6 +120,7 @@ class AppFactObservedNegative extends Component
                     'al_name'                  => $this->al_name,
                     'al_number'                => $this->al_number,
                     'al_class'                 => $this->al_class,
+                    'school_classes_id'        => $this->school_classes_id,
                     'fact'                     => $this->fact,
                     'fact_hour'                => $this->fact_hour,
                     'fact_date'                => $this->fact_date,

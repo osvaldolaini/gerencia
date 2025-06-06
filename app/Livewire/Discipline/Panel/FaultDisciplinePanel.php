@@ -126,8 +126,10 @@ class FaultDisciplinePanel extends Component
             'livewire.discipline.fault-disciplines.pdfs.map-pdf',
             [
                 'logoPath'          => $logoPath,
+                'date_start'        => $this->date_start,
+                'date_end'          => $this->date_end,
                 'title'             => 'Mapa de faltas disciplinares',
-                'punitions'              => $tabela,
+                'punitions'         => $tabela,
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]

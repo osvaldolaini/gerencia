@@ -1,4 +1,7 @@
 <div>
+    @php
+        use Carbon\Carbon;
+    @endphp
     <div class="grid grid-cols-1 gap-2 sm:grid-cols-4">
         @livewire('discipline.panel.discipline-panel-card')
         <span class="col-span-full sm:col-span-2">
@@ -157,16 +160,209 @@
             </ul>
         </div>
     </div>
+
+
+    {{-- MODAL READ --}}
+
+    <x-dialog-modal wire:model="showModal">
+        <x-slot name="title">Mapa </x-slot>
+        <x-slot name="content">
+            <div id="modalContent" class="bg-white; border ">
+                <h1 class="text-sm">MAPA DE FALTAS DISCIPLINARES</h1>
+                <div class="box">
+                    <table>
+                        <tr>
+                            <td style="text-align: left;" width="75%">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <span>MINISTÉRIO DA DEFESA</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>EXÉRCITO BRASILEIRO</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>{{ $config->nick }}</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <th style="text-align: right;">
+                                <table>
+                                    <tr>
+                                        <td style="text-align: left;">
+                                            <span>QIE – 10</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">
+                                            <span>
+                                                Assunto:
+                                            </span> estatística do ensino
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">
+                                            <span>Referência:</span> NRRD
+                                        </td>
+                                    </tr>
+                                </table>
+                            </th>
+                        </tr>
+                    </table>
+                    <div class="bt" style="padding-top: 5px;padding-bottom:5px;text-align:center;">
+                        <span>
+                            MAPA DISCIPLINAR DO CORPO DE ALUNOS DO {{ $config->nick }} NO PERÍODO DE
+                            {{ Carbon::createFromFormat('Y-m-d', $date_start)->format('d/m/Y') }}
+                            A
+                            {{ Carbon::createFromFormat('Y-m-d', $date_end)->format('d/m/Y') }}
+                        </span>
+                    </div>
+
+                    <table style="border-collapse: collapse; width: 100%; font-family: sans-serif; font-size: 12px;">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" style="border: 1px solid #000; width: 20%; text-align: center;">
+                                    Medidas disciplinares<br>e comportamentos<br><br>
+                                    Anos escolares
+                                </th>
+                                <th colspan="6" style="border: 1px solid #000; text-align: center;">
+                                    Distribuição das medidas disciplinares
+                                </th>
+                                <th colspan="6" style="border: 1px solid #000; text-align: center;">
+                                    Efetivo de Alunos por comportamento
+                                </th>
+                            </tr>
+                            <tr>
+                                {{-- Cabeçalhos das punições --}}
+                                <th style="border: 1px solid #000;">Advertência</th>
+                                <th style="border: 1px solid #000;">Repreensão</th>
+                                <th style="border: 1px solid #000;">AOE</th>
+                                <th style="border: 1px solid #000;">Retirada</th>
+                                <th style="border: 1px solid #000;">Exclusão</th>
+                                <th style="border: 1px solid #000;">TOTAL</th>
+
+                                {{-- Cabeçalhos do comportamento --}}
+                                <th style="border: 1px solid #000;">Excepcional</th>
+                                <th style="border: 1px solid #000;">Ótimo</th>
+                                <th style="border: 1px solid #000;">Bom</th>
+                                <th style="border: 1px solid #000;">Regular</th>
+                                <th style="border: 1px solid #000;">Insuficiente</th>
+                                <th style="border: 1px solid #000;">TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (is_array($tabela))
+                                @foreach ($tabela as $serie => $valores)
+                                    <tr>
+                                        <td style="border: 1px solid #000;">{{ $serie }}</td>
+
+                                        {{-- Medidas disciplinares --}}
+                                        <td style="border: 1px solid #000;">{{ $valores['advertencia'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000;">{{ $valores['repreensao'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000;">
+                                            {{ $valores['atividade_orientacao_educacional'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000;">{{ $valores['retirada_cm'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000;">
+                                            {{ $valores['exclusao_disciplinar'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000;">
+                                            <strong>{{ $valores['TOTAL'] ?? 0 }}</strong>
+                                        </td>
+
+                                        {{-- Comportamentos (exemplo zerado; substitua pelos reais se tiver) --}}
+                                        <td style="border: 1px solid #000;">{{ $valores['excepcional'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000;">{{ $valores['otimo'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000;">{{ $valores['bom'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000;">{{ $valores['regular'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000;">{{ $valores['insuficiente'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000;">
+                                            <strong>{{ $valores['total_comportamento'] ?? 0 }}</strong>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+
+                    <table class="bt">
+                        <tr>
+                            <td class="t-left" width="80%">
+                                <table width="100%">
+                                    <tr>
+                                        <td>
+                                            <strong>Guarnição / Data:</strong> ______ / ______ / 20__
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span><strong>Cmt CA:</strong>
+                                                ___________________________________________</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="t-left" width="80%">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <strong>Visto:</strong> _____________________________________________
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span><strong>Cmt CM:</strong>
+                                                ___________________________________________</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+        </x-slot>
+        <x-slot name="footer">
+            <x-secondary-button onclick="printModalContent()">Imprimir
+            </x-secondary-button>
+        </x-slot>
+    </x-dialog-modal>
+    {{-- MODAL FORM --}}
+    {{-- <script>
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('openPdfInNewTabMap', ({
+                pdfPath
+            }) => {
+                window.open(pdfPath, '_blank');
+            })
+        })
+    </script> --}}
     @section('scripts')
         <script>
-            document.addEventListener('livewire:init', () => {
-                Livewire.on('openPdfInNewTabMap', ({
-                    pdfPath
-                }) => {
-                    window.open(pdfPath, '_blank');
-                })
-            })
+            function printModalContent() {
+                const content = document.getElementById('modalContent').innerHTML;
+                const printWindow = window.open('', '', 'width=900,height=650');
+                printWindow.document.write('<html><head><title>Imprimir Relatório</title>');
+                printWindow.document.write(
+                    '<style>body{font-family:sans-serif;font-size:12px;}.box{border:1.5px solid black;}.bt{border-top:1px solid black;}table{border-collapse:collapse;}h1{text-align:center;font-size:12pt;}.assinaturas{margin-top:40px;font-size:10pt;}.assinaturas p{margin:6px 0;}span{font-weight:bold;}.t-left{text-align:left;}.t-right{text-align:right;}.vertical-text{writing-mode:vertical-rl;text-align:center;transform: rotate(180deg);padding;10px; }</style>'
+                );
+                printWindow.document.write('</head><body>');
+                printWindow.document.write(content);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                printWindow.focus();
+                printWindow.print();
+                printWindow.close();
+            }
         </script>
     @endsection
+
+
 
 </div>

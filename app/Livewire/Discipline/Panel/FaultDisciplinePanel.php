@@ -117,12 +117,10 @@ class FaultDisciplinePanel extends Component
         foreach ($punitions as $p) {
             $grade = $p->grade;
 
-            // Corrige a chave: remove aspas simples e deixa lowercase
             $decision = trim(strtolower(str_replace("'", "", $p->decision)));
 
             $total = $p->total;
 
-            // Inicializa a linha com zeros se não existir
             if (!isset($this->tabela[$grade])) {
                 $this->tabela[$grade] = array_fill_keys([
                     'advertencia',
@@ -133,13 +131,18 @@ class FaultDisciplinePanel extends Component
                 ], 0);
             }
 
-            // Garante que só atualize se for um tipo conhecido
             if (array_key_exists($decision, $this->tabela[$grade])) {
                 $this->tabela[$grade][$decision] += $total;
             }
 
-            // Atualiza o total sempre no fim
-            $this->tabela[$grade]['TOTAL'] = array_sum($this->tabela[$grade]);
+            // Soma apenas as punições, ignorando TOTAL
+            $this->tabela[$grade]['TOTAL'] = array_sum(
+                array_filter(
+                    $this->tabela[$grade],
+                    fn($key) => $key !== 'TOTAL',
+                    ARRAY_FILTER_USE_KEY
+                )
+            );
         }
     }
     private function grau()

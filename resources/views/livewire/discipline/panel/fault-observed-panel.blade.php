@@ -1,9 +1,9 @@
 <div>
     <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
 
-        {{-- <div>
-            @livewire('faults.charts.faults-by-week')
-        </div> --}}
+        <div class="col-span-1 gap-2 md:col-span-2">
+            @livewire('discipline.charts.fault-discipline-by-fault')
+        </div>
         <!-- Alunos com Mais Faltas -->
         <div class="p-5 shadow-md bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100 rounded-2xl">
             <h2 class="flex items-center gap-2 mb-4 text-xl font-semibold ">

@@ -44,14 +44,28 @@ class FaultDisciplinesByGrade extends Component
             ->get();
 
         $decisions = [
-            'advertencia',
-            'repreensao',
-            'atividade_orientacao_educacional',
-            'retirada_cm',
-            'exclusao_disciplinar',
+            'advertencia' => 'Advertência',
+            'repreensao' => 'Repreensão',
+            'atividade_orientacao_educacional' => 'Atividade de Orientação Educacional',
+            'retirada_cm' => 'Retirada do CM',
+            'exclusao_disciplinar' => 'Exclusão Disciplinar',
         ];
 
+
         $labels = $rawData->pluck('grade')->unique()->values()->toArray();
+        foreach ($decisions as $key => $label) {
+            $dataset = [
+                'label' => $label,
+                'data' => [],
+            ];
+
+            foreach ($labels as $grade) {
+                $dataset['data'][] = $grouped[$key][$grade] ?? 0;
+            }
+
+            $datasets[] = $dataset;
+        }
+
         sort($labels);
         $this->chartLabels = $labels;
 

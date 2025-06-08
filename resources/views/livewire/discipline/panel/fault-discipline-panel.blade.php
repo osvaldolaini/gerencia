@@ -165,8 +165,130 @@
     {{-- MODAL READ --}}
 
     <x-dialog-modal wire:model="showModal">
-        <x-slot name="title">Mapa de faltas disciplinares</x-slot>
+        <x-slot name="title">Mapa de falta disciplinare do {{ $config->nick }} no período
+            de
+            {{ Carbon::createFromFormat('Y-m-d', $date_start)->format('d/m/Y') }}
+            a
+            {{ Carbon::createFromFormat('Y-m-d', $date_end)->format('d/m/Y') }}</x-slot>
         <x-slot name="content">
+            <div class="text-sm">
+                <table class="border"
+                    style="border-collapse: collapse; width: 100%; font-family: sans-serif; font-size: 8px;">
+                    <thead>
+                        <tr>
+                            <th class="border" rowspan="2" colspan="2"
+                                style=" width: 20%; text-align: center; py-20 ">
+                                Medidas disciplinares<br>e comportamentos<br><br>
+                                Anos escolares
+                            </th>
+                            <th class="border" colspan="6" style=" text-align: center;">
+                                Distribuição das medidas disciplinares
+                            </th>
+                            <th class="border" colspan="6" style=" text-align: center;">
+                                Efetivo de Alunos por comportamento
+                            </th>
+                        </tr>
+                        <tr>
+                            {{-- Cabeçalhos das punições --}}
+                            <th class="py-10 origin-left transform rotate-90 border ">Advertência
+                            </th>
+                            <th class="origin-left transform rotate-90 border ">Repreensão</th>
+                            <th class="origin-left transform rotate-90 border ">AOE</th>
+                            <th class="origin-left transform rotate-90 border ">Retirada</th>
+                            <th class="origin-left transform rotate-90 border ">Exclusão</th>
+                            <th class="origin-left transform rotate-90 border ">TOTAL</th>
+
+                            {{-- Cabeçalhos do comportamento --}}
+                            <th class="origin-left transform rotate-90 border ">Excepcional
+                            </th>
+                            <th class="origin-left transform rotate-90 border ">Ótimo</th>
+                            <th class="origin-left transform rotate-90 border ">Bom</th>
+                            <th class="origin-left transform rotate-90 border ">Regular</th>
+                            <th class="origin-left transform rotate-90 border ">Insuficiente
+                            </th>
+                            <th class="origin-left transform rotate-90 border ">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (is_array($tabela))
+                            @foreach ($tabela as $serie => $valores)
+                                <tr>
+                                    <td class="border" style="text-align:center;">
+                                        @switch($serie)
+                                            @case('6º ANO')
+                                                Ensino Fundamental
+                                            @break
+
+                                            @case('7º ANO')
+                                                Ensino Fundamental
+                                            @break
+
+                                            @case('8º ANO')
+                                                Ensino Fundamental
+                                            @break
+
+                                            @case('9º ANO')
+                                                Ensino Fundamental
+                                            @break
+
+                                            @case('1º ANO')
+                                                Ensino Médio
+                                            @break
+
+                                            @case('2º ANO')
+                                                Ensino Médio
+                                            @break
+
+                                            @case('3º ANO')
+                                                Ensino Médio
+                                            @break
+
+                                            Ensino Fundamental
+
+                                            @default
+                                        @endswitch
+                                    </td>
+                                    <td class="border " style=" text-align:center;">{{ $serie }}
+                                    </td>
+
+                                    {{-- Medidas disciplinares --}}
+                                    <td class="border " style=" text-align:center;">
+                                        {{ $valores['advertencia'] ?? 0 }}</td>
+                                    <td class="border " style=" text-align:center;">
+                                        {{ $valores['repreensao'] ?? 0 }}</td>
+                                    <td class="border " style=" text-align:center;">
+                                        {{ $valores['atividade_orientacao_educacional'] ?? 0 }}</td>
+                                    <td class="border " style=" text-align:center;">
+                                        {{ $valores['retirada_cm'] ?? 0 }}</td>
+                                    <td class="border " style=" text-align:center;">
+                                        {{ $valores['exclusao_disciplinar'] ?? 0 }}</td>
+                                    <td class="border " style=" text-align:center;">
+                                        <strong>{{ $valores['TOTAL'] ?? 0 }}</strong>
+                                    </td>
+
+                                    {{-- Comportamentos (exemplo zerado; substitua pelos reais se tiver) --}}
+                                    <td class="border " style=" text-align:center;">
+                                        {{ $valores['excepcional'] ?? 0 }}</td>
+                                    <td class="border " style=" text-align:center;">
+                                        {{ $valores['otimo'] ?? 0 }}</td>
+                                    <td class="border " style=" text-align:center;">
+                                        {{ $valores['bom'] ?? 0 }}</td>
+                                    <td class="border " style=" text-align:center;">
+                                        {{ $valores['regular'] ?? 0 }}</td>
+                                    <td class="border " style=" text-align:center;">
+                                        {{ $valores['insuficiente'] ?? 0 }}</td>
+                                    <td class="border " style=" text-align:center;">
+                                        <strong>{{ $valores['total_comportamento'] ?? 0 }}</strong>
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                            </tr>
+
+                        @endif
+                    </tbody>
+                </table>
+            </div>
 
             <div id="modalContent" class="hidden bg-white border">
                 <h1 class="text-sm">MAPA DE FALTAS DISCIPLINARES</h1>
@@ -227,7 +349,8 @@
                     <table style="border-collapse: collapse; width: 100%; font-family: sans-serif; font-size: 12px;">
                         <thead>
                             <tr>
-                                <th rowspan="2" style="border: 1px solid #000; width: 20%; text-align: center;">
+                                <th rowspan="2" colspan="2"
+                                    style="border: 1px solid #000; width: 20%; text-align: center;">
                                     Medidas disciplinares<br>e comportamentos<br><br>
                                     Anos escolares
                                 </th>
@@ -240,83 +363,137 @@
                             </tr>
                             <tr>
                                 {{-- Cabeçalhos das punições --}}
-                                <th style="border: 1px solid #000;">Advertência</th>
-                                <th style="border: 1px solid #000;">Repreensão</th>
-                                <th style="border: 1px solid #000;">AOE</th>
-                                <th style="border: 1px solid #000;">Retirada</th>
-                                <th style="border: 1px solid #000;">Exclusão</th>
-                                <th style="border: 1px solid #000;">TOTAL</th>
+                                <th style="border: 1px solid #000;" class="vertical-text">Advertência</th>
+                                <th style="border: 1px solid #000;" class="vertical-text">Repreensão</th>
+                                <th style="border: 1px solid #000;" class="vertical-text">AOE</th>
+                                <th style="border: 1px solid #000;" class="vertical-text">Retirada</th>
+                                <th style="border: 1px solid #000;" class="vertical-text">Exclusão</th>
+                                <th style="border: 1px solid #000;" class="vertical-text">TOTAL</th>
 
                                 {{-- Cabeçalhos do comportamento --}}
-                                <th style="border: 1px solid #000;">Excepcional</th>
-                                <th style="border: 1px solid #000;">Ótimo</th>
-                                <th style="border: 1px solid #000;">Bom</th>
-                                <th style="border: 1px solid #000;">Regular</th>
-                                <th style="border: 1px solid #000;">Insuficiente</th>
-                                <th style="border: 1px solid #000;">TOTAL</th>
+                                <th style="border: 1px solid #000;" class="vertical-text">Excepcional</th>
+                                <th style="border: 1px solid #000;" class="vertical-text">Ótimo</th>
+                                <th style="border: 1px solid #000;" class="vertical-text">Bom</th>
+                                <th style="border: 1px solid #000;" class="vertical-text">Regular</th>
+                                <th style="border: 1px solid #000;" class="vertical-text">Insuficiente</th>
+                                <th style="border: 1px solid #000;" class="vertical-text">TOTAL</th>
                             </tr>
                         </thead>
                         <tbody>
                             @if (is_array($tabela))
                                 @foreach ($tabela as $serie => $valores)
                                     <tr>
-                                        <td style="border: 1px solid #000;">{{ $serie }}</td>
+                                        <td style="border: 1px solid #000; text-align:center;">
+                                            @switch($serie)
+                                                @case('6º ANO')
+                                                    Ensino Fundamental
+                                                @break
+
+                                                @case('7º ANO')
+                                                    Ensino Fundamental
+                                                @break
+
+                                                @case('8º ANO')
+                                                    Ensino Fundamental
+                                                @break
+
+                                                @case('9º ANO')
+                                                    Ensino Fundamental
+                                                @break
+
+                                                @case('1º ANO')
+                                                    Ensino Médio
+                                                @break
+
+                                                @case('2º ANO')
+                                                    Ensino Médio
+                                                @break
+
+                                                @case('3º ANO')
+                                                    Ensino Médio
+                                                @break
+
+                                                Ensino Fundamental
+
+                                                @default
+                                            @endswitch
+                                        </td>
+                                        <td style="border: 1px solid #000; text-align:center;">{{ $serie }}
+                                        </td>
 
                                         {{-- Medidas disciplinares --}}
-                                        <td style="border: 1px solid #000;">{{ $valores['advertencia'] ?? 0 }}</td>
-                                        <td style="border: 1px solid #000;">{{ $valores['repreensao'] ?? 0 }}</td>
-                                        <td style="border: 1px solid #000;">
+                                        <td style="border: 1px solid #000; text-align:center;">
+                                            {{ $valores['advertencia'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000; text-align:center;">
+                                            {{ $valores['repreensao'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000; text-align:center;">
                                             {{ $valores['atividade_orientacao_educacional'] ?? 0 }}</td>
-                                        <td style="border: 1px solid #000;">{{ $valores['retirada_cm'] ?? 0 }}</td>
-                                        <td style="border: 1px solid #000;">
+                                        <td style="border: 1px solid #000; text-align:center;">
+                                            {{ $valores['retirada_cm'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000; text-align:center;">
                                             {{ $valores['exclusao_disciplinar'] ?? 0 }}</td>
-                                        <td style="border: 1px solid #000;">
+                                        <td style="border: 1px solid #000; text-align:center;">
                                             <strong>{{ $valores['TOTAL'] ?? 0 }}</strong>
                                         </td>
 
                                         {{-- Comportamentos (exemplo zerado; substitua pelos reais se tiver) --}}
-                                        <td style="border: 1px solid #000;">{{ $valores['excepcional'] ?? 0 }}</td>
-                                        <td style="border: 1px solid #000;">{{ $valores['otimo'] ?? 0 }}</td>
-                                        <td style="border: 1px solid #000;">{{ $valores['bom'] ?? 0 }}</td>
-                                        <td style="border: 1px solid #000;">{{ $valores['regular'] ?? 0 }}</td>
-                                        <td style="border: 1px solid #000;">{{ $valores['insuficiente'] ?? 0 }}</td>
-                                        <td style="border: 1px solid #000;">
+                                        <td style="border: 1px solid #000; text-align:center;">
+                                            {{ $valores['excepcional'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000; text-align:center;">
+                                            {{ $valores['otimo'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000; text-align:center;">
+                                            {{ $valores['bom'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000; text-align:center;">
+                                            {{ $valores['regular'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000; text-align:center;">
+                                            {{ $valores['insuficiente'] ?? 0 }}</td>
+                                        <td style="border: 1px solid #000; text-align:center;">
                                             <strong>{{ $valores['total_comportamento'] ?? 0 }}</strong>
                                         </td>
                                     </tr>
                                 @endforeach
+
+                                </tr>
+
                             @endif
                         </tbody>
                     </table>
 
-                    <table class="bt">
+                    <table style="margin-left:20px;margin-right:20px;margin-bottom:30px;">
                         <tr>
-                            <td class="t-left" width="80%">
+                            <td class="t-left" width="50%">
                                 <table width="100%">
                                     <tr>
-                                        <td>
-                                            <strong>Guarnição / Data:</strong> ______ / ______ / 20__
+                                        <td style="padding-top:40px;">
+                                            <p>______________________________________</p>
+                                            <p style="text-align: center">Guarnição / Data</p>
+
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <span><strong>Cmt CA:</strong>
-                                                ___________________________________________</span>
+                                        <td style="padding-top:40px;">
+                                            <p>______________________________________</p>
+                                            <p style="text-align: center">Cmt CA</p>
                                         </td>
                                     </tr>
                                 </table>
                             </td>
-                            <td class="t-left" width="80%">
+                            <td width="50%">
+                                &nbsp;
+                            </td>
+                            <td class="t-left" width="50%">
                                 <table>
                                     <tr>
-                                        <td>
-                                            <strong>Visto:</strong> _____________________________________________
+                                        <td style="padding-top:40px;">
+                                            <p>&nbsp;</p>
+                                            <p style="text-align: left;">Visto:</p>
+
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <span><strong>Cmt CM:</strong>
-                                                ___________________________________________</span>
+                                        <td style="padding-top:40px;">
+                                            <p>______________________________________</p>
+                                            <p style="text-align: center">Cmt CM</p>
                                         </td>
                                     </tr>
                                 </table>

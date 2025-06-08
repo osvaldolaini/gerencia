@@ -88,11 +88,11 @@ class FaultDisciplinePanel extends Component
 
         $this->punitions();
         $this->grau();
+        $this->somaTotalGeral(); // por último, calcula os totais
     }
 
     private function punitions()
     {
-        $logoPath = url('storage/logos-school/logo-header.png');
         $this->showModal = true;
         $punitions = FaultDiscipline::select([
             'school_grades.name as grade',
@@ -130,6 +130,7 @@ class FaultDisciplinePanel extends Component
                     'atividade_orientacao_educacional',
                     'retirada_cm',
                     'exclusao_disciplinar',
+                    ''
                 ], 0);
             }
 
@@ -141,71 +142,6 @@ class FaultDisciplinePanel extends Component
             // Atualiza o total sempre no fim
             $this->tabela[$grade]['TOTAL'] = array_sum($this->tabela[$grade]);
         }
-
-
-
-
-        // dd($tabela);
-        // Crie uma instância do mPDF
-        // $mpdf = new \Mpdf\Mpdf([
-        //     'mode'          => 'utf-8',
-        //     // 'orientation'        => 'P', //[P,L]
-        //     'format' => 'A4-L',
-        //     'margin_left'   => 15,
-        //     'margin_top'    => 25,
-        //     'default_font_size'  => 9,
-        //     'default_font'  => 'arial',
-        // ]);
-        // dd($mpdf);
-        // $html = view(
-        //     'livewire.discipline.fault-disciplines.pdfs.map-pdf',
-        //     [
-        //         'logoPath'          => $logoPath,
-        //         'date_start'        => $this->date_start,
-        //         'date_end'          => $this->date_end,
-        //         'title'             => 'Mapa de faltas disciplinares',
-        //         'tabela'         => $tabela,
-        //         'config'            => $config,
-        //         'responsible'       => Auth::user()->name,
-        //     ]
-        // )->render();
-
-        // Adicione o conteúdo HTML ao PDF
-        //     $mpdf->SetHTMLHeader('
-        //           <table width="100%">
-        //               <tr >
-        //                   <td width="50%">
-        //                       <img width="50" src="' . $logoPath . '" alt="Logo">
-        //                   </td>
-        //                   <td width="50%" style="text-align: right;">
-        //                       <strong>' . $config->name . '</strong><br>
-
-        //                   </td>
-        //               </tr>
-        //           </table>
-        //           ');
-        //     $mpdf->SetHTMLFooter('
-        //    <table width="100%">
-        //        <tr>
-        //            <td width="66%">Impressão realizada em {DATE j/m/Y} às {DATE H:i:s}</td>
-        //            <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
-        //        </tr>
-        //    </table>');
-        //     $mpdf->WriteHTML($html);
-
-        // Salve o PDF temporariamente
-        // $file = trim('mapa_de_faltas_disciplinares' . Str::uuid() . '.pdf');
-
-        // if (!is_dir(storage_path('app/public/pdf-tmp'))) {
-        //     mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário
-        // }
-
-        // $down = storage_path('app/public/pdf-tmp/' . $file);
-        // $pdfPath = url('storage/pdf-tmp/' . $file);
-
-        // $mpdf->Output($down, 'F');
-
-        // $this->dispatch('openPdfInNewTabMap', pdfPath: $pdfPath);
     }
     private function grau()
     {
@@ -263,6 +199,34 @@ class FaultDisciplinePanel extends Component
             $this->tabela[$serie]['total_geral'] = $totalComportamento + $totalPunicoes;
         }
     }
+    private function somaTotalGeral()
+    {
+        $totaisGerais = [
+            'advertencia' => 0,
+            'repreensao' => 0,
+            'atividade_orientacao_educacional' => 0,
+            'retirada_cm' => 0,
+            'exclusao_disciplinar' => 0,
+            'TOTAL' => 0,
+            'excepcional' => 0,
+            'otimo' => 0,
+            'bom' => 0,
+            'regular' => 0,
+            'insuficiente' => 0,
+            'mau' => 0,
+            'total_comportamento' => 0,
+            'total_geral' => 0,
+        ];
+
+        foreach ($this->tabela as $serie => $dados) {
+            foreach ($totaisGerais as $key => $val) {
+                $totaisGerais[$key] += $dados[$key] ?? 0;
+            }
+        }
+
+        $this->tabela['SOMA'] = $totaisGerais;
+    }
+
 
 
 

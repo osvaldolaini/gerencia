@@ -130,7 +130,6 @@ class FaultDisciplinePanel extends Component
                     'atividade_orientacao_educacional',
                     'retirada_cm',
                     'exclusao_disciplinar',
-                    ''
                 ], 0);
             }
 

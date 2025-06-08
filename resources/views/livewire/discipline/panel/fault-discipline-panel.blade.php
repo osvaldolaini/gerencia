@@ -85,6 +85,9 @@
     </div>
     <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
 
+        <div>
+            @livewire('discipline.charts.fault-disciplines-by-grade')
+        </div>
         <div class="p-5 shadow-md bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100 rounded-2xl">
             <h2 class="flex items-center gap-2 mb-4 text-xl font-semibold ">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-500" fill="currentColor"
@@ -511,16 +514,7 @@
             </x-secondary-button>
         </x-slot>
     </x-dialog-modal>
-    {{-- MODAL FORM --}}
-    {{-- <script>
-        document.addEventListener('livewire:init', () => {
-            Livewire.on('openPdfInNewTabMap', ({
-                pdfPath
-            }) => {
-                window.open(pdfPath, '_blank');
-            })
-        })
-    </script> --}}
+
     @section('scripts')
         <script>
             function printModalContent() {

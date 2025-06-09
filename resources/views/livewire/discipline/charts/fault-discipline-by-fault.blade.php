@@ -13,7 +13,6 @@
         </h2>
 
         <div class="w-full p-4 bg-white shadow dark:bg-gray-800 rounded-2xl">
-            <h2 class="mb-4 text-xl font-bold text-gray-800 dark:text-white">Quantidade de incidência por artigo</h2>
 
             <div x-data="{
                 labels: @js($labels),

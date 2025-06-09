@@ -5,6 +5,7 @@
 > Novidades
 
 -   Gráfico de punições por ano escolar
+-   Gráfico de incidências de faltas disciplinares
 
 ## Versão Santos Dumont 1.5.5 – 2025-06-06
 

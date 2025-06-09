@@ -1,7 +1,7 @@
 <div>
     <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
 
-        <div>
+        <div class="col-span-1 gap-2 md:col-span-2">
             @livewire('discipline.charts.fault-discipline-by-fault')
         </div>
         <!-- Alunos com Mais Faltas -->

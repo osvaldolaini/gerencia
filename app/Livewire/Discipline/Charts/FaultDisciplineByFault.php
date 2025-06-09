@@ -18,18 +18,34 @@ class FaultDisciplineByFault extends Component
 
     private function getTopArticles()
     {
-        $artigos = FactObserved::query()
-            ->join('faults', 'faults.id', '=', 'fact_observeds.faults')
-            ->where('fact_observeds.active', 1)
-            ->whereNotNull('fact_observeds.faults')
-            ->groupBy('faults.number')
-            ->select('faults.number as artigo_numero', DB::raw('COUNT(*) as total'))
-            ->orderBy('faults.number') // ordenar pelo número do artigo
-            ->get();
+        $dados = FactObserved::query()
+            ->where('active', 1)
+            ->whereNotNull('faults')
+            ->pluck('faults'); // pegamos apenas esse campo
 
-        $this->labels = $artigos->pluck('artigo_numero')->map(fn($num) => 'Art. ' . $num)->toArray();
-        $this->data = $artigos->pluck('total')->toArray();
+        $contagem = [];
+
+        foreach ($dados as $json) {
+            $artigos = json_decode($json, true); // transforma em array PHP
+
+            if (!is_array($artigos)) {
+                continue; // ignora casos inválidos
+            }
+
+            foreach ($artigos as $art) {
+                if ($art) {
+                    $contagem[$art] = ($contagem[$art] ?? 0) + 1;
+                }
+            }
+        }
+
+        // Ordenar pelos números dos artigos
+        ksort($contagem);
+
+        $this->labels = array_map(fn($num) => 'Nº. ' . $num, array_keys($contagem));
+        $this->data = array_values($contagem);
     }
+
 
     public function render()
     {

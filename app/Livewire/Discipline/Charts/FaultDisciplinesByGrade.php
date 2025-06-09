@@ -51,8 +51,18 @@ class FaultDisciplinesByGrade extends Component
             'exclusao_disciplinar' => 'Exclusão Disciplinar',
         ];
 
+        $labels = $rawData->pluck('grade')->unique()->sort()->values()->toArray();
 
-        $labels = $rawData->pluck('grade')->unique()->values()->toArray();
+        // Primeiro agrupa os dados
+        $grouped = [];
+        foreach ($rawData as $row) {
+            $grade = $row->grade;
+            $decision = trim(strtolower(str_replace("'", '', $row->decision)));
+            $grouped[$decision][$grade] = $row->total;
+        }
+
+        // Agora monta os datasets
+        $datasets = [];
         foreach ($decisions as $key => $label) {
             $dataset = [
                 'label' => $label,
@@ -66,30 +76,7 @@ class FaultDisciplinesByGrade extends Component
             $datasets[] = $dataset;
         }
 
-        sort($labels);
         $this->chartLabels = $labels;
-
-        $grouped = [];
-        foreach ($rawData as $row) {
-            $grade = $row->grade;
-            $decision = trim(strtolower(str_replace("'", '', $row->decision)));
-            $grouped[$decision][$grade] = $row->total;
-        }
-
-        $datasets = [];
-        foreach ($decisions as $decision) {
-            $dataset = [
-                'label' => ucfirst(str_replace('_', ' ', $decision)),
-                'data' => [],
-            ];
-
-            foreach ($labels as $grade) {
-                $dataset['data'][] = $grouped[$decision][$grade] ?? 0;
-            }
-
-            $datasets[] = $dataset;
-        }
-
         $this->chartDatasets = $datasets;
     }
 }

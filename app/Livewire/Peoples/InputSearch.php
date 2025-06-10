@@ -51,12 +51,12 @@ class InputSearch extends Component
     public function render()
     {
         if ($this->inputSearch != '') {
-            // $this->results = Peoples::select('id', 'name', 'nick', 'sex', 'function', 'posto_grad', 'logo_path')
-            //     ->where('type', 1)
-            //     ->where('active', 1)
-            //     ->where('nick', 'LIKE', '%' . $this->inputSearch . '%')
-            //     ->limit(10)
-            //     ->get();
+            $this->results = Peoples::select('id', 'name', 'nick', 'sex', 'function', 'posto_grad', 'logo_path')
+                ->where('type', 1)
+                ->where('active', 1)
+                ->where('nick', 'LIKE', '%' . $this->inputSearch . '%')
+                ->limit(10)
+                ->get();
             if ($this->field) {
                 # code...
             }

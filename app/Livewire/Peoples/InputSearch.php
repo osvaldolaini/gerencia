@@ -54,6 +54,7 @@ class InputSearch extends Component
             $this->results = Peoples::select('id', 'name', 'nick', 'sex', 'function', 'posto_grad', 'logo_path')
                 ->where('nick', 'LIKE', '%' . $this->inputSearch . '%')
                 ->orwhere('name', 'LIKE', '%' . $this->inputSearch . '%')
+                ->where('type', 1)
                 ->limit(10)
                 ->get();
             if ($this->field) {

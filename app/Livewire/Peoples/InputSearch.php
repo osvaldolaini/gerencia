@@ -52,7 +52,7 @@ class InputSearch extends Component
     {
         if ($this->inputSearch != '') {
             $this->results = Peoples::select('id', 'name', 'nick', 'sex', 'function', 'posto_grad', 'logo_path')
-                ->where('type', 1)
+                ->where('type', 0)
                 ->where('active', 1)
                 ->where('nick', 'LIKE', '%' . $this->inputSearch . '%')
                 ->limit(10)

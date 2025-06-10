@@ -88,12 +88,11 @@
                                                         </div>
                                                         <div>
                                                             <div class="font-bold">
-                                                                {{-- {{ MilitaryRank::fromDb($item->posto_grad)?->label() ?? '' }} --}}
-                                                                {{ $item->posto_grad }}
+                                                                {{ MilitaryRank::fromDb($item->posto_grad)?->label() ?? '' }}
                                                                 {{ $item->nick }}
                                                             </div>
                                                             <div class="text-sm opacity-50">
-                                                                {{-- {{ FunctionsObserver::fromDb($item->function)?->label() ?? '' }} --}}
+                                                                {{ FunctionsObserver::fromDb($item->function)?->label() ?? '' }}
                                                             </div>
                                                         </div>
                                                 </td>

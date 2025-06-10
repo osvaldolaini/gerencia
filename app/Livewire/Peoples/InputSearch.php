@@ -55,6 +55,7 @@ class InputSearch extends Component
                 ->where('nick', 'LIKE', '%' . $this->inputSearch . '%')
                 ->orwhere('name', 'LIKE', '%' . $this->inputSearch . '%')
                 ->where('type', 1)
+                ->where('active', 1)
                 ->limit(10)
                 ->get();
             if ($this->field) {

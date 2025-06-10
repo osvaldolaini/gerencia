@@ -22,6 +22,85 @@
             </button>
         </x-slot>
     </x-layout.search>
+    <div class="flex pt-5">
+        <div class="w-full flex-nowrap justify-stretch">
+            <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                Filtros
+            </label>
+            <div class="p-0 tooltip tooltip-top" data-tip="FO+">
+                <label
+                    class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
+                                rounded-md cursor-pointer {{ $fact_type == 'negativo' ? 'bg-blue-500 text-gray-800' : 'bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900' }}">
+                    <input type="radio" wire:model.live="fact_type" value="negativo" class="hidden peer"
+                        {{ $fact_type == 'negativo' ? 'checked' : '' }}>
+
+                    <span class="text-xs">
+                        FO-
+                    </span>
+                </label>
+            </div>
+            <div class="p-0 tooltip tooltip-top" data-tip="FO+">
+                <label
+                    class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
+                                rounded-md cursor-pointer {{ $fact_type == 'positivo' ? 'bg-blue-500 text-gray-800' : 'bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900' }}">
+                    <input type="radio" wire:model.live="fact_type" value="positivo" class="hidden peer"
+                        {{ $fact_type == 'positivo' ? 'checked' : '' }}>
+                    <span class="text-xs">
+                        FO+
+                    </span>
+                </label>
+            </div>
+            <div class="p-0 tooltip tooltip-top" data-tip="FO+">
+                <label
+                    class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
+                                rounded-md cursor-pointer {{ $fact_type == 'informativo' ? 'bg-blue-500 text-gray-800' : 'bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900' }}">
+                    <input type="radio" wire:model.live="fact_type" value="informativo" class="hidden peer"
+                        {{ $fact_type == 'informativo' ? 'checked' : '' }}>
+                    <span class="text-xs">
+                        FO!
+                    </span>
+                </label>
+            </div>
+            @if ($sincomil_date == true)
+                <button wire:click='buttonSee' class="text-green-500 btn btn-outline btn-success btn-sm">
+                    Mostrar lançados
+                    <svg class="relative w-6 h-6 " viewBox="0 -6 32 32" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                            sketch:type="MSPage">
+                            <g id="Icon-Set-Filled" sketch:type="MSLayerGroup"
+                                transform="translate(-258.000000, -367.000000)" fill="currentColor">
+                                <path
+                                    d="M280,383 C276.687,383 274,380.313 274,377 C274,373.687 276.687,371 280,371 C283.313,371 286,373.687 286,377 C286,380.313 283.313,383 280,383 L280,383 Z M280,367 L268,367 C262.477,367 258,371.478 258,377 C258,382.522 262.477,387 268,387 L280,387 C285.523,387 290,382.522 290,377 C290,371.478 285.523,367 280,367 L280,367 Z M280,373 C277.791,373 276,374.791 276,377 C276,379.209 277.791,381 280,381 C282.209,381 284,379.209 284,377 C284,374.791 282.209,373 280,373 L280,373 Z"
+                                    id="toggle-off" sketch:type="MSShapeGroup">
+                                </path>
+                            </g>
+                        </g>
+                    </svg>
+                </button>
+            @else
+                <button wire:click='buttonSee' class="text-red-500 btn btn-outline btn-error btn-sm">
+                    Mostrar lançados
+                    <svg class="relative w-6 h-6" viewBox="0 -6 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                            sketch:type="MSPage">
+                            <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-204.000000, -365.000000)"
+                                fill="currentColor">
+                                <path
+                                    d="M214,379 C211.791,379 210,377.209 210,375 C210,372.791 211.791,371 214,371 C216.209,371 218,372.791 218,375 C218,377.209 216.209,379 214,379 L214,379 Z M214,369 C210.687,369 208,371.687 208,375 C208,378.313 210.687,381 214,381 C217.314,381 220,378.313 220,375 C220,371.687 217.314,369 214,369 L214,369 Z M226,383 L214,383 C209.582,383 206,379.418 206,375 C206,370.582 209.582,367 214,367 L226,367 C230.418,367 234,370.582 234,375 C234,379.418 230.418,383 226,383 L226,383 Z M226,365 L214,365 C208.477,365 204,369.478 204,375 C204,380.522 208.477,385 214,385 L226,385 C231.523,385 236,380.522 236,375 C236,369.478 231.523,365 226,365 L226,365 Z"
+                                    id="toggle-on" sketch:type="MSShapeGroup">
+                                </path>
+                            </g>
+                        </g>
+                    </svg>
+                </button>
+            @endif
+        </div>
+
+    </div>
     <div class="mt-5 space-y-4">
         <!-- Lista de itens arrastáveis -->
         <div>
@@ -163,7 +242,8 @@
                                 </div>
                                 <div class="col-span-full sm:col-span-2">
                                     <div class="justify-start block space-x-2 space-y-2 font-medium duration-200 ">
-                                        <x-layout.table-options id='{{ $item->id }}' active='{{ $item->status }}'>
+                                        <x-layout.table-options id='{{ $item->id }}'
+                                            active='{{ $item->status }}'>
                                             @if ($item->fafd == 0)
                                                 <x-slot name="extra">
                                                     <div class="p-0 tooltip tooltip-top" data-tip="Gerar FAFD?">
@@ -172,7 +252,8 @@
                                                             class="flex px-3 py-2 transition-colors duration-200 rounded-sm hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
                                                             FAFD?
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
-                                                                viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                                                viewBox="0 0 48 48"
+                                                                xmlns="http://www.w3.org/2000/svg">
                                                                 <path
                                                                     d="M40.8992 19.5969L37.1832 11.5456C37.4542 11.2998 37.6712 11.0004 37.8205 10.6664C37.9697 10.3323 38.048 9.97092 38.0503 9.60505C38.048 9.01126 37.8438 8.43592 37.4711 7.97366C37.0984 7.5114 36.5794 7.18974 35.9996 7.06161C35.4198 6.93348 34.8137 7.00649 34.2809 7.26865C33.7481 7.5308 33.3204 7.96648 33.0681 8.50402L14.2818 13.2797C13.8184 12.8811 13.2277 12.6614 12.6165 12.6604C12.0862 12.6568 11.5675 12.8154 11.1299 13.1149C10.6922 13.4144 10.3566 13.8405 10.1679 14.3361C9.97926 14.8317 9.94658 15.3732 10.0743 15.8879C10.202 16.4026 10.4839 16.866 10.8824 17.2159L7.07007 25.4736L18.1492 25.4323L14.3506 17.1746C14.7554 16.8117 15.0348 16.3299 15.1489 15.7983L21.934 14.078V35.2177H21.7963L12.6303 38.0667C12.3371 38.1595 12.0808 38.3425 11.8979 38.5897C11.715 38.8368 11.6149 39.1355 11.6118 39.4429V39.5393C11.5999 39.7328 11.629 39.9266 11.6973 40.1081C11.7655 40.2895 11.8713 40.4545 12.0077 40.5923C12.1442 40.73 12.3081 40.8374 12.489 40.9073C12.6698 40.9772 12.8633 41.0082 13.0569 40.9981H34.9261C35.1185 41.008 35.3108 40.9774 35.4906 40.9083C35.6704 40.8392 35.8337 40.7331 35.9699 40.5969C36.1061 40.4606 36.2122 40.2974 36.2814 40.1175C36.3505 39.9377 36.3811 39.7454 36.3712 39.553V39.4429C36.3691 39.1372 36.271 38.8398 36.0907 38.5929C35.9104 38.3459 35.6571 38.1618 35.3665 38.0667L26.2142 35.2177H26.0628V13.1972L33.3847 11.2566L33.6599 11.5456L29.9302 19.6244C30.7538 19.6244 40.1444 19.5969 40.8992 19.5969ZM9.34094 25.4736L12.6165 18.372L15.8466 25.442L9.34094 25.4736ZM35.4904 12.7017L38.6834 19.5831H32.2561L35.4904 12.7017Z"
                                                                     fill="currentColor" />

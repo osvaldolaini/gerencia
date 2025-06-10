@@ -43,9 +43,21 @@ class FactObservedList extends Component
     public $paginate = 15; //Qtd de registros por página
     public $active = 'fact_observeds.active';
 
+    public $fact_type = 'negativo';
+    public $sincomil_date = false;
+
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
+        $where = [];
+        if (!$this->sincomil_date) {
+            $where['sincomil_date'] = null;
+        }
+
+        if ($this->fact_type != 'todos') {
+            $where['fact_type'] = $this->fact_type;
+        }
+        // dd($where);
         $dataTable = $queryService
             ->setModel($this->model)
             ->setParameters([
@@ -56,6 +68,7 @@ class FactObservedList extends Component
                 'sort' => $this->sorts,
                 'paginate' => $this->paginate,
                 'search' => $this->search,
+                'where' => $where,
                 'customSearch' => $this->customSearch,
                 'active' => $this->active,
             ])
@@ -65,6 +78,10 @@ class FactObservedList extends Component
             'livewire.discipline.fact-observeds.fact-observed-list',
             compact('dataTable')
         );
+    }
+    public function buttonSee()
+    {
+        $this->sincomil_date = !$this->sincomil_date;
     }
     public function addSort($field)
     {

@@ -146,7 +146,6 @@
                             $classe = $seat?->students ? 'ocupado' : 'vazio';
                         @endphp
                         <td class="{{ $classe }}" style="margin: 2px; padding:2px;">
-
                             @if ($seat?->students)
                                 <table style="border-collapse: collapse; border:none; margin: 0px; padding:0px;">
                                     <tr style="margin: 0px; padding:0px;">
@@ -216,9 +215,6 @@
                                     </tr>
                                 </table>
                             @endif
-
-
-
                         </td>
                     @endfor
 

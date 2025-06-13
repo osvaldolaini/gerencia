@@ -124,7 +124,8 @@
                                             </div>
                                         </div>
                                         <div class="flex text-xs text-green-500 col-span-full">
-                                            {{ $seat?->students?->nick }}
+
+                                            {!! str_replace(' ', '<br>', $seat?->students?->nick) !!}
                                             <span>({{ $seat?->students?->number }})</span>
                                         </div>
                                     </div>

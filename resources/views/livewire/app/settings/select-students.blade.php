@@ -1,7 +1,7 @@
 <div>
 
     <div>
-        <div role="tabpanel" class=" bg-base-100 dark:bg-gray-700 dark:text-gray-100">
+        <div role="tabpanel" class="bg-gray-100 dark:bg-gray-700 dark:text-gray-100">
             <div class="grid grid-cols-2 gap-2 mb-1 sm:grid-cols-6 sm:gap-3 sm:mb-5">
                 <div class="col-span-full ">
                     <label class="block text-sm font-medium text-gray-900 dark:text-gray-100" for="title">
@@ -101,7 +101,7 @@
                     <div class="border-2 rounded-r-lg rounded-bl-lg col-span-full ">
                         <div class="grid grid-cols-2 gap-2 mb-1 sm:grid-cols-4 sm:gap-3 sm:mb-5">
                             @foreach ($selectedStudents as $key => $value)
-                                <div role="alert" class="m-4 w-full col-span-1 sm:col-span-2 shadow-xl alert ">
+                                <div role="alert" class="w-full col-span-1 m-4 shadow-xl sm:col-span-2 alert ">
                                     <figure>
                                         <img src="{{ url('storage/student/' . $value['id'] . '/' . $value['code_image'] . '_list.png') }}"
                                             class="mx-auto rounded ">

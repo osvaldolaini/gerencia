@@ -6,7 +6,7 @@
     <form>
         <div role="tabpanel" class="bg-gray-100 dark:bg-gray-700">
             <div class="grid grid-cols-1">
-                <div class="col-span-full" wire:ignore>
+                <div class="bg-gray-100 col-span-full dark:bg-gray-700" wire:ignore>
                     @livewire('app.settings.select-faults', [$faults])
                     @error('faults')
                         <span class="error">{{ $message }}</span>

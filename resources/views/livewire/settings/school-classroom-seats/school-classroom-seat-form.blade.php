@@ -101,7 +101,7 @@
                             @endif
 
                             <div wire:click="openModalSearch({{ $r }}, {{ $c }})"
-                                class="flex items-center justify-center h-30 w-40 p-1 m-2 text-center border rounded cursor-pointer
+                                class="flex items-center justify-center h-30 w-32 p-1 m-2 text-center border rounded cursor-pointer
                             {{ $seat?->students ? 'border-green-200 ' : 'border-gray-200 ' }}">
                                 @if ($seat?->students)
                                     <div class="grid grid-cols-2">

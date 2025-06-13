@@ -1,8 +1,8 @@
 <div @php
 use App\Enums\SchoolFault; @endphp
-    class="min-h-screen px-6 pt-6 pb-20 border-2 rounded-r-lg rounded-bl-lg bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100">
+    class="min-h-screen px-6 pt-6 pb-20 bg-gray-100 border-2 rounded-r-lg rounded-bl-lg border-base-300 dark:bg-gray-700 dark:text-gray-100">
     <form>
-        <div role="tabpanel" class="">
+        <div role="tabpanel" class="bg-gray-100 dark:bg-gray-900">
             <div class="grid grid-cols-1">
                 <div class="col-span-full" wire:ignore>
                     @livewire('faults.school-fault-students', ['class_id' => $school_classes_id, 'array' => true])

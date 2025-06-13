@@ -160,7 +160,8 @@
                                     <tr style="margin: 0px; padding:0px;">
                                         <td style="margin: 0px; padding:0px; font-size:8pt;">
                                             <span style="page-break-after: always;">
-                                                {{ $seat?->students?->nick }}
+                                                {{-- {{ $seat?->students?->nick }} --}}
+                                                {!! str_replace(' ', '<br>', $seat?->students?->nick) !!}
                                             </span>
 
                                         </td>

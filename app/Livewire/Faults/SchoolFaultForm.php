@@ -121,6 +121,8 @@ class SchoolFaultForm extends Component
         if ($this->id) {
             SchoolFaults::updateOrCreate([
                 'id'    => $this->id,
+                'student_id'            => $this->student_id,
+                'date'                  => $this->date,
             ], [
                 // 'name'                  => $this->name,
                 'id'                    => $this->id,

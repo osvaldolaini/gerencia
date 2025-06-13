@@ -120,7 +120,7 @@ class SchoolFaultForm extends Component
         // dd($this->validate());
         if ($this->id) {
             SchoolFaults::updateOrCreate([
-                'id'    => $this->id,
+                // 'id'    => $this->id,
                 'student_id'            => $this->student_id,
                 'date'                  => $this->date,
             ], [

@@ -87,7 +87,7 @@
                     </div>
                 </div>
             @endif
-            <div class="grid w-full gap-2"
+            <div class="grid w-full gap-2 space-x-2 space-y-1"
                 style="grid-template-columns: repeat({{ $columns }}, minmax(100px, 1fr));">
                 @for ($r = 1; $r <= $rows; $r++)
                     @for ($c = 1; $c <= $columns; $c++)

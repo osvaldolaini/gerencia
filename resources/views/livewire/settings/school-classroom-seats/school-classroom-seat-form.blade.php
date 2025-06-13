@@ -94,7 +94,7 @@
                         @php
                             $seat = $seats->first(fn($s) => $s->row === $r && $s->column === $c);
                         @endphp
-                        <div class="indicator">
+                        <div class="mx-2 my-2 indicator">
                             @if ($seat?->students)
                                 <span wire:click="remove({{ $seat->id }})"
                                     class="cursor-pointer indicator-item indicator-center badge badge-error">X</span>

@@ -159,7 +159,7 @@
                                     </tr>
                                     <tr style="margin: 0px; padding:0px;">
                                         <td style="margin: 0px; padding:0px; font-size:8pt;">
-                                            <span>
+                                            <span style="page-break-after: always;">
                                                 {{ $seat?->students?->nick }}
                                             </span>
 

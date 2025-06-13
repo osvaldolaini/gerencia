@@ -118,6 +118,7 @@ class SchoolFaultForm extends Component
 
         $this->validate();
         // dd($this->validate());
+
         if ($this->id) {
             SchoolFaults::updateOrCreate([
                 // 'id'    => $this->id,
@@ -141,9 +142,13 @@ class SchoolFaultForm extends Component
             foreach ($this->students as $key => $value) {
                 $this->student_id       = $value['id'];
 
-                SchoolFaults::create([
-                    'active'                => 1,
+                SchoolFaults::updateOrCreate([
+                    // 'id'    => $this->id,
+                    'student_id'            => $this->student_id,
+                    'date'                  => $this->date,
+                ], [
                     // 'name'                  => $this->name,
+                    'active'                => 1,
                     'id'                    => $this->id,
                     'student_id'            => $this->student_id,
                     'date'                  => $this->date,
@@ -152,8 +157,21 @@ class SchoolFaultForm extends Component
                     'school_classes_id'     => $this->school_classes_id,
                     'school_classes_year_id' => $this->school_classes_year_id,
                     'qtd'                   => $this->qtd,
-                    'code'                  => Str::uuid(),
                 ]);
+
+                // SchoolFaults::create([
+                //     'active'                => 1,
+                //     // 'name'                  => $this->name,
+                //     'id'                    => $this->id,
+                //     'student_id'            => $this->student_id,
+                //     'date'                  => $this->date,
+                //     'companies_id'          => $this->companies_id,
+                //     'school_grades_id'      => $this->school_grades_id,
+                //     'school_classes_id'     => $this->school_classes_id,
+                //     'school_classes_year_id' => $this->school_classes_year_id,
+                //     'qtd'                   => $this->qtd,
+                //     'code'                  => Str::uuid(),
+                // ]);
 
                 $msg = 'Registro criado com sucesso.';
             }

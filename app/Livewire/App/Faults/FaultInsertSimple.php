@@ -59,7 +59,12 @@ class FaultInsertSimple extends Component
 
         $this->validate();
 
-        SchoolFaults::create([
+
+        SchoolFaults::updateOrCreate([
+            // 'id'    => $this->id,
+            'student_id'            => $this->student_id,
+            'date'                  => $this->date,
+        ], [
             'active'                => 1,
             'id'                    => $this->id,
             'student_id'            => $this->student_id,
@@ -73,6 +78,20 @@ class FaultInsertSimple extends Component
             'qtd'                   => $this->qtd,
             'code'                  => Str::uuid(),
         ]);
+        // SchoolFaults::create([
+        //     'active'                => 1,
+        //     'id'                    => $this->id,
+        //     'student_id'            => $this->student_id,
+        //     'justified'             => $this->justified,
+        //     'text'                  => $this->text,
+        //     'date'                  => $this->date,
+        //     'companies_id'          => $this->companies->id,
+        //     'school_grades_id'      => $this->grades->id,
+        //     'school_classes_id'     => $this->classes->id,
+        //     'school_classes_year_id' => $this->classes->school_classes_year_id,
+        //     'qtd'                   => $this->qtd,
+        //     'code'                  => Str::uuid(),
+        // ]);
 
         $msg = 'Falta registrada criado com sucesso.';
 

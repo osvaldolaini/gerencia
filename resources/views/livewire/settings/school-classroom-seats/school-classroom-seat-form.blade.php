@@ -87,21 +87,21 @@
                     </div>
                 </div>
             @endif
-            <div class="grid w-full gap-2 space-x-2 space-y-1"
+            <div class="grid w-full gap-2 "
                 style="grid-template-columns: repeat({{ $columns }}, minmax(100px, 1fr));">
                 @for ($r = 1; $r <= $rows; $r++)
                     @for ($c = 1; $c <= $columns; $c++)
                         @php
                             $seat = $seats->first(fn($s) => $s->row === $r && $s->column === $c);
                         @endphp
-                        <div class="mx-2 my-2 indicator">
+                        <div class="indicator">
                             @if ($seat?->students)
                                 <span wire:click="remove({{ $seat->id }})"
                                     class="cursor-pointer indicator-item indicator-center badge badge-error">X</span>
                             @endif
 
                             <div wire:click="openModalSearch({{ $r }}, {{ $c }})"
-                                class="flex items-center justify-center h-30 w-40 p-1 text-center border rounded cursor-pointer
+                                class="flex items-center justify-center h-30 w-40 p-1 m-2 text-center border rounded cursor-pointer
                             {{ $seat?->students ? 'border-green-200 ' : 'border-gray-200 ' }}">
                                 @if ($seat?->students)
                                     <div class="grid grid-cols-2">

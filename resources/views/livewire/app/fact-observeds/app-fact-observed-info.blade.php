@@ -4,7 +4,7 @@
         use App\Enums\FunctionsObserver;
     @endphp
     <form>
-        <div role="tabpanel" class="bg-gray-100 dark:bg-gray-800">
+        <div role="tabpanel" class="bg-gray-100 dark:bg-gray-700">
             <div class="grid grid-cols-1">
                 <div class="col-span-full" wire:ignore>
                     @livewire('app.settings.select-students')

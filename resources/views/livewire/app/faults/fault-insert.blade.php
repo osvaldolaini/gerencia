@@ -1,7 +1,7 @@
 <div
-    class="min-h-screen px-6 pt-6 pb-20 bg-gray-100 border-2 rounded-r-lg rounded-bl-lg border-base-300 dark:bg-gray-700 dark:text-gray-100">
+    class="min-h-screen px-6 pt-6 pb-20 bg-gray-100 border-2 rounded-r-lg rounded-bl-lg dark:bg-gray-700 dark:text-gray-100">
     <form>
-        <div role="tabpanel" class="bg-gray-100 darg:bg-gray-800">
+        <div role="tabpanel" class="bg-gray-100 darg:bg-gray-700">
             <div class="grid grid-cols-1">
                 <div class="col-span-full ">
                     <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">

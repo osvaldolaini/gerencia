@@ -1,5 +1,5 @@
 <div>
-    <div role="tabpanel" class="bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100">
+    <div role="tabpanel" class="bg-gray-100  border-base-300 dark:bg-gray-700 dark:text-gray-100">
         <div class="grid grid-cols-2 gap-2 mb-1 sm:grid-cols-6 sm:gap-3 sm:mb-5">
             <div class="col-span-full ">
                 <label class="block text-sm font-medium text-gray-900 dark:text-gray-100" for="title">

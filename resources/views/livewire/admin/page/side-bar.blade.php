@@ -2,7 +2,7 @@
     class="hidden transition-all duration-300 ease-in-out sm:flex">
     <div class="relative flex flex-col justify-between w-64 h-screen bg-white dark:bg-gray-800">
         <nav class="mt-5 space-y-1">
-            <x-layout.side-bar-nav-link url="dashboard" active="*dashboard*" access_page="users">
+            <x-layout.side-bar-nav-link url="dashboard" active="*dashboard*" access_page="peoples">
                 <x-slot name="svg">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">

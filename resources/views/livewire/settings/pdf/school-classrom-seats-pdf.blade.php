@@ -141,7 +141,6 @@
 
                     @for ($c = $class->columns; $c >= 1; $c--)
                         @php
-
                             $seat = $class->seats->first(fn($s) => (int) $s->row === $r && (int) $s->column === $c);
                             $number = $seat?->students?->number ?? 'Vazio';
                             $classe = $seat?->students ? 'ocupado' : 'vazio';

@@ -1,10 +1,10 @@
 <div
-    class="min-h-screen px-6 pt-6 pb-20 bg-gray-100 border-2 rounded-r-lg rounded-bl-lg border-base-300 dark:bg-gray-700 dark:text-gray-100">
+    class="min-h-screen px-6 pt-6 pb-20 bg-gray-100 border-2 rounded-r-lg rounded-bl-lg dark:bg-gray-700 dark:text-gray-100">
     @php
         use App\Enums\FunctionsObserver;
     @endphp
     <form>
-        <div role="tabpanel" class="">
+        <div role="tabpanel" class="bg-gray-100 dark:bg-gray-800">
             <div class="grid grid-cols-1">
                 <div class="col-span-full" wire:ignore>
                     @livewire('app.settings.select-students')

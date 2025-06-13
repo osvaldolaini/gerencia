@@ -6,6 +6,7 @@
 
 -   PDF espelho de classe (nome)
 -   Montagem do espelho de classe (posição na sala)
+-   Não lançar falta repetida
 
 ## Versão Santos Dumont 1.5.6 – 2025-06-08
 

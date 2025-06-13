@@ -123,8 +123,7 @@
                                                     alt="{{ $seat?->students?->name }}">
                                             </div>
                                         </div>
-                                        <div class="flex text-xs text-green-500 col-span-full">
-
+                                        <div class="flex flex-col text-xs text-green-500 col-span-full">
                                             {!! str_replace(' ', '<br>', $seat?->students?->nick) !!}
                                             <span>({{ $seat?->students?->number }})</span>
                                         </div>

@@ -36,8 +36,9 @@
                 <div class="flex justify-start w-full col-span-1 space-x-1">
                     <div class="p-0 tooltip tooltip-top" data-tip="Espelho de classe" wire:ignore>
                         <button wire:click="classroom()"
-                            class="px-3 py-2 transition-colors duration-200 rounded-sm hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor"
+                            class="px-3 py-2 transition-colors duration-200 rounded-sm btn btn-outline btn-accent whitespace-nowrap">
+                            Imprimir
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 ml-2" fill="currentColor"
                                 viewBox="0 0 512 512" xml:space="preserve">
 
                                 <g>

@@ -142,7 +142,6 @@ class SchoolClassroomSeatForm extends Component
     //PDF
     public function classroom(SchoolClasses $school_classes)
     {
-        dd($school_classes);
         //Apagar itens do diretório temporário
         $this->clearTmpDirectory('public/pdf-tmp');
 
@@ -172,7 +171,7 @@ class SchoolClassroomSeatForm extends Component
             'livewire.settings.pdf.school-classrom-seats-pdf',
             [
                 'logoPath'          => $logoPath,
-                'school_classes'    => $this->school_classes,
+                'school_classes'    => $school_classes,
                 // 'seats'             => $seats,
                 'grade'             => $this->grade->name,
                 'config'            => $config,

@@ -2,6 +2,10 @@
 
 ## Versão Santos Dumont 1.5.7 – 2025-06-13
 
+> Melhorias
+
+-   Botão de imprimir espelho no formulário de criação do espelho
+
 > Correções
 
 -   PDF espelho de classe (nome)

@@ -32,8 +32,8 @@
 
         </x-slot>
         <x-slot name="content">
-            <div class="w-full">
-                <div class="flex justify-start w-1/2 space-x-1">
+            <div class="grid grid-cols-2">
+                <div class="flex justify-start w-full col-span-1 space-x-1">
                     <div class="p-0 tooltip tooltip-top" data-tip="Espelho de classe" wire:ignore>
                         <button wire:click="classroom()"
                             class="px-3 py-2 transition-colors duration-200 rounded-sm hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
@@ -83,7 +83,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="flex justify-end w-1/2 space-x-1">
+                <div class="flex justify-end w-full col-span-1 space-x-1">
 
                     @foreach ($otherClasses as $item)
                         <a href="{{ route('school-classes-classroom-seats', $item->id) }}"

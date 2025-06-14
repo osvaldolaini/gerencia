@@ -41,7 +41,7 @@
                         <span class="flex flex-col items-center justify-center text-center">
                             Atrasado
                             <span class="flex text-center badge badge-error">
-                                {{ $fafd->where('justification_date', null)->count() }}
+                                {{ $fafd->where('delivered_date', '>', date('Y-d-m'))->count() }}
                             </span>
                         </span>
                     </div>

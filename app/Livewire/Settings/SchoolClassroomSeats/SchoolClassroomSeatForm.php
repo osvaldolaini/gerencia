@@ -143,14 +143,14 @@ class SchoolClassroomSeatForm extends Component
     }
 
     //PDF
-    public function classroom($school_classes)
+    public function classroom(SchoolClasses $school_classes)
     {
         //Apagar itens do diretório temporário
         $this->clearTmpDirectory('public/pdf-tmp');
 
         $school_classes = SchoolClasses::where('active', 1)
             ->with(['seats'])
-            ->where('id', $school_classes)
+            ->where('id', $school_classes->id)
             ->get();
 
         // dd($this->school_classes);

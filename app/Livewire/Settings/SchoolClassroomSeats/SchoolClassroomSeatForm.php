@@ -148,7 +148,7 @@ class SchoolClassroomSeatForm extends Component
         //Apagar itens do diretório temporário
         $this->clearTmpDirectory('public/pdf-tmp');
 
-        $school_classes = SchoolClasses::where('active', 1)
+        $school_classe = SchoolClasses::where('active', 1)
             ->with(['seats'])
             ->where('id', $school_classes->id)
             ->get();
@@ -181,7 +181,7 @@ class SchoolClassroomSeatForm extends Component
             'livewire.settings.pdf.school-classrom-seats-pdf',
             [
                 'logoPath'          => $logoPath,
-                'school_classes'    => $school_classes,
+                'school_classes'    => $school_classe,
                 // 'seats'             => $seats,
                 'grade'             => $school_classes->classGrade->name,
                 'config'            => $config,

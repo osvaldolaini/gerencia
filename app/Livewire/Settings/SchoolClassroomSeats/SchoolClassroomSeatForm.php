@@ -200,8 +200,8 @@ class SchoolClassroomSeatForm extends Component
                       </td>
                       <td width="50%" style="text-align: right;">
                           <strong>' . $config->name . '</strong><br>
-                          ' . $this->company->name . '<br>
-                          Turmas do ' . $this->grade->name . '
+                          ' . $company->name . '<br>
+                          Turmas do ' . $school_classes->classGrade->name . '
                       </td>
                   </tr>
               </table>
@@ -216,7 +216,7 @@ class SchoolClassroomSeatForm extends Component
         $mpdf->WriteHTML($html);
 
         // Salve o PDF temporariamente
-        $file = trim('chamada_' . $this->grade->name . '_' . Str::uuid() . '.pdf');
+        $file = trim('chamada_' . $school_classes->classGrade->name . '_' . Str::uuid() . '.pdf');
 
         if (!is_dir(storage_path('app/public/pdf-tmp'))) {
             mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário

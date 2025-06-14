@@ -178,10 +178,10 @@ class SchoolClassroomSeatForm extends Component
                 'logoPath'          => $logoPath,
                 'school_classes'    => $school_classes,
                 // 'seats'             => $seats,
-                'grade'             => $this->grade->name,
+                'grade'             => $school_classes->classGrade->name,
                 'config'            => $config,
-                'companies'         => $this->company,
-                'subtext'           => 'Turmas do ' . $this->grade->name,
+                'companies'         => $company,
+                'subtext'           => 'Turma do ' . $school_classes->classGrade->name,
                 'responsible'       => Auth::user()->name,
             ]
         )->render();

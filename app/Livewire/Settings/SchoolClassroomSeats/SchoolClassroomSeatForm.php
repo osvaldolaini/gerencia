@@ -12,6 +12,7 @@ use App\Models\Settings\SchoolClassesYears;
 
 
 use App\Models\Admin\Settings\Settings;
+use App\Traits\HandlesTmpUploads;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,6 +20,8 @@ use Illuminate\Support\Str;
 
 class SchoolClassroomSeatForm extends Component
 {
+
+    use HandlesTmpUploads;
     public $breadcrumb = 'Turma: ';
 
     public $school_classes;

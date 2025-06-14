@@ -140,9 +140,9 @@ class SchoolClassroomSeatForm extends Component
     }
 
     //PDF
-    public function classroom()
+    public function classroom(SchoolClasses $school_classes)
     {
-
+        dd($school_classes);
         //Apagar itens do diretório temporário
         $this->clearTmpDirectory('public/pdf-tmp');
 

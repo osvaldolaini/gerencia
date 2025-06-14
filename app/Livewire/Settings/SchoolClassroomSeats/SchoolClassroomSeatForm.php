@@ -151,8 +151,10 @@ class SchoolClassroomSeatForm extends Component
         // dd($this->school_classes);
         $config = Settings::find(1);
 
-        $logoPath = Storage::exists('public/companies/' . $this->company->id)
-            ? url('storage/companies/' . $this->company->id . '/' . $this->company->code_image . '_list.png')
+        $company = $school_classes->classGrade->getCompany;
+
+        $logoPath = Storage::exists('public/companies/' . $company->id)
+            ? url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png')
             : url('storage/logos-school/logo-header.png');
 
         // $seats = ClassroomSeats::with('students')

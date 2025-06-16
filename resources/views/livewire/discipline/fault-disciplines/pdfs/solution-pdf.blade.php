@@ -98,6 +98,11 @@
             width: 100%;
             padding-top: 5px;
         }
+
+
+        .break-page {
+            page-break-before: always;
+        }
     </style>
     <title>{{ $title_postfix }} </title>
 </head>

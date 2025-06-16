@@ -282,6 +282,8 @@ class FaultDiscipline extends Model
         $reincident = $this->where('student_id', $student_id)
             ->where('faults', 'LIKE', '%' . $number . '%')
             ->where('fact_date', '<', $date)
+            ->where('active', 1)
+            ->where('decision', '!=', 'justificado')
             ->get()->count();
         return $reincident;
     }

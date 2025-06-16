@@ -417,6 +417,18 @@
                             <input type="number" wire:model.live="grau" readonly
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         </div>
+                        @if ($decision == 'retirada_cm')
+                            <div class="col-span-full sm:col-span-1">
+                                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                                    Primeira retirada?
+                                </label>
+                                <x-layout.toggle-true-false id="first"
+                                    active="{{ $first }}"></x-layout.toggle-true-false>
+                                @error('first')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        @endif
                         <div class="col-span-full sm:col-span-full ">
                             <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
                                 Solução <span wire:click="sugestionText()"

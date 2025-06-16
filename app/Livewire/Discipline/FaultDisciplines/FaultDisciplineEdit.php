@@ -54,6 +54,7 @@ class FaultDisciplineEdit extends Component
     public $solution_date;
     public $decision;
     public $dacision_days = 0.0;
+    public $first = 0.0;
     public $grau;
 
     public $sim_date;
@@ -113,6 +114,7 @@ class FaultDisciplineEdit extends Component
 
             $this->decision                 = $fault_discipline->decision;
             $this->dacision_days            = $fault_discipline->dacision_days;
+            $this->first                    = $fault_discipline->first;
             $this->repeat                   = $fault_discipline->repeat;
             $this->repeat_number            = $fault_discipline->repeat_number;
             $this->solution                 = $fault_discipline->solution;
@@ -245,6 +247,7 @@ class FaultDisciplineEdit extends Component
             'solution_date'            => $this->solution_date,
             'decision'                 => $this->decision,
             'dacision_days'            => $this->dacision_days,
+            'first'                    => $this->first,
             'grau'                     => $this->grau,
             'bi_date'                  => $this->bi_date,
             'bi_text'                  => $this->bi_text,

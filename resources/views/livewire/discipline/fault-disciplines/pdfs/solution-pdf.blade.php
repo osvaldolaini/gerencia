@@ -275,7 +275,7 @@
                 <table class="identification">
                     <tr>
                         <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid black;">
-                            Solução do Cmt do CA em: ______/________/_______
+                            Solução do Cmt do CA em: ______/________/20____
                         </td>
                         <td colspan="3" style="border-top: 1px solid black;">
                             Assinatura Cmt do CA: __________________________
@@ -400,7 +400,8 @@
                     <p>{{ $fault_discipline->fact }}</p>
                     <p>2. {{ $fault_discipline->solution }}</p>
                     <p>
-                        3. Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a)
+                        3. Por fim, no uso de minhas atribuições de Comandante do {{ $config->nick }} decido punir o(a)
+                        aluno(a)
                         com {{ $fault_discipline->dacision_days }} dia
                         {{ $fault_discipline->dacision_days > 1 ? 's' : '' }} de retirada
                     </p>
@@ -409,7 +410,7 @@
                 <table class="identification">
                     <tr>
                         <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid black;">
-                            Solução do Cmt do CM em: ______/________/_______
+                            Solução do Cmt do CM em: ______/________/20____
                         </td>
                         <td colspan="3" style="border-top: 1px solid black;">
                             Assinatura Cmt do CM: __________________________

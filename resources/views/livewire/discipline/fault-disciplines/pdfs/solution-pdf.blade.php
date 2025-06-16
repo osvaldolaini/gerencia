@@ -234,6 +234,7 @@
     </div>
 
     @if ($fault_discipline->first)
+        <div class="break-page"></div>
         <div class="container">
             <div class="header">
                 <table class="identification">

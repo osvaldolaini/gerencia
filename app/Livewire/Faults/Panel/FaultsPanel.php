@@ -17,6 +17,7 @@ class FaultsPanel extends Component
             ->when(!in_array('all', $companiesAccess), function ($query) use ($companiesAccess) {
                 $query->whereIn('companies_id', $companiesAccess);
             })
+            ->where('active', 1)
             ->with(['students', 'companies', 'grades', 'class'])
             ->latest()
             ->take(10)
@@ -27,6 +28,7 @@ class FaultsPanel extends Component
             ->when(!in_array('all', $companiesAccess), function ($query) use ($companiesAccess) {
                 $query->whereIn('companies_id', $companiesAccess);
             })
+            ->where('active', 1)
             ->selectRaw('student_id, SUM(qtd) as total_faults')
             ->groupBy('student_id')
             ->orderByDesc('total_faults')

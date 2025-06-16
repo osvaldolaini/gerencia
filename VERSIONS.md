@@ -1,5 +1,11 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.5.8 – 2025-06-16
+
+> Melhorias
+
+-   Botão para informar que é primeira retirada
+
 ## Versão Santos Dumont 1.5.7 – 2025-06-13
 
 > Melhorias

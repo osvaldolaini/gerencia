@@ -61,20 +61,15 @@
                     </span>
                 </label>
             </div>
-            <div class="p-0 tooltip tooltip-top" data-tip="FO+">
-                <label
+            <div class="p-0 tooltip tooltip-top" data-tip="Gerou FAFD?">
+                <span wire:click.live='btnFafd()'
                     class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
                                 rounded-md cursor-pointer {{ $fafd ? 'bg-blue-500 text-gray-800' : 'bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900' }}">
-                    @if ($fafd)
-                        <input type="radio" wire:model.live="fafd" value="0" class="hidden" checked>
-                    @else
-                        <input type="radio" wire:model.live="fafd" value="1" class="hidden peer">
-                    @endif
 
                     <span class="text-xs">
                         Gerou FAFD?
                     </span>
-                </label>
+                </span>
             </div>
             @if ($sincomil_date == true)
                 <button wire:click='buttonSee' class="text-green-500 btn btn-outline btn-success btn-sm">

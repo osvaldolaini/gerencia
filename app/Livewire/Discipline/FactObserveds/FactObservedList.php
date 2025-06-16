@@ -99,7 +99,10 @@ class FactObservedList extends Component
         }
         // dd($this->sorts);
     }
-
+    public function btnFafd()
+    {
+        $this->fafd = !$this->fafd;
+    }
     //CREATE
     public function showCreate()
     {

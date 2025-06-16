@@ -399,7 +399,10 @@
                     </p>
                     <p>{{ $fault_discipline->fact }}</p>
                     <p>2. {{ $fault_discipline->solution }}</p>
-                    <p>3. {{ Penalty::from($fault_discipline->decision)->sugestion($fault_discipline->dacision_days) }}
+                    <p>
+                        3. Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a)
+                        com {{ $fault_discipline->dacision_days }} dia
+                        {{ $fault_discipline->dacision_days > 1 ? 's' : '' }} de retirada
                     </p>
                 </div>
 

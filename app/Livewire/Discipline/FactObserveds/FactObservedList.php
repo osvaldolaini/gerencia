@@ -45,7 +45,7 @@ class FactObservedList extends Component
 
     public $fact_type = 'negativo';
     public $sincomil_date = false;
-    public $fafd = false;
+    public $fafd = 0;
 
     #[On('see_excluded')]
     public function render(TableService $queryService)

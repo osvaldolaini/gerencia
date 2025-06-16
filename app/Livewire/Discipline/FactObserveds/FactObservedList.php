@@ -59,9 +59,8 @@ class FactObservedList extends Component
             $where['fact_type'] = $this->fact_type;
         }
 
-        if ($this->fafd) {
-            $where['fafd'] = $this->fafd;
-        }
+        $where['fafd'] = $this->fafd;
+
         // dd($where);
         $dataTable = $queryService
             ->setModel($this->model)

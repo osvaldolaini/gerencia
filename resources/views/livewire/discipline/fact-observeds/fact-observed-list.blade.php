@@ -66,9 +66,9 @@
                     class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
                                 rounded-md cursor-pointer {{ $fafd ? 'bg-blue-500 text-gray-800' : 'bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900' }}">
                     @if ($fafd)
-                        <input type="radio" wire:model.live="fafd" value="0" class="hidden peer" checked>
+                        <input type="radio" wire:model.live="fafd" value="0" class="hidden peer">
                     @else
-                        <input type="radio" wire:model.live="fafd" value="1" class="hidden peer">
+                        <input type="radio" wire:model.live="fafd" value="1" class="hidden peer" checked>
                     @endif
 
                     <span class="text-xs">

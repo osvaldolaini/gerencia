@@ -5,6 +5,7 @@
 > Melhorias
 
 -   Botão para informar que é primeira retirada
+-   PDF com a 1ª retirada
 
 ## Versão Santos Dumont 1.5.7 – 2025-06-13
 

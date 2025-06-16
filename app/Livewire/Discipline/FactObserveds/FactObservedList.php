@@ -102,6 +102,7 @@ class FactObservedList extends Component
     public function btnFafd()
     {
         $this->fafd = !$this->fafd;
+        dd($this->fafd);
     }
     //CREATE
     public function showCreate()

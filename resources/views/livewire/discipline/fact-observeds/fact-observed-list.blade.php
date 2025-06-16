@@ -62,7 +62,7 @@
                 </label>
             </div>
             <div class="p-0 tooltip tooltip-top" data-tip="Gerou FAFD?">
-                <span wire:click.live='btnFafd()'
+                <span wire:click='btnFafd()'
                     class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
                                 rounded-md cursor-pointer {{ $fafd ? 'bg-blue-500 text-gray-800' : 'bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900' }}">
 

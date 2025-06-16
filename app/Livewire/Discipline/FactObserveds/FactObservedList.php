@@ -45,6 +45,7 @@ class FactObservedList extends Component
 
     public $fact_type = 'negativo';
     public $sincomil_date = false;
+    public $fafd = false;
 
     #[On('see_excluded')]
     public function render(TableService $queryService)
@@ -56,6 +57,10 @@ class FactObservedList extends Component
 
         if ($this->fact_type != 'todos') {
             $where['fact_type'] = $this->fact_type;
+        }
+
+        if ($this->fafd) {
+            $where['fafd'] = $this->fafd;
         }
         // dd($where);
         $dataTable = $queryService

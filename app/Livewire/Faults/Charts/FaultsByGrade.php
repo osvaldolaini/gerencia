@@ -25,6 +25,7 @@ class FaultsByGrade extends Component
             ->when(!in_array('all', $companiesAccess), function ($query) use ($companiesAccess) {
                 $query->whereIn('companies_id', $companiesAccess);
             })
+            ->where('active', 1)
             ->groupBy('school_grades_id')
             ->with('grades')
             ->get();

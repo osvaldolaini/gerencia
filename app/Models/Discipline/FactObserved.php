@@ -71,7 +71,7 @@ class FactObserved extends Model
         static::creating(function ($transaction) {
             $transaction->created_by = Auth::user()->name;
             $transaction->updated_by = Auth::user()->name;
-
+            $transaction->fafd = 0;
             // Obtém o ano atual
             $anoAtual = now()->year;
 

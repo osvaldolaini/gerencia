@@ -132,6 +132,6 @@ class SchoolClasses extends Model
     }
     public function seats(): HasMany
     {
-        return $this->hasMany(ClassroomSeats::class, 'school_classes_id', 'id')->where('active', 1);
+        return $this->hasMany(ClassroomSeats::class, 'school_classes_id', 'id');
     }
 }

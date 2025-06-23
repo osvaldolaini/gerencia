@@ -104,7 +104,7 @@ class FactObservedForm extends Component
             'fact_observer'            => 'required',
             'fact_observer_function'   => 'required',
         ];
-        if ($this->fact_type != 'negativo') {
+        if ($this->fact_type == 'negativo') {
             $this->rules['faults'] = 'required';
         }
         dd($this->rules);

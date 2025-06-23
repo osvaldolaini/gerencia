@@ -97,15 +97,17 @@ class FactObservedForm extends Component
     public function real_save()
     {
         $this->rules = [
-
             'fact'                     => 'required',
             'fact_hour'                => 'required',
             'fact_date'                => 'required',
             'fact_type'                => 'required',
-            'faults'                   => 'required',
             'fact_observer'            => 'required',
             'fact_observer_function'   => 'required',
         ];
+        if ($this->fact_type != 'negativo') {
+            $this->rules['faults'] = 'required';
+        }
+        dd($this->rules);
 
         $this->validate();
 

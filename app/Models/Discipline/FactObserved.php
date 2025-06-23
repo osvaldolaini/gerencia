@@ -142,7 +142,7 @@ class FactObserved extends Model
 
     public function students(): BelongsTo
     {
-        return $this->belongsTo(Peoples::class, 'student_id', 'id');
+        return $this->belongsTo(Peoples::class, 'student_id', 'id')->where('active', 1);
     }
     public function company(): BelongsTo
     {
@@ -165,6 +165,7 @@ class FactObserved extends Model
         $reincident = FactObserved::where('student_id', $student_id)
             ->where('faults', 'LIKE', '%' . $number . '%')
             ->where('fact_date', '<', $date)
+            ->where('active', 1)
             ->get()->count();
         return $reincident;
     }

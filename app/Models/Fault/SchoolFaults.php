@@ -84,23 +84,23 @@ class SchoolFaults extends Model
 
     public function students(): BelongsTo
     {
-        return $this->belongsTo(Peoples::class, 'student_id', 'id');
+        return $this->belongsTo(Peoples::class, 'student_id', 'id')->where('active', 1);
     }
     public function companies(): BelongsTo
     {
-        return $this->belongsTo(Companies::class, 'companies_id', 'id');
+        return $this->belongsTo(Companies::class, 'companies_id', 'id')->where('active', 1);
     }
     public function grades(): BelongsTo
     {
-        return $this->belongsTo(SchoolGrades::class, 'school_grades_id', 'id');
+        return $this->belongsTo(SchoolGrades::class, 'school_grades_id', 'id')->where('active', 1);
     }
     public function class(): BelongsTo
     {
-        return $this->belongsTo(SchoolClasses::class, 'school_classes_id', 'id');
+        return $this->belongsTo(SchoolClasses::class, 'school_classes_id', 'id')->where('active', 1);
     }
     public function class_year(): BelongsTo
     {
-        return $this->belongsTo(SchoolClassesYears::class, 'school_classes_year_id', 'id');
+        return $this->belongsTo(SchoolClassesYears::class, 'school_classes_year_id', 'id')->where('active', 1);
     }
 
     public function scopeFilterFields($query, $filters)

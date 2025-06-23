@@ -120,18 +120,18 @@ class SchoolClasses extends Model
 
     public function classYears(): BelongsTo
     {
-        return $this->belongsTo(SchoolClassesYears::class, 'school_classes_year_id', 'id');
+        return $this->belongsTo(SchoolClassesYears::class, 'school_classes_year_id', 'id')->where('active', 1);
     }
     public function classGrade(): BelongsTo
     {
-        return $this->belongsTo(SchoolGrades::class, 'school_grade_id', 'id');
+        return $this->belongsTo(SchoolGrades::class, 'school_grade_id', 'id')->where('active', 1);
     }
     public function studentsPivot(): HasMany
     {
-        return $this->hasMany(SchoolClassesStudent::class, 'school_classes_id', 'id');
+        return $this->hasMany(SchoolClassesStudent::class, 'school_classes_id', 'id')->where('active', 1);
     }
     public function seats(): HasMany
     {
-        return $this->hasMany(ClassroomSeats::class, 'school_classes_id', 'id');
+        return $this->hasMany(ClassroomSeats::class, 'school_classes_id', 'id')->where('active', 1);
     }
 }

@@ -67,11 +67,11 @@ class SchoolClassesStudent extends Model
 
     public function students(): BelongsTo
     {
-        return $this->belongsTo(Peoples::class, 'people_id', 'id');
+        return $this->belongsTo(Peoples::class, 'people_id', 'id')->where('active', 1);
     }
 
     public function class(): BelongsTo
     {
-        return $this->belongsTo(SchoolClasses::class, 'school_classes_id', 'id');
+        return $this->belongsTo(SchoolClasses::class, 'school_classes_id', 'id')->where('active', 1);
     }
 }

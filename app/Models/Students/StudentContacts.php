@@ -71,7 +71,7 @@ class StudentContacts extends Model
 
     public function student(): BelongsTo
     {
-        return $this->belongsTo(Peoples::class, 'student_id', 'id');
+        return $this->belongsTo(Peoples::class, 'student_id', 'id')->where('active', 1);
     }
     public function emails(): HasMany
     {

@@ -66,6 +66,6 @@ class SchoolClassesYears extends Model
 
     public function classes(): HasMany
     {
-        return $this->hasMany(SchoolClasses::class, 'school_classes_year_id', 'id');
+        return $this->hasMany(SchoolClasses::class, 'school_classes_year_id', 'id')->where('active', 1);
     }
 }

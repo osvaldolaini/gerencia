@@ -146,19 +146,19 @@ class FactObserved extends Model
     }
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Companies::class, 'company_id', 'id');
+        return $this->belongsTo(Companies::class, 'company_id', 'id')->where('active', 1);
     }
     public function observers(): BelongsTo
     {
-        return $this->belongsTo(Peoples::class, 'fact_observer_id', 'id');
+        return $this->belongsTo(Peoples::class, 'fact_observer_id', 'id')->where('active', 1);
     }
     public function fault(): BelongsTo
     {
-        return $this->belongsTo(Faults::class, 'fault_id', 'id');
+        return $this->belongsTo(Faults::class, 'fault_id', 'id')->where('active', 1);
     }
     public function fafds(): BelongsTo
     {
-        return $this->belongsTo(FaultDiscipline::class, 'fafd_id', 'id');
+        return $this->belongsTo(FaultDiscipline::class, 'fafd_id', 'id')->where('active', 1);
     }
     public function reincident($number, $date, $student_id)
     {

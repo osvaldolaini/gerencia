@@ -91,6 +91,6 @@ class ClassroomSeats extends Model
     }
     public function students(): BelongsTo
     {
-        return $this->belongsTo(Peoples::class, 'people_id', 'id');
+        return $this->belongsTo(Peoples::class, 'people_id', 'id')->where('active', 1);
     }
 }

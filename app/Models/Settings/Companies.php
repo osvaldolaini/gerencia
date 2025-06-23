@@ -78,11 +78,11 @@ class Companies extends Model
     }
     public function grade(): HasMany
     {
-        return $this->hasMany(SchoolGrades::class, 'company_id', 'id');
+        return $this->hasMany(SchoolGrades::class, 'company_id', 'id')->where('active', 1);
     }
     public function grade_school(): BelongsTo
     {
-        return $this->belongsTo(SchoolGrades::class,  'id', 'company_id');
+        return $this->belongsTo(SchoolGrades::class,  'id', 'company_id')->where('active', 1);
     }
     public function comandant(): BelongsTo
     {

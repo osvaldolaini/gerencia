@@ -106,7 +106,7 @@
                                 <div>
                                     <p class="font-medium text-gray-800 dark:text-gray-100">
                                         <span class="shadow-md badge badge-neutral">
-                                            {{ $fact->students->al_class->title }}
+                                            {{ $fact->students?->al_class?->title }}
                                         </span>
                                         {{ $fact->students->name }}
                                     </p>

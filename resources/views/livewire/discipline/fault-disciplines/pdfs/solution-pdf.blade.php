@@ -210,12 +210,12 @@
                     <td style="border-top: 1px solid black;border-right: 1px solid">
                         AOE
                         {{ $fault_discipline->decision == 'atividade_orientacao_educacional' ? $fault_discipline->dacision_days : '  ' }}
-                        dias
+                        {{ $fault_discipline->decisino_days > 1 ? 'dias':'dia' }}
                     </td>
                     <td style="border-top: 1px solid black;border-right: 1px solid">
                         Retirada
                         {{ $fault_discipline->decision == 'retirada_cm' ? $fault_discipline->dacision_days : '  ' }}
-                        dias
+                        {{ $fault_discipline->decisino_days > 1 ? 'dias':'dia' }}
                     </td>
                 </tr>
                 <tr>
@@ -343,12 +343,12 @@
                         <td style="border-top: 1px solid black;border-right: 1px solid">
                             AOE
                             {{ $fault_discipline->decision == 'atividade_orientacao_educacional' ? $fault_discipline->dacision_days : '  ' }}
-                            dias
+                            {{ $fault_discipline->decisino_days > 1 ? 'dias':'dia' }}
                         </td>
                         <td style="border-top: 1px solid black;border-right: 1px solid">
                             Retirada
                             {{ $fault_discipline->decision == 'retirada_cm' ? $fault_discipline->dacision_days : '  ' }}
-                            dias
+                            {{ $fault_discipline->decisino_days > 1 ? 'dias':'dia' }}
                         </td>
                     </tr>
                     <tr>
@@ -478,12 +478,12 @@
                         <td style="border-top: 1px solid black;border-right: 1px solid">
                             AOE
                             {{ $fault_discipline->decision == 'atividade_orientacao_educacional' ? $fault_discipline->dacision_days : '  ' }}
-                            dias
+                            {{ $fault_discipline->decisino_days > 1 ? 'dias':'dia' }}
                         </td>
                         <td style="border-top: 1px solid black;border-right: 1px solid">
                             Retirada
                             {{ $fault_discipline->decision == 'retirada_cm' ? $fault_discipline->dacision_days : '  ' }}
-                            dias
+                            {{ $fault_discipline->decisino_days > 1 ? 'dias':'dia' }}
                         </td>
                     </tr>
                     <tr>

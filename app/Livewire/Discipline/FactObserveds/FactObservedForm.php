@@ -124,34 +124,39 @@ class FactObservedForm extends Component
 
             $comandant = Companies::find($this->company_id)->comandant;
 
-            $fo = FactObserved::create([
-                'active'    => 1,
-                'cia'                      => $this->cia,
-                'company_id'               => $this->company_id,
-                'cmt_cia'                  => $comandant->name ?? '',
-                'cmt_cia_posto'            => MilitaryRank::fromDb($comandant->posto_grad)?->label() ?? '',
-                'student_id'               => $this->student_id,
-                'al_nick'                  => $this->al_nick,
-                'al_name'                  => $this->al_name,
-                'al_number'                => $this->al_number,
-                'al_class'                 => $this->al_class,
-                'school_classes_id'        => $this->school_classes_id,
-                'fact'                     => $this->fact,
-                'fact_hour'                => $this->fact_hour,
-                'fact_date'                => $this->fact_date,
-                'fact_type'                => $this->fact_type,
-                'faults'                   => $this->faults,
-                'fact_observer'            => $this->fact_observer,
-                'fact_observer_function'   => $this->fact_observer_function,
-                'fact_observer_id'         => $this->fact_observer_id,
-                'code'      => Str::uuid(),
-            ]);
+            $fo = FactObserved::firstOrCreate(
+                [
+                    'student_id' => $this->student_id,
+                    'fact_date'  => $this->fact_date,
+                    'fact'       => $this->fact,
+                ],
+                [
+                    'active' => 1,
+                    'cia' => $this->cia,
+                    'company_id' => $this->company_id,
+                    'cmt_cia' => $comandant->name ?? '',
+                    'cmt_cia_posto' => MilitaryRank::fromDb($comandant->posto_grad)?->label() ?? '',
+                    'al_nick' => $this->al_nick,
+                    'al_name' => $this->al_name,
+                    'al_number' => $this->al_number,
+                    'al_class' => $this->al_class,
+                    'school_classes_id' => $this->school_classes_id,
+                    'fact_hour' => $this->fact_hour,
+                    'fact_type' => $this->fact_type,
+                    'faults' => $this->faults,
+                    'fact_observer' => $this->fact_observer,
+                    'fact_observer_function' => $this->fact_observer_function,
+                    'fact_observer_id' => $this->fact_observer_id,
+                    'code' => Str::uuid(),
+                ]
+            );
+
             $id = $fo->id;
 
             $msg = 'Registro criado com sucesso.';
         }
 
-
+        logger('Executando método salvar');
         $this->openAlert('success', $msg);
         return $id;
     }

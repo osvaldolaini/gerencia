@@ -108,7 +108,7 @@
                         dark:focus:ring-blue-800">
             Salvar
         </button> --}}
-        <button type="submit" wire:click="save_out"
+        <button type="submit" wire:click="save_out" wire:loading.attr="disabled"
             class="text-white
                         bg-green-700 hover:bg-green-800
                         focus:ring-4 focus:outline-none focus:ring-green-300

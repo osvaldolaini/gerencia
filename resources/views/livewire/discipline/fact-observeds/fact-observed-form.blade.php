@@ -24,13 +24,10 @@
                     <div role="tabpanel"
                         class="p-6 border-2 rounded-r-lg rounded-bl-lg bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100">
                         <div class="grid grid-cols-2 gap-2 mb-1 sm:grid-cols-6 sm:gap-3 sm:mb-5">
-
                             <div class="col-span-full" wire:ignore>
                                 @livewire('discipline.fact-observeds.fact-observed-students')
                             </div>
-                            <div class="col-span-full">
-                                @livewire('discipline.fault-disciplines.settings.faults-select', [$faults])
-                            </div>
+
                             <div class="col-span-full">
                                 <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
                                     Observador
@@ -85,6 +82,11 @@
                                 @enderror
                             </div>
 
+                            @if ($fact_type == 'negativo')
+                                <div class="col-span-full">
+                                    @livewire('discipline.fault-disciplines.settings.faults-select', [$faults])
+                                </div>
+                            @endif
 
                             <div class="col-span-full sm:col-span-full ">
                                 <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">

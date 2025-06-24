@@ -134,10 +134,10 @@
             @php
                 $c = 0;
                 $decision = 'null';
-                $newdecision = 'advertencia';
+                $newdecision = '';
             @endphp
             @foreach ($data as $fafd)
-            @php
+                @php
                     $c += 1;
                     $newdecision = $fafd->decision;
                 @endphp

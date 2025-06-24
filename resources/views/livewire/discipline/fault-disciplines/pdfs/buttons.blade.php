@@ -141,8 +141,10 @@
                 </svg>
             </button>
         </div>
+        {{ $status }}
     @endif
     @if ($status == 'lista')
+        {{ $status }}
         <div class="p-0 tooltip tooltip-top" wire:click='all()' data-tip="Todas" wire:ignore>
             <button
                 class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">

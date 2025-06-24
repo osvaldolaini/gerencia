@@ -133,11 +133,12 @@
                                     @if ($item->faults != '' or $item->faults != null)
                                         <div class="btn btn-outline btn-accent">
                                             <p>Falta(s) nr</p>
-                                            @foreach ($item->json_faults as $faults)
+                                            {!! $item->faults !!}
+                                            {{-- @foreach ($item->json_faults as $faults)
                                                 <span class="badge badge-accent ">
                                                     {{ $faults }}
                                                 </span>
-                                            @endforeach
+                                            @endforeach --}}
                                         </div>
                                     @endif
                                 </div>

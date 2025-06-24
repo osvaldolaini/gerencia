@@ -106,8 +106,6 @@ class FactObservedForm extends Component
         ];
         if ($this->fact_type == 'negativo') {
             $this->rules['faults'] = 'required';
-        } else {
-            $this->faults = NULL;
         }
 
 

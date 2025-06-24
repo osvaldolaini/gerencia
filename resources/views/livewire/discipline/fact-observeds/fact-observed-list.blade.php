@@ -133,12 +133,11 @@
                                     @if ($item->faults != '' or $item->faults != null)
                                         <div class="btn btn-outline btn-accent">
                                             <p>Falta(s) nr</p>
-                                            {!! $item->faults !!}
-                                            {{-- @foreach ($item->json_faults as $faults)
+                                            @foreach ($item->json_faults as $faults)
                                                 <span class="badge badge-accent ">
                                                     {{ $faults }}
                                                 </span>
-                                            @endforeach --}}
+                                            @endforeach
                                         </div>
                                     @endif
                                 </div>
@@ -308,24 +307,17 @@
 
                                         </x-layout.table-options>
                                     </div>
-                                    @if ($item->faults != '' or $item->faults != 'null')
+                                    @if ($item->faults != '' or $item->faults != null)
                                         <div class="btn btn-outline btn-error">
                                             <p>Reincidente na(s) falta(s) nr</p>
-                                            {!! $item->faults !!}
-                                            @if ($item->faults == 'null')
-                                                aqui
-                                            @endif
-                                            @if ($item->faults == null)
-                                                aqui não
-                                            @endif
-                                            {{-- @foreach ($item->json_faults as $faults)
+                                            @foreach ($item->json_faults as $faults)
                                                 @if ($item->reincident($faults, $item->fact_date, $item->student_id) > 0)
                                                     <span class="badge badge-error">
                                                         {{ $faults }}
                                                         ({{ $item->reincident($faults, $item->fact_date, $item->student_id) }}x)
                                                     </span>
                                                 @endif
-                                            @endforeach --}}
+                                            @endforeach
                                         </div>
                                     @endif
                                 </div>

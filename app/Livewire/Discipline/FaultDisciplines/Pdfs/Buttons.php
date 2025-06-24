@@ -54,7 +54,7 @@ class Buttons extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Todas',
-                'data'              => FaultDiscipline::where('active', 1)->where('justification_date', NULL)->get(),
+                'data'              => FaultDiscipline::orderBy('number')->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]

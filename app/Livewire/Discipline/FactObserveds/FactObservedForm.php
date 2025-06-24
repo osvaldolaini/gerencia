@@ -143,13 +143,17 @@ class FactObservedForm extends Component
                     'school_classes_id' => $this->school_classes_id,
                     'fact_hour' => $this->fact_hour,
                     'fact_type' => $this->fact_type,
-                    'faults' => $this->faults === '' ? null : $this->faults,
+                    // 'faults' => $this->faults,
                     'fact_observer' => $this->fact_observer,
                     'fact_observer_function' => $this->fact_observer_function,
                     'fact_observer_id' => $this->fact_observer_id,
                     'code' => Str::uuid(),
                 ]
             );
+            if ($this->fact_type == 'negativo') {
+                $fo->faults = $this->faults;
+                $fo->save();
+            }
 
             $id = $fo->id;
 

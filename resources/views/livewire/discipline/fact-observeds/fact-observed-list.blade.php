@@ -312,6 +312,12 @@
                                         <div class="btn btn-outline btn-error">
                                             <p>Reincidente na(s) falta(s) nr</p>
                                             {!! $item->faults !!}
+                                            @if ($item->faults == 'null')
+                                                aqui
+                                            @endif
+                                            @if ($item->faults == null)
+                                                aqui não
+                                            @endif
                                             {{-- @foreach ($item->json_faults as $faults)
                                                 @if ($item->reincident($faults, $item->fact_date, $item->student_id) > 0)
                                                     <span class="badge badge-error">

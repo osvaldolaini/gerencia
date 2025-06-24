@@ -150,7 +150,7 @@
             <table class="turmas-table">
                 <tr class="class">
                     <td class="text-left border">FAFD Nº</td>
-                    <td class="text-left border">Nr</td>
+                    <td class="text-left border">Status</td>
                     <td class="text-left border">Aluno</td>
                     <td class="text-left border">Turma</td>
                     <td class="text-left border">Abertura</td>
@@ -166,15 +166,16 @@
                     @php $c++; @endphp
                     <tr class="class">
                         <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
-                        <td class="text-left border">{{ $fafd?->students?->number }}</td>
-                        <td class="text-left border">{{ $fafd?->students?->nick }}</td>
+                        <td class="text-left border">{{ $fafd->status == 1 ? 'Ativa' : 'Excluida' }}</td>
+                        <td class="text-left border">{{ $fafd?->students?->nick }} ({{ $fafd?->students?->number }})
+                        </td>
                         <td class="text-left border">{{ $fafd?->students?->al_class->title }}</td>
-                        <td class="text-left border">{{ $fafd?->fact_date }}</td>
-                        <td class="text-left border">{{ $fafd?->delivered_date }}</td>
-                        <td class="text-left border">{{ $fafd?->justification_date }}</td>
-                        <td class="text-left border">{{ $fafd?->solution_date }}</td>
-                        <td class="text-left border">{{ $fafd?->bi_date }}</td>
-                        <td class="text-left border">{{ $fafd?->sincomil_date }}</td>
+                        <td class="text-left border">{{ $fafd?->f_date }}</td>
+                        <td class="text-left border">{{ $fafd?->deliv_date }}</td>
+                        <td class="text-left border">{{ $fafd?->just_date }}</td>
+                        <td class="text-left border">{{ $fafd?->s_date }}</td>
+                        <td class="text-left border">{{ $fafd?->b_date }}</td>
+                        <td class="text-left border">{{ $fafd?->sim_date }}</td>
                         <td class="text-center border">
                             {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}</td>
                         </td>

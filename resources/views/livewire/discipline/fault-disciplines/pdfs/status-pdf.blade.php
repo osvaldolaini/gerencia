@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 @php
-
     use App\Enums\Penalty;
+
+    // Garante que $data seja iterável mesmo que seja null
+    $data = $data ?? collect();
 @endphp
 
 <head>
@@ -20,9 +22,9 @@
         }
 
         .turmas-table {
-
             width: 100%;
             font-size: 12pt;
+            border-collapse: collapse;
         }
 
         .border {
@@ -49,14 +51,11 @@
             text-align: center;
         }
 
-        .turmas-table {
-            width: 100%;
-
-            border-collapse: collapse;
+        .text-left {
+            text-align: left;
         }
     </style>
     <x-app.favicons></x-app.favicons>
-
 </head>
 
 <body>
@@ -73,13 +72,9 @@
                     <td class="text-left border">Turma</td>
                     <td class="text-center border">Data prevista</td>
                 </tr>
-                @php
-                    $c = 0;
-                @endphp
+                @php $c = 0; @endphp
                 @foreach ($data as $fafd)
-                    @php
-                        $c += 1;
-                    @endphp
+                    @php $c++; @endphp
                     <tr class="class">
                         <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
                         <td class="text-left border">{{ $fafd?->students?->number }}</td>
@@ -94,6 +89,7 @@
                 </tr>
             </table>
         @endif
+
         @if ($title == 'Solução')
             <div>
                 <h2 style="text-align: center;padding:20px;">Aguardando {{ $title }}</h2>
@@ -106,13 +102,9 @@
                     <td class="text-left border">Turma</td>
                     <td class="text-center border">Data justificativa</td>
                 </tr>
-                @php
-                    $c = 0;
-                @endphp
+                @php $c = 0; @endphp
                 @foreach ($data as $fafd)
-                    @php
-                        $c += 1;
-                    @endphp
+                    @php $c++; @endphp
                     <tr class="class">
                         <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
                         <td class="text-left border">{{ $fafd?->students?->number }}</td>
@@ -127,6 +119,7 @@
                 </tr>
             </table>
         @endif
+
         @if ($title == 'Publicação')
             <div>
                 <h2 style="text-align: center;">Aguardando {{ $title }}</h2>
@@ -134,25 +127,22 @@
             @php
                 $c = 0;
                 $decision = 'null';
-                $newdecision = 'advertencia';
             @endphp
             @foreach ($data as $fafd)
                 @php
-                    $c += 1;
+                    $c++;
                     $newdecision = $fafd->decision;
                 @endphp
                 @if ($newdecision != $decision)
-                    @php
-                        $decision = $newdecision;
-                    @endphp
+                    @php $decision = $newdecision; @endphp
                     <h2>{{ mb_strtoupper(Penalty::from($newdecision)->label()) }}</h2>
                 @endif
-
                 <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
                     {{ $fafd->note }}
                 </div>
             @endforeach
         @endif
+
         @if ($title == 'Todas')
             <div>
                 <h2 style="text-align: center;padding:20px;">Aguardando {{ $title }}</h2>
@@ -165,13 +155,9 @@
                     <td class="text-left border">Turma</td>
                     <td class="text-center border">Data abertura</td>
                 </tr>
-                @php
-                    $c = 0;
-                @endphp
+                @php $c = 0; @endphp
                 @foreach ($data as $fafd)
-                    @php
-                        $c += 1;
-                    @endphp
+                    @php $c++; @endphp
                     <tr class="class">
                         <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
                         <td class="text-left border">{{ $fafd?->students?->number }}</td>
@@ -186,7 +172,6 @@
                 </tr>
             </table>
         @endif
-
     </div>
 </body>
 

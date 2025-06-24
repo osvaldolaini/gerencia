@@ -280,7 +280,8 @@ class FaultDiscipline extends Model
     public function reincident($number, $date, $student_id)
     {
         $reincident = $this->where('student_id', $student_id)
-            ->where('faults', 'LIKE', '%' . $number . '%')
+            // ->where('faults', 'LIKE', '%' . $number . '%')
+            ->whereJsonContains('faults', (int) $number)
             ->where('fact_date', '<', $date)
             ->where('active', 1)
             ->where('decision', '!=', 'justificado')

@@ -62,7 +62,7 @@ class Buttons extends Component
 
         // Adicione o conteúdo HTML ao PDF
         $mpdf->SetHTMLHeader('
-             <table width="100%">
+             <table width="100%" style="padding-top:20px;>
                  <tr >
                      <td width="50%">
                          <img width="50" src="' . $logoPath . '" alt="Logo">

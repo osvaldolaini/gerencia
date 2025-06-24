@@ -61,7 +61,7 @@
 <body>
     <div class="container">
         @if ($title == 'Justificativa')
-            <div>
+            <div style="padding-top:20px;">
                 <h2 style="text-align: center;padding:20px;">Aguardando {{ $title }}</h2>
             </div>
             <table class="turmas-table">
@@ -80,7 +80,8 @@
                         <td class="text-left border">{{ $fafd?->students?->number }}</td>
                         <td class="text-left border">{{ $fafd?->students?->nick }}</td>
                         <td class="text-left border">{{ $fafd?->students?->al_class->title }}</td>
-                        <td class="text-center border">{{ $fafd->deliv_date }}</td>
+                        <td class="text-center border">
+                            {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}</td>
                     </tr>
                 @endforeach
                 <tr class="border">

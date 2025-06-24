@@ -168,7 +168,7 @@
                         <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
                         <td class="text-left border">{{ $fafd->active == 1 ? 'Ativa' : 'Excluida' }}</td>
                         <td class="text-left border">{{ $fafd?->students?->nick ?? $fafd->al_nick }}
-                            ({{ $fafd?->students?->number }})
+                            ({{ $fafd?->students?->number ?? $fafd->al_number }})
                         </td>
                         <td class="text-left border">{{ $fafd?->students?->al_class->title }}</td>
                         <td class="text-left border">{{ $fafd?->f_date }}</td>

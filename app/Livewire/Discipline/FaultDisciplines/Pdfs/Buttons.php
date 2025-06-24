@@ -18,7 +18,7 @@ class Buttons extends Component
     public $status;
 
     use HandlesTmpUploads;
-    public function mount($status = null)
+    public function mount($status)
     {
         // dd($this->status);
         $this->status = $status;

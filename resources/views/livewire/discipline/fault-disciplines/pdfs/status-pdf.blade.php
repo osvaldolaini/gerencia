@@ -137,16 +137,17 @@
                 $newdecision = 'advertencia';
             @endphp
             @foreach ($data as $fafd)
+            @php
+                    $c += 1;
+                    $newdecision = $fafd->decision;
+                @endphp
                 @if ($newdecision != $decision)
                     @php
                         $decision = $newdecision;
                     @endphp
                     <h2>{{ mb_strtoupper(Penalty::from($newdecision)->label()) }}</h2>
                 @endif
-                @php
-                    $c += 1;
-                    $newdecision = $fafd->decision;
-                @endphp
+
                 <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
                     {{ $fafd->note }}
                 </div>

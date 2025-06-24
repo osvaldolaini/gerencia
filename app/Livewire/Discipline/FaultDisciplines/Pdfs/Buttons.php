@@ -53,7 +53,7 @@ class Buttons extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Todas',
-                'data'              => FaultDiscipline::orderBy('number')->all(),
+                'data'              => FaultDiscipline::orderBy('number')->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]

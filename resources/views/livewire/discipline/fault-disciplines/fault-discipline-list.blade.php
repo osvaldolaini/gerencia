@@ -13,13 +13,13 @@
         <div class="col-span-1">
             <h2 class="flex w-full text-gray-800 dark:text-white">Aguardando:</h2>
             <div class="flex w-full dark:text-white">
-                @livewire('discipline.fault-disciplines.pdfs.buttons', 'status'=>'aguardando')
+                @livewire('discipline.fault-disciplines.pdfs.buttons', ['status' => 'aguardando'])
             </div>
         </div>
         <div class="col-span-1">
             <h2 class="flex w-full text-gray-800 dark:text-white">Listas:</h2>
             <div class="flex w-full dark:text-white">
-                @livewire('discipline.fault-disciplines.pdfs.buttons', 'status'=>'lista')
+                @livewire('discipline.fault-disciplines.pdfs.buttons', ['status' => 'lista'])
             </div>
         </div>
     </div>

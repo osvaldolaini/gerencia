@@ -166,7 +166,7 @@
                     @php $c++; @endphp
                     <tr class="class">
                         <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
-                        <td class="text-left border">{{ $fafd->status == 1 ? 'Ativa' : 'Excluida' }}</td>
+                        <td class="text-left border">{{ $fafd->active == 1 ? 'Ativa' : 'Excluida' }}</td>
                         <td class="text-left border">{{ $fafd?->students?->nick }} ({{ $fafd?->students?->number }})
                         </td>
                         <td class="text-left border">{{ $fafd?->students?->al_class->title }}</td>

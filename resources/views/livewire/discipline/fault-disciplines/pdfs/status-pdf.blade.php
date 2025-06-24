@@ -153,7 +153,13 @@
                     <td class="text-left border">Nr</td>
                     <td class="text-left border">Aluno</td>
                     <td class="text-left border">Turma</td>
-                    <td class="text-center border">Data abertura</td>
+                    <td class="text-left border">Abertura</td>
+                    <td class="text-left border">Entrega</td>
+                    <td class="text-left border">Devolução</td>
+                    <td class="text-left border">Solução</td>
+                    <td class="text-left border">Nota</td>
+                    <td class="text-left border">SINCOMIL</td>
+                    <td class="text-center border">Status</td>
                 </tr>
                 @php $c = 0; @endphp
                 @foreach ($data as $fafd)
@@ -163,6 +169,12 @@
                         <td class="text-left border">{{ $fafd?->students?->number }}</td>
                         <td class="text-left border">{{ $fafd?->students?->nick }}</td>
                         <td class="text-left border">{{ $fafd?->students?->al_class->title }}</td>
+                        <td class="text-left border">{{ $fafd?->fact_date }}</td>
+                        <td class="text-left border">{{ $fafd?->delivered_date }}</td>
+                        <td class="text-left border">{{ $fafd?->justification_date }}</td>
+                        <td class="text-left border">{{ $fafd?->solution_date }}</td>
+                        <td class="text-left border">{{ $fafd?->bi_date }}</td>
+                        <td class="text-left border">{{ $fafd?->sincomil_date }}</td>
                         <td class="text-center border">
                             {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}</td>
                         </td>

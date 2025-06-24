@@ -29,7 +29,7 @@ class Buttons extends Component
         return view('livewire.discipline.fault-disciplines.pdfs.buttons');
     }
     //Todas
-    public function all()
+    public function allData()
     {
         //Apagar itens do diretório temporário
         $this->clearTmpDirectory('public/pdf-tmp');

@@ -134,7 +134,7 @@
             @php
                 $c = 0;
                 $decision = 'null';
-                $newdecision = '';
+                $newdecision = 'advertencia';
             @endphp
             @foreach ($data as $fafd)
                 @php

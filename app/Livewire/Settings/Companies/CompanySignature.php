@@ -25,11 +25,11 @@ class CompanySignature extends Component
     {
         if ($id) {
             $this->companies = Companies::find($id);
-            $files = Storage::files('public/companies/' . $this->companies->id . '/signature/small');
+            $files = Storage::files('public/companies/' . $this->companies->id . '/signature');
             if ($files) {
                 $signature = explode('/', $files[0]);
                 // dd($signature[4]);
-                $this->signature = url('storage/companies/' . $this->companies->id . '/signature/small/' . $signature[5]); // Nome do arquivo
+                $this->signature = url('storage/companies/' . $this->companies->id . '/signature/' . $signature[5]); // Nome do arquivo
             } else {
                 $this->signature = '';
             }

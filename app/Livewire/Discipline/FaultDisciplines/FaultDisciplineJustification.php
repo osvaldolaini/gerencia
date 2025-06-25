@@ -43,7 +43,7 @@ class FaultDisciplineJustification extends Component
             $files = Storage::files('public/companies/' . $company->id . '/signature');
             if ($files) {
                 $signature = explode('/', $files[0]);
-                // dd($signature[4]);
+                dd($signature[4]);
                 $this->signature = url('storage/companies/' . $company->id . '/signature/' . $signature[5]); // Nome do arquivo
             } else {
                 $this->signature = false;

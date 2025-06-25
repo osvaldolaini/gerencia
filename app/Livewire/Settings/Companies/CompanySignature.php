@@ -29,7 +29,7 @@ class CompanySignature extends Component
             if ($files) {
                 $signature = explode('/', $files[0]);
                 // dd($signature[4]);
-                $this->signature = url('storage/companies/' . $this->companies->id . '/signature/' . $signature[5]); // Nome do arquivo
+                $this->signature = url('storage/companies/' . $this->companies->id . '/signature/' . $signature[4]); // Nome do arquivo
             } else {
                 $this->signature = '';
             }

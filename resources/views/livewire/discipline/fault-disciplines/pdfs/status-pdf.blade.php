@@ -164,7 +164,7 @@
                 @php $c = 0; @endphp
                 @foreach ($data as $fafd)
                     @php $c++; @endphp
-                    <tr class="class">
+                    <tr class="class" @if ($fafd->active == 0) style="color:red;" @endif>
                         <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
                         <td class="text-left border">{{ $fafd->active == 1 ? 'Ativa' : 'Excluida' }}</td>
                         <td class="text-left border">{{ $fafd?->students?->nick ?? $fafd->al_nick }}
@@ -178,7 +178,11 @@
                         <td class="text-left border">{{ $fafd?->b_date }}</td>
                         <td class="text-left border">{{ $fafd?->sim_date }}</td>
                         <td class="text-center border">
-                            {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}</td>
+                            @if ($fafd->active == 1)
+                                {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}
+                            @else
+                                Excluida
+                            @endif
                         </td>
                     </tr>
                 @endforeach

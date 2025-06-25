@@ -9,9 +9,6 @@ use App\Enums\MilitaryRank;
 
 use Livewire\Attributes\On;
 
-use App\Enums\Penalty;
-use App\Models\Discipline\Settings\Faults;
-
 class FactObservedEdit extends Component
 {
     public $rules;

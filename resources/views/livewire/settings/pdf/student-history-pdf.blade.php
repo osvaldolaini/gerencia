@@ -6,6 +6,7 @@
 <head>
     @php
         use App\Enums\Penalty;
+        use App\Enums\ComplimentType;
         use App\Enums\MilitaryRank;
         use App\Enums\SchoolFault;
     @endphp
@@ -147,6 +148,48 @@
                                 {{ $fafd->total_grau }}
                                 @if ($fafd->decision)
                                     {{ $fafd->decision != 'fo' ? ($fafd->supplement_number ? '' : '*') : '' }}
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+
+                </table>
+                <div style="padding-top: 20px;text-align:left;width:100%;">*Aguardando publicação</div>
+            @else
+                <div class="linha-tabela">Não possui</div>
+            @endif
+        </div>
+        <div class="section">
+            <div class="section-title">Elogios</div>
+            @if ($student->compliments->count() > 0)
+                <table class="w-full" style="border-collapse: collapse;">
+                    <tr>
+                        <th class="text-center">Nr</th>
+                        <th class="text-center">Data</th>
+                        <th class="text-center">Fato</th>
+                        <th class="text-center">Tipo do Elogio</th>
+                        <th class="text-center">Bônus</th>
+                    </tr>
+                    @foreach ($student->compliments->where('active', 1)->sortByDesc('fact_date') as $compliment)
+                        <tr class="linha-tabela">
+                            <td class="text-center border-bottom">
+                                {{ $compliment->number }}
+                            </td>
+                            <td class="text-center border-bottom">
+                                {{ $compliment->f_date }}
+                            </td>
+
+
+                            <td class="border-bottom">
+                                {{ $compliment->fact }}
+                            </td>
+                            <td class="text-center border-bottom">
+                                {{ $compliment->compliment_type ? ComplimentType::from($compliment->compliment_type)->label() : 'Aguardando' }}
+                            </td>
+                            <td class="text-center border-bottom">
+                                {{ $compliment->total_grau }}
+                                @if ($compliment->decision)
+                                    {{ $compliment->supplement_number ? '' : '*' }}
                                 @endif
                             </td>
                         </tr>

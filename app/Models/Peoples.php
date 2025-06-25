@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Discipline\Compliments;
 use App\Models\Discipline\FactObserved;
 use App\Models\Discipline\FaultDiscipline;
 use App\Models\Fault\SchoolFaults;
@@ -230,6 +231,10 @@ class Peoples extends Model
     {
         return $this->hasMany(FaultDiscipline::class, 'student_id', 'id');
     }
+    public function compliments(): HasMany
+    {
+        return $this->hasMany(Compliments::class, 'student_id', 'id');
+    }
     public function faults(): HasMany
     {
         return $this->hasMany(SchoolFaults::class, 'student_id', 'id');
@@ -247,6 +252,12 @@ class Peoples extends Model
         $nota = floatval($this->grau);
         $dataFinal = $dataFinal ?? now();
         $punicoes = $this->fafd()
+            ->whereNotNull('bi_date')
+            ->where('bi_date', '<=', $dataFinal)
+            ->orderBy('bi_date')
+            ->get();
+
+        $elogios = $this->compliments()
             ->whereNotNull('bi_date')
             ->where('bi_date', '<=', $dataFinal)
             ->orderBy('bi_date')
@@ -315,6 +326,13 @@ class Peoples extends Model
             Log::debug("Ajuste final após 90 dias da última punição: +{$incremento} ({$dias} dias). Nota final: {$nota}");
         } else {
             Log::debug("Ainda não passaram 90 dias desde a última punição.");
+        }
+        // 🔥 Adiciona elogios (independente de punição)
+        foreach ($elogios as $e) {
+            $grauElogio = floatval($e->grau);
+            $nota += $grauElogio;
+            $nota = min($nota, 10.00);
+            Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
         }
 
         return number_format($nota, 2, ',');

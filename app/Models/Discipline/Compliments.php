@@ -2,9 +2,9 @@
 
 namespace App\Models\Discipline;
 
+use App\Enums\ComplimentType;
 use App\Models\Discipline\Settings\Faults;
 use App\Models\Peoples;
-use App\Models\Settings\Companies;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,12 +14,13 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
-class FactObserved extends Model
+use Illuminate\Support\Carbon;
+
+class Compliments extends Model
 {
     use HasFactory, LogsActivity, HasAttributeConversions;
 
-    protected $table = 'fact_observeds';
-
+    protected $table = 'compliments';
 
     protected $fillable = [
         'active',
@@ -40,15 +41,17 @@ class FactObserved extends Model
         'fact_hour',
         'fact_date',
         'fact_type',
-        'faults',
         'fact_observer',
         'fact_observer_function',
         'fact_observer_id',
-        'fafd',
-        'fafd_id',
-        'repeat_number',
-        'compliment',
-        'compliment_id',
+        'solution',
+        'solution_date',
+        'compliment_type',
+        'grau',
+        'bi_date',
+        'bi_text',
+        'bi_number',
+        'supplement_number',
         'sincomil_date',
         'code',
         'updated_by',
@@ -72,8 +75,8 @@ class FactObserved extends Model
         static::creating(function ($transaction) {
             $transaction->created_by = Auth::user()->name;
             $transaction->updated_by = Auth::user()->name;
-            $transaction->fafd = 0;
-            $transaction->compliment = 0;
+
+
             // Obtém o ano atual
             $anoAtual = now()->year;
 
@@ -91,6 +94,29 @@ class FactObserved extends Model
             $transaction->updated_by = Auth::user()->name;
         });
     }
+
+    public function getNoteAttribute(): string
+    {
+        $aluno = $this->al_name ? "{$this->al_name} ({$this->al_nick})" : $this->al_nick;
+
+        $medida = '';
+        if ($this->dacision_days) {
+            $medida .= "{$this->dacision_days} dia" . ($this->dacision_days > 1 ? 's' : '') . ' de ';
+        }
+
+        if ($this->decision) {
+            $penalidade = ComplimentType::fromDb($this->decision)?->label() ?? 'Advertência';
+            $medida .= "$penalidade (FAFD nº {$this->number}/{$this->year} - {$this->cia})";
+        }
+
+        $grau = $this->students?->calculateAdjustedGrau(Carbon::parse($this->bi_date));
+
+        return "Em {$this->f_date}, Al Nr {$this->al_number}, {$aluno}, turma {$this->al_class} - " .
+            "{$this->solution}, previstos no apêndice 1 do anexo F do RICM 2024, " .
+            " - Grau de comportamento {$grau}.";
+    }
+
+
     public function setUpperCaseAttributes(array $attributes)
     {
         foreach ($attributes as $attribute) {
@@ -107,22 +133,28 @@ class FactObserved extends Model
             ->logOnly($this->fillable);
     }
 
+    public function getTotalGrauAttribute()
+    {
+
+        return floatval($this->grau);
+    }
     public function getFactNumberAttribute()
     {
         return $this->number . '/' . $this->year;
     }
 
 
-    //Json
-    public function getJsonFaultsAttribute()
+    //dates ('bi_date', 'solution_date','fact_date','sincomil_date')
+    public function setBiDateAttribute($value)
     {
-        return json_decode($this->faults);
+        $this->attributes['bi_date'] = $this->dbDate($value);
     }
-    public function setFaultsAttribute($value)
+    public function getBDateAttribute()
     {
-        $this->attributes['faults'] = json_encode($value);
+        if ($this->bi_date != "") {
+            return $this->viewDate($this->bi_date);
+        }
     }
-
     public function setSincomilDateAttribute($value)
     {
         $this->attributes['sincomil_date'] = $this->dbDate($value);
@@ -132,6 +164,14 @@ class FactObserved extends Model
         if ($value != "") {
             return $this->viewDate($value);
         }
+    }
+    public function setSolutionDateAttribute($value)
+    {
+        $this->attributes['solution_date'] = $this->dbDate($value);
+    }
+    public function getSDateAttribute()
+    {
+        return $this->viewDate($this->solution_date);
     }
     public function setFactDateAttribute($value)
     {
@@ -146,34 +186,9 @@ class FactObserved extends Model
     {
         return $this->belongsTo(Peoples::class, 'student_id', 'id')->where('active', 1);
     }
-    public function company(): BelongsTo
-    {
-        return $this->belongsTo(Companies::class, 'company_id', 'id')->where('active', 1);
-    }
+
     public function observers(): BelongsTo
     {
         return $this->belongsTo(Peoples::class, 'fact_observer_id', 'id')->where('active', 1);
-    }
-    public function fault(): BelongsTo
-    {
-        return $this->belongsTo(Faults::class, 'fault_id', 'id')->where('active', 1);
-    }
-    public function fafds(): BelongsTo
-    {
-        return $this->belongsTo(FaultDiscipline::class, 'fafd_id', 'id')->where('active', 1);
-    }
-    public function compliments(): BelongsTo
-    {
-        return $this->belongsTo(Compliments::class, 'compliment_id', 'id')->where('active', 1);
-    }
-    public function reincident($number, $date, $student_id)
-    {
-        $reincident = FactObserved::where('student_id', $student_id)
-            // ->where('faults', 'LIKE', '%' . $number . '%')
-            ->whereJsonContains('faults', (int) $number)
-            ->where('fact_date', '<', $date)
-            ->where('active', 1)
-            ->get()->count();
-        return $reincident;
     }
 }

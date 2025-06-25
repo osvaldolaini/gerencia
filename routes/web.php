@@ -12,6 +12,9 @@ use App\Livewire\App\Discipline\MyFosList;
 use App\Livewire\App\Faults\FaultInsert;
 use App\Livewire\App\Faults\MyFaultsList;
 use App\Livewire\App\StudentPhoto;
+use App\Livewire\Discipline\Compliments\ComplimentEdit;
+use App\Livewire\Discipline\Compliments\ComplimentForm;
+use App\Livewire\Discipline\Compliments\ComplimentList;
 use App\Livewire\Discipline\FactObserveds\FactObservedEdit;
 use App\Livewire\Discipline\FactObserveds\FactObservedForm;
 use App\Livewire\Discipline\FactObserveds\FactObservedList;
@@ -248,6 +251,23 @@ Route::middleware([
     Route::get('/disciplina/painel', DisciplinePanel::class)
         ->name('fact-observed-panel');
 });
+
+//ELOGIOS
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:compliment' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/disciplina/elogios', ComplimentList::class)
+        ->name('compliment-list');
+    Route::get('/disciplina/elogios/novo', ComplimentForm::class)
+        ->name('compliment-create');
+    Route::get('/disciplina/elogios/{compliments}/editar', ComplimentEdit::class)
+        ->name('compliment-edit');
+});
+
 
 Route::middleware([
     'auth:sanctum',

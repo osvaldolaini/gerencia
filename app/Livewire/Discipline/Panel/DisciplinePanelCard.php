@@ -13,7 +13,7 @@ class DisciplinePanelCard extends Component
     public function render()
     {
         $this->fo = FactObserved::where("active", 1)->where('fact_date', 'LIKE', '%' . date('Y') . '%')->get();
-        $this->fafd = FaultDiscipline::where("active", 1)->where('fact_date', 'LIKE', '%' . date('Y') . '%')->get();
+        $this->fafd = FaultDiscipline::where('fact_date', 'LIKE', '%' . date('Y') . '%')->get();
         return view('livewire.discipline.panel.discipline-panel-card');
     }
 }

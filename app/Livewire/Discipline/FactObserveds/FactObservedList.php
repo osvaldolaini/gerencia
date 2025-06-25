@@ -3,6 +3,7 @@
 namespace App\Livewire\Discipline\FactObserveds;
 
 use App\Enums\MilitaryRank;
+use App\Models\Discipline\Compliments;
 use App\Models\Discipline\FactObserved;
 use App\Models\Discipline\FaultDiscipline;
 use App\Models\Settings\Companies;
@@ -21,6 +22,7 @@ class FactObservedList extends Component
     public $showJetModal = false;
     public $showModalForm = false;
     public $modalFafd = false;
+    public $modalCompliment = false;
     public $showReadModal = false;
 
     public $rules;
@@ -37,7 +39,7 @@ class FactObservedList extends Component
     public $sorts = ['fact_observeds.number' => 'desc'];
     public $relationTables =  "peoples,peoples.id,fact_observeds.student_id"; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'peoples.logo_path as path,faults,fact_observeds.updated_at,fafd,fafd_id,fact_observer,fact_observer_function,year,al_number,al_nick,al_class,student_id,fact_type,fact_hour,fact_date,fact_observeds.number,fact,sincomil_date,fact_observeds.active as status';
+    public $columnsInclude = 'peoples.logo_path as path,faults,fact_observeds.updated_at,fafd,fafd_id,compliment,compliment_id,fact_observer,fact_observer_function,year,al_number,al_nick,al_class,student_id,fact_type,fact_hour,fact_date,fact_observeds.number,fact,sincomil_date,fact_observeds.active as status';
     public $searchable = 'fact_hour,fact_date,year,al_number,al_nick,al_name,al_class,fact_observeds.number,fact'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
@@ -46,6 +48,7 @@ class FactObservedList extends Component
     public $fact_type = 'negativo';
     public $sincomil_date = false;
     public $fafd = 0;
+    public $compliment = 0;
 
     #[On('see_excluded')]
     public function render(TableService $queryService)
@@ -60,6 +63,7 @@ class FactObservedList extends Component
         }
 
         $where['fafd'] = $this->fafd;
+        $where['compliment'] = $this->compliment;
 
         // dd($where);
         $dataTable = $queryService
@@ -102,6 +106,12 @@ class FactObservedList extends Component
     public function btnFafd()
     {
         $this->fafd = !$this->fafd;
+        $this->compliment = 0;
+    }
+    public function btnCompliment()
+    {
+        $this->compliment = !$this->compliment;
+        $this->fafd = 0;
     }
     //CREATE
     public function showCreate()
@@ -139,10 +149,20 @@ class FactObservedList extends Component
             $this->read = FactObserved::find($id);
         }
     }
-    //DELETE
+    //FAFD CREATE
     public function showModalFafd($id)
     {
         $this->modalFafd = true;
+        if (isset($id)) {
+            $this->id = $id;
+        } else {
+            $this->id = '';
+        }
+    }
+    //ELOGIO CREATE
+    public function showModalCompliment($id)
+    {
+        $this->modalCompliment = true;
         if (isset($id)) {
             $this->id = $id;
         } else {
@@ -215,6 +235,42 @@ class FactObservedList extends Component
         $fact->save();
 
         $this->modalFafd = false;
+        $this->openAlert('success', 'Registro atualizado com sucesso.');
+    }
+    public function compliment_create($id)
+    {
+        $fact = FactObserved::where('id', $id)->first();
+
+        $comandant = Companies::find($fact->company_id)->comandant;
+        $compliment = Compliments::create([
+            'active'                   => 1,
+            // 'number'                   => $fact->number,
+            'year'                     => $fact->year,
+            'cia'                      => $fact->cia,
+            'company_id'               => $fact->company_id,
+            'cmt_cia'                  => $comandant->name ?? '',
+            'cmt_cia_posto'            => MilitaryRank::fromDb($comandant->posto_grad)?->label() ?? '',
+            'student_id'               => $fact->student_id,
+            'al_nick'                  => $fact->al_nick,
+            'al_name'                  => $fact->al_name,
+            'al_number'                => $fact->al_number,
+            'al_class'                 => $fact->al_class,
+            'school_classes_id'        => $fact->school_classes_id,
+            'fact'                     => $fact->fact,
+            'fact_hour'                => $fact->fact_hour,
+            'fact_date'                => $fact->fact_date,
+            'fact_type'                => $fact->fact_type,
+            'fact_observer'            => $fact->fact_observer,
+            'fact_observer_function'   => $fact->fact_observer_function,
+            'fact_observer_id'         => $fact->fact_observer_id,
+            'code'                     => Str::uuid(),
+        ]);
+
+        $fact->compliment = 1;
+        $fact->compliment_id = $compliment->id;
+        $fact->save();
+
+        $this->modalCompliment = false;
         $this->openAlert('success', 'Registro atualizado com sucesso.');
     }
 }

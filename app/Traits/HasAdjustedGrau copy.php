@@ -57,22 +57,16 @@ trait HasAdjustedGrau
         }
     }
 
-    protected function calculateAdjustedGrau(?Carbon $dataFinal = null)
+    protected function calculateAdjustedGrau()
     {
         $nota = floatval($this->grau);
-        $dataFinal = $dataFinal ?? now();
-        $punicoes = $this->fafd()
-            ->whereNotNull('bi_date')
-            ->where('bi_date', '<=', $dataFinal)
-            ->orderBy('bi_date')
-            ->get();
+        $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
 
+        // Elogios (elogios não reiniciam data de referência)
         $elogios = $this->compliments()
             ->whereNotNull('bi_date')
-            ->where('bi_date', '<=', $dataFinal)
             ->orderBy('bi_date')
             ->get();
-
 
         $dataReferencia = null;
         // Log::debug("Sem punições. Dias após 90 da matrícula: {$dias}. Aumento: {$incremento}. Nota final: {$nota}");
@@ -154,10 +148,9 @@ trait HasAdjustedGrau
         foreach ($elogios as $e) {
             $grauElogio = floatval($e->grau);
             $nota += $grauElogio;
-            $nota = min($nota, 10.00);
+            // $nota = min($nota, 10.00);
             Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
         }
-
 
         return number_format($nota, 2);
     }

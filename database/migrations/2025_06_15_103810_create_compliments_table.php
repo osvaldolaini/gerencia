@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fact_observeds', function (Blueprint $table) {
+        Schema::create('compliments', function (Blueprint $table) {
             $table->id();
             $table->boolean('active');
             $table->integer('number')->nullable();
@@ -44,10 +44,10 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->mediumText('fact')->nullable();
+
             $table->time('fact_hour')->nullable();
             $table->date('fact_date')->nullable();
             $table->string('fact_type')->nullable();
-            $table->string('faults')->nullable();
             $table->string('fact_observer')->nullable();
             $table->string('fact_observer_function')->nullable();
             $table->foreignId('fact_observer_id')
@@ -56,15 +56,16 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->boolean('repeat')->nullable();
-            $table->integer('repeat_number')->nullable();
+            $table->string('solution')->nullable();
+            $table->date('solution_date')->nullable();
 
-            $table->boolean('fafd')->nullable();
-            $table->foreignId('fafd_id')
-                ->nullable()
-                ->constrained('fault_disciplines')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->string('compliment_type')->nullable();
+            $table->decimal('grau', $precision = 10, $scale = 2)->nullable();
+
+            $table->date('bi_date')->nullable();
+            $table->string('bi_number')->nullable();
+            $table->string('supplement_number')->nullable();
+            $table->string('bi_text')->nullable();
 
             $table->date('sincomil_date')->nullable();
 
@@ -84,6 +85,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fact_observeds');
+        Schema::dropIfExists('compliments');
     }
 };

@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fault_disciplines', function (Blueprint $table) {
+        Schema::create('fact_observeds', function (Blueprint $table) {
             $table->id();
-
             $table->boolean('active');
             $table->integer('number')->nullable();
             $table->integer('year')->nullable();
@@ -57,27 +56,25 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->date('delivered_date')->nullable();
-            $table->date('justification_date')->nullable();
             $table->boolean('repeat')->nullable();
             $table->integer('repeat_number')->nullable();
-            $table->string('solution')->nullable();
 
-            $table->date('solution_date')->nullable();
-            $table->string('aggravating')->nullable();
-            $table->string('mitigating')->nullable();
-            $table->string('decision')->nullable();
-            $table->integer('decision_days')->nullable();
-            $table->boolean('first')->nullable();
-            $table->decimal('grau', $precision = 10, $scale = 2)->nullable();
+            $table->boolean('fafd')->nullable();
+            $table->foreignId('fafd_id')
+                ->nullable()
+                ->constrained('fault_disciplines')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
-            $table->date('bi_date')->nullable();
-            $table->string('bi_number')->nullable();
-            $table->string('supplement_number')->nullable();
-            $table->string('bi_text')->nullable();
+            $table->boolean('compliment')->nullable();
+            $table->foreignId('compliment_id')
+                ->nullable()
+                ->constrained('compliments')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
 
             $table->date('sincomil_date')->nullable();
-
 
             $table->string('code')->nullable();
             /*Log */
@@ -95,6 +92,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fault_disciplines');
+        Schema::dropIfExists('fact_observeds');
     }
 };

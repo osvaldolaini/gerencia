@@ -164,7 +164,7 @@
                 @php $c = 0; @endphp
                 @foreach ($data as $fafd)
                     @php $c++; @endphp
-                    <tr class="class" @if ($fafd->active == 0) style="color:red;" @endif>
+                    <tr class="class" @if ($fafd->active == 0) style="background-color:#f00;" @endif>
                         <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
                         <td class="text-left border">{{ $fafd->active == 1 ? 'Ativa' : 'Excluida' }}</td>
                         <td class="text-left border">{{ $fafd?->students?->nick ?? $fafd->al_nick }}

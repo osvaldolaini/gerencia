@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<head>
+    @php
+
+        use App\Enums\ComplimentType;
+
+        use Carbon\Carbon;
+    @endphp
+    <meta charset="UTF-8">
+    <x-favicons></x-favicons>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .container {
+            width: 100%;
+            border: 1px solid black;
+            margin-top: 20px;
+        }
+
+        .header {
+            width: 100%;
+            border: 1px solid black;
+        }
+
+        .header table {
+            padding: 10px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .header tr td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-align: center;
+            vertical-align: center;
+            font-weight: bold;
+        }
+
+        .identification {
+            width: 100%;
+            border: 1px solid black;
+        }
+
+        .identification table {
+            padding: 10px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .identification tr td {
+            text-align: left;
+            vertical-align: center;
+            padding-left: 5px;
+            font-weight: thin;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .section {
+            margin-top: 10px;
+            padding: 5px;
+            border: 1px solid black;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .signature {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .checkbox {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border: 1px solid black;
+            margin-right: 5px;
+        }
+
+        .small-text {
+            font-size: 10px;
+            text-align: justify;
+        }
+
+        p {
+            font-size: 10pt;
+            text-align: justify;
+            text-indent: 2cm;
+            width: 100%;
+            padding-top: 5px;
+        }
+    </style>
+    <title>{{ $title_postfix }} </title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <table class="identification">
+                <tr>
+                    <td colspan="4" Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
+                        NOTA DE PUNIÇÃO
+                    </td>
+                </tr>
+
+
+            </table>
+
+            <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
+                {{ $compliments->note }}
+            </div>
+
+            <table class="identification">
+                <tr>
+                    <td colspan="2" style="border-top: 1px solid black;border-right: 1px solid">
+                        Nota p/Bol Nr: {{ $compliments->supplement_number }} / {{ $compliments->bi_number }}
+                    </td>
+                    <td colspan="1" style="border-top: 1px solid black;border-right: 1px solid">
+                        BAR Nr _____________
+                    </td>
+                    <td colspan="1" style="border-top: 1px solid black;border-right: 1px solid">
+                        FIOD Nr
+                    </td>
+                    <td colspan="2" style="border-top: 1px solid black;border-right: 1px solid">
+                        Grau de Comportamento:
+                        {{ $compliments->students->calculateAdjustedGrau(Carbon::parse($compliments->bi_date)) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid">
+                        Lançamento no SINCOMIL em
+                        {{ $compliments->sin_date ? $compliments->sin_date : '___/____/20___' }}
+                    </td>
+                    <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid">
+                        Rubrica Sgtte: _________________________________
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -348,7 +348,7 @@
                         </div>
                         @if ($solution_date && $solution)
                             <div class="col-span-full">
-                                @livewire('discipline.fault-disciplines.fault-discipline-note', [$id])
+                                @livewire('discipline.compliments.compliment-note', [$id])
                             </div>
                         @endif
 

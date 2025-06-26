@@ -9,7 +9,7 @@
             </h3>
         </x-slot>
     </x-layout.breadcrumb>
-    {{-- <div class="grid grid-cols-2">
+    <div class="grid grid-cols-2">
         <div class="col-span-1">
             <h2 class="flex w-full text-gray-800 dark:text-white">Aguardando:</h2>
             <div class="flex w-full dark:text-white">
@@ -22,14 +22,14 @@
                 @livewire('discipline.compliments.pdfs.buttons', ['status' => 'lista'])
             </div>
         </div>
-    </div> --}}
+    </div>
 
     <x-layout.search>
         <x-slot name="button">
             <button wire:click="showCreate()"
                 class="flex items-center justify-center p-3 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg lg:px-5 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600">
-                <svg class="w-4 h-4 mr-0 lg:mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true">
+                <svg class="w-4 h-4 mr-0 lg:mr-2" fill="currentColor" viewbox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path clip-rule="evenodd" fill-rule="evenodd"
                         d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                 </svg>

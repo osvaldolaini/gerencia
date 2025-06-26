@@ -26,6 +26,7 @@ class Buttons extends Component
         $this->status = $status;
         $this->supplements = FaultDiscipline::whereNotNull('supplement_number')
             ->distinct()
+            ->orderBy('supplement_number', 'asc') // ou 'desc' para ordem decrescente
             ->pluck('supplement_number');
     }
 

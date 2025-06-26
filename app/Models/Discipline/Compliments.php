@@ -99,6 +99,7 @@ class Compliments extends Model
     {
         $aluno = $this->al_name ? "{$this->al_name} ({$this->al_nick})" : $this->al_nick;
 
+
         $medida = '';
         if ($this->dacision_days) {
             $medida .= "{$this->dacision_days} dia" . ($this->dacision_days > 1 ? 's' : '') . ' de ';
@@ -112,8 +113,13 @@ class Compliments extends Model
         $grau = $this->students?->calculateAdjustedGrau(Carbon::parse($this->bi_date));
 
         return "Em {$this->f_date}, Al Nr {$this->al_number}, {$aluno}, turma {$this->al_class} - " .
-            "{$this->solution}, previstos no apêndice 1 do anexo F do RICM 2024, " .
+            "{$this->solution}" .
             " - Grau de comportamento {$grau}.";
+
+        // $this->sugestion = 'Em ' . $this->f_date . ', Al Nr ' . $this->al_number . ', ' . $this->students->name . ', turma ' . $this->al_class . ' - ';
+        // $this->sugestion .= $this->fact;
+        // $this->sugestion .= ' (FO positivo nº ' . $this->fo->number . '/' . $this->fo->year . ').';
+        // $this->sugestion .= ' Medida disciplinar: Elogio ' . ComplimentType::from($this->compliment_type)->label() . '.';
     }
 
 
@@ -190,5 +196,9 @@ class Compliments extends Model
     public function observers(): BelongsTo
     {
         return $this->belongsTo(Peoples::class, 'fact_observer_id', 'id')->where('active', 1);
+    }
+    public function getFoAttribute()
+    {
+        return FactObserved::where('compliment_id', $this->id)->first();
     }
 }

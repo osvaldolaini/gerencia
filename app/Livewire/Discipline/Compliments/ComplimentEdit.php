@@ -65,6 +65,7 @@ class ComplimentEdit extends Component
     public $students;
 
     public $sugestion;
+    public $fo;
     public $f_date;
 
 
@@ -117,6 +118,7 @@ class ComplimentEdit extends Component
             $this->b_date           = $compliments->b_date;
             $this->bi_date          = $compliments->bi_date;
             $this->s_date           = $compliments->s_date;
+            $this->fo               = $compliments->fo;
 
             if ($this->compliment_type) {
                 $this->grau = ComplimentType::from($this->compliment_type)->degree();
@@ -210,14 +212,11 @@ class ComplimentEdit extends Component
     }
     public function sugestionText()
     {
-        $config = Settings::find(1);
         if ($this->compliment_type) {
-            $gender = ($this->students->sex == 'F' ? 'a' : 'o');
-            $this->sugestion = 'Diante do exposto, no uso de minhas atribuições de ' . ComplimentType::from($this->compliment_type)->signature($config->nick) . ', elogio ' . $gender . ' alun' . $gender . ' por, ';
-
-            $this->sugestion .= 'Na ocasião ' . $this->fact;
-
-            // $this->sugestion .= ' não sendo reincidente em falta desta natureza, de acordo com o Regimento Interno dos Colégios Militares (RICM)';
+            $this->sugestion = 'Em ' . $this->f_date . ', Al Nr ' . $this->al_number . ', ' . $this->students->name . ', turma ' . $this->al_class . ' - ';
+            $this->sugestion .= "Por " . $this->fact;
+            $this->sugestion .= ' (FO positivo nº ' . $this->fo->number . '/' . $this->fo->year . ').';
+            $this->sugestion .= ' Medida disciplinar: Elogio ' . ComplimentType::from($this->compliment_type)->label() . '.';
 
             $this->solution = $this->sugestion;
         }

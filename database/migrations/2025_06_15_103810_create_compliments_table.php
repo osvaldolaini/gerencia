@@ -56,7 +56,7 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->string('solution')->nullable();
+            $table->mediumText('solution')->nullable();
             $table->date('solution_date')->nullable();
 
             $table->string('compliment_type')->nullable();

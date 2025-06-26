@@ -131,7 +131,36 @@
             @foreach ($data as $fafd)
                 @php
                     $c++;
-                    $newdecision = $fafd->decision;
+                    $newdecision = str_replace(['"', "'"], '', $fafd->decision);
+                @endphp
+                @if ($newdecision != $decision)
+                    @php $decision = $newdecision; @endphp
+                    <h2>{{ mb_strtoupper(Penalty::from($newdecision)->label()) }}</h2>
+                @endif
+                <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
+                    {{ $fafd->note }}
+                </div>
+            @endforeach
+        @endif
+        @if ($title == 'Aditamento')
+            <div>
+                <h2 style="text-align: center;">
+                    {{ $title }}
+                    {{ $data->first()->supplement_number }}
+                    do BI
+                    {{ $data->first()->bi_number }}
+                    de
+                    {{ $data->first()->b_date }}
+                </h2>
+            </div>
+            @php
+                $c = 0;
+                $decision = 'null';
+            @endphp
+            @foreach ($data as $fafd)
+                @php
+                    $c++;
+                    $newdecision = str_replace(['"', "'"], '', $fafd->decision);
                 @endphp
                 @if ($newdecision != $decision)
                     @php $decision = $newdecision; @endphp

@@ -9,7 +9,7 @@
             </h3>
         </x-slot>
     </x-layout.breadcrumb>
-    <div class="grid grid-cols-2">
+    <div class="grid grid-cols-3">
         <div class="col-span-1">
             <h2 class="flex w-full text-gray-800 dark:text-white">Aguardando:</h2>
             <div class="flex w-full dark:text-white">
@@ -20,6 +20,12 @@
             <h2 class="flex w-full text-gray-800 dark:text-white">Listas:</h2>
             <div class="flex w-full dark:text-white">
                 @livewire('discipline.fault-disciplines.pdfs.buttons', ['status' => 'lista'])
+            </div>
+        </div>
+        <div class="col-span-1">
+            <h2 class="flex w-full text-gray-800 dark:text-white">Aditamentos:</h2>
+            <div class="flex w-full dark:text-white">
+                @livewire('discipline.fault-disciplines.pdfs.buttons', ['status' => 'aditamentos'])
             </div>
         </div>
     </div>

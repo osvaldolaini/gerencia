@@ -60,35 +60,6 @@
 
 <body>
     <div class="container">
-        @if ($title == 'Justificativa')
-            <div>
-                <h2 style="text-align: center;padding:20px;">Aguardando {{ $title }}</h2>
-            </div>
-            <table class="turmas-table">
-                <tr class="class">
-                    <td class="text-left border">compliment Nº</td>
-                    <td class="text-left border">Nr</td>
-                    <td class="text-left border">Aluno</td>
-                    <td class="text-left border">Turma</td>
-                    <td class="text-center border">Data prevista</td>
-                </tr>
-                @php $c = 0; @endphp
-                @foreach ($data as $compliment)
-                    @php $c++; @endphp
-                    <tr class="class">
-                        <td class="text-left border">{{ $compliment->number }}/{{ $compliment->year }}</td>
-                        <td class="text-left border">{{ $compliment?->students?->number }}</td>
-                        <td class="text-left border">{{ $compliment?->students?->nick }}</td>
-                        <td class="text-left border">{{ $compliment?->students?->al_class->title }}</td>
-                        <td class="text-center border">{{ $compliment->deliv_date }}</td>
-                    </tr>
-                @endforeach
-                <tr class="border">
-                    <td colspan="4" class="text-right border">Total</td>
-                    <td class="text-center border">{{ $c }}</td>
-                </tr>
-            </table>
-        @endif
 
         @if ($title == 'Solução')
             <div>
@@ -125,6 +96,35 @@
         @if ($title == 'Publicação')
             <div>
                 <h2 style="text-align: center;">Aguardando {{ $title }}</h2>
+            </div>
+            @php
+                $c = 0;
+                $decision = 'null';
+            @endphp
+            @foreach ($data as $compliment)
+                @php
+                    $c++;
+                    $newdecision = $compliment->compliment_type;
+                @endphp
+                @if ($newdecision != $decision)
+                    @php $decision = $newdecision; @endphp
+                    <h2>{{ mb_strtoupper(ComplimentType::from($newdecision)->label()) }}</h2>
+                @endif
+                <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
+                    {{ $compliment->note }}
+                </div>
+            @endforeach
+        @endif
+        @if ($title == 'Aditamento')
+            <div>
+                <h2 style="text-align: center;">
+                    {{ $title }}
+                    {{ $data->first()->supplement_number }}
+                    do BI
+                    {{ $data->first()->bi_number }}
+                    de
+                    {{ $data->first()->b_date }}
+                </h2>
             </div>
             @php
                 $c = 0;

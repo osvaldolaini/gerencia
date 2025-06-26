@@ -35,7 +35,7 @@
                         <span class="flex flex-col items-center justify-center text-center">
                             Em aberto
                             <span class="flex text-center badge badge-warning">
-                                {{ $fafd->where('decision', '!=', 'fo')->where('decision', '!=', 'justificado')->where('supplement_number', null)->count() }}
+                                {{ $fafd->where('active', 1)->where('decision', '!=', 'fo')->where('decision', '!=', 'justificado')->where('supplement_number', null)->count() }}
                             </span>
                         </span>
                         <span class="flex flex-col items-center justify-center text-center">

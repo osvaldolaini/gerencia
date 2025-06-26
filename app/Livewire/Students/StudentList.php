@@ -166,11 +166,11 @@ class StudentList extends Component
                 ? url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png')
                 : url('storage/logos-school/logo-header.png');
 
-            $files = Storage::files('public/companies/' . $company->id . '/signature/small');
+            $files = Storage::files('public/companies/' . $company->id . '/signature');
             if ($files) {
                 $sign = explode('/', $files[0]);
                 // dd($signature[4]);
-                $signature = url('storage/companies/' . $company->id . '/signature/small/' . $sign[5]); // Nome do arquivo
+                $signature = url('storage/companies/' . $company->id . '/signature/' . $sign[5]); // Nome do arquivo
             } else {
                 $signature = false;
             }

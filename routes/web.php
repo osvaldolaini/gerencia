@@ -24,6 +24,8 @@ use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineList;
 use App\Livewire\Discipline\Settings\Faults\FaultForm;
 use App\Livewire\Discipline\Settings\Faults\FaultList;
 use App\Livewire\Discipline\Panel\DisciplinePanel;
+use App\Livewire\Extracurricular\ExtraModalities\ExtraModalityForm;
+use App\Livewire\Extracurricular\ExtraModalities\ExtraModalityList;
 use App\Livewire\Faults\Panel\FaultsPanel;
 use App\Livewire\Faults\Panel\SchoolFaultsFilter;
 use App\Livewire\Faults\SchoolFaultEdit;
@@ -338,4 +340,20 @@ Route::middleware([
         ->name('my-insert-faults');
     // Route::get('/student-photo/{student}', StudentPhoto::class)
     //     ->name('student-photo');
+});
+
+//Atividades extraclasse
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:extra_modalities' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/atividades-extra-classe/modalidade', ExtraModalityList::class)
+        ->name('extra-modality-list');
+    Route::get('/atividades-extra-classe/modalidade/novo', ExtraModalityForm::class)
+        ->name('extra-modality-create');
+    Route::get('/atividades-extra-classe/modalidade/{extra_modalities}/editar', ExtraModalityForm::class)
+        ->name('extra-modality-edit');
 });

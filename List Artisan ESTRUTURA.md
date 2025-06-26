@@ -10,10 +10,10 @@ php artisan make:livewire Settings\Classes\Classlist
 php artisan make:livewire Settings\Classes\ClassForm
 php artisan make:livewire Settings\Classes\ClassPage
 
-php artisan make:model Discipline\Compliments -m
-php artisan make:livewire Discipline\Compliments\Complimentlist
-php artisan make:livewire Discipline\Compliments\ComplimentForm
-php artisan make:livewire Discipline\Compliments\ComplimentEdit
+php artisan make:model Extracurricular\ExtraModalities -m
+php artisan make:livewire Extracurricular\ExtraModalities\ExtraModalitList
+php artisan make:livewire Extracurricular\ExtraModalities\ExtraModalitForm
+php artisan make:livewire Extracurricular\ExtraModalities\ExtraModalitPage
 
 php artisan make:livewire Settings\SchoolClassroomSeats\SchoolClassroomSeatForm
 php artisan make:livewire Faults\SchoolFaultForm

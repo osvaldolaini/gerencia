@@ -319,7 +319,7 @@
                         </svg>
                         Faltas
                     </span>
-                    <svg :class="openDropdown === 2 ? 'rotate-180' : ''" xmlns="http://www.w3.org/2000/svg"
+                    <svg :class="openDropdown === 7 ? 'rotate-180' : ''" xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5 text-gray-500 transition-transform duration-500" viewBox="0 0 20 20"
                         fill="currentColor">
                         <path fill-rule="evenodd"
@@ -376,6 +376,46 @@
                             Busca Avançada
                         </x-slot>
                     </x-layout.side-bar-nav-link>
+                </div>
+            </div>
+            {{-- Atividades extra classe --}}
+            <div x-init="if (window.location.href.includes('atividades-extra-classe')) { openDropdown = 8; }">
+                <button @click="openDropdown === 8 ? openDropdown = null : openDropdown = 8"
+                    class="flex items-center justify-between w-full px-2 py-1 text-left text-gray-700 transition dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <span class="flex items-center">
+                        <x-layout.svg.activities class="w-6 h-6 mr-2 text-gray-500 dark:text-gray-300" />
+
+                        Extraclasse
+                    </span>
+                    <svg :class="openDropdown === 8 ? 'rotate-180' : ''" xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 text-gray-500 transition-transform duration-500" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <div x-show="openDropdown === 8" x-collapse>
+
+                    {{-- <x-layout.side-bar-nav-link url="school-faults-panel" active="*painel-faltas*"
+                        access_page="school_faults">
+                        <x-slot name="svg">
+                            <x-layout.svg.activities class="w-6 h-6 ml-2 mr-2 text-gray-500 dark:text-gray-300" />
+                        </x-slot>
+                        <x-slot name="title">
+                            Atividades extra
+                        </x-slot>
+                    </x-layout.side-bar-nav-link> --}}
+                    <x-layout.side-bar-nav-link url="extra-modality-list" active="*modalidade*"
+                        access_page="extra_modalities">
+                        <x-slot name="svg">
+                            <x-layout.svg.activities class="w-6 h-6 ml-2 mr-2 text-gray-500 dark:text-gray-300" />
+                        </x-slot>
+                        <x-slot name="title">
+                            Modalidades
+                        </x-slot>
+                    </x-layout.side-bar-nav-link>
+
                 </div>
             </div>
 

@@ -183,6 +183,21 @@
             </ul>
         </div>
     </x-user-accesses-section>
+    {{-- DISCIPLINA --}}
+    <x-user-accesses-section title="Atividades extra" description="Atividades, categoria">
+        <div class="col-span-full lg:col-span-3">
+            <ul
+                class="grid items-center w-full grid-cols-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg col-span-full lg:col-span-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white ">
+
+                <x-link-checkbox-new :access="$inputAccess" page="extra_activities" title="Atividades extra">
+                    <x-layout.svg.activities class="w-6 h-6" />
+                </x-link-checkbox-new>
+                <x-link-checkbox-new :access="$inputAccess" page="extra_modalities" title="Modalidade">
+                    <x-layout.svg.activities class="w-6 h-6" />
+                </x-link-checkbox-new>
+            </ul>
+        </div>
+    </x-user-accesses-section>
     <x-user-accesses-section title="Configurações" description="Configurações gerais do sistema">
         <div class="col-span-full lg:col-span-3">
             <ul

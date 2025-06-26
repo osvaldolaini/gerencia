@@ -170,7 +170,7 @@ class StudentList extends Component
             if ($files) {
                 $sign = explode('/', $files[0]);
                 // dd($signature[4]);
-                $signature = url('storage/companies/' . $company->id . '/signature/' . $sign[5]); // Nome do arquivo
+                $signature = url('storage/companies/' . $company->id . '/signature/' . $sign[4]); // Nome do arquivo
             } else {
                 $signature = false;
             }

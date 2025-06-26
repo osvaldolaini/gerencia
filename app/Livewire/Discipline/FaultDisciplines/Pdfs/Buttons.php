@@ -24,7 +24,9 @@ class Buttons extends Component
     {
         // dd($this->status);
         $this->status = $status;
-        $this->supplements = FaultDiscipline::where('supplement_number', '!=', NULL)->pluck('supplement_number');
+        $this->supplements = FaultDiscipline::whereNotNull('supplement_number')
+            ->distinct()
+            ->pluck('supplement_number');
     }
 
     public function render()
@@ -346,7 +348,6 @@ class Buttons extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Aditamento',
-
                 'data'              => FaultDiscipline::where('active', 1)
                     ->where('supplement_number', $number)
                     ->where('decision', '!=', 'fo')

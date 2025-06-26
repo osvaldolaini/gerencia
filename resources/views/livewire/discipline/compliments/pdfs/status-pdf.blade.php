@@ -66,21 +66,21 @@
             </div>
             <table class="turmas-table">
                 <tr class="class">
-                    <td class="text-left border">FAFD Nº</td>
+                    <td class="text-left border">compliment Nº</td>
                     <td class="text-left border">Nr</td>
                     <td class="text-left border">Aluno</td>
                     <td class="text-left border">Turma</td>
                     <td class="text-center border">Data prevista</td>
                 </tr>
                 @php $c = 0; @endphp
-                @foreach ($data as $fafd)
+                @foreach ($data as $compliment)
                     @php $c++; @endphp
                     <tr class="class">
-                        <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
-                        <td class="text-left border">{{ $fafd?->students?->number }}</td>
-                        <td class="text-left border">{{ $fafd?->students?->nick }}</td>
-                        <td class="text-left border">{{ $fafd?->students?->al_class->title }}</td>
-                        <td class="text-center border">{{ $fafd->deliv_date }}</td>
+                        <td class="text-left border">{{ $compliment->number }}/{{ $compliment->year }}</td>
+                        <td class="text-left border">{{ $compliment?->students?->number }}</td>
+                        <td class="text-left border">{{ $compliment?->students?->nick }}</td>
+                        <td class="text-left border">{{ $compliment?->students?->al_class->title }}</td>
+                        <td class="text-center border">{{ $compliment->deliv_date }}</td>
                     </tr>
                 @endforeach
                 <tr class="border">
@@ -100,17 +100,19 @@
                     <td class="text-left border">Nr</td>
                     <td class="text-left border">Aluno</td>
                     <td class="text-left border">Turma</td>
+                    <td class="text-left border">Motivo</td>
                     <td class="text-center border">Data</td>
                 </tr>
                 @php $c = 0; @endphp
-                @foreach ($data as $fafd)
+                @foreach ($data as $compliment)
                     @php $c++; @endphp
                     <tr class="class">
-                        <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
-                        <td class="text-left border">{{ $fafd?->students?->number }}</td>
-                        <td class="text-left border">{{ $fafd?->students?->nick }}</td>
-                        <td class="text-left border">{{ $fafd?->students?->al_class->title }}</td>
-                        <td class="text-center border">{{ $fafd->sol_date }}</td>
+                        <td class="text-left border">{{ $compliment->number }}/{{ $compliment->year }}</td>
+                        <td class="text-left border">{{ $compliment?->students?->number }}</td>
+                        <td class="text-left border">{{ $compliment?->students?->nick }}</td>
+                        <td class="text-left border">{{ $compliment?->students?->al_class->title }}</td>
+                        <td class="text-left border">{{ $compliment->fact }}</td>
+                        <td class="text-center border">{{ $compliment->f_date }}</td>
                     </tr>
                 @endforeach
                 <tr class="border">
@@ -128,17 +130,17 @@
                 $c = 0;
                 $decision = 'null';
             @endphp
-            @foreach ($data as $fafd)
+            @foreach ($data as $compliment)
                 @php
                     $c++;
-                    $newdecision = $fafd->compliment_type;
+                    $newdecision = $compliment->compliment_type;
                 @endphp
                 @if ($newdecision != $decision)
                     @php $decision = $newdecision; @endphp
                     <h2>{{ mb_strtoupper(ComplimentType::from($newdecision)->label()) }}</h2>
                 @endif
                 <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
-                    {{ $fafd->note }}
+                    {{ $compliment->note }}
                 </div>
             @endforeach
         @endif
@@ -149,7 +151,7 @@
             </div>
             <table class="turmas-table">
                 <tr class="class">
-                    <td class="text-left border">FAFD Nº</td>
+                    <td class="text-left border">compliment Nº</td>
                     <td class="text-left border">Status</td>
                     <td class="text-left border">Aluno</td>
                     <td class="text-left border">Turma</td>
@@ -160,22 +162,22 @@
                     <td class="text-center border">Status</td>
                 </tr>
                 @php $c = 0; @endphp
-                @foreach ($data as $fafd)
+                @foreach ($data as $compliment)
                     @php $c++; @endphp
-                    <tr class="class" @if ($fafd->active == 0) style="background-color:#f00;" @endif>
-                        <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
-                        <td class="text-left border">{{ $fafd->active == 1 ? 'Ativa' : 'Excluida' }}</td>
-                        <td class="text-left border">{{ $fafd?->students?->nick ?? $fafd->al_nick }}
-                            ({{ $fafd?->students?->number ?? $fafd->al_number }})
+                    <tr class="class" @if ($compliment->active == 0) style="background-color:#f00;" @endif>
+                        <td class="text-left border">{{ $compliment->number }}/{{ $compliment->year }}</td>
+                        <td class="text-left border">{{ $compliment->active == 1 ? 'Ativa' : 'Excluida' }}</td>
+                        <td class="text-left border">{{ $compliment?->students?->nick ?? $compliment->al_nick }}
+                            ({{ $compliment?->students?->number ?? $compliment->al_number }})
                         </td>
-                        <td class="text-left border">{{ $fafd?->students?->al_class->title }}</td>
-                        <td class="text-left border">{{ $fafd?->f_date }}</td>
-                        <td class="text-left border">{{ $fafd?->s_date }}</td>
-                        <td class="text-left border">{{ $fafd?->b_date }}</td>
-                        <td class="text-left border">{{ $fafd?->sim_date }}</td>
+                        <td class="text-left border">{{ $compliment?->students?->al_class->title }}</td>
+                        <td class="text-left border">{{ $compliment?->f_date }}</td>
+                        <td class="text-left border">{{ $compliment?->s_date }}</td>
+                        <td class="text-left border">{{ $compliment?->b_date }}</td>
+                        <td class="text-left border">{{ $compliment?->sim_date }}</td>
                         <td class="text-center border">
-                            @if ($fafd->active == 1)
-                                {{ $fafd->decision ? ComplimentType::from($fafd->decision)->label() : 'Aguardando' }}
+                            @if ($compliment->active == 1)
+                                {{ $compliment->decision ? ComplimentType::from($compliment->decision)->label() : 'Aguardando' }}
                             @else
                                 Excluida
                             @endif

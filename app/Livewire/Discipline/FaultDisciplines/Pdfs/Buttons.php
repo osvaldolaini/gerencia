@@ -346,8 +346,12 @@ class Buttons extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Aditamento',
+
                 'data'              => FaultDiscipline::where('active', 1)
                     ->where('supplement_number', $number)
+                    ->where('decision', '!=', 'fo')
+                    ->where('decision', '!=', 'justificado')
+                    ->orderBy('decision', 'asc')
                     ->orderBy('fact_date', 'asc')
                     ->get(),
                 'config'            => $config,

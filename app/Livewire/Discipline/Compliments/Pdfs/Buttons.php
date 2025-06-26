@@ -25,7 +25,11 @@ class Buttons extends Component
     {
         // dd($this->status);
         $this->status = $status;
-        $this->supplements = Compliments::where('supplement_number', '!=', NULL)->pluck('supplement_number');
+        $this->supplements = Compliments::whereNotNull('supplement_number')
+            ->distinct()
+            ->orderBy('supplement_number', 'asc') // ou 'desc' para ordem decrescente
+            ->pluck('supplement_number');
+        // $this->supplements = Compliments::where('supplement_number', '!=', NULL)->pluck('supplement_number');
     }
 
     public function render()

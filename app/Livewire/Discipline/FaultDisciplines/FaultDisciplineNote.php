@@ -34,7 +34,7 @@ class FaultDisciplineNote extends Component
     public function render()
     {
         $this->paste = Storage::fileExists('public/fafd/' . $this->fault_discipline->id . '/fafd_n_nota_' . $this->fault_discipline->number . '.pdf');
-        return view('livewire.discipline.fault_discipline.fault-discipline-note');
+        return view('livewire.discipline.fault-disciplines.fault-discipline-note');
     }
     //Turmas
     public function print()

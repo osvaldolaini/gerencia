@@ -1,35 +1,35 @@
 <?php
 
-namespace App\Livewire\Extracurricular\ExtraModalities;
+namespace App\Livewire\Extracurricular\ExtraActivities;
 
-use App\Models\Extracurricular\ExtraModalities;
+use App\Models\Extracurricular\ExtraActivities;
 use App\Services\LaiGuz\TableService;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ExtraModalityList extends Component
+class ExtraActivityList extends Component
 {
     use WithPagination;
-    public $breadcrumb = 'Modalidades';
+    public $breadcrumb = 'Atividades';
     public $modal = true;
     public $showJetModal = false;
     public $showModalForm = false;
 
     public $rules;
     public $detail;
-    public $extra_modality;
+    public $extra_activity;
     public $id;
 
     //Dados da tabela
     protected $queryService;
-    public $model = "App\Models\Extracurricular\ExtraModalities"; //Model principal
+    public $model = "App\Models\Extracurricular\ExtraActivities"; //Model principal
     public $modelId = "id"; //Ex: 'table.id' or 'id'
     public $search;
     public $sorts = ['title' => 'asc'];
     public $relationTables; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'title,active as status';
+    public $columnsInclude = 'title,extra_modalities_id,active as status';
     public $searchable = 'title,'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
@@ -53,7 +53,7 @@ class ExtraModalityList extends Component
             ])
             ->getData();
         return view(
-            'livewire.extracurricular.extra-modalities.extra-modality-list',
+            'livewire.extracurricular.extra-activities.extra-activity-list',
             compact('dataTable')
         );
     }
@@ -74,9 +74,9 @@ class ExtraModalityList extends Component
     {
         if ($this->modal) {
             $this->showModalForm = true;
-            $this->extra_modality = '';
+            $this->extra_activity = '';
         } else {
-            redirect()->route('extra-modality-create');
+            redirect()->route('extra-activity-create');
         }
     }
 
@@ -86,9 +86,9 @@ class ExtraModalityList extends Component
 
         if ($this->modal) {
             $this->showModalForm = true;
-            $this->extra_modality = ExtraModalities::find($id);
+            $this->extra_activity = ExtraActivities::find($id);
         } else {
-            redirect()->route('extra-modality-edit', $id);
+            redirect()->route('extra-activity-edit', $id);
         }
     }
 
@@ -104,7 +104,7 @@ class ExtraModalityList extends Component
     }
     public function delete($id)
     {
-        $data = ExtraModalities::where('id', $id)->first();
+        $data = ExtraActivities::where('id', $id)->first();
         $data->active = 0;
         $data->save();
 
@@ -115,7 +115,7 @@ class ExtraModalityList extends Component
     //ACTIVE
     public function buttonActive($id)
     {
-        $data = ExtraModalities::where('id', $id)->first();
+        $data = ExtraActivities::where('id', $id)->first();
         if ($data->active == 1) {
             $data->active = 0;
             $data->save();

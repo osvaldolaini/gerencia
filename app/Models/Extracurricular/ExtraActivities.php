@@ -5,20 +5,22 @@ namespace App\Models\Extracurricular;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
-class ExtraModalities extends Model
+class ExtraActivities extends Model
 {
     use HasFactory, LogsActivity, HasAttributeConversions;
 
-    protected $table = 'extra_modalities';
+    protected $table = 'extra_activities';
 
     protected $fillable = [
         'active',
         'title',
+        'extra_modalities_id',
+        'code',
         'updated_by',
         'created_by',
         'deleted_by',
@@ -60,8 +62,8 @@ class ExtraModalities extends Model
             ->logOnly($this->fillable);
     }
 
-    public function activities(): HasMany
+    public function modality(): BelongsTo
     {
-        return $this->hasMany(ExtraActivities::class, 'extra_modalities_id', 'id')->where('active', 1);
+        return $this->BelongsTo(ExtraModalities::class, 'extra_modalities_id', 'id')->where('active', 1);
     }
 }

@@ -24,6 +24,8 @@ use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineList;
 use App\Livewire\Discipline\Settings\Faults\FaultForm;
 use App\Livewire\Discipline\Settings\Faults\FaultList;
 use App\Livewire\Discipline\Panel\DisciplinePanel;
+use App\Livewire\Extracurricular\ExtraActivities\ExtraActivityForm;
+use App\Livewire\Extracurricular\ExtraActivities\ExtraActivityList;
 use App\Livewire\Extracurricular\ExtraModalities\ExtraModalityForm;
 use App\Livewire\Extracurricular\ExtraModalities\ExtraModalityList;
 use App\Livewire\Faults\Panel\FaultsPanel;
@@ -356,4 +358,19 @@ Route::middleware([
         ->name('extra-modality-create');
     Route::get('/atividades-extra-classe/modalidade/{extra_modalities}/editar', ExtraModalityForm::class)
         ->name('extra-modality-edit');
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:extra_activities' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/atividades-extra-classe/atividade', ExtraActivityList::class)
+        ->name('extra-activity-list');
+    Route::get('/atividades-extra-classe/atividade/novo', ExtraActivityForm::class)
+        ->name('extra-activity-create');
+    Route::get('/atividades-extra-classe/atividade/{extra_activity}/editar', ExtraActivityForm::class)
+        ->name('extra-activity-edit');
 });

@@ -397,15 +397,15 @@
                 </button>
                 <div x-show="openDropdown === 8" x-collapse>
 
-                    {{-- <x-layout.side-bar-nav-link url="school-faults-panel" active="*painel-faltas*"
-                        access_page="school_faults">
+                    <x-layout.side-bar-nav-link url="extra-activity-list" active="*/atividade"
+                        access_page="extra_activities">
                         <x-slot name="svg">
                             <x-layout.svg.activities class="w-6 h-6 ml-2 mr-2 text-gray-500 dark:text-gray-300" />
                         </x-slot>
                         <x-slot name="title">
                             Atividades extra
                         </x-slot>
-                    </x-layout.side-bar-nav-link> --}}
+                    </x-layout.side-bar-nav-link>
                     <x-layout.side-bar-nav-link url="extra-modality-list" active="*modalidade*"
                         access_page="extra_modalities">
                         <x-slot name="svg">

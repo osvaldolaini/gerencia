@@ -28,6 +28,7 @@ use App\Livewire\Extracurricular\ExtraActivities\ExtraActivityForm;
 use App\Livewire\Extracurricular\ExtraActivities\ExtraActivityList;
 use App\Livewire\Extracurricular\ExtraModalities\ExtraModalityForm;
 use App\Livewire\Extracurricular\ExtraModalities\ExtraModalityList;
+use App\Livewire\Extracurricular\StudentActivities\StudentActivityInsert;
 use App\Livewire\Faults\Panel\FaultsPanel;
 use App\Livewire\Faults\Panel\SchoolFaultsFilter;
 use App\Livewire\Faults\SchoolFaultEdit;
@@ -373,4 +374,6 @@ Route::middleware([
         ->name('extra-activity-create');
     Route::get('/atividades-extra-classe/atividade/{extra_activity}/editar', ExtraActivityForm::class)
         ->name('extra-activity-edit');
+    Route::get('/atividades-extra-classe/atividade/{extra_activity}/alunos', StudentActivityInsert::class)
+        ->name('students-activities');
 });

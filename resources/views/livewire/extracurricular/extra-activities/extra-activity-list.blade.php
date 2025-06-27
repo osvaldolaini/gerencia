@@ -32,9 +32,13 @@
                             Título
                         </x-layout.table-sort-button>
                     </th>
-                    <th scope="col" class="px-4 py-1 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
-
+                    <th scope="col"
+                        class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                         Modalidade
+                    </th>
+                    <th scope="col"
+                        class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
+                        Alunos
                     </th>
                     <th scope="col"
                         class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
@@ -50,8 +54,28 @@
                         <td class="px-4 py-1 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
                             {{ $item->title }}
                         </td>
-                        <td class="px-4 py-1 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
+                        <td class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                             {{ $item->modality->title }}
+                        </td>
+                        <td class="items-center px-4 py-1 text-sm font-normal text-gray-500 dark:text-gray-400">
+                            <a href="{{ route('students-activities', $item->id) }}"
+                                class="flex justify-center px-3 py-2 mx-auto transition-colors duration-200 hover:text-gray-400 whitespace-nowrap">
+                                <svg class="w-6 h-6" viewBox="0 -1.5 20.412 20.412" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="check-lists" transform="translate(-1.588 -2.588)">
+                                        <path id="primary" d="M7,4,4.33,7,3,5.5" fill="none" stroke="currentColor"
+                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                        <path id="primary-2" data-name="primary" d="M3,11.5,4.33,13,7,10" fill="none"
+                                            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" />
+                                        <path id="primary-3" data-name="primary" d="M3,17.5,4.33,19,7,16" fill="none"
+                                            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" />
+                                        <path id="primary-4" data-name="primary" d="M11,6H21M11,12H21M11,18H21"
+                                            fill="none" stroke="currentColor" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="2" />
+                                    </g>
+                                </svg>
+                            </a>
                         </td>
                         <td class="w-1/6 px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                             <x-layout.table-options id='{{ $item->id }}' active='{{ $item->status }}'>

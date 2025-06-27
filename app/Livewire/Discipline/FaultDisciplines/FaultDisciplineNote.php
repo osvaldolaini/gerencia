@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Discipline\fault_discipline;
+namespace App\Livewire\Discipline\FaultDisciplines;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Storage;

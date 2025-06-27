@@ -30,7 +30,7 @@ class ExtraActivityList extends Component
     public $relationTables; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
     public $columnsInclude = 'title,extra_modalities_id,active as status';
-    public $searchable = 'title,'; //Colunas pesquisadas no banco de dados
+    public $searchable = 'title'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
     public $active = 'active';

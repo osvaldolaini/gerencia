@@ -73,6 +73,15 @@ trait HasAdjustedGrau
             ->orderBy('bi_date')
             ->get();
 
+        // 🔥 Adiciona elogios (independente de punição)
+        foreach ($elogios as $e) {
+            $grauElogio = floatval($e->grau);
+            $nota += $grauElogio;
+            $nota = min($nota, 10.00);
+            Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
+        }
+
+
         Log::debug("Nota Elogio: {$elogios}");
 
         $dataReferencia = null;

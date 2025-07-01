@@ -86,7 +86,7 @@ class StudentActivities extends Model
 
     public function activities(): HasMany
     {
-        return $this->hasMany(ExtraActivities::class, 'extra_modalities_id', 'id')->where('active', 1);
+        return $this->hasMany(ExtraActivities::class, 'extra_activities_id', 'id')->where('active', 1);
     }
     public function students(): HasMany
     {
@@ -94,7 +94,7 @@ class StudentActivities extends Model
     }
     public function activity(): BelongsTo
     {
-        return $this->belongsTo(ExtraActivities::class,   'extra_modalities_id', 'id')->where('active', 1);
+        return $this->belongsTo(ExtraActivities::class,   'extra_activities_id', 'id')->where('active', 1);
     }
     public function student(): BelongsTo
     {

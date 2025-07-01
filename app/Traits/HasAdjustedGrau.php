@@ -73,13 +73,6 @@ trait HasAdjustedGrau
             ->orderBy('bi_date')
             ->get();
 
-        // 🔥 Adiciona elogios (independente de punição)
-        foreach ($elogios as $e) {
-            $grauElogio = floatval($e->grau);
-            $nota += $grauElogio;
-            $nota = min($nota, 10.00);
-            Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
-        }
 
 
         Log::debug("Nota Elogio: {$elogios}");
@@ -102,7 +95,24 @@ trait HasAdjustedGrau
                     Log::debug("Sem punições. Ainda não passaram 90 dias desde a matrícula.");
                 }
             }
+
+            // 🔥 Adiciona elogios (independente de punição)
+            foreach ($elogios as $e) {
+                $grauElogio = floatval($e->grau);
+                $nota += $grauElogio;
+                $nota = min($nota, 10.00);
+                Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
+            }
             return number_format($nota, 2);
+        } else {
+
+            // 🔥 Adiciona elogios (independente de punição)
+            foreach ($elogios as $e) {
+                $grauElogio = floatval($e->grau);
+                $nota += $grauElogio;
+                $nota = min($nota, 10.00);
+                Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
+            }
         }
 
         // ✅ Ajuste adicional ANTES da primeira punição

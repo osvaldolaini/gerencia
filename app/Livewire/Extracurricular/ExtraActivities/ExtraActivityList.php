@@ -169,7 +169,7 @@ class ExtraActivityList extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Alunos',
-                'data'              => ExtraActivities::first($id),
+                'data'              => ExtraActivities::find($id),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]

@@ -64,9 +64,7 @@ class StudentExtraActivity extends Component
         if ($this->studentActivities->count() > 0) {
             $arrray = $this->studentActivities->pluck('extra_activities_id')->toArray();
         }
-
-        dd($arrray);
-        if (in_array($arrray, $this->extra_activities_id)) {
+        if (!empty($arrray) && in_array($arrray, $this->extra_activities_id)) {
             $this->openAlert('success', 'O aluno já está na atividade');
         } else {
             StudentActivities::create([

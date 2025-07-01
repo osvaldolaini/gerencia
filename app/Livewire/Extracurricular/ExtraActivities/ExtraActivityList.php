@@ -2,10 +2,17 @@
 
 namespace App\Livewire\Extracurricular\ExtraActivities;
 
+use App\Livewire\Admin\Settings\Settings;
 use App\Models\Extracurricular\ExtraActivities;
 use App\Services\LaiGuz\TableService;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
+
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+
+use Illuminate\Support\Str;
+
 use Livewire\WithPagination;
 
 class ExtraActivityList extends Component
@@ -129,5 +136,73 @@ class ExtraActivityList extends Component
     public function openAlert($status, $msg)
     {
         $this->dispatch('openAlert', $status, $msg);
+    }
+    //Todas
+    public function list($id)
+    {
+        //Apagar itens do diretório temporário
+        $this->clearTmpDirectory('public/pdf-tmp');
+
+        $config = Settings::find(1);
+        $logoPath = url('storage/logos-school/logo-header.png');
+
+
+        // Crie uma instância do mPDF
+        $mpdf = new \Mpdf\Mpdf([
+            'mode'          => 'utf-8',
+            // 'orientation'        => 'P', //[P,L]
+            'format' => 'A4-P',
+            'margin_left'   => 15,
+            'margin_top'    => 15,
+            'default_font_size'  => 9,
+            'default_font'  => 'arial',
+        ]);
+        // dd($mpdf);
+        $html = view(
+            'livewire.extracurricular.student-activities.list-pdf',
+            [
+                'logoPath'          => $logoPath,
+                'title'             => 'Alunos',
+                'data'              => ExtraActivities::first($id),
+                'config'            => $config,
+                'responsible'       => Auth::user()->name,
+            ]
+        )->render();
+
+        // Adicione o conteúdo HTML ao PDF
+        $mpdf->SetHTMLHeader('
+              <table width="100%" style="padding-top:20px;>
+                  <tr >
+                      <td width="50%">
+                          <img width="50" src="' . $logoPath . '" alt="Logo">
+                      </td>
+                      <td width="50%" style="text-align: right;">
+                          <strong>' . $config->name . '</strong><br>
+
+                      </td>
+                  </tr>
+              </table>
+              ');
+        $mpdf->SetHTMLFooter('
+       <table width="100%">
+           <tr>
+               <td width="66%">Impressão realizada em {DATE j/m/Y} às {DATE H:i:s}</td>
+               <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
+           </tr>
+       </table>');
+        $mpdf->WriteHTML($html);
+
+        // Salve o PDF temporariamente
+        $file = trim('alunos_atividade_' . ExtraActivities::first($id)->title . '_' . Str::uuid() . '.pdf');
+
+        if (!is_dir(storage_path('app/public/pdf-tmp'))) {
+            mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário
+        }
+
+        $down = storage_path('app/public/pdf-tmp/' . $file);
+        $pdfPath = url('storage/pdf-tmp/' . $file);
+
+        $mpdf->Output($down, 'F');
+        $this->dispatch('openPdfInNewTabClasses', pdfPath: $pdfPath);
     }
 }

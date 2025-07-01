@@ -42,6 +42,10 @@
                     </th>
                     <th scope="col"
                         class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
+                        Lista em pdf
+                    </th>
+                    <th scope="col"
+                        class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                         Opções
                     </th>
                 </tr>
@@ -77,6 +81,12 @@
                                 </svg>
                             </a>
                         </td>
+                        <div class="p-0 tooltip tooltip-top" wire:click='list()' data-tip="Publicação" wire:ignore>
+                            <button
+                                class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
+                                <x-layout.svg.pdf></x-layout.svg.pdf>
+                            </button>
+                        </div>
                         <td class="w-1/6 px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                             <x-layout.table-options id='{{ $item->id }}' active='{{ $item->status }}'>
                             </x-layout.table-options>
@@ -160,6 +170,17 @@
 
         </x-slot>
     </x-dialog-modal>
+    @section('scripts')
+        <script>
+            document.addEventListener('livewire:init', () => {
+                Livewire.on('openPdfInNewTabClasses', ({
+                    pdfPath
+                }) => {
+                    window.open(pdfPath, '_blank');
+                })
+            })
+        </script>
+    @endsection
 
 
 </div>

@@ -129,8 +129,8 @@
                             </td>
 
 
-                            <td class="border-bottom">
-                                {{-- {{ $extra->fact }} --}}
+                            <td class="text-center border-bottom">
+                                {{ $extra->bonus ? 'Sim' : 'Não' }}
                             </td>
                         </tr>
                     @endforeach

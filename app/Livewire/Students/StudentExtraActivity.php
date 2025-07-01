@@ -6,6 +6,7 @@ use App\Models\Extracurricular\ExtraActivities;
 use App\Models\Extracurricular\StudentActivities;
 use App\Models\Peoples;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class StudentExtraActivity extends Component
 {
@@ -73,6 +74,7 @@ class StudentExtraActivity extends Component
                 'extra_activities_id' => $this->extra_activities_id,
                 'active'         => 1,
                 'gip'            => $this->gip,
+                'code'      => Str::uuid(),
             ]);
             $this->showModalForm = false;
             $this->studentActivities   = $this->student->activities->where('active', 1)->sortByDesc('title');

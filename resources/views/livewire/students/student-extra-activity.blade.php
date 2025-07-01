@@ -74,7 +74,7 @@
         </x-slot>
     </x-confirmation-modal>
     <x-dialog-modal wire:model="showModalForm" maxWidth="4xl">
-        <x-slot name="title">{{ $breadcrumb }} </x-slot>
+        <x-slot name="title">Inserir atividade extra </x-slot>
         <x-slot name="content">
             <form>
                 <div role="tabpanel"

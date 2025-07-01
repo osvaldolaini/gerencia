@@ -310,10 +310,10 @@
                                                     {{ $activity['activity'] }}
                                                 </td>
                                                 <td class="text-center">
-                                                    @if ($fault['gip'] == 0)
+                                                    @if ($activity['gip'] == 0)
                                                         <span class="badge badge-error">Não</span>
                                                     @endif
-                                                    @if ($fault['gip'] == 1)
+                                                    @if ($activity['gip'] == 1)
                                                         <span class="badge badge-success">Sim</span>
                                                     @endif
                                                 </td>

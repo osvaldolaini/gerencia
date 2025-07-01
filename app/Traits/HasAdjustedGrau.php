@@ -74,9 +74,6 @@ trait HasAdjustedGrau
             ->get();
 
 
-
-        Log::debug("Nota Elogio: {$elogios}");
-
         $dataReferencia = null;
         // Log::debug("Sem punições. Dias após 90 da matrícula: {$dias}. Aumento: {$incremento}. Nota final: {$nota}");
         Log::debug("Nota inicial: {$nota}");
@@ -94,25 +91,15 @@ trait HasAdjustedGrau
                 } else {
                     Log::debug("Sem punições. Ainda não passaram 90 dias desde a matrícula.");
                 }
-            }
-
-            // 🔥 Adiciona elogios (independente de punição)
-            foreach ($elogios as $e) {
-                $grauElogio = floatval($e->grau);
-                $nota += $grauElogio;
-                $nota = min($nota, 10.00);
-                Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
+                // 🔥 Adiciona elogios (independente de punição)
+                foreach ($elogios as $e) {
+                    $grauElogio = floatval($e->grau);
+                    $nota += $grauElogio;
+                    $nota = min($nota, 10.00);
+                    Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
+                }
             }
             return number_format($nota, 2);
-        } else {
-
-            // 🔥 Adiciona elogios (independente de punição)
-            foreach ($elogios as $e) {
-                $grauElogio = floatval($e->grau);
-                $nota += $grauElogio;
-                $nota = min($nota, 10.00);
-                Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
-            }
         }
 
         // ✅ Ajuste adicional ANTES da primeira punição
@@ -170,13 +157,13 @@ trait HasAdjustedGrau
             Log::debug("Ainda não passaram 90 dias desde a última punição.");
         }
 
-        // // 🔥 Adiciona elogios (independente de punição)
-        // foreach ($elogios as $e) {
-        //     $grauElogio = floatval($e->grau);
-        //     $nota += $grauElogio;
-        //     $nota = min($nota, 10.00);
-        //     Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
-        // }
+        // 🔥 Adiciona elogios (independente de punição)
+        foreach ($elogios as $e) {
+            $grauElogio = floatval($e->grau);
+            $nota += $grauElogio;
+            $nota = min($nota, 10.00);
+            Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
+        }
 
 
         return number_format($nota, 2);

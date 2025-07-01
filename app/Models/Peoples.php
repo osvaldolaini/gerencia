@@ -263,16 +263,6 @@ class Peoples extends Model
             ->orderBy('bi_date')
             ->get();
 
-        // // 🔥 Adiciona elogios (independente de punição)
-        // foreach ($elogios as $e) {
-        //     $grauElogio = floatval($e->grau);
-        //     $nota += $grauElogio;
-        //     $nota = min($nota, 10.00);
-        //     Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
-        // }
-
-        Log::debug("Nota Elogio: {$elogios}");
-
         $dataReferencia = null;
         Log::debug("Nota inicial: {$nota}");
         Log::debug("Data matrícula: {$this->entry_date}");
@@ -280,8 +270,8 @@ class Peoples extends Model
         if ($punicoes->isEmpty()) {
             if ($this->entry_date) {
                 $dataReferencia = Carbon::parse($this->entry_date)->addDays(90);
-                if (now()->gt($dataReferencia)) {
-                    $dias = $dataReferencia->diffInDays(now());
+                if ($dataFinal->gt($dataReferencia)) {
+                    $dias = $dataReferencia->diffInDays($dataFinal);
                     $incremento = $dias * 0.01;
                     $nota += $incremento;
                     $nota = min($nota, 10.00);
@@ -289,27 +279,16 @@ class Peoples extends Model
                 } else {
                     Log::debug("Sem punições. Ainda não passaram 90 dias desde a matrícula.");
                 }
-            }
-
-            // 🔥 Adiciona elogios (independente de punição)
-            foreach ($elogios as $e) {
-                $grauElogio = floatval($e->grau);
-                $nota += $grauElogio;
-                $nota = min($nota, 10.00);
-                Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
+                // 🔥 Adiciona elogios (independente de punição)
+                foreach ($elogios as $e) {
+                    $grauElogio = floatval($e->grau);
+                    $nota += $grauElogio;
+                    $nota = min($nota, 10.00);
+                    Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
+                }
             }
             return number_format($nota, 2);
-        } else {
-
-            // 🔥 Adiciona elogios (independente de punição)
-            foreach ($elogios as $e) {
-                $grauElogio = floatval($e->grau);
-                $nota += $grauElogio;
-                $nota = min($nota, 10.00);
-                Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
-            }
         }
-
 
         // Antes da primeira punição: incremento se aplicável
         $primeiraPunição = Carbon::parse($punicoes->first()->bi_date);
@@ -355,14 +334,13 @@ class Peoples extends Model
         } else {
             Log::debug("Ainda não passaram 90 dias desde a última punição.");
         }
-
-        // // 🔥 Adiciona elogios (independente de punição)
-        // foreach ($elogios as $e) {
-        //     $grauElogio = floatval($e->grau);
-        //     $nota += $grauElogio;
-        //     $nota = min($nota, 10.00);
-        //     Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
-        // }
+        // 🔥 Adiciona elogios (independente de punição)
+        foreach ($elogios as $e) {
+            $grauElogio = floatval($e->grau);
+            $nota += $grauElogio;
+            $nota = min($nota, 10.00);
+            Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
+        }
 
         return number_format($nota, 2, ',');
     }

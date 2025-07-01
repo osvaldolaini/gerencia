@@ -72,7 +72,8 @@ class StudentExtraActivity extends Component
             'gip'            => $this->gip,
             'code'      => Str::uuid(),
         ]);
-
+        $this->gip = 0;
+        $this->extra_activities_id = '';
         $this->showModalForm = false;
         $this->studentActivities   = $this->student->activities->where('active', 1)->sortByDesc('title');
 

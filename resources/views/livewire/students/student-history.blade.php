@@ -114,9 +114,10 @@
                             </span>
                             <span wire:click="setTab('atividades')">
                                 <x-layout.svg.activities
-                                    class="flex items-center px-3 py-2 text-sm font-medium transition duration-75 {{ $activeTab === 'faltas'
+                                    class="flex items-center px-3 py-2 text-sm font-medium transition duration-75 {{ $activeTab === 'atividades'
                                         ? 'cursor-pointer bg-gray-500 text-white active dark:text-gray-900 rounded-md'
-                                        : 'cursor-pointer border-transparent text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-300' }}"></x-layout.svg.activities>
+                                        : 'cursor-pointer border-transparent text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-300' }}">
+                                </x-layout.svg.activities>
 
                                 <span class="px-1 transition duration-75 text-primary-600 dark:text-primary-400">
                                     Atividades
@@ -290,7 +291,7 @@
                                             <th class="text-center">PONTO EXTRA</th>
                                         </tr>
                                         @php
-                                            $extras = $student->activities->sortBy('gip'); // ordem CRESCENTE
+                                            $extras = $student->activities->where('active', 1)->sortBy('gip'); // ordem CRESCENTE
                                             $dados = [];
 
                                             foreach ($extras as $extra) {

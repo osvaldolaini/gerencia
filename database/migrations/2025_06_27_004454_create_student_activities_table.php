@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('student_activities', function (Blueprint $table) {
             $table->id();
             $table->boolean('active')->default(1);
-            $table->string('gip')->nullable();
-            $table->string('bonus')->nullable();
+            $table->string('gip')->nullable()->default(0);
+            $table->string('bonus')->nullable()->default(0);
             $table->string('code')->nullable();
             $table->foreignId('extra_activities_id')
                 ->nullable()

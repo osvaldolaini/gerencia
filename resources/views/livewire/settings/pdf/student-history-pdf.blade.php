@@ -111,14 +111,14 @@
             @if ($student->activities->where('active', 1)->count() > 0)
                 <table class="w-full" style="border-collapse: collapse;">
                     <tr>
-                        <th class="text-center">Tipo</th>
+                        <th class="text-left">Tipo</th>
                         <th class="text-center">Atividade</th>
                         <th class="text-center">GIP</th>
                         <th class="text-center">Bônus</th>
                     </tr>
                     @foreach ($student->activities->where('active', 1)->sortByDesc('gip') as $extra)
                         <tr class="linha-tabela">
-                            <td class="text-center border-bottom">
+                            <td class="text-left border-bottom">
                                 {{ $extra->activity->modality->title }}
                             </td>
                             <td class="text-center border-bottom">

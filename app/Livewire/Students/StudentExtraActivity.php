@@ -18,6 +18,7 @@ class StudentExtraActivity extends Component
 
     public $activities;
     public $gip = 0;
+    public $extra_activities_id;
     public function mount(Peoples $student)
     {
         $this->activities = ExtraActivities::where("active", 1)->orderBy('title', 'asc')->get();

@@ -107,6 +107,40 @@
             </table>
         </div>
         <div class="section">
+            <div class="section-title">Atividades extra</div>
+            @if ($student->activities->where('active', 1)->count() > 0)
+                <table class="w-full" style="border-collapse: collapse;">
+                    <tr>
+                        <th class="text-center">Tipo</th>
+                        <th class="text-center">Atividade</th>
+                        <th class="text-center">GIP</th>
+                        <th class="text-center">Bônus</th>
+                    </tr>
+                    @foreach ($student->activities->where('active', 1)->sortByDesc('gip') as $extra)
+                        <tr class="linha-tabela">
+                            <td class="text-center border-bottom">
+                                {{ $extra->activity->modality->title }}
+                            </td>
+                            <td class="text-center border-bottom">
+                                {{ $extra->activity->title }}
+                            </td>
+                            <td class="text-center border-bottom">
+                                {{ $extra->gip ? 'Sim' : 'Não' }}
+                            </td>
+
+
+                            <td class="border-bottom">
+                                {{-- {{ $extra->fact }} --}}
+                            </td>
+                        </tr>
+                    @endforeach
+
+                </table>
+            @else
+                <div class="linha-tabela">Não possui</div>
+            @endif
+        </div>
+        <div class="section">
             <div class="section-title">Formulários de Apuração de Falta Disciplinar (FAFD)</div>
             @if ($student->fafd->count() > 0)
                 <table class="w-full" style="border-collapse: collapse;">
@@ -161,7 +195,7 @@
         </div>
         <div class="section">
             <div class="section-title">Elogios</div>
-            @if ($student->compliments->count() > 0)
+            @if ($student->compliments->where('active', 1)->count() > 0)
                 <table class="w-full" style="border-collapse: collapse;">
                     <tr>
                         <th class="text-center">Nr</th>

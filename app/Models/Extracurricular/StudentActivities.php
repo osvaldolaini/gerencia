@@ -37,6 +37,10 @@ class StudentActivities extends Model
                 'updated_by',
                 'created_by',
             ]);
+            if ($model->gip) {
+                // Define todos os outros registros como inativos
+                static::where('id', '!=', $model->id)->update(['gip' => false]);
+            }
         });
         static::creating(function ($transaction) {
             $transaction->created_by = Auth::user()->name;
@@ -47,6 +51,7 @@ class StudentActivities extends Model
             $transaction->updated_by = Auth::user()->name;
         });
     }
+
     public function setUpperCaseAttributes(array $attributes)
     {
         foreach ($attributes as $attribute) {

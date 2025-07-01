@@ -66,9 +66,22 @@ class StudentExtraActivity extends Component
             'active'         => 1,
             'gip'            => $this->gip,
         ]);
-        $this->showJetModal = true;
+        $this->showModalForm = false;
         $this->studentActivities   = $this->student->activities->where('active', 1)->sortByDesc('title');
         $this->openAlert('success', 'Inclusão na atividade realizada com sucesso');
+    }
+    //ACTIVE
+    public function buttonActive($id)
+    {
+        $data = StudentActivities::where('id', $id)->first();
+        if ($data->gip == 1) {
+            $data->gip = 0;
+            $data->save();
+        } else {
+            $data->gip = 1;
+            $data->save();
+        }
+        $this->openAlert('success', 'Registro atualizado com sucesso.');
     }
     //MESSAGE
     public function openAlert($status, $msg)

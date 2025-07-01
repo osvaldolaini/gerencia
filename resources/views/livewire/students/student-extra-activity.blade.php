@@ -26,7 +26,8 @@
                             {{ $extra?->activity?->title }}
                         </td>
                         <td>
-                            {{ $extra->gip }}
+                            <x-layout.table-toggle-active id='{{ $$extra->id }}'
+                                active='{{ $extra->gip }}'></x-layout.table-toggle-active>
                         </td>
                         <td>
 

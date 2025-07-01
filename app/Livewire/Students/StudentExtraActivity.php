@@ -64,6 +64,8 @@ class StudentExtraActivity extends Component
             'student_id'      => $this->student->id,
             'extra_activities_id' => $this->extra_activities_id,
         ], [
+
+            'extra_activities_id' => $this->extra_activities_id,
             'active'         => 1,
             'gip'            => $this->gip,
         ]);

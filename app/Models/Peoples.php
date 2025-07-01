@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Discipline\Compliments;
 use App\Models\Discipline\FactObserved;
 use App\Models\Discipline\FaultDiscipline;
+use App\Models\Extracurricular\StudentActivities;
 use App\Models\Fault\SchoolFaults;
 use App\Models\Settings\SchoolBattalionStudents;
 use App\Models\Settings\SchoolClasses;
@@ -246,6 +247,10 @@ class Peoples extends Model
     public function emails(): HasMany
     {
         return $this->hasMany(Emails::class, 'student_id', 'id');
+    }
+    public function activities(): HasMany
+    {
+        return $this->hasMany(StudentActivities::class, 'student_id', 'id');
     }
     public function calculateAdjustedGrau(?Carbon $dataFinal = null)
     {

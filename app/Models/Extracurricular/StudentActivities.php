@@ -6,6 +6,7 @@ use App\Models\Peoples;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -69,5 +70,13 @@ class StudentActivities extends Model
     public function students(): HasMany
     {
         return $this->hasMany(Peoples::class, 'student_id', 'id')->where('active', 1);
+    }
+    public function activity(): BelongsTo
+    {
+        return $this->belongsTo(ExtraActivities::class, 'extra_modalities_id', 'id')->where('active', 1);
+    }
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Peoples::class, 'student_id', 'id')->where('active', 1);
     }
 }

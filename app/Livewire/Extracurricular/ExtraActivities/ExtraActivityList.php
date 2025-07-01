@@ -2,7 +2,8 @@
 
 namespace App\Livewire\Extracurricular\ExtraActivities;
 
-use App\Livewire\Admin\Settings\Settings;
+
+use App\Models\Admin\Settings\Settings;
 use App\Models\Extracurricular\ExtraActivities;
 use App\Services\LaiGuz\TableService;
 use Illuminate\Support\Facades\Auth;

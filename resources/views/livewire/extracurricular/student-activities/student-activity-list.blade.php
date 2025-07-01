@@ -8,6 +8,7 @@
                     <th>GIP</th>
                     <th>PONTO EXTRA</th>
                     <th>Excluir</th>
+                    <th>Inserido/ editado por</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,10 +19,22 @@
                         </td>
                         <td>
                             {{ $extra->gip }}
-
                         </td>
                         <td>
 
+                        </td>
+                        <td>
+                            <div class="p-0 tooltip tooltip-top" data-tip="Apagar">
+                                <button wire:click="showModalDelete({{ $extra->id }})"
+                                    class="px-3 py-2 -ml-1 transition-colors duration-200 dark:hover:bg-red-500 hover:hover:bg-red-500 hover:text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
                         </td>
                         <th>
                             {{ $extra->created_by }}
@@ -31,28 +44,24 @@
             </tbody>
         </table>
     </div>
-    {{-- MODAL SEND MAIL --}}
-    <x-confirmation-modal wire:model="showModalConfirm">
+    {{-- MODAL DELETE --}}
+    <x-confirmation-modal wire:model="showJetModal">
         <x-slot name="title">
-            Enviar ficha individual
+            Excluir registro
         </x-slot>
 
         <x-slot name="content">
-            <h2 class="h2">Deseja realmente enviar a ficha do aluno?</h2>
-            <p>A ficha será enviada para:</p>
-            <ul>
-
-
-            </ul>
+            <h2 class="h2">Deseja realmente excluir o registro?</h2>
+            <p>Não será possível reverter esta ação!</p>
         </x-slot>
 
         <x-slot name="footer">
-            <x-secondary-button wire:click="$toggle('showModalConfirm')" wire:loading.attr="disabled">
+            <x-secondary-button wire:click="$toggle('showJetModal')" wire:loading.attr="disabled">
                 Cancelar
             </x-secondary-button>
 
-            <x-danger-button class="ml-2" wire:click="sentEmail()" wire:loading.attr="disabled">
-                Enviar
+            <x-danger-button class="ml-2" wire:click="delete({{ $id }})" wire:loading.attr="disabled">
+                Apagar registro
             </x-danger-button>
         </x-slot>
     </x-confirmation-modal>

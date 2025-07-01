@@ -289,7 +289,7 @@
                                         <tr>
                                             <th class="text-center">Atividades</th>
                                             <th class="text-center">GIP</th>
-                                            <th class="text-center">PONTO EXTRA</th>
+                                            <th class="text-center">Bônus</th>
                                         </tr>
                                         @php
                                             $extras = $student->activities->where('active', 1)->sortBy('gip'); // ordem CRESCENTE
@@ -299,7 +299,7 @@
                                                 $dados[] = [
                                                     'activity' => $extra->activity->title,
                                                     'gip' => $extra->gip,
-                                                    'pto' => '',
+                                                    'bonus' => $extra->bonus,
                                                 ];
                                             }
                                         @endphp
@@ -318,7 +318,12 @@
                                                     @endif
                                                 </td>
                                                 <td class="px-2 py-1 font-bold text-center">
-                                                    {{ $activity['pto'] }}
+                                                    @if ($activity['bonus'] == 0)
+                                                    <span class="badge badge-error">Não</span>
+                                                @endif
+                                                @if ($activity['bonus'] == 1)
+                                                    <span class="badge badge-success">Sim</span>
+                                                @endif
                                                 </td>
                                             </tr>
                                         @endforeach

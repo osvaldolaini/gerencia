@@ -59,6 +59,7 @@ class ExtraActivityForm extends Component
         ];
         $this->validate();
 
+        dd($this->id);
         if ($this->id) {
             ExtraModalities::updateOrCreate([
                 'id'    => $this->id,

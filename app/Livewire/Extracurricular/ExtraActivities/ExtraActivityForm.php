@@ -59,14 +59,28 @@ class ExtraActivityForm extends Component
         ];
         $this->validate();
 
-        $extra_activity = ExtraActivities::create([
-            'active'    => 1,
-            'title'     => $this->title,
-            'extra_modalities_id' => $this->extra_modalities_id,
-            'code'      => Str::uuid(),
-        ]);
-        $id = $extra_activity->id;
-        $msg = 'Registro criado com sucesso.';
+        if ($this->id) {
+            ExtraModalities::updateOrCreate([
+                'id'    => $this->id,
+                'extra_modalities_id' => $this->extra_modalities_id,
+                'title'     => $this->title,
+            ], [
+                'title'     => $this->title,
+            ]);
+
+            $id = false;
+            $msg = 'Registro editado com sucesso.';
+        } else {
+            $extra_activity = ExtraActivities::create([
+                'active'    => 1,
+                'title'     => $this->title,
+                'extra_modalities_id' => $this->extra_modalities_id,
+                'code'      => Str::uuid(),
+            ]);
+            $id = $extra_activity->id;
+            $msg = 'Registro criado com sucesso.';
+        }
+
 
         $this->openAlert('success', $msg);
         return $id;

@@ -59,7 +59,7 @@ class StudentExtraActivity extends Component
     public function addActivity()
     {
         StudentActivities::updateOrCreate([
-            'student_id'      => $this->students->id,
+            'student_id'      => $this->student->id,
             'extra_activities_id' => $this->extra_activities_id,
         ], [
             'active'         => 1,

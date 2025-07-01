@@ -6,6 +6,7 @@ use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -64,6 +65,10 @@ class ExtraActivities extends Model
 
     public function modality(): BelongsTo
     {
-        return $this->BelongsTo(ExtraModalities::class, 'extra_modalities_id', 'id')->where('active', 1);
+        return $this->belongsTo(ExtraModalities::class, 'extra_modalities_id', 'id')->where('active', 1);
+    }
+    public function students(): HasMany
+    {
+        return $this->hasMany(StudentActivities::class, 'extra_activities_id', 'id')->where('active', 1);
     }
 }

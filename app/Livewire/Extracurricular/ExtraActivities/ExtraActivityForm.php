@@ -60,13 +60,13 @@ class ExtraActivityForm extends Component
         $this->validate();
 
         if ($this->id) {
-            ExtraModalities::updateOrCreate([
+
+            ExtraActivities::updateOrCreate([
                 'id'    => $this->id,
             ], [
                 'title'     => $this->title,
                 'extra_modalities_id' => $this->extra_modalities_id,
             ]);
-
             $id = false;
             $msg = 'Registro editado com sucesso.';
         } else {

@@ -16,7 +16,7 @@ class StudentActivityList extends Component
     public function mount(Peoples $student)
     {
         $this->student  =  $student;
-        $this->activities   = $this->student->activities->sortByDesc('title');
+        $this->activities   = $this->student->activities->where('active', 1)->sortByDesc('title');
     }
 
     public function render()
@@ -43,5 +43,10 @@ class StudentActivityList extends Component
         $this->openAlert('success', 'Registro excluido com sucesso.');
 
         $this->showJetModal = false;
+    }
+    //MESSAGE
+    public function openAlert($status, $msg)
+    {
+        $this->dispatch('openAlert', $status, $msg);
     }
 }

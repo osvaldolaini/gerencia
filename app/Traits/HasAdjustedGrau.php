@@ -160,13 +160,13 @@ trait HasAdjustedGrau
             Log::debug("Ainda não passaram 90 dias desde a última punição.");
         }
 
-        // 🔥 Adiciona elogios (independente de punição)
-        foreach ($elogios as $e) {
-            $grauElogio = floatval($e->grau);
-            $nota += $grauElogio;
-            $nota = min($nota, 10.00);
-            Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
-        }
+        // // 🔥 Adiciona elogios (independente de punição)
+        // foreach ($elogios as $e) {
+        //     $grauElogio = floatval($e->grau);
+        //     $nota += $grauElogio;
+        //     $nota = min($nota, 10.00);
+        //     Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
+        // }
 
 
         return number_format($nota, 2);

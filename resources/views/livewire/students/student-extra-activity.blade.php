@@ -4,7 +4,7 @@
         <span wire:click="showNewActivity()"
             class="flex items-center justify-between px-3 py-1 text-white transition-colors duration-200 bg-green-500 border border-gray-500 rounded-md cursor-pointer hover:text-white dark:hover:bg-blue-500 hover:hover:bg-blue-500 whitespace-nowrap">
             Inserir atividade extra
-            <x-layout.svg.plus></x-layout.svg.plus>
+            <x-layout.svg.plus class="w-4 h-4 mr-0 lg:mr-2"></x-layout.svg.plus>
         </span>
     </div>
     <div class="overflow-x-auto dark:text-white">

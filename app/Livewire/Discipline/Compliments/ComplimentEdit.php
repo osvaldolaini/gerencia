@@ -106,6 +106,7 @@ class ComplimentEdit extends Component
             $this->solution                 = $compliments->solution;
             $this->compliment_type           = $compliments->compliment_type;
             $this->solution_date            = $compliments->solution_date;
+            $this->solution                 = $compliments->solution;
             $this->grau                     = $compliments->grau;
             $this->f_date           = $compliments->f_date;
 

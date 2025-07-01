@@ -291,9 +291,9 @@
                                     </svg>
                                 </span>
                             </label>
-                            <textarea wire:model.live="solution_text" rows="5"
+                            <textarea wire:model.live="solution" rows="5"
                                 class="text-justify bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">{!! $sugestion !!}</textarea>
-                            @error('solution_text')
+                            @error('solution')
                                 <span class="error">{{ $message }}</span>
                             @enderror
                         </div>

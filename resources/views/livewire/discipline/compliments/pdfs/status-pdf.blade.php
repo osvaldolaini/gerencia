@@ -151,7 +151,7 @@
             </div>
             <table class="turmas-table">
                 <tr class="class">
-                    <td class="text-left border">compliment Nº</td>
+                    <td class="text-left border">Elogio Nº</td>
                     <td class="text-left border">Status</td>
                     <td class="text-left border">Aluno</td>
                     <td class="text-left border">Turma</td>

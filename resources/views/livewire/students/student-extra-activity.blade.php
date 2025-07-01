@@ -14,7 +14,7 @@
                 <tr class="dark:text-white">
                     <th>ATIVIDADES</th>
                     <th>GIP</th>
-                    <th>PONTO EXTRA</th>
+                    <th>BÔNUS</th>
                     <th>APAGAR</th>
                     <th>INSERIDO / EDITADO</th>
                 </tr>
@@ -30,7 +30,8 @@
                                 active='{{ $extra->gip }}'></x-layout.table-toggle-active>
                         </td>
                         <td>
-
+                            <x-layout.table-toggle-active id='{{ $extra->id }}'
+                                active='{{ $extra->bonus }}'></x-layout.table-toggle-active>
                         </td>
                         <td>
                             <div class="p-0 tooltip tooltip-top" data-tip="Apagar">

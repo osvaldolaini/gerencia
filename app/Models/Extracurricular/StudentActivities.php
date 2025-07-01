@@ -21,6 +21,7 @@ class StudentActivities extends Model
     protected $fillable = [
         'active',
         'gip',
+        'bonus',
         'extra_activities_id',
         'student_id',
         'code',

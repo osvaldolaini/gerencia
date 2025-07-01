@@ -19,6 +19,7 @@ class StudentExtraActivity extends Component
 
     public $activities;
     public $gip = 0;
+    public $bonus = 0;
     public $extra_activities_id;
     public function mount(Peoples $student)
     {
@@ -70,9 +71,11 @@ class StudentExtraActivity extends Component
             // 'extra_activities_id' => $this->extra_activities_id,
             'active'         => 1,
             'gip'            => $this->gip,
+            'bonus'            => $this->bonus,
             'code'      => Str::uuid(),
         ]);
         $this->gip = 0;
+        $this->bonus = 0;
         $this->extra_activities_id = '';
         $this->showModalForm = false;
         $this->studentActivities   = $this->student->activities->where('active', 1)->sortByDesc('title');

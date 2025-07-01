@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->boolean('active')->default(1);
             $table->string('gip')->nullable();
+            $table->string('bonus')->nullable();
             $table->string('code')->nullable();
             $table->foreignId('extra_activities_id')
                 ->nullable()

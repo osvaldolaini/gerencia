@@ -45,6 +45,7 @@ class StudentExtraActivity extends Component
     {
         $data = StudentActivities::where('id', $id)->first();
         $data->active = 0;
+        $data->gip = 0;
         $data->save();
         $this->studentActivities   = $this->student->activities->where('active', 1)->sortByDesc('title');
         $this->openAlert('success', 'Registro excluido com sucesso.');
@@ -81,6 +82,8 @@ class StudentExtraActivity extends Component
             $data->gip = 1;
             $data->save();
         }
+        $this->studentActivities   = $this->student->activities->where('active', 1)->sortByDesc('title');
+
         $this->openAlert('success', 'Registro atualizado com sucesso.');
     }
     //MESSAGE

@@ -53,6 +53,13 @@
                         </x-slot>
                         <x-slot name="title">Emails </x-slot>
                     </x-layout.tabs-nav>
+                    <x-layout.tabs-nav tab="tab5">
+                        <x-slot name="svg">
+                            <x-layout.svg.activities
+                                class="w-5 h-5 transition duration-75 shrink-0 text-primary-600 dark:text-primary-400"></x-layout.svg.activities>
+                        </x-slot>
+                        <x-slot name="title">Atividades extras </x-slot>
+                    </x-layout.tabs-nav>
                 @endif
 
                 <x-layout.button-back route="{{ $back }}"></x-layout.button-back>
@@ -132,6 +139,9 @@
                     </div>
                     <div id="tab4" x-show="activeTab === '#tab4'" wire:ignore>
                         @livewire('students.student-emails', [$id])
+                    </div>
+                    <div id="tab5" x-show="activeTab === '#tab5'" wire:ignore>
+                        @livewire('extracurriculas.student-activities.student-activity-list', [$id])
                     </div>
                 @endif
             </x-slot>

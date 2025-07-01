@@ -62,7 +62,6 @@ class ExtraActivityForm extends Component
         if ($this->id) {
             ExtraModalities::updateOrCreate([
                 'id'    => $this->id,
-                'title'     => $this->title,
             ], [
                 'title'     => $this->title,
                 'extra_modalities_id' => $this->extra_modalities_id,

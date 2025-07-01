@@ -73,7 +73,7 @@ trait HasAdjustedGrau
             ->orderBy('bi_date')
             ->get();
 
-        Log::debug("Nota inicial: {$dataFinal}");
+        Log::debug("Nota Elogio: {$elogios}");
 
         $dataReferencia = null;
         // Log::debug("Sem punições. Dias após 90 da matrícula: {$dias}. Aumento: {$incremento}. Nota final: {$nota}");

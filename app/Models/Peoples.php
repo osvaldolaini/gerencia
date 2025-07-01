@@ -263,7 +263,7 @@ class Peoples extends Model
             ->orderBy('bi_date')
             ->get();
 
-        Log::debug("Nota inicial: {$elogios}");
+        Log::debug("Nota Elogio: {$elogios}");
 
         $dataReferencia = null;
         Log::debug("Nota inicial: {$nota}");

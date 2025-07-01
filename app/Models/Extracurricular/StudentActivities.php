@@ -77,6 +77,6 @@ class StudentActivities extends Model
     }
     public function student(): BelongsTo
     {
-        return $this->belongsTo(Peoples::class, 'student_id', 'id')->where('active', 1);
+        return $this->belongsTo(Peoples::class,  'id', 'student_id')->where('active', 1);
     }
 }

@@ -14,7 +14,7 @@
                 @foreach ($activities as $extra)
                     <tr>
                         <td>
-                            {{ $extra->activity->title }}
+                            {{ $extra?->activity?->title }}
                         </td>
                         <td>
                             {{ $extra->gip }}

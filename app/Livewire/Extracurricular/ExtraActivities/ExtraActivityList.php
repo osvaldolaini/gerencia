@@ -15,9 +15,14 @@ use Illuminate\Support\Str;
 
 use Livewire\WithPagination;
 
+
+use App\Traits\HandlesTmpUploads;
+
 class ExtraActivityList extends Component
 {
     use WithPagination;
+
+    use HandlesTmpUploads;
     public $breadcrumb = 'Atividades';
     public $modal = true;
     public $showJetModal = false;

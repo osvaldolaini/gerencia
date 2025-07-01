@@ -82,7 +82,7 @@
                             </a>
                         </td>
                         <td class="items-center px-4 py-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-                            <div class="p-0 tooltip tooltip-top" wire:click='list({{ $item->id }})'
+                            <div class="flex p-0 tooltip tooltip-top" wire:click='list({{ $item->id }})'
                                 data-tip="Alunos" wire:ignore>
                                 <button
                                     class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">

@@ -23,7 +23,7 @@ class StudentExtraActivity extends Component
     {
         $this->activities = ExtraActivities::where("active", 1)->orderBy('title', 'asc')->get();
         $this->student  =  $student;
-        $this->studentActivities   = $this->student->activities->where('active', 1)->sortByDesc('title');
+        $this->studentActivities = $this->student->activities->where('active', 1)->sortByDesc('title');
     }
 
     public function render()
@@ -60,7 +60,8 @@ class StudentExtraActivity extends Component
     }
     public function addActivity()
     {
-        $arrray = $this->studentActivities->pluck('extra_activities_id');
+        $arrray = $this->studentActivities->pluck('extra_activities_id')->toArray();
+        dd($arrray);
         if (in_array($arrray, $this->extra_activities_id)) {
             $this->openAlert('success', 'O aluno já está na atividade');
         } else {

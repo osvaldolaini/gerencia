@@ -97,6 +97,20 @@ class StudentExtraActivity extends Component
 
         $this->openAlert('success', 'Registro atualizado com sucesso.');
     }
+    public function buttonBonus($id)
+    {
+        $data = StudentActivities::where('id', $id)->first();
+        if ($data->bonus == 1) {
+            $data->bonus = 0;
+            $data->save();
+        } else {
+            $data->bonus = 1;
+            $data->save();
+        }
+        $this->studentActivities   = $this->student->activities->where('active', 1)->sortByDesc('title');
+
+        $this->openAlert('success', 'Registro atualizado com sucesso.');
+    }
     //MESSAGE
     public function openAlert($status, $msg)
     {

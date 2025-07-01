@@ -263,6 +263,8 @@ class Peoples extends Model
             ->orderBy('bi_date')
             ->get();
 
+        Log::debug("Nota inicial: {$elogios}");
+
         $dataReferencia = null;
         Log::debug("Nota inicial: {$nota}");
         Log::debug("Data matrícula: {$this->entry_date}");
@@ -327,6 +329,7 @@ class Peoples extends Model
         } else {
             Log::debug("Ainda não passaram 90 dias desde a última punição.");
         }
+
         // 🔥 Adiciona elogios (independente de punição)
         foreach ($elogios as $e) {
             $grauElogio = floatval($e->grau);

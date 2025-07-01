@@ -310,7 +310,12 @@
                                                     {{ $activity['activity'] }}
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ $activity['gip'] }}
+                                                    @if ($fault['gip'] == 0)
+                                                        <span class="badge badge-error">Não</span>
+                                                    @endif
+                                                    @if ($fault['gip'] == 1)
+                                                        <span class="badge badge-success">Sim</span>
+                                                    @endif
                                                 </td>
                                                 <td class="px-2 py-1 font-bold text-center">
                                                     {{ $activity['pto'] }}

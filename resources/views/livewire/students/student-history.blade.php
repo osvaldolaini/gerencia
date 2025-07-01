@@ -112,6 +112,16 @@
                                     Faltas
                                 </span>
                             </span>
+                            <span wire:click="setTab('atividades')">
+                                <x-layout.svg.activities
+                                    class="flex items-center px-3 py-2 text-sm font-medium transition duration-75 {{ $activeTab === 'faltas'
+                                        ? 'cursor-pointer bg-gray-500 text-white active dark:text-gray-900 rounded-md'
+                                        : 'cursor-pointer border-transparent text-gray-500 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-300' }}"></x-layout.svg.activities>
+
+                                <span class="px-1 transition duration-75 text-primary-600 dark:text-primary-400">
+                                    Atividades
+                                </span>
+                            </span>
                         </x-slot>
                         <x-slot name="content">
                             @if ($activeTab === 'fafd')
@@ -265,6 +275,43 @@
                                                 </td>
                                                 <td class="px-2 py-1 font-bold text-center">
                                                     {{ $fault['percentual'] }}%
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                    </table>
+                                </div>
+                            @elseif ($activeTab === 'atividades')
+                                <div id="atividades">
+                                    <table class="w-full">
+                                        <tr>
+                                            <th class="text-center">Atividades</th>
+                                            <th class="text-center">GIP</th>
+                                            <th class="text-center">PONTO EXTRA</th>
+                                        </tr>
+                                        @php
+                                            $extras = $student->activities->sortBy('gip'); // ordem CRESCENTE
+                                            $dados = [];
+
+                                            foreach ($extras as $extra) {
+                                                $dados[] = [
+                                                    'activity' => $extra->activity->title,
+                                                    'gip' => $extra->gip,
+                                                    'pto' => '',
+                                                ];
+                                            }
+                                        @endphp
+
+                                        @foreach (array_reverse($dados) as $activity)
+                                            <tr class="border-t">
+                                                <td class="text-center">
+                                                    {{ $activity['activity'] }}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{ $activity['gip'] }}
+                                                </td>
+                                                <td class="px-2 py-1 font-bold text-center">
+                                                    {{ $activity['pto'] }}
                                                 </td>
                                             </tr>
                                         @endforeach

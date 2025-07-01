@@ -141,7 +141,7 @@
                         @livewire('students.student-emails', [$id])
                     </div>
                     <div id="tab5" x-show="activeTab === '#tab5'" wire:ignore>
-                        @livewire('extracurriculas.student-activities.student-activity-list', [$id])
+                        @livewire('extracurricular.student-activities.student-activity-list', [$id])
                     </div>
                 @endif
             </x-slot>

@@ -61,24 +61,21 @@ class StudentExtraActivity extends Component
     }
     public function addActivity()
     {
-        $arrray = [];
-        if ($this->studentActivities->count() > 0) {
-            $arrray = $this->studentActivities->pluck('extra_activities_id')->toArray();
-        }
-        if (!empty($arrray) && in_array($arrray, $this->extra_activities_id)) {
-            $this->openAlert('success', 'O aluno já está na atividade');
-        } else {
-            StudentActivities::create([
-                'active'    => 1,
-                'student_id'      => $this->student->id,
-                'extra_activities_id' => $this->extra_activities_id,
-                'active'         => 1,
-                'gip'            => $this->gip,
-                'code'      => Str::uuid(),
-            ]);
-            $this->showModalForm = false;
-            $this->studentActivities   = $this->student->activities->where('active', 1)->sortByDesc('title');
-        }
+        StudentActivities::updateOrCreate([
+            'student_id'      => $this->student->id,
+            'extra_activities_id' => $this->extra_activities_id,
+        ], [
+            'active'    => 1,
+            // 'student_id'      => $this->student->id,
+            // 'extra_activities_id' => $this->extra_activities_id,
+            'active'         => 1,
+            'gip'            => $this->gip,
+            'code'      => Str::uuid(),
+        ]);
+
+        $this->showModalForm = false;
+        $this->studentActivities   = $this->student->activities->where('active', 1)->sortByDesc('title');
+
         $this->openAlert('success', 'Inclusão na atividade realizada com sucesso');
     }
     //ACTIVE

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire\Extracurricular\StudentActivities;
+namespace App\Livewire\Students;
 
 use App\Models\Extracurricular\StudentActivities;
 use App\Models\Peoples;
 use Livewire\Component;
 
-class StudentActivityList extends Component
+class StudentExtraActivity extends Component
 {
     public $activities;
     public $student;
@@ -21,7 +21,7 @@ class StudentActivityList extends Component
 
     public function render()
     {
-        return view('livewire.extracurricular.student-activities.student-activity-list');
+        return view('livewire.students.student-extra-activity');
     }
 
     //DELETE

@@ -12,7 +12,7 @@
             <!-- head -->
             <thead>
                 <tr class="dark:text-white">
-                    <th>ATIVIDADE</th>
+                    <th>ATIVIDADES</th>
                     <th>GIP</th>
                     <th>PONTO EXTRA</th>
                     <th>APAGAR</th>

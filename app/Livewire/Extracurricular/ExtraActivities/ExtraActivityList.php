@@ -155,7 +155,7 @@ class ExtraActivityList extends Component
         // dd($id);
         // Crie uma instância do mPDF
         $mpdf = new \Mpdf\Mpdf([
-            'mode'          => 'utf-8',
+            'mode'          => 'utf-P',
             // 'orientation'        => 'P', //[P,L]
             'format' => 'A4-P',
             'margin_left'   => 15,
@@ -177,25 +177,25 @@ class ExtraActivityList extends Component
 
         // Adicione o conteúdo HTML ao PDF
         $mpdf->SetHTMLHeader('
-              <table width="100%" style="padding-top:20px;>
-                  <tr >
-                      <td width="50%">
-                          <img width="50" src="' . $logoPath . '" alt="Logo">
-                      </td>
-                      <td width="50%" style="text-align: right;">
-                          <strong>' . $config->name . '</strong><br>
+             <table width="100%">
+                 <tr >
+                     <td width="50%">
+                         <img width="50" src="' . $logoPath . '" alt="Logo">
+                     </td>
+                     <td width="50%" style="text-align: right;">
+                         <strong>' . $config->name . '</strong><br>
 
-                      </td>
-                  </tr>
-              </table>
-              ');
+                     </td>
+                 </tr>
+             </table>
+             ');
         $mpdf->SetHTMLFooter('
-       <table width="100%">
-           <tr>
-               <td width="66%">Impressão realizada em {DATE j/m/Y} às {DATE H:i:s}</td>
-               <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
-           </tr>
-       </table>');
+      <table width="100%">
+          <tr>
+              <td width="66%">Impressão realizada em {DATE j/m/Y} às {DATE H:i:s}</td>
+              <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
+          </tr>
+      </table>');
         $mpdf->WriteHTML($html);
 
         // Salve o PDF temporariamente

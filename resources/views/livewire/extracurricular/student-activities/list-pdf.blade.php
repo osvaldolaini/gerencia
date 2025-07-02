@@ -21,7 +21,7 @@
             font-weight: bold;
             font-size: 14pt;
             margin-bottom: 10px;
-            border-bottom: 1px solid #000;
+
         }
 
         .dados-container {
@@ -76,41 +76,42 @@
 </head>
 
 <body>
+    <div class="container">
+        <div class="section">
+            <div class="w-full text-center section-title">ALUNOS DA ATIVIDADE EXTRA</div>
+            <div class="w-full text-center section-title">{{ $data->title }}</div>
+            @if ($data->students->count() > 0)
+                <table class="w-full" style="border-collapse: collapse;">
+                    <tr>
+                        <th class="text-center">Nr</th>
+                        <th class="text-center">Aluno</th>
+                        <th class="text-center">GIP</th>
+                        <th class="text-center">Bônus</th>
+                    </tr>
+                    @foreach ($data->students->where('active', 1)->sortBy('gip') as $student)
+                        <tr class="linha-tabela">
+                            <td class="text-center border-bottom">
+                                {{ $student->student->number }}
+                            </td>
+                            <td class="text-center border-bottom">
+                                {{ $student->student->name }} ({{ $student->student->nick }})
+                            </td>
 
-    <div class="section">
-        <div class="w-full text-center section-title">ALUNOS DA ATIVIDADE EXTRA</div>
-        <div class="w-full text-center">{{ $data->title }}</div>
-        @if ($data->students->count() > 0)
-            <table class="w-full" style="border-collapse: collapse;">
-                <tr>
-                    <th class="text-center">Nr</th>
-                    <th class="text-center">Aluno</th>
-                    <th class="text-center">GIP</th>
-                    <th class="text-center">Bônus</th>
-                </tr>
-                @foreach ($data->students->where('active', 1)->sortBy('gip') as $student)
-                    <tr class="linha-tabela">
-                        <td class="text-center border-bottom">
-                            {{ $student->student->number }}
-                        </td>
-                        <td class="text-center border-bottom">
-                            {{ $student->student->name }} ({{ $student->student->nick }})
-                        </td>
-
-                        <td class="text-center border-bottom">
-                            {{ $student->gip ? 'X' : '' }}
-                        </td>
-                        <td class="text-center border-bottom">
-                            {{ $student->bonus ? 'X' : '' }}
-                        </td>
-                @endforeach
+                            <td class="text-center border-bottom">
+                                {{ $student->gip ? 'X' : '' }}
+                            </td>
+                            <td class="text-center border-bottom">
+                                {{ $student->bonus ? 'X' : '' }}
+                            </td>
+                    @endforeach
 
 
 
-            </table>
-        @else
-            <div class="linha-tabela">Nenhum aluno cadastrado</div>
-        @endif
+                </table>
+            @else
+                <div class="linha-tabela">Nenhum aluno cadastrado</div>
+            @endif
+        </div>
     </div>
 </body>
 

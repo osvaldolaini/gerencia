@@ -87,7 +87,7 @@
 
     <div class="section">
         <div class="section-title">ALUNOS DA ATIVIDADE {{ $data->title }}</div>
-        @if ($student->students->count() > 0)
+        @if ($data->students->count() > 0)
             <table class="w-full" style="border-collapse: collapse;">
                 <tr>
                     <th class="text-center">Nr</th>
@@ -95,30 +95,28 @@
                     <th class="text-center">GIP</th>
                     <th class="text-center">Bônus</th>
                 </tr>
-                {{-- @foreach ($student->students->where('active', 1)->sortByDesc('fact_date') as $fafd)
+                @foreach ($data->students->where('active', 1)->sortBy('gip') as $student)
                     <tr class="linha-tabela">
                         <td class="text-center border-bottom">
-                            {{ $fafd->number }}
+                            {{ $student->student->number }}
                         </td>
                         <td class="text-center border-bottom">
-                            {{ $fafd->f_date }}
+
                         </td>
 
                         <td class="text-center border-bottom">
-                            @if ($fafd->faults)
-                                @php
-                                    $vowels = ['[', ']'];
-                                    $faults = str_replace($vowels, '', $fafd->faults);
-                                @endphp
-                                {{-- (@fafdreach ($fafd->json_faults as $fault) --}}
 
-                {{-- @endforeach) --}}
-        @endif
+                        </td>
+                        <td class="text-center border-bottom">
+
+                        </td>
+                @endforeach
 
 
-        </table>
-    @else
-        <div class="linha-tabela">Nenhum aluno cadastrado</div>
+
+            </table>
+        @else
+            <div class="linha-tabela">Nenhum aluno cadastrado</div>
         @endif
     </div>
 </body>

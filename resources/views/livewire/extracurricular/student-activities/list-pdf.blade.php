@@ -91,11 +91,9 @@
             <table class="w-full" style="border-collapse: collapse;">
                 <tr>
                     <th class="text-center">Nr</th>
-                    <th class="text-center">Data</th>
-                    <th class="text-center">Falta(s)</th>
-                    <th class="text-center">Fato</th>
-                    <th class="text-center">Solução</th>
-                    <th class="text-center">Desconto</th>
+                    <th class="text-center">Aluno</th>
+                    <th class="text-center">GIP</th>
+                    <th class="text-center">Bônus</th>
                 </tr>
                 {{-- @foreach ($student->students->where('active', 1)->sortByDesc('fact_date') as $fafd)
                     <tr class="linha-tabela">
@@ -113,24 +111,10 @@
                                     $faults = str_replace($vowels, '', $fafd->faults);
                                 @endphp
                                 {{-- (@fafdreach ($fafd->json_faults as $fault) --}}
-                <span>{{ $faults }}</span>
+
                 {{-- @endforeach) --}}
         @endif
-        </td>
-        <td class="border-bottom">
-            {{ $fafd->fact }}
-        </td>
-        <td class="text-center border-bottom">
-            {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}
-        </td>
-        <td class="text-center border-bottom">
-            {{ $fafd->total_grau }}
-            @if ($fafd->decision)
-                {{ $fafd->decision != 'fo' ? ($fafd->supplement_number ? '' : '*') : '' }}
-            @endif
-        </td>
-        </tr>
-        @endforeach --}}
+
 
         </table>
     @else

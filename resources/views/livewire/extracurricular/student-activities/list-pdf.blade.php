@@ -78,7 +78,8 @@
 <body>
 
     <div class="section">
-        <div class="section-title">ALUNOS DA ATIVIDADE {{ $data->title }}</div>
+        <div class="w-full text-center section-title">ALUNOS DA ATIVIDADE EXTRA</div>
+        <div class="w-full text-center">{{ $data->title }}</div>
         @if ($data->students->count() > 0)
             <table class="w-full" style="border-collapse: collapse;">
                 <tr>

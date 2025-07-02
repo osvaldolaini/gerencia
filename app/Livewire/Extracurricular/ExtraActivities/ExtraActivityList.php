@@ -151,7 +151,7 @@ class ExtraActivityList extends Component
 
         $config = Settings::find(1);
         $logoPath = url('storage/logos-school/logo-header.png');
-        $data = ExtraActivities::find($id);
+        $activity = ExtraActivities::find($id);
         // dd($id);
         // Crie uma instância do mPDF
         $mpdf = new \Mpdf\Mpdf([
@@ -169,7 +169,7 @@ class ExtraActivityList extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Alunos',
-                'data'              => $data,
+                'data'              => $activity,
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]
@@ -199,7 +199,7 @@ class ExtraActivityList extends Component
         $mpdf->WriteHTML($html);
 
         // Salve o PDF temporariamente
-        $file = trim('alunos_atividade_' . $data->title . '_' . Str::uuid() . '.pdf');
+        $file = trim('alunos_atividade_' . $activity->title . '_' . Str::uuid() . '.pdf');
 
         if (!is_dir(storage_path('app/public/pdf-tmp'))) {
             mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário

@@ -6,6 +6,9 @@
 
 -   Atividades extra classe
 -   Modalidade da atividade
+-   Lista de alunos da atividade
+-   Selecionar o gip do aluno
+-   Inserir o aluno na atividade (individual e coletivo)
 
 ## Versão Santos Dumont 1.6.0 – 2025-06-25
 

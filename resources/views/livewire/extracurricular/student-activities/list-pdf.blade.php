@@ -1,91 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+@php
+    use App\Enums\Penalty;
 
-
+    // Garante que $data seja iterável mesmo que seja null
+    $data = $data ?? collect();
+@endphp
 
 <head>
-    @php
-        use App\Enums\Penalty;
-        use App\Enums\ComplimentType;
-        use App\Enums\MilitaryRank;
-        use App\Enums\SchoolFault;
-    @endphp
     <meta charset="UTF-8">
-    <title>Ficha individual</title>
+    <title>{{ $title }}</title>
     <style>
         .container {
-            margin-top: 30px;
-            padding-top: 40px;
+            margin-top: 50px;
+            padding-top: 50px;
+        }
+
+        .class {
             width: 100%;
-            font-family: sans-serif;
+            font-size: 12pt;
         }
 
-        .section {
-            margin-bottom: 20px;
-            /* page-break-inside: avoid; */
-        }
-
-        .section-title {
-            font-weight: bold;
-            font-size: 14pt;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #000;
-        }
-
-        .dados-container {
+        .turmas-table {
             width: 100%;
-            border: 1px solid #000;
+            font-size: 12pt;
             border-collapse: collapse;
         }
 
-        .col-esquerda {
-            width: 60%;
-            vertical-align: top;
-            border-right: 1px solid #000;
-            padding: 10px;
+        .border {
+            border: solid thin #000;
         }
 
-        .col-direita {
-            width: 40%;
-            vertical-align: top;
-            text-align: center;
-            padding: 10px;
+        .w-20 {
+            min-width: 20%;
         }
 
-        .foto {
-            width: 100px;
-            height: 120px;
-            object-fit: cover;
-            border: 1px solid #000;
+        .w-10 {
+            min-width: 10%;
         }
 
-        .linha-info {
-            padding: 5px 0;
-            text-align: left;
+        .header {
+            font-size: 20px;
         }
 
-        .linha-tabela {
-            border-bottom: 1px solid #000;
-            padding: 6px 0;
-        }
-
-        .border-bottom {
-            border-bottom: 1px solid #333;
+        .turma-wrapper {
+            width: 100%;
         }
 
         .text-center {
             text-align: center;
         }
 
-        .w-full {
-            width: 100%
+        .text-left {
+            text-align: left;
         }
     </style>
+    <x-app.favicons></x-app.favicons>
 </head>
 
 <body>
-
-    <div class="section">
+    <div class="container">
         <div class="section-title">ALUNOS DA ATIVIDADE {{ $data->title }}</div>
         @if ($data->students->count() > 0)
             <table class="w-full" style="border-collapse: collapse;">

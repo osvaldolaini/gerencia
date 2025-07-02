@@ -152,7 +152,7 @@ class ExtraActivityList extends Component
         $config = Settings::find(1);
         $logoPath = url('storage/logos-school/logo-header.png');
 
-
+        dd($id);
         // Crie uma instância do mPDF
         $mpdf = new \Mpdf\Mpdf([
             'mode'          => 'utf-8',

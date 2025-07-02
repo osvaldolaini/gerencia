@@ -152,7 +152,7 @@ class ExtraActivityList extends Component
         $config = Settings::find(1);
         $logoPath = url('storage/logos-school/logo-header.png');
 
-        dd($id);
+        // dd($id);
         // Crie uma instância do mPDF
         $mpdf = new \Mpdf\Mpdf([
             'mode'          => 'utf-8',
@@ -169,7 +169,7 @@ class ExtraActivityList extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Alunos',
-                'data'              => ExtraActivities::find($id),
+                'data'              => ExtraActivities::where('id', $id)->first(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]

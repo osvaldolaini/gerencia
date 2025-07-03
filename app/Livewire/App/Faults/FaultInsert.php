@@ -29,6 +29,7 @@ class FaultInsert extends Component
     public $school_grades_id;
     public $school_classes_id;
     public $school_classes_year_id;
+    public $justified = 0;
     public $qtd;
 
     public $people;

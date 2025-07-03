@@ -129,6 +129,7 @@ class StudentEmails extends Component
             $this->dispatch('openAlertModal', 'error', 'Nenhum contato cadastrado');
         }
         $this->emails   = $this->student->emails->sortByDesc('created_at');
+        $this->showModalConfirm = false;
     }
 
     public function openAlert($status, $msg)

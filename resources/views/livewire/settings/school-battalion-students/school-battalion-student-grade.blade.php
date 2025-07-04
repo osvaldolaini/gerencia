@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="col-span-1">
                                         <div class="p-0 tooltip tooltip-top" data-tip="Batalhão" wire:ignore>
-                                            <a href="{{ route('school-battalion-view') }}"
+                                            <a href="{{ route('school-battalion-view', $grade->id) }}"
                                                 class="flex px-3 py-2 transition-colors duration-200 rounded-sm hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
                                                 <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:xlink="http://www.w3.org/1999/xlink" class="w-6 h-6"

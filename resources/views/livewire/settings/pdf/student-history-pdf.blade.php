@@ -245,7 +245,7 @@
                         <th class="text-center">FO</th>
                         <th class="text-center">Falta(s)</th>
                     </tr>
-                    @foreach ($student->fo->where('active', 1)->where('fafd', '!=', 1)->sortByDesc('fact_date') as $fo)
+                    @foreach ($student->fo->where('active', 1)->where('fafd', '!=', 1)->where('compliment', '!=', 1)->sortByDesc('fact_date') as $fo)
                         <tr class="border-t">
                             <td class="text-center border-bottom">
                                 {{ $fo->f_date }}

@@ -27,6 +27,7 @@ class FaultDisciplineSolution extends Component
     public $rules;
     public $fault_discipline;
     public $paste;
+    public $decision;
 
     public function mount(FaultDiscipline $fault_discipline)
     {
@@ -45,6 +46,7 @@ class FaultDisciplineSolution extends Component
     //Turmas
     public function print()
     {
+        $this->decision = $this->fault_discipline->decision;
         if (!$this->decision) {
             $this->openAlert('error', 'Selecione uma medida disciplinar');
             return;

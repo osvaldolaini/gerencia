@@ -137,7 +137,7 @@
         </thead>
         <tbody>
             @foreach ($faults as $fault)
-                @if ($fault->students->where('active', 1))
+                @if ($fault->students)
                     <tr class="border-b">
                         <td class="px-2 py-1">{{ \Carbon\Carbon::parse($fault->date)->format('d/m/Y') }}</td>
                         <td class="px-2 py-1">{{ $fault->students->name ?? '-' }}</td>

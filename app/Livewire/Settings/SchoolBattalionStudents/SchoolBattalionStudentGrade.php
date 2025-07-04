@@ -17,9 +17,9 @@ class SchoolBattalionStudentGrade extends Component
     public $school_battalions;
     public $school_classes_year_id;
 
-    public function mount(SchoolBattalions $school_battalions)
+    public function mount(SchoolBattalions $school_battalion)
     {
-        $this->school_battalions = $school_battalions;
+        $this->school_battalions = $school_battalion;
         $this->school_grade = SchoolGrades::where('active', 1)->orderby('nick', 'desc')->get();
         $this->school_classes_year_id = SchoolClassesYears::where('active', 1)->first()->id;
         $companiesAccess = Auth::user()->json_companies;

@@ -227,14 +227,14 @@ Route::middleware([
     RegisterLogging::class,
     'checkAccess:school_battalion' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
 ])->group(function () {
-    Route::get('/batalhao/montar/{school_battalions}', SchoolBattalionStudentGrade::class)
+    Route::get('/batalhao/montar/{school_battalion}', SchoolBattalionStudentGrade::class)
         ->name('school-battalion-students-grade');
     Route::get('/batalhao/montar/{school_battalions}/ano/{school_grades}/serie', SchoolBattalionStudentList::class)
         ->name('school-battalion-students-mount');
-    Route::get('/batalhao/montar/novo', SchoolBattalionStudentForm::class)
-        ->name('school-battalion-students-create');
-    Route::get('/batalhao/montar/{school_battalion}/editar', SchoolBattalionForm::class)
-        ->name('school-battalion-students-edit');
+    // Route::get('/batalhao/montar/novo', SchoolBattalionStudentForm::class)
+    //     ->name('school-battalion-students-create');
+    // Route::get('/batalhao/montar/{school_battalion}/editar', SchoolBattalionForm::class)
+    //     ->name('school-battalion-students-edit');
 });
 
 //DISCIPLINA

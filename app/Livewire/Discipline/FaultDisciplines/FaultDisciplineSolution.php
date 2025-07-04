@@ -45,6 +45,10 @@ class FaultDisciplineSolution extends Component
     //Turmas
     public function print()
     {
+        if (!$this->decision) {
+            $this->openAlert('error', 'Selecione uma medida disciplinar');
+            return;
+        }
 
         $config = Settings::find(1);
         $companies = Companies::where('active', 1)->first();
@@ -95,6 +99,7 @@ class FaultDisciplineSolution extends Component
 
         $this->dispatch('openPdfInNewTab', pdfPath: $pdfPath);
     }
+
 
 
     public function changeDoc()

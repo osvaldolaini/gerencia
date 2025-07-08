@@ -88,7 +88,7 @@ class SchoolFaults extends Model
     }
     public function oldSudents(): BelongsTo
     {
-        return $this->belongsTo(Peoples::class, 'student_id', 'id')->where('active', 1);
+        return $this->belongsTo(Peoples::class, 'student_id', 'id');
     }
     public function companies(): BelongsTo
     {

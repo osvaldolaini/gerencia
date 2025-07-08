@@ -52,7 +52,7 @@ class StudentEmails extends Component
         if ($this->contacts->count() > 0) {
             foreach ($this->contacts as $contact) {
 
-                $this->attachment = trim('ficha_individual_' . $this->student->number . '_' . strtolower($this->student->nick) . '_' . Str::uuid() . '.pdf');
+                $this->attachment = trim('ficha_individual_' . $this->student->number . '_' . $this->slug($this->student->nick) . '_' . Str::uuid() . '.pdf');
 
                 if ($contact->type == 'email') {
                     if (filter_var($contact->contact, FILTER_VALIDATE_EMAIL)) {
@@ -130,6 +130,10 @@ class StudentEmails extends Component
         }
         $this->emails   = $this->student->emails->sortByDesc('created_at');
         $this->showModalConfirm = false;
+    }
+    public function slug($name)
+    {
+        return mb_strtolower(str_replace(" ", "_", $name));
     }
 
     public function openAlert($status, $msg)
@@ -215,7 +219,7 @@ class StudentEmails extends Component
         $mpdf->WriteHTML($html);
 
         // Salve o PDF temporariamente
-        $file = trim('ficha_individual_' . $this->student->number . '_' . strtolower($this->student->nick) . '_' . Str::uuid() . '.pdf');
+        $file = trim('ficha_individual_' . $this->student->number . '_' . $this->slug($this->student->nick) . '_' . Str::uuid() . '.pdf');
 
         if (!is_dir(storage_path('app/public/pdf-tmp'))) {
             mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário

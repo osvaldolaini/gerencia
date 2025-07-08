@@ -41,7 +41,6 @@ class StudentContact extends Component
 
     public function removeRow($id)
     {
-        dd($id);
         $contact = StudentContacts::find($id);
         $contact->active = 0;
         $contact->save();

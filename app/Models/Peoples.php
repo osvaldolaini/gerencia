@@ -242,7 +242,7 @@ class Peoples extends Model
     }
     public function contacts(): HasMany
     {
-        return $this->hasMany(StudentContacts::class, 'student_id', 'id')->where("active", 1);
+        return $this->hasMany(StudentContacts::class, 'student_id', 'id');
     }
     public function emails(): HasMany
     {

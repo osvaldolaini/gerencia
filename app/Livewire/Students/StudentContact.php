@@ -44,6 +44,7 @@ class StudentContact extends Component
         $contact = StudentContacts::find($id);
         $contact->active = 0;
         $contact->save();
+        dd($contact->active);
 
         $this->contacts = $this->student?->contacts->where('active', 1)->toArray();
     }

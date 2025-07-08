@@ -52,15 +52,15 @@
                                 </div>
                                 <div class="col-span-full sm:col-span-2">
                                     <h1
-                                        class="text-3xl font-bold {{ $item->students->sex == 'F' ? 'text-red-500' : 'text-blue-500' }}">
-                                        Al. {{ $item->students->nick }}
+                                        class="text-3xl font-bold {{ $item?->students?->sex == 'F' ? 'text-red-500' : 'text-blue-500' }}">
+                                        Al. {{ $item?->students?->nick }}
                                     </h1>
                                     <div class="max-w-xs">
                                         <p>
-                                            nº. {{ $item->students->number }}
+                                            nº. {{ $item?->students?->number }}
                                         </p>
                                         <p>
-                                            T. {{ $item->students->al_class->title }}
+                                            T. {{ $item?->students?->al_class->title }}
                                         </p>
                                     </div>
                                 </div>

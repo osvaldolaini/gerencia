@@ -23,6 +23,7 @@ class StudentEmails extends Component
     public $attachment;
 
     public $showModalConfirm = false;
+    public $loading = false;
 
     public function mount(Peoples $student)
     {
@@ -48,6 +49,7 @@ class StudentEmails extends Component
     public function sentEmail()
     {
         $this->showModalConfirm = false;
+        $this->loading = true;
         $countMail = 0;
         $totalEmails = $this->contacts->count();
 
@@ -131,7 +133,7 @@ class StudentEmails extends Component
             $this->dispatch('openAlertModal', 'error', 'Nenhum contato cadastrado');
         }
         $this->emails   = $this->student->emails->sortByDesc('created_at');
-        $this->emails   = $this->student->emails->sortByDesc('created_at');
+        $this->loading = false;
     }
     public function slug($name)
     {

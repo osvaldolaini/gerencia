@@ -50,7 +50,10 @@
             </svg>
         </span>
     </div>
-    <div wire:loading>Carregando...</div>
+    @if ($loading)
+        <div>Carregando...</div>
+    @endif
+
     <div class="overflow-x-auto dark:text-white">
         <table class="table dark:text-white">
             <!-- head -->

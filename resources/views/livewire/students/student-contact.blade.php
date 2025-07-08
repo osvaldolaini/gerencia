@@ -24,7 +24,7 @@
                 class="flex justify-end col-span-6 py-0 my-0 border-b border-gray-900 dark:bg-gray-800 dark:border-white">
 
                 <div class="p-0 tooltip tooltip-top" data-tip="Remover">
-                    <span wire:click="removeRow({{ $index }})"
+                    <span wire:click="removeRow({{ $contacts[$index]['id'] }})"
                         class="flex px-3 py-2 text-red-500 transition-colors duration-200 cursor-pointer hover:text-white whitespace-nowrap">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">

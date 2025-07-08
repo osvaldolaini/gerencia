@@ -22,7 +22,6 @@ class StudentContact extends Component
     {
         $this->student  = Peoples::find($id);
         $this->contacts = $this->student?->contacts->where('active', 1)->toArray();
-        dd($this->contacts);
     }
     public function render()
     {

@@ -1,5 +1,5 @@
 <div>
-    <div class="flex justify-center mb-5" wire:loading>
+    <div class="flex justify-center mb-5">
         {{-- @livewire('message-alert-modal') --}}
         <span wire:click="showConfirm()"
             class="flex items-center justify-between px-3 py-1 text-white transition-colors duration-200 bg-green-500 border border-gray-500 rounded-md cursor-pointer hover:text-white dark:hover:bg-blue-500 hover:hover:bg-blue-500 whitespace-nowrap">
@@ -50,6 +50,7 @@
             </svg>
         </span>
     </div>
+    <div wire:loading>Carregando...</div>
     <div class="overflow-x-auto dark:text-white">
         <table class="table dark:text-white">
             <!-- head -->

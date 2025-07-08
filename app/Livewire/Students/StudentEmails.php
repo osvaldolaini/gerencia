@@ -52,7 +52,7 @@ class StudentEmails extends Component
         if ($this->contacts->count() > 0) {
             foreach ($this->contacts as $contact) {
 
-                $this->attachment = trim('ficha_individual_' . $this->student->number . '_' . $this->student->nick . '_' . Str::uuid() . '.pdf');
+                $this->attachment = trim('ficha_individual_' . $this->student->number . '_' . trim($this->student->nick) . '_' . Str::uuid() . '.pdf');
 
                 if ($contact->type == 'email') {
                     if (filter_var($contact->contact, FILTER_VALIDATE_EMAIL)) {

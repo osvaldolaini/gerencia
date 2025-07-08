@@ -137,7 +137,7 @@
                     <div id="tab3" x-show="activeTab === '#tab3'" wire:ignore>
                         @livewire('students.student-contact', [$id])
                     </div>
-                    <div id="tab4" x-show="activeTab === '#tab4'">
+                    <div id="tab4" x-show="activeTab === '#tab4'" wire:ignore>
                         @livewire('students.student-emails', [$id])
                     </div>
                     <div id="tab5" x-show="activeTab === '#tab5'" wire:ignore>

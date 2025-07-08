@@ -47,9 +47,10 @@ class StudentEmails extends Component
 
     public function sentEmail()
     {
+        $this->showModalConfirm = false;
         $countMail = 0;
         $totalEmails = $this->contacts->count();
-        $this->showModalConfirm = false;
+
         if ($this->contacts->count() > 0) {
             foreach ($this->contacts as $contact) {
 
@@ -130,7 +131,7 @@ class StudentEmails extends Component
             $this->dispatch('openAlertModal', 'error', 'Nenhum contato cadastrado');
         }
         $this->emails   = $this->student->emails->sortByDesc('created_at');
-        $this->showModalConfirm = false;
+        $this->emails   = $this->student->emails->sortByDesc('created_at');
     }
     public function slug($name)
     {

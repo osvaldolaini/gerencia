@@ -49,6 +49,7 @@ class StudentEmails extends Component
     {
         $countMail = 0;
         $totalEmails = $this->contacts->count();
+        $this->showModalConfirm = false;
         if ($this->contacts->count() > 0) {
             foreach ($this->contacts as $contact) {
 

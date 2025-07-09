@@ -268,7 +268,10 @@ class FaultDiscipline extends Model
     {
         return $this->belongsTo(Peoples::class, 'student_id', 'id')->where('active', 1);
     }
-
+    public function oldSudents(): BelongsTo
+    {
+        return $this->belongsTo(Peoples::class, 'student_id', 'id');
+    }
     public function observers(): BelongsTo
     {
         return $this->belongsTo(Peoples::class, 'fact_observer_id', 'id')->where('active', 1);

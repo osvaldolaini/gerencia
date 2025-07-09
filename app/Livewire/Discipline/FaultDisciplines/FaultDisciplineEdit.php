@@ -147,7 +147,8 @@ class FaultDisciplineEdit extends Component
             }
             $this->breadcrumb = 'Faltas disciplinar nº ' . $this->number . '/' . $this->year;
 
-            $this->old_faults = FaultDiscipline::where('id', '!=', $fault_discipline->id)->where('al_number', $this?->students?->number ?? $this?->oldStudents?->number)->get();
+            $number = $this?->students?->number ?? $this?->oldStudents?->number;
+            $this->old_faults = FaultDiscipline::where('id', '!=', $fault_discipline->id)->where('al_number', $number)->get();
 
 
             // Array de faltas da linha atual

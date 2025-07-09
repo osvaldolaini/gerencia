@@ -3,7 +3,7 @@
 <head>
     @php
 
-        use App\Enums\ComplimentType;
+        use App\Enums\Penalty;
 
         use Carbon\Carbon;
     @endphp
@@ -119,13 +119,13 @@
             </table>
 
             <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
-                {{ $compliments->note }}
+                {{ $fault_discipline->note }}
             </div>
 
             <table class="identification">
                 <tr>
                     <td colspan="2" style="border-top: 1px solid black;border-right: 1px solid">
-                        Nota p/Bol Nr: {{ $compliments->supplement_number }} / {{ $compliments->bi_number }}
+                        Nota p/Bol Nr: {{ $fault_discipline->supplement_number }} / {{ $fault_discipline->bi_number }}
                     </td>
                     <td colspan="1" style="border-top: 1px solid black;border-right: 1px solid">
                         BAR Nr _____________
@@ -135,13 +135,13 @@
                     </td>
                     <td colspan="2" style="border-top: 1px solid black;border-right: 1px solid">
                         Grau de Comportamento:
-                        {{ $compliments->students->calculateAdjustedGrau(Carbon::parse($compliments->bi_date)) }}
+                        {{ $fault_discipline->students->calculateAdjustedGrau(Carbon::parse($fault_discipline->bi_date)) }}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid">
                         Lançamento no SINCOMIL em
-                        {{ $compliments->sin_date ? $compliments->sin_date : '___/____/20___' }}
+                        {{ $fault_discipline->sin_date ? $fault_discipline->sin_date : '___/____/20___' }}
                     </td>
                     <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid">
                         Rubrica Sgtte: _________________________________

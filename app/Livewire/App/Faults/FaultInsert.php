@@ -106,7 +106,7 @@ class FaultInsert extends Component
                 'id'                    => $this->id,
                 'student_id'            => $this->student_id,
                 'justified'             => $this->justified,
-                'text'                  => $this->text,
+                // 'text'                  => $this->text,
                 'date'                  => $this->date,
                 'companies_id'          => $this->companies->id,
                 'school_grades_id'      => $this->grades->id,
@@ -116,19 +116,7 @@ class FaultInsert extends Component
                 'code'                  => Str::uuid(),
             ]);
 
-            // SchoolFaults::create([
-            //     'active'                => 1,
-            //     // 'name'                  => $this->name,
-            //     'id'                    => $this->id,
-            //     'student_id'            => $this->student_id,
-            //     'date'                  => $this->date,
-            //     'companies_id'          => $this->companies_id,
-            //     'school_grades_id'      => $this->school_grades_id,
-            //     'school_classes_id'     => $this->school_classes_id,
-            //     'school_classes_year_id' => $this->school_classes_year_id,
-            //     'qtd'                   => $this->qtd,
-            //     'code'                  => Str::uuid(),
-            // ]);
+
 
             $msg = 'Falta registrada criado com sucesso.';
         }

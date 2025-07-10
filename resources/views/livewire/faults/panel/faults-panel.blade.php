@@ -21,9 +21,9 @@
                         <div class="flex items-center justify-between">
                             <p class="font-medium text-gray-800 dark:text-gray-100">
                                 <span class="shadow-md badge badge-neutral">
-                                    {{ $student->students->al_class->title }}
+                                    {{ $student?->class->title ?? $student }}
                                 </span>
-                                {{ $student->students->name }}
+                                {{ $student?->students->name }}
                             </p>
                             <span class="inline-block px-3 py-1 text-sm text-red-800 bg-red-100 rounded-full">
                                 {{ $student->total_faults }} {{ Str::plural('falta', $student->total_faults) }}

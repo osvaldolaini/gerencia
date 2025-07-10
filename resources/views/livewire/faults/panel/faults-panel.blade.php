@@ -17,20 +17,22 @@
             </h2>
             <ul class="divide-y divide-gray-200">
                 @foreach ($topStudents as $student)
-                    <li class="py-3">
-                        <div class="flex items-center justify-between">
-                            <p class="font-medium text-gray-800 dark:text-gray-100">
-                                <span class="shadow-md badge badge-neutral">
-                                    {{ $student?->class->title ?? $student }}
+                    @if ($student?->students)
+                        <li class="py-3">
+                            <div class="flex items-center justify-between">
+                                <p class="font-medium text-gray-800 dark:text-gray-100">
+                                    <span class="shadow-md badge badge-neutral">
+                                        {{ $student?->class->title ?? $student }}
+                                    </span>
+                                    {{ $student?->students->name }}
+                                </p>
+                                <span class="inline-block px-3 py-1 text-sm text-red-800 bg-red-100 rounded-full">
+                                    {{ $student->total_faults }} {{ Str::plural('falta', $student->total_faults) }}
+                                    ({{ number_format((($student->total_faults ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%)
                                 </span>
-                                {{ $student?->students->name }}
-                            </p>
-                            <span class="inline-block px-3 py-1 text-sm text-red-800 bg-red-100 rounded-full">
-                                {{ $student->total_faults }} {{ Str::plural('falta', $student->total_faults) }}
-                                ({{ number_format((($student->total_faults ?? 0) / ($fault->students->company->workload ?? 1200)) * 100, 2, ',', '') }}%)
-                            </span>
-                        </div>
-                    </li>
+                            </div>
+                        </li>
+                    @endif
                 @endforeach
             </ul>
         </div>

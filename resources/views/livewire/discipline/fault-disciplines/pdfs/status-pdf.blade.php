@@ -79,7 +79,7 @@
                         <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
                         <td class="text-left border">{{ $fafd?->students?->number }}</td>
                         <td class="text-left border">{{ $fafd?->students?->nick }}</td>
-                        <td class="text-left border">{{ $fafd?->students?->al_class->title ?? $fafd->al_class }}</td>
+                        <td class="text-left border">{{ $fafd?->students?->al_class?->title ?? $fafd->al_class }}</td>
                         <td class="text-center border">{{ $fafd->deliv_date }}</td>
                     </tr>
                 @endforeach

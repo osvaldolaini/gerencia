@@ -109,7 +109,7 @@
                         <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
                         <td class="text-left border">{{ $fafd?->students?->number }}</td>
                         <td class="text-left border">{{ $fafd?->students?->nick }}</td>
-                        <td class="text-left border">{{ $fafd?->students?->al_class->title }}</td>
+                        <td class="text-left border">{{ $fafd?->students?->al_class?->title ?? $fafd->al_class }}</td>
                         <td class="text-center border">{{ $fafd->just_date }}</td>
                     </tr>
                 @endforeach
@@ -199,7 +199,7 @@
                         <td class="text-left border">{{ $fafd?->students?->nick ?? $fafd->al_nick }}
                             ({{ $fafd?->students?->number ?? $fafd->al_number }})
                         </td>
-                        <td class="text-left border">{{ $fafd?->students?->al_class->title }}</td>
+                        <td class="text-left border">{{ $fafd?->students?->al_class?->title ?? $fafd->al_class }}</td>
                         <td class="text-left border">{{ $fafd?->f_date }}</td>
                         <td class="text-left border">{{ $fafd?->deliv_date }}</td>
                         <td class="text-left border">{{ $fafd?->just_date }}</td>

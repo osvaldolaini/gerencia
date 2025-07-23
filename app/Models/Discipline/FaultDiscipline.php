@@ -264,6 +264,7 @@ class FaultDiscipline extends Model
         }
     }
 
+
     public function students(): BelongsTo
     {
         return $this->belongsTo(Peoples::class, 'student_id', 'id');

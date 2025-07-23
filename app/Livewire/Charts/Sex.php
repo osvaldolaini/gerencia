@@ -43,9 +43,9 @@ class Sex extends Component
 
         // Conta quantos estudantes são do sexo M e F
         foreach ($students as $student) {
-            if ($student->students->sex == 'F') {
+            if ($student?->students->sex == 'F') {
                 $femaleCount++;
-            } elseif ($student->students->sex == 'M') {
+            } elseif ($student?->students->sex == 'M') {
                 $maleCount++;
             }
         }

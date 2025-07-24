@@ -145,9 +145,8 @@
                                 <div>
                                     <p class="font-medium text-gray-800 dark:text-gray-100">
                                         <span class="shadow-md badge badge-neutral">
-
-                                            {{ $fault->students?->al_class?->title }}
-
+                                            {{-- {{ $fault->students?->al_class?->title }} --}}
+                                            {{ $fault->students?->name }}
                                         </span>
                                         {{ $fault->students->name }}
                                     </p>

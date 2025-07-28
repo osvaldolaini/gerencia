@@ -196,20 +196,25 @@
                     @php $c++; @endphp
                     <tr class="class"
                         @if ($fafd->active == 0) style="background-color:#f00;font-size: 8pt;" @endif>
-                        <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
-                        <td class="text-left border">{{ $fafd->active == 1 ? 'Ativa' : 'Excluida' }}</td>
-                        <td class="text-left border">{{ $fafd?->students?->nick ?? $fafd->al_nick }}
+                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd->number }}/{{ $fafd->year }}
+                        </td>
+                        <td class="text-left border" style="font-size: 8pt;">
+                            {{ $fafd->active == 1 ? 'Ativa' : 'Excluida' }}</td>
+                        <td class="text-left border" style="font-size: 8pt;">
+                            {{ $fafd?->students?->nick ?? $fafd->al_nick }}
                             ({{ $fafd?->students?->number ?? $fafd->al_number }})
                         </td>
-                        <td class="text-left border">{{ $fafd?->students?->al_class?->title ?? $fafd->al_class }}</td>
-                        <td class="text-left border">{{ $fafd?->f_date }}</td>
-                        <td class="text-left border">{{ $fafd?->deliv_date }}</td>
-                        <td class="text-left border">{{ $fafd?->just_date }}</td>
-                        <td class="text-left border">{{ $fafd?->s_date }}</td>
-                        <td class="text-left border">{{ $fafd?->b_date }}</td>
-                        <td class="text-left border">{{ $fafd?->supplement_number }} / {{ $fafd?->bi_number }}</td>
-                        <td class="text-left border">{{ $fafd?->sim_date }}</td>
-                        <td class="text-center border">
+                        <td class="text-left border" style="font-size: 8pt;">
+                            {{ $fafd?->students?->al_class?->title ?? $fafd->al_class }}</td>
+                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->f_date }}</td>
+                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->deliv_date }}</td>
+                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->just_date }}</td>
+                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->s_date }}</td>
+                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->b_date }}</td>
+                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->supplement_number }} /
+                            {{ $fafd?->bi_number }}</td>
+                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->sim_date }}</td>
+                        <td class="text-center border" style="font-size: 8pt;">
                             @if ($fafd->active == 1)
                                 {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}
                             @else

@@ -177,7 +177,7 @@
                 <h2 style="text-align: center;padding:20px;">Aguardando {{ $title }}</h2>
             </div>
             <table class="turmas-table">
-                <tr class="class">
+                <tr class="class" style="font-size: 8pt;">
                     <td class="text-left border">FAFD Nº</td>
                     <td class="text-left border">Status</td>
                     <td class="text-left border">Aluno</td>
@@ -187,13 +187,15 @@
                     <td class="text-left border">Devolução</td>
                     <td class="text-left border">Solução</td>
                     <td class="text-left border">Nota</td>
+                    <td class="text-left border">Adt / BI</td>
                     <td class="text-left border">SINCOMIL</td>
                     <td class="text-center border">Status</td>
                 </tr>
                 @php $c = 0; @endphp
                 @foreach ($data as $fafd)
                     @php $c++; @endphp
-                    <tr class="class" @if ($fafd->active == 0) style="background-color:#f00;" @endif>
+                    <tr class="class"
+                        @if ($fafd->active == 0) style="background-color:#f00;font-size: 8pt;" @endif>
                         <td class="text-left border">{{ $fafd->number }}/{{ $fafd->year }}</td>
                         <td class="text-left border">{{ $fafd->active == 1 ? 'Ativa' : 'Excluida' }}</td>
                         <td class="text-left border">{{ $fafd?->students?->nick ?? $fafd->al_nick }}
@@ -205,6 +207,7 @@
                         <td class="text-left border">{{ $fafd?->just_date }}</td>
                         <td class="text-left border">{{ $fafd?->s_date }}</td>
                         <td class="text-left border">{{ $fafd?->b_date }}</td>
+                        <td class="text-left border">{{ $fafd?->supplement_number }} / {{ $fafd?->bi_number }}</td>
                         <td class="text-left border">{{ $fafd?->sim_date }}</td>
                         <td class="text-center border">
                             @if ($fafd->active == 1)

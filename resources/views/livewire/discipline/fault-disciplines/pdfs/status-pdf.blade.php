@@ -206,14 +206,14 @@
                         </td>
                         <td class="text-left border" style="font-size: 8pt;">
                             {{ $fafd?->students?->al_class?->title ?? $fafd->al_class }}</td>
-                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->f_date }}</td>
-                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->deliv_date }}</td>
-                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->just_date }}</td>
-                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->s_date }}</td>
-                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->b_date }}</td>
-                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->supplement_number }} /
+                        <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->f_date }}</td>
+                        <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->deliv_date }}</td>
+                        <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->just_date }}</td>
+                        <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->s_date }}</td>
+                        <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->b_date }}</td>
+                        <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->supplement_number }} /
                             {{ $fafd?->bi_number }}</td>
-                        <td class="text-left border" style="font-size: 8pt;">{{ $fafd?->sim_date }}</td>
+                        <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->sim_date }}</td>
                         <td class="text-center border" style="font-size: 8pt;">
                             @if ($fafd->active == 1)
                                 {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}

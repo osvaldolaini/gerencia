@@ -36,7 +36,7 @@ class FaultsPanel extends Component
             ->take(10)
             ->get();
 
-dd($this->topStudents);
+// dd($this->topStudents);
 
         return view('livewire.faults.panel.faults-panel');
     }

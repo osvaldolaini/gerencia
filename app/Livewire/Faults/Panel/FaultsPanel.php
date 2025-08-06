@@ -10,7 +10,7 @@ class FaultsPanel extends Component
 {
     public $recentFaults;
     public $topStudents;
-    public function render()
+    public function render() 
     {
         $companiesAccess = Auth::user()->json_companies;
         $this->recentFaults = SchoolFaults::query()
@@ -36,7 +36,7 @@ class FaultsPanel extends Component
             ->take(10)
             ->get();
 
-
+dd($this->topStudents);
 
         return view('livewire.faults.panel.faults-panel');
     }

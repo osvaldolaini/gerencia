@@ -19,8 +19,8 @@ php artisan make:livewire Faults\SchoolFaultForm
 php artisan make:livewire Faults\SchoolFaultPage
 
 
-git .
-git commit -m 'Versão Santos Dumont 1.7.0 – 2025-08-05'
-git push
+> git add .
+> git commit -m 'Versão Santos Dumont 1.7.0 – 2025-08-05'
+> git push
 osvaldolaini
 

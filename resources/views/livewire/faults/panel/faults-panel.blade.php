@@ -22,7 +22,7 @@
                             <div class="flex items-center justify-between">
                                 <p class="font-medium text-gray-800 dark:text-gray-100">
                                     <span class="shadow-md badge badge-neutral">
-                                        {{ $student?->students?->class->title }}
+                                        {{ $student?->students?->al_class->title ?? 'Sem turma' }}
                                     </span>
                                     {{ $student?->students->name }}
                                 </p>

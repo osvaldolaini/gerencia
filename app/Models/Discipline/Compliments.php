@@ -112,9 +112,12 @@ class Compliments extends Model
 
         $grau = $this->students?->calculateAdjustedGrau(Carbon::parse($this->bi_date));
 
-        return "Em {$this->f_date}, Al Nr {$this->al_number}, {$aluno}, turma {$this->al_class} - " .
-            "{$this->solution}" .
+        return "{$this->solution}" .
             " - Grau de comportamento {$grau}.";
+
+            // return "Em {$this->f_date}, Al Nr {$this->al_number}, {$aluno}, turma {$this->al_class} - " .
+            // "{$this->solution}" .
+            // " - Grau de comportamento {$grau}.";
 
         // $this->sugestion = 'Em ' . $this->f_date . ', Al Nr ' . $this->al_number . ', ' . $this->students->name . ', turma ' . $this->al_class . ' - ';
         // $this->sugestion .= $this->fact;

@@ -111,7 +111,7 @@ class FaultInsert extends Component
                 'companies_id'          => $this->companies_id,
                 'school_grades_id'      => $this->school_grades_id,
                 'school_classes_id'     => $this->school_classes_id,
-                'school_classes_year_id' => $this->classes->school_classes_year_id,
+                'school_classes_year_id' => $this->school_classes_year_id,
                 'qtd'                   => $this->qtd,
                 'code'                  => Str::uuid(),
             ]);

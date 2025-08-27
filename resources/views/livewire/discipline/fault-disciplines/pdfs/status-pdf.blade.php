@@ -74,6 +74,7 @@
    
     // Agrupa por 'decision' e conta
     $penaltiesCount = $data->groupBy('decision')->map->count();
+    $load = $data->where('decision','')->map->count();
 
     // Monta resumo baseado no Enum (mantendo ordem)
     $penaltySummary = [];
@@ -102,8 +103,12 @@
                     </tr>
                 @endforeach
                 <tr>
+                        <td>Aguardando</td>
+                        <td style="text-align:center;">{{ $load }}</td>
+                    </tr>
+                <tr>
                     <td style="text-align:right; font-weight:bold;">TOTAL</td>
-                    <td style="text-align:center; font-weight:bold;">{{ $totalPenalties }}</td>
+                    <td style="text-align:center; font-weight:bold;">{{ $penaltiesCount }}</td>
                 </tr>
             </tbody>
         </table>

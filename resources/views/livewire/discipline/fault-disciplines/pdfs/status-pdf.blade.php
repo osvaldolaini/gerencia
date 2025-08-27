@@ -69,12 +69,9 @@
     <x-app.favicons></x-app.favicons>
 </head>
 
-<body>@php
-    use App\Enums\Penalty;
-
-    // Garante que $data seja iterável mesmo que seja null
-    $data = $data ?? collect();
-
+<body>
+    @php
+   
     // Agrupa por 'decision' e conta
     $penaltiesCount = $data->groupBy('decision')->map->count();
 

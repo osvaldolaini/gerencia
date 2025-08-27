@@ -317,7 +317,11 @@ class Peoples extends Model
             $grauPunicao = floatval($p->grau);
 
             if ($p->dacision_days > 0) {
-                $nota -= $grauPunicao * $p->dacision_days;
+                if ($p->decision == 'retirada_cm'){
+                    $nota -= $grauPunicao * $p->dacision_days;
+                }else{
+                    $nota -= $grauPunicao;
+                }
             } else {
                 $nota -= $grauPunicao;
             }

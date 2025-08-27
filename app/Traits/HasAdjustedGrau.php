@@ -130,7 +130,11 @@ trait HasAdjustedGrau
             // $nota -= $grauPunicao * $p->dacision_days;
             if ($p->dacision_days > 0 and $p->dacision_days) {
 
-                $nota -= $grauPunicao * $p->dacision_days;
+                if ($p->decision == 'retirada_cm'){
+                    $nota -= $grauPunicao * $p->dacision_days;
+                }else{
+                    $nota -= $grauPunicao;
+                }
             } else {
 
                 $nota -= $grauPunicao;

@@ -41,16 +41,16 @@ class StudentActivities extends Model
             ]);
             if ($model->gip) {
                 // Desativa todos os outros
-                static::where('id', '!=', $model->id)->update(['gip' => false]);
+                static::where('id', '!=', $model->id)->where('student_id', $model->student_id)->update(['gip' => false]);
             } else {
                 // Se está sendo desativado E era o único ativo
                 if ($model->isDirty('gip') && $model->getOriginal('gip') === true) {
                     // Verifica se existe outro ativo (excluindo o atual)
-                    $exists = static::where('id', '!=', $model->id)->where('gip', true)->exists();
+                    $exists = static::where('id', '!=', $model->id)->where('student_id',  $model->student_id)->where('gip', true)->exists();
 
                     // Se nenhum outro estiver ativo, ativa o primeiro disponível (exceto o atual)
                     if (!$exists) {
-                        $another = static::where('id', '!=', $model->id)->first();
+                        $another = static::where('id', '!=', $model->id)->where('student_id',$model->student_id)->first();
                         if ($another) {
                             $another->gip = true;
                             $another->save();

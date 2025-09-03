@@ -10,6 +10,7 @@ use App\Models\Fault\SchoolFaults;
 use App\Models\Settings\SchoolBattalionStudents;
 use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolClassesStudent;
+use App\Models\Settings\ClassroomSeats;
 use App\Models\Settings\SchoolClassesYears;
 use App\Models\Students\StudentContacts;
 use App\Traits\HasAttributeConversions;

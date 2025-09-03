@@ -42,8 +42,8 @@ class StudentContact extends Component
     public function removeRow($id)
     {
         $contact = StudentContacts::find($id);
-        $contact->active = 0;
-        $contact->save();
+        $contact->delete();
+        // $contact->save();
 
         $this->contacts = $this->student?->contacts->where('active', 1)->toArray();
     }

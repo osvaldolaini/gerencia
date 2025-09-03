@@ -75,6 +75,18 @@ class Peoples extends Model
 
         static::updating(function ($transaction) {
             $transaction->updated_by = Auth::user()->name;
+
+            if ($transaction->active == 0) {
+               $studentClasses = SchoolClassesStudent::where('active', 1)
+                ->where('people_id', $transaction->id)->get();
+                if ($studentClasses) {
+                    foreach ($studentClasses as $class) {
+                        $class->active = 0;
+                        $class->save();
+                    }
+                }
+
+            }
         });
     }
     public function setUpperCaseAttributes(array $attributes)
@@ -92,6 +104,7 @@ class Peoples extends Model
         return LogOptions::defaults()
             ->logOnly($this->fillable);
     }
+
     public function setBirthdayAttribute($value)
     {
         $this->attributes['birthday'] = $this->dbDate($value);

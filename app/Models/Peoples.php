@@ -85,8 +85,7 @@ class Peoples extends Model
                         $class->save();
                     }
                 }
-                $seat = ClassroomSeats::where('active', 1)
-                ->where('people_id', $transaction->id)->first();
+                $seat = ClassroomSeats::where('people_id', $transaction->id)->first();
                 if ($seat) {
                     $seat->delete();
                 }

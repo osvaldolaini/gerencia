@@ -63,7 +63,7 @@
                     <td class="text-center border">NR</td>
                     <td class="text-center border">NOME</td>
                     <td class="text-center border">GRAU</td>
-                    <td class="text-center border">Comportamento</td>
+                    <td class="text-center border">COMPORTAMENTO</td>
                 </tr>
                 @php
                     $c = 0;

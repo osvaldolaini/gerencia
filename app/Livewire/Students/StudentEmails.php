@@ -55,7 +55,7 @@ class StudentEmails extends Component
 
         if ($this->contacts->count() > 0) {
             foreach ($this->contacts as $contact) {
- $totalEmails++;
+                $totalEmails++;
                 $this->attachment = trim('ficha_individual_' . $this->student->number . '_' . $this->slug($this->student->nick) . '_' . Str::uuid() . '.pdf');
 
                 if ($contact->type == 'email') {

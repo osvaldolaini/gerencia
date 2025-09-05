@@ -60,9 +60,9 @@
             <table class="turmas-table">
 
                 <tr class="class">
-                    <td class="text-center border">Nr</td>
-                    <td class="text-center border">Nome</td>
-                    <td class="text-center border">Grau</td>
+                    <td class="text-center border">NR</td>
+                    <td class="text-center border">NOME</td>
+                    <td class="text-center border">GRAU</td>
                     <td class="text-center border">Comportamento</td>
                 </tr>
                 @php
@@ -79,7 +79,7 @@
                                 <td class="text-center border">{{ $pivot?->students?->name }} ({{ $pivot?->students?->nick }})</td>
                                 {{-- <td class="text-center border">{{ $pivot?->students?->al_class->title }}</td> --}}
                                 <td class="text-center border">{{ $pivot?->students?->adjusted_grau }}</td>
-                                <td class="text-center border">{{ $pivot?->students?->grau_status }}</td>
+                                <td class="text-center border">{{ mb_strtoupper($pivot?->students?->grau_status) }}</td>
                             </tr>
                         @endif
                     @endforeach

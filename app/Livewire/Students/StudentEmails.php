@@ -58,31 +58,50 @@ class StudentEmails extends Component
                 
                 $this->attachment = trim('ficha_individual_' . $this->student->number . '_' . $this->slug($this->student->nick) . '_' . Str::uuid() . '.pdf');
 
-                if ($contact->type == 'email') {
-                    $totalEmails++;
-                    if (filter_var($contact->contact, FILTER_VALIDATE_EMAIL)) {
-                        $send = Mail::send(
-                            new \App\Mail\StudentRecordNew([
-                                'contact' => $contact,
-                                'attachment' => $this->downloadTmp(),
-                                'company' => $this->student->company
-                            ])
-                        );
-                        if ($send) {
-                            $countMail++;
-                            Emails::create([
-                                'status' => 1,
-                                'student_contacts_id' => $contact->id,
-                                'student_id' => $this->student->id,
-                                'to' => $contact->contact,
-                                'subject' => 'Ficha individual',
-                                'message' => 'Encaminho',
-                                'attachment' => $this->downloadTmp(),
-                                'code'      => Str::uuid(),
-                            ]);
-                        }
-                    }
-                }
+               if ($contact->type == 'email') {
+    $totalEmails++;
+
+    if (filter_var($contact->contact, FILTER_VALIDATE_EMAIL)) {
+        try {
+            Mail::send(
+                new \App\Mail\StudentRecordNew([
+                    'contact'    => $contact,
+                    'attachment' => $this->downloadTmp(),
+                    'company'    => $this->student->company,
+                ])
+            );
+
+            // se chegou aqui, e-mail foi disparado
+            $countMail++;
+
+            Emails::create([
+                'status'               => 1,
+                'student_contacts_id'  => $contact->id,
+                'student_id'           => $this->student->id,
+                'to'                   => $contact->contact,
+                'subject'              => 'Ficha individual',
+                'message'              => 'Encaminho',
+                'attachment'           => $this->downloadTmp(),
+                'code'                 => Str::uuid(),
+            ]);
+        } catch (\Exception $e) {
+            // loga o erro para verificar porque falhou (ex: Gmail bloqueando)
+            \Log::error('Erro ao enviar e-mail para '.$contact->contact.': '.$e->getMessage());
+
+            Emails::create([
+                'status'               => 0, // falhou
+                'student_contacts_id'  => $contact->id,
+                'student_id'           => $this->student->id,
+                'to'                   => $contact->contact,
+                'subject'              => 'Ficha individual',
+                'message'              => 'Encaminho',
+                'attachment'           => $this->downloadTmp(),
+                'code'                 => Str::uuid(),
+            ]);
+        }
+    }
+}
+
             }
             if ($countMail > 0) {
                 $al_nick          = $this->student->nick;

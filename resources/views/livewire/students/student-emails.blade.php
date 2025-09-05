@@ -69,12 +69,12 @@
                 @foreach ($emails as $email)
                     <tr>
                         <td>
-                            {{ $email->subject }}
+                            {{ $email->subject }} 
                         </td>
                         <td>
                             {{ $email->studentContact->parent }}
                             <br />
-                            <span class="badge badge-ghost badge-sm ">
+                            <span class="badge {{($email->status== 1 ? 'badge-ghost': 'badge-error')}} badge-sm ">
                                 {{ $email->studentContact->contact }}
                             </span>
                         </td>

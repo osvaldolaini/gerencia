@@ -54,7 +54,7 @@ class StudentEmails extends Component
         $totalEmails = 0;
 
         if ($this->contacts->count() > 0) {
-            foreach ($this->contacts as $contact) {
+            foreach ($this->contacts->where('active',1) as $contact) {
                 
                 $this->attachment = trim('ficha_individual_' . $this->student->number . '_' . $this->slug($this->student->nick) . '_' . Str::uuid() . '.pdf');
 
@@ -86,7 +86,8 @@ class StudentEmails extends Component
             ]);
         } catch (\Exception $e) {
             // loga o erro para verificar porque falhou (ex: Gmail bloqueando)
-            \Log::error('Erro ao enviar e-mail para '.$contact->contact.': '.$e->getMessage());
+            // Log::info('Enviados ' . $countMail . ' fichas do(a) aluno(a)');
+            Log::error('Erro ao enviar e-mail para '.$contact->contact.': '.$e->getMessage());
 
             Emails::create([
                 'status'               => 0, // falhou

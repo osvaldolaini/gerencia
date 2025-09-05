@@ -79,7 +79,7 @@
                                 <td class="text-center border">{{ $pivot?->students?->name }} ({{ $pivot?->students?->nick }})</td>
                                 {{-- <td class="text-center border">{{ $pivot?->students?->al_class->title }}</td> --}}
                                 <td class="text-center border">{{ $pivot?->students?->adjusted_grau }}</td>
-                                <td class="text-center border">{{ ucfirst(mb_strtolower($pivot?->students?->grau_status)) }}</td>
+                                <td class="text-center border">{{ ucfirst(strtolower($pivot?->students?->grau_status)) }}</td>
                             </tr>
                         @endif
                     @endforeach

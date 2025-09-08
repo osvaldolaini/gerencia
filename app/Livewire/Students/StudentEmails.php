@@ -126,7 +126,7 @@ class StudentEmails extends Component
                     $fact_observer_function = $user?->people?->function;
                     $fact_observer_id = $user?->people?->id;
                     FactObserved::create([
-                        'active'    => 1,
+                        'active'                   => 1,
                         'cia'                      => $cia,
                         'company_id'               => $company_id,
                         'cmt_cia_posto'            => $cmt_cia_posto,

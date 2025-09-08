@@ -66,7 +66,7 @@ class StudentEmails extends Component
             Mail::send(
                 new \App\Mail\StudentRecordNew([
                     'contact'    => $contact,
-                    'attachment' => $this->downloadTmp(),
+                    // 'attachment' => $this->downloadTmp(),
                     'company'    => $this->student->company,
                 ])
             );

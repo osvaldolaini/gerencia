@@ -71,6 +71,11 @@ class StudentEmails extends Component
                 ])
             );
 
+            Mail::raw('Teste sem anexo', function ($m) use ($contact) {
+                $m->to($contact->contact)
+                ->subject('Teste Gmail simples');
+            });
+
             // se chegou aqui, e-mail foi disparado
             $countMail++;
 

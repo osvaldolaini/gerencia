@@ -62,27 +62,27 @@ class StudentEmails extends Component
 
                     if (filter_var($contact->contact, FILTER_VALIDATE_EMAIL)) {
                         try {
-                            // Mail::send(
-                            //     new \App\Mail\StudentRecordNew([
-                            //         'contact'    => $contact,
-                            //         'attachment' => $this->downloadTmp(),
-                            //         'company'    => $this->student->company,
-                            //     ])
-                            // );
+                            Mail::send(
+                                new \App\Mail\StudentRecordNew([
+                                    'contact'    => $contact,
+                                    'attachment' => $this->downloadTmp(),
+                                    'company'    => $this->student->company,
+                                ])
+                            );
 
                             // se chegou aqui, e-mail foi disparado
                             $countMail++;
 
-                            // Emails::create([
-                            //     'status'               => 1,
-                            //     'student_contacts_id'  => $contact->id,
-                            //     'student_id'           => $this->student->id,
-                            //     'to'                   => $contact->contact,
-                            //     'subject'              => 'Ficha individual',
-                            //     'message'              => 'Encaminho',
-                            //     'attachment'           => $this->downloadTmp(),
-                            //     'code'                 => Str::uuid(),
-                            // ]);
+                            Emails::create([
+                                'status'               => 1,
+                                'student_contacts_id'  => $contact->id,
+                                'student_id'           => $this->student->id,
+                                'to'                   => $contact->contact,
+                                'subject'              => 'Ficha individual',
+                                'message'              => 'Encaminho',
+                                'attachment'           => $this->downloadTmp(),
+                                'code'                 => Str::uuid(),
+                            ]);
                         } catch (\Exception $e) {
                             // loga o erro para verificar porque falhou (ex: Gmail bloqueando)
                             // Log::info('Enviados ' . $countMail . ' fichas do(a) aluno(a)');
@@ -104,8 +104,7 @@ class StudentEmails extends Component
 
             }
             if ($countMail > 0) {
-                 $this->openAlert('Cadastrado FO!');
-            //    Log::info('Cadastrado FO!');
+               Log::info('Cadastrado FO!');
                 $al_nick          = $this->student->nick;
                 $al_name          = $this->student->name;
                 $al_number        = $this->student->number;

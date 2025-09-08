@@ -81,7 +81,7 @@ class StudentEmails extends Component
                 'to'                   => $contact->contact,
                 'subject'              => 'Ficha individual',
                 'message'              => 'Encaminho',
-                'attachment'           => $this->downloadTmp(),
+                // 'attachment'           => $this->downloadTmp(),
                 'code'                 => Str::uuid(),
             ]);
         } catch (\Exception $e) {
@@ -96,7 +96,7 @@ class StudentEmails extends Component
                 'to'                   => $contact->contact,
                 'subject'              => 'Ficha individual',
                 'message'              => 'Encaminho',
-                'attachment'           => $this->downloadTmp(),
+                // 'attachment'           => $this->downloadTmp(),
                 'code'                 => Str::uuid(),
             ]);
         }

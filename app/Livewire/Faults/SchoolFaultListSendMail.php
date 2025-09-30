@@ -45,7 +45,7 @@ class SchoolFaultListSendMail extends Component
         $dataTable = Peoples::where('active',1)->where('type',1)->get();
 
             foreach ($dataTable as $student) {
-                if ($student?->al_class?->classGrade?->company) {
+                if ($student?->al_class) {
                     if($student->total_faults_percent > 6.5){
                     $students[] = $student;
                 } 

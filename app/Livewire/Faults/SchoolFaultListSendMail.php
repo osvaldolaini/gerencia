@@ -30,7 +30,7 @@ class SchoolFaultListSendMail extends Component
     public $sorts = ['function' => 'asc'];
     public $relationTables; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'name,nick,sex,function,logo_path,posto_grad,active as status';
+    public $columnsInclude = 'name,nick,sex,function,logo_path,posto_grad,type,active as status';
     public $searchable = 'name,nick,sex,function'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
@@ -45,9 +45,12 @@ class SchoolFaultListSendMail extends Component
         $dataTable = Peoples::where('active',1)->where('type',1)->get();
 
             foreach ($dataTable as $student) {
-                if($student->total_faults_percent > 6.5){
+                if ($student?->al_class?->classGrade?->company) {
+                    if($student->total_faults_percent > 6.5){
                     $students[] = $student;
                 } 
+                }
+               
             }
         
         // dd($dataTable,$students);

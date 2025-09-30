@@ -47,13 +47,13 @@ class SchoolFaultListSendMail extends Component
             foreach ($dataTable as $student) {
                 if ($student?->al_class) {
                     if($student->total_faults_percent > 6.5){
-                    $students[] = $student;
+                    $this->students[] = $student;
                 } 
                 }
                
             }
         
-        dd($dataTable,$students);
+        // dd($dataTable,$students);
         return view(
             'livewire.faults.school-fault-list-send-mail',
             compact('students')

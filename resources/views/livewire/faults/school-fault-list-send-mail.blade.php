@@ -33,8 +33,8 @@
                                 <div class="grid grid-cols-8 gap-2 mx-2 ">
                                     <div class="pl-2 col-span-full sm:col-span-1">
                                         @if ($item->id)
-                                            @if ($item->path)
-                                                <img src="{{ url('storage/student/' . $item->id . '/' . $item->path) }}"
+                                            @if ($item->logo_path)
+                                                <img src="{{ url('storage/student/' . $item->id . '/' . $item->logo_path) }}"
                                                     class="mx-auto rounded-md">
                                             @else
                                                 <x-application-logo width="h-12"></x-application-logo>

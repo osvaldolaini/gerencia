@@ -35,7 +35,7 @@ class SchoolFaultListSendMail extends Component
     public $paginate = 15; //Qtd de registros por página
     public $active = 'active';
 
-    public $students;
+    public $students = array();
 
 
     #[On('see_excluded')]
@@ -60,10 +60,10 @@ class SchoolFaultListSendMail extends Component
             ->getData();
 
             foreach ($dataTable as $student) {
-            if($student->total_faults_percent > 6.5){
-                $students[] = $student;
-            } 
-        }
+                if($student->total_faults_percent > 6.5){
+                    $students[] = $student;
+                } 
+            }
         
         dd($students);
         return view(

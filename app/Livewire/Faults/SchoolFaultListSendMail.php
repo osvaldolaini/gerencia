@@ -55,8 +55,7 @@ class SchoolFaultListSendMail extends Component
         
         // dd($dataTable,$students);
         return view(
-            'livewire.faults.school-fault-list-send-mail',
-            compact('students')
+            'livewire.faults.school-fault-list-send-mail'
         );
     }
     public function addSort($field)

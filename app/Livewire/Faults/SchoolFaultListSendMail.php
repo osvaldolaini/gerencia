@@ -32,7 +32,7 @@ class SchoolFaultListSendMail extends Component
     public $columnsInclude = 'name,nick,sex,function,logo_path,posto_grad,active as status';
     public $searchable = 'name,nick,sex,function'; //Colunas pesquisadas no banco de dados
 
-    public $paginate = 'all'; //Qtd de registros por página
+    public $paginate = 15; //Qtd de registros por página
     public $active = 'active';
 
     public $students = array();
@@ -41,23 +41,7 @@ class SchoolFaultListSendMail extends Component
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
-        $dataTable = $queryService
-            ->setModel($this->model)
-            ->setParameters([
-                'modelId' => $this->modelId,
-                'relationTables' => $this->relationTables,
-                'columnsInclude' => $this->columnsInclude,
-                'searchable' => $this->searchable,
-                'sort' => $this->sorts,
-                'paginate' => $this->paginate,
-                'search' => $this->search,
-                'where' => [
-                    'type' => 1
-                ],
-                'customSearch' => $this->customSearch,
-                'active' => $this->active,
-            ])
-            ->getData();
+        $dataTable = Peoples::where('active',1)->where('type',1)->get();
 
             foreach ($dataTable as $student) {
                 if($student->total_faults_percent > 6.5){
@@ -65,7 +49,7 @@ class SchoolFaultListSendMail extends Component
                 } 
             }
         
-        dd($dataTable,$students);
+        // dd($dataTable,$students);
         return view(
             'livewire.faults.school-fault-list-send-mail',
             compact('students')

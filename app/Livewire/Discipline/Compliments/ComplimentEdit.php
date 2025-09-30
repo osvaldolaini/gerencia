@@ -214,7 +214,7 @@ class ComplimentEdit extends Component
     public function sugestionText()
     {
         if ($this->compliment_type) {
-            $this->sugestion = 'Em ' . $this->f_date . ', Al Nr ' . $this->al_number . ', ' . $this->students->name . ', turma ' . $this->al_class . ' - ';
+            $this->sugestion = 'Em ' . $this->f_date . ', Al Nr ' . $this->al_number . ', ' . $this->students->name . ' ( '.$this->students->nick.' ), turma ' . $this->al_class . ' - ';
             $this->sugestion .= $this->fact;
             $this->sugestion .= ' (FO positivo nº ' . $this->fo->number . '/' . $this->fo->year . ').';
             $this->sugestion .= ' Medida disciplinar: Elogio ' . ComplimentType::from($this->compliment_type)->label() . '.';

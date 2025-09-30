@@ -90,9 +90,9 @@
                     </div>
                 
             @endforeach
-            <div class="items-center justify-between py-4" wire:ignore>
+            {{-- <div class="items-center justify-between py-4" wire:ignore>
                 {{ $dataTable->links() }}
-            </div>
+            </div> --}}
         </div>
     </div>
     {{-- MODAL DELETE --}}

@@ -32,7 +32,7 @@ class SchoolFaultListSendMail extends Component
     public $columnsInclude = 'name,nick,sex,function,logo_path,posto_grad,active as status';
     public $searchable = 'name,nick,sex,function'; //Colunas pesquisadas no banco de dados
 
-    public $paginate = 15; //Qtd de registros por página
+    public $paginate = 'all'; //Qtd de registros por página
     public $active = 'active';
 
     public $students = array();
@@ -49,7 +49,7 @@ class SchoolFaultListSendMail extends Component
                 'columnsInclude' => $this->columnsInclude,
                 'searchable' => $this->searchable,
                 'sort' => $this->sorts,
-                // 'paginate' => $this->paginate,
+                'paginate' => $this->paginate,
                 'search' => $this->search,
                 'where' => [
                     'type' => 1

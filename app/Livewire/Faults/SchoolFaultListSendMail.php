@@ -50,7 +50,7 @@ class SchoolFaultListSendMail extends Component
                 'paginate' => $this->paginate,
                 'search' => $this->search,
                 'where' => [
-                    'type' => 0
+                    'type' => 1
                 ],
                 'customSearch' => $this->customSearch,
                 'active' => $this->active,

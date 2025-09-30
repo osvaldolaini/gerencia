@@ -63,7 +63,7 @@ class SchoolFaultListSendMail extends Component
             if($student->total_faults_percent > 6.5){
                 $students[] = $student;
             } 
-        }
+        
         dd($students);
         return view(
             'livewire.faults.school-fault-list-send-mail',

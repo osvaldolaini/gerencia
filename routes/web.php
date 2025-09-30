@@ -35,6 +35,7 @@ use App\Livewire\Faults\SchoolFaultEdit;
 use App\Livewire\Faults\SchoolFaultForm;
 use App\Livewire\Faults\SchoolFaultJustified;
 use App\Livewire\Faults\SchoolFaultList;
+use App\Livewire\Faults\SchoolFaultListSendMail;
 use App\Livewire\Peoples\PeopleForm;
 use App\Livewire\Peoples\PeopleList;
 use App\Livewire\Settings\Companies\CompanyForm;
@@ -325,6 +326,9 @@ Route::middleware([
 
     Route::get('/faltas-escolares/painel', FaultsPanel::class)
         ->name('school-faults-panel');
+
+    Route::get('/faltas-escolares/alunos-com-mais-faltas', SchoolFaultListSendMail::class)
+        ->name('school-faults-more');
 });
 
 Route::middleware([

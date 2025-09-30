@@ -25,8 +25,7 @@
     <div class="mt-5 space-y-4">
         <!-- Lista de itens arrastáveis -->
         <div>
-            @foreach ($dataTable as $item)
-                @if ($item->total_faults_percent > 6.0)
+            @foreach ($students as $item)
                     <div class="mb-10 rounded-md cursor-pointer">
                         <h2 id="w-full text-center items-center">
                             <div type="button"
@@ -89,11 +88,11 @@
                             </div>
                         </h2>
                     </div>
-                @endif
+                
             @endforeach
-            {{-- <div class="items-center justify-between py-4" wire:ignore>
+            <div class="items-center justify-between py-4" wire:ignore>
                 {{ $dataTable->links() }}
-            </div> --}}
+            </div>
         </div>
     </div>
     {{-- MODAL DELETE --}}

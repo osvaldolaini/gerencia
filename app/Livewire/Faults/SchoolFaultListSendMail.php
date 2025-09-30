@@ -35,6 +35,8 @@ class SchoolFaultListSendMail extends Component
     public $paginate = 15; //Qtd de registros por página
     public $active = 'active';
 
+    public $students;
+
 
     #[On('see_excluded')]
     public function render(TableService $queryService)
@@ -56,9 +58,15 @@ class SchoolFaultListSendMail extends Component
                 'active' => $this->active,
             ])
             ->getData();
+
+            foreach ($dataTable as $student) {
+            if($item->total_faults_percent > 6.5){
+                $students[] = student;
+            } 
+        }
         return view(
             'livewire.faults.school-fault-list-send-mail',
-            compact('dataTable')
+            compact('students')
         );
     }
     public function addSort($field)

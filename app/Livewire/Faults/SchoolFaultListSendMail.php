@@ -49,7 +49,7 @@ class SchoolFaultListSendMail extends Component
                 'columnsInclude' => $this->columnsInclude,
                 'searchable' => $this->searchable,
                 'sort' => $this->sorts,
-                'paginate' => $this->paginate,
+                // 'paginate' => $this->paginate,
                 'search' => $this->search,
                 'where' => [
                     'type' => 1

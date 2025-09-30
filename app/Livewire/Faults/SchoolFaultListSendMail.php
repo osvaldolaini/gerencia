@@ -42,7 +42,7 @@ class SchoolFaultListSendMail extends Component
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
-        $dataTable = Peoples::where('active',1)->where('type',1)->get();
+        $dataTable = Peoples::where('active',1)->where('type',1)->orderBy('nick','asc')->get();
 
             foreach ($dataTable as $student) {
                 if ($student?->al_class) {

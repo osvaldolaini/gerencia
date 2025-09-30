@@ -64,6 +64,7 @@ class SchoolFaultListSendMail extends Component
                 $students[] = $student;
             } 
         }
+        dd($students);
         return view(
             'livewire.faults.school-fault-list-send-mail',
             compact('students')

@@ -53,7 +53,7 @@
                                             nº. {{ $item->number ?? $item?->oldSudents?->number }}
                                         </p>
                                         <p>
-                                            T. {{ $item?->al_class->title }}
+                                            T. {{ $item?->al_class->title  ?? 'sem turma' }}
                                         </p>
                                     </div>
                                 </div>

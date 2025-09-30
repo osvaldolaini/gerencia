@@ -7,6 +7,7 @@ use App\Services\LaiGuz\TableService;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\Peoples;
 
 class SchoolFaultListSendMail extends Component
 {

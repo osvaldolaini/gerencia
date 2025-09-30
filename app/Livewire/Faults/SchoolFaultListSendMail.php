@@ -18,22 +18,22 @@ class SchoolFaultListSendMail extends Component
 
     public $rules;
     public $detail;
-    public $school_faults;
+    public $peoples;
     public $id;
+    public $sex;
 
-    //Dados da tabela
     protected $queryService;
-    public $model = "App\Models\Fault\SchoolFaults"; //Model principal
-    public $modelId = "school_faults.id"; //Ex: 'table.id' or 'id'
+    public $model = "App\Models\Peoples"; //Model principal
+    public $modelId = "id"; //Ex: 'table.id' or 'id'
     public $search;
-    public $sorts = ['school_faults.date' => 'desc'];
-    public $relationTables =  "peoples,peoples.id,school_faults.student_id"; //Relacionamentos ( table , key , foreingKey )
-    public $customSearch = ['date' => 'date'];  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'date,student_id,peoples.name,justified,qtd,school_faults.created_at,peoples.nick,peoples.number,peoples.logo_path as path,school_faults.created_by,school_faults.active as status';
-    public $searchable = 'date,peoples.name,peoples.nick,peoples.number,student_id'; //Colunas pesquisadas no banco de dados
+    public $sorts = ['function' => 'asc'];
+    public $relationTables; //Relacionamentos ( table , key , foreingKey )
+    public $customSearch;  //Colunas personalizadas, customizar no model
+    public $columnsInclude = 'name,nick,sex,function,logo_path,posto_grad,active as status';
+    public $searchable = 'name,nick,sex,function'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página
-    public $active = 'school_faults.active';
+    public $active = 'active';
 
 
     #[On('see_excluded')]
@@ -49,16 +49,15 @@ class SchoolFaultListSendMail extends Component
                 'sort' => $this->sorts,
                 'paginate' => $this->paginate,
                 'search' => $this->search,
-                // 'where' => [
-                //     'school_faults.created_by' => Auth::user()->name,
-                // ],
+                'where' => [
+                    'type' => 0
+                ],
                 'customSearch' => $this->customSearch,
                 'active' => $this->active,
             ])
             ->getData();
-        // dd($dataTable);
         return view(
-            'livewire.faults.school-fault-list',
+            'livewire.faults.school-fault-list-send-mail',
             compact('dataTable')
         );
     }
@@ -74,64 +73,11 @@ class SchoolFaultListSendMail extends Component
         }
         // dd($this->sorts);
     }
-    //CREATE
-    public function showCreate()
-    {
-        if ($this->modal) {
-            $this->showModalForm = true;
-            $this->school_faults = '';
-        } else {
-            redirect()->route('school-faults-create');
-        }
-    }
-
-    //Update
-    public function showUpdate($id)
-    {
-        redirect()->route('school-faults-edit', $id);
-    }
-
-    //DELETE
-    public function showModalDelete($id)
-    {
-        $this->showJetModal = true;
-        if (isset($id)) {
-            $this->id = $id;
-        } else {
-            $this->id = '';
-        }
-    }
-    public function delete($id)
-    {
-        $data = SchoolFaults::where('id', $id)->first();
-        $data->active = 0;
-        $data->save();
-
-        $this->openAlert('success', 'Registro excluido com sucesso.');
-
-        $this->showJetModal = false;
-    }
-    //ACTIVE
-    public function buttonActive($id)
-    {
-        $data = SchoolFaults::where('id', $id)->first();
-        if ($data->active == 1) {
-            $data->active = 0;
-            $data->save();
-        } else {
-            $data->active = 1;
-            $data->save();
-        }
-        $this->openAlert('success', 'Registro atualizado com sucesso.');
-    }
+   
     //MESSAGE
     public function openAlert($status, $msg)
     {
         $this->dispatch('openAlert', $status, $msg);
     }
-    public function justify(SchoolFaults $school_faults, $justify)
-    {
-        $school_faults->justified = $justify;
-        $school_faults->save();
-    }
+
 }

@@ -60,7 +60,7 @@ class SchoolFaultListSendMail extends Component
             ->getData();
 
             foreach ($dataTable as $student) {
-            if($item->total_faults_percent > 6.5){
+            if($student->total_faults_percent > 6.5){
                 $students[] = student;
             } 
         }

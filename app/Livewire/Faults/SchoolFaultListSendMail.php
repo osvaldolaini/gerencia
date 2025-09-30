@@ -61,7 +61,7 @@ class SchoolFaultListSendMail extends Component
 
             foreach ($dataTable as $student) {
             if($student->total_faults_percent > 6.5){
-                $students[] = student;
+                $students[] = $student;
             } 
         }
         return view(

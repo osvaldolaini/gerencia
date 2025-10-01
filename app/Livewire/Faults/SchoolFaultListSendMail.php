@@ -59,7 +59,7 @@ class SchoolFaultListSendMail extends Component
    //Aditamentos
     public function print()
     {
-        dd($this->students);
+        // dd($this->students);
         //Apagar itens do diretório temporário
         $this->clearTmpDirectory('public/pdf-tmp');
         

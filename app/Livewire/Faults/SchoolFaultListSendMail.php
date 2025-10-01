@@ -86,7 +86,7 @@ class SchoolFaultListSendMail extends Component
         ]);
         // dd($mpdf);
         $html = view(
-            'livewire.faults.pdf.faults-more-pdf',
+            'livewire.faults.pdfs.faults-more-pdf',
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Aditamento',

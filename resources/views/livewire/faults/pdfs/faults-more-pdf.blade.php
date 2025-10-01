@@ -51,9 +51,7 @@
 
     <div class="container">
         <h2>Relatório de alunos com mais de 7,5% de faltas</h2>
-        <p>Período: {{ \Carbon\Carbon::parse($dateStart)->format('d/m/Y') }} a
-            {{ \Carbon\Carbon::parse($dateEnd)->format('d/m/Y') }}</p>
-
+        
         <table class="reports">
             <thead>
                 <tr>
@@ -68,7 +66,6 @@
                 @foreach ($students as $student)
                     <tr>
                         <td>{{ $student->students->name ?? '-' }}</td>
-                        <td class="text-center">{{ \Carbon\Carbon::parse($student->date)->format('d/m/Y') }}</td>
                         <td class="text-center">{{ $student->class->title ?? '-' }}</td>
                         <td class="text-center">{{ $student->total_faults }}</td>
                         <td class="px-2 py-1 font-bold text-center">

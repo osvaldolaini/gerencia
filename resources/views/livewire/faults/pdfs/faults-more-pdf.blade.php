@@ -65,7 +65,7 @@
             <tbody>
                 @foreach ($students as $student)
                     <tr>
-                        <td>{{ $student->nick .' ( '.$student->nick.' )'?? '-' }}</td>
+                        <td>{{ $student->nick .' ( '.$student->number.' )'?? '-' }}</td>
                         <td>{{ $student->name ?? '-' }}</td>
                         <td class="text-center">{{ $student?->al_class->title  ?? 'sem turma' }}</td>
                         <td class="text-center">{{ $student->total_faults }}</td>

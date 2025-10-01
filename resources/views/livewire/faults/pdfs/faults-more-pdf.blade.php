@@ -56,7 +56,6 @@
             <thead>
                 <tr>
                     <th>Aluno</th>
-                    <th class="text-center">Aluno</th>
                     <th class="text-center">Turma</th>
                     <th class="text-center">Qtd</th>
                     <th class="text-center">%</th>
@@ -65,8 +64,8 @@
             <tbody>
                 @foreach ($students as $student)
                     <tr>
-                        <td>{{ $student->students->name ?? '-' }}</td>
-                        <td class="text-center">{{ $student->class->title ?? '-' }}</td>
+                        <td>{{ $student->name ?? '-' }}</td>
+                        <td class="text-center">{{ $item?->al_class->title  ?? 'sem turma' }}</td>
                         <td class="text-center">{{ $student->total_faults }}</td>
                         <td class="px-2 py-1 font-bold text-center">
                             ({{ number_format($student->total_faults_percent, 2, ',', '') }}%)

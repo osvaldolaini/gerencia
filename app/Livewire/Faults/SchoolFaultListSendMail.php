@@ -9,9 +9,12 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Peoples;
 
+
+use App\Traits\HandlesTmpUploads;
+
 class SchoolFaultListSendMail extends Component
 {
-    use WithPagination;
+    use WithPagination;    use HandlesTmpUploads;
     public $breadcrumb = 'Faltas escolares';
     public $modal = true;
     public $showJetModal = false;

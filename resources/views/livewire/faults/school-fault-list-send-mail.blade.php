@@ -113,6 +113,16 @@
             </x-danger-button>
         </x-slot>
     </x-confirmation-modal>
-
+@section('scripts')
+        <script>
+            document.addEventListener('livewire:init', () => {
+                Livewire.on('openPdfInNewTabClasses', ({
+                    pdfPath
+                }) => {
+                    window.open(pdfPath, '_blank');
+                })
+            })
+        </script>
+    @endsection
 
 </div>

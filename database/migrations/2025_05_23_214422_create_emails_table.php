@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('emails', function (Blueprint $table) {
             $table->id();
             $table->boolean('status');
+            $table->string('type');
             $table->foreignId('student_contacts_id')
                 ->nullable()
                 ->constrained('student_contacts')

@@ -54,8 +54,8 @@ class StudentEmails extends Component
         $totalEmails = 0;
 
         if ($this->contacts->count() > 0) {
-            foreach ($this->contacts->where('active',1) as $contact) {
-                
+            foreach ($this->contacts->where('active', 1) as $contact) {
+
                 $this->attachment = trim('ficha_individual_' . $this->student->number . '_' . $this->slug($this->student->nick) . '_' . Str::uuid() . '.pdf');
                 if ($contact->type == 'email') {
                     $totalEmails++;
@@ -75,6 +75,7 @@ class StudentEmails extends Component
 
                             Emails::create([
                                 'status'               => 1,
+                                'type'                 => 'record',
                                 'student_contacts_id'  => $contact->id,
                                 'student_id'           => $this->student->id,
                                 'to'                   => $contact->contact,
@@ -86,10 +87,11 @@ class StudentEmails extends Component
                         } catch (\Exception $e) {
                             // loga o erro para verificar porque falhou (ex: Gmail bloqueando)
                             // Log::info('Enviados ' . $countMail . ' fichas do(a) aluno(a)');
-                            Log::error('Erro ao enviar e-mail para '.$contact->contact.': '.$e->getMessage());
+                            Log::error('Erro ao enviar e-mail para ' . $contact->contact . ': ' . $e->getMessage());
 
                             Emails::create([
                                 'status'               => 0, // falhou
+                                'type'                 => 'record',
                                 'student_contacts_id'  => $contact->id,
                                 'student_id'           => $this->student->id,
                                 'to'                   => $contact->contact,
@@ -101,10 +103,9 @@ class StudentEmails extends Component
                         }
                     }
                 }
-
             }
             if ($countMail > 0) {
-               Log::info('Cadastrado FO!');
+                Log::info('Cadastrado FO!');
                 $al_nick          = $this->student->nick;
                 $al_name          = $this->student->name;
                 $al_number        = $this->student->number;

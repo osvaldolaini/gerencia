@@ -20,6 +20,7 @@ class Emails extends Model
 
     protected $fillable = [
         'status',
+        'type',
         'student_contacts_id',
         'student_id',
         'to',

@@ -78,8 +78,8 @@ class Peoples extends Model
             $transaction->updated_by = Auth::user()->name;
 
             if ($transaction->active == 0) {
-               $studentClasses = SchoolClassesStudent::where('active', 1)
-                ->where('people_id', $transaction->id)->get();
+                $studentClasses = SchoolClassesStudent::where('active', 1)
+                    ->where('people_id', $transaction->id)->get();
                 if ($studentClasses) {
                     foreach ($studentClasses as $class) {
                         $class->active = 0;
@@ -90,7 +90,6 @@ class Peoples extends Model
                 if ($seat) {
                     $seat->delete();
                 }
-
             }
         });
     }
@@ -266,6 +265,10 @@ class Peoples extends Model
     {
         return $this->hasMany(Emails::class, 'student_id', 'id');
     }
+    public function alertEmails(): HasMany
+    {
+        return $this->hasMany(Emails::class, 'student_id', 'id')->where('type', '!=', 'record')->where('created_at', 'LIKE', '%' . date('Y') . '%');
+    }
     public function activities(): HasMany
     {
         return $this->hasMany(StudentActivities::class, 'student_id', 'id');
@@ -335,9 +338,9 @@ class Peoples extends Model
             $grauPunicao = floatval($p->grau);
 
             if ($p->dacision_days > 0) {
-                if ($p->decision == 'retirada_cm'){
+                if ($p->decision == 'retirada_cm') {
                     $nota -= $grauPunicao * $p->dacision_days;
-                }else{
+                } else {
                     $nota -= $grauPunicao;
                 }
             } else {

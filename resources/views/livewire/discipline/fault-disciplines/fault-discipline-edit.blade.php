@@ -10,7 +10,10 @@
 
         <div class="flex justify-between mx-2 space-x-2 text-gray-600 lg:mx-1">
             <h3 class="text-2xl font-bold tracki dark:text-gray-50">
-                {{ $breadcrumb }}
+                {{ $breadcrumb }} <br>
+                <span class="badge badge-ghost {{ $al_sex == 'M' ? 'text-blue-500' : 'text-red-500' }}"> Al
+                    {{ $al_nick }} ({{ $al_number }})
+                </span>
             </h3>
             <div>
                 @livewire('discipline.fault-disciplines.fault-discipline-link', [$id])
@@ -287,10 +290,23 @@
                             @enderror
                         </div>
                         <div wire:ignore class="flex flex-col items-end justify-end col-span-full sm:col-span-5">
-                            <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
-                                Histórico
-                            </label>
-                            @livewire('students.student-history', ['student' => $student_id])
+                            <div class="grid grid-cols-2 space-x-2">
+                                <div class="col-span-1">
+                                    {{-- <label class="block text-sm font-medium text-gray-900 dark:text-white"
+                                        for="title">
+                                        Histórico
+                                    </label> --}}
+                                    @livewire('students.student-history', ['student' => $student_id])
+                                </div>
+                                <div class="col-span-1">
+                                    {{-- <label class="block text-sm font-medium text-gray-900 dark:text-white"
+                                        for="title">
+                                        Ficha
+                                    </label> --}}
+                                    @livewire('students.history.pdf', ['student' => $student_id])
+                                </div>
+                            </div>
+
 
                         </div>
 

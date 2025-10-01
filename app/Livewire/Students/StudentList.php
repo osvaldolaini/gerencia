@@ -152,7 +152,7 @@ class StudentList extends Component
     {
         $this->showModalForm = false;
     }
-    //Turmas
+    //Histórico
     public function history(Peoples $student)
     {
         //Apagar itens do diretório temporário

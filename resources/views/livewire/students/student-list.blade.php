@@ -130,7 +130,8 @@
                                         @livewire('students.student-history', ['student' => $item->id], key('student-history-' . $item->id))
                                     </div>
                                     <div wire:ignore>
-                                        <div class="p-0 tooltip tooltip-top" data-tip="Ficha">
+                                        @livewire('students.history.pdf', ['student' => $item], key($item->id))
+                                        {{-- <div class="p-0 tooltip tooltip-top" data-tip="Ficha">
                                             <button wire:click="history({{ $item->id }})"
                                                 class="px-3 py-2 transition-colors duration-200 rounded-sm hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
@@ -177,11 +178,12 @@
                                                     </g>
                                                 </svg>
                                             </button>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </x-slot>
                                 <x-slot name="small">
                                     <div class="w-full p-0 tooltip tooltip-top" data-tip="editar">
+
                                         <button wire:click="history({{ $item->id }})"
                                             class="flex items-center pt-1 transition-colors duration-200 hover:text-white dark:hover:bg-blue-500 hover:bg-blue-500 whitespace-nowrap">
                                             <span>PDF</span>

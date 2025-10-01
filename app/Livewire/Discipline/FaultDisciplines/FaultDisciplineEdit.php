@@ -35,6 +35,7 @@ class FaultDisciplineEdit extends Component
     public $al_number;
     public $al_nick;
     public $al_name;
+    public $al_sex;
     public $student_id;
     public $al_class;
     public $school_classes_id;
@@ -99,6 +100,7 @@ class FaultDisciplineEdit extends Component
             $this->al_number                = $fault_discipline->al_number;
             $this->al_nick                  = $fault_discipline->al_nick;
             $this->al_name                  = $fault_discipline->al_name;
+            $this->al_sex                   = $fault_discipline->students->sex;
             $this->student_id               = $fault_discipline->student_id;
             $this->al_class                 = $fault_discipline->al_class;
             $this->school_classes_id        = $fault_discipline->school_classes_id;

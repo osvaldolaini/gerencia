@@ -120,7 +120,7 @@ class SchoolFaultListSendMail extends Component
         $mpdf->WriteHTML($html);
 
         // Salve o PDF temporariamente
-        $file = trim('alunos_com_mais_de_7.5%_de_faltas' . Str::uuid() . '.pdf');
+        $file = trim('alunos_com_mais_de_7_5%_de_faltas_' . Str::uuid() . '.pdf');
 
         if (!is_dir(storage_path('app/public/pdf-tmp'))) {
             mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário

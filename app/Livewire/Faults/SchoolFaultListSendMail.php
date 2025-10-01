@@ -10,6 +10,10 @@ use Livewire\WithPagination;
 use App\Models\Peoples;
 
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Admin\Settings\Settings;
 use App\Traits\HandlesTmpUploads;
 
 class SchoolFaultListSendMail extends Component

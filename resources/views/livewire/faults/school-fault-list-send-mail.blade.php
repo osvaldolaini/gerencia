@@ -9,19 +9,22 @@
             </h3>
         </x-slot>
     </x-layout.breadcrumb>
-    <x-layout.search>
-        <x-slot name="button">
-            <button wire:click="showCreate()"
-                class="flex items-center justify-center p-3 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg lg:px-5 sm:w-auto gap-x-2 hover:bg-blue-600 dark:hover:bg-blue-500 dark:bg-blue-600">
-                <svg class="w-4 h-4 mr-0 lg:mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true">
-                    <path clip-rule="evenodd" fill-rule="evenodd"
-                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                </svg>
-                <span class="">Novo </span>
-            </button>
-        </x-slot>
-    </x-layout.search>
+    <div class="w-full grid grid-cols-8">
+        <div class="w-full col-span-1">
+            <div class="p-0 tooltip tooltip-top" wire:click='solution()' data-tip="Solução" wire:ignore>
+                <button
+                    class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
+                    <x-layout.svg.pdf></x-layout.svg.pdf>
+                </button>
+            </div>
+            <div class="p-0 tooltip tooltip-top" wire:click='publi()' data-tip="Publicação" wire:ignore>
+                <button
+                    class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
+                    <x-layout.svg.pdf></x-layout.svg.pdf>
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="mt-5 space-y-4">
         <!-- Lista de itens arrastáveis -->
         <div>

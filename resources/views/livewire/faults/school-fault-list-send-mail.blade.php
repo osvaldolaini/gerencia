@@ -11,13 +11,7 @@
     </x-layout.breadcrumb>
     <div class="w-full grid grid-cols-8">
         <div class="w-full col-span-1">
-            <div class="p-0 tooltip tooltip-top" wire:click='solution()' data-tip="Solução" wire:ignore>
-                <button
-                    class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
-                    <x-layout.svg.pdf></x-layout.svg.pdf>
-                </button>
-            </div>
-            <div class="p-0 tooltip tooltip-top" wire:click='publi()' data-tip="Publicação" wire:ignore>
+            <div class="p-0 tooltip tooltip-top" wire:click='print()' data-tip="Lista em pdf" wire:ignore>
                 <button
                     class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
                     <x-layout.svg.pdf></x-layout.svg.pdf>

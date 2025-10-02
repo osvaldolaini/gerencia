@@ -108,7 +108,7 @@ class SchoolFaultListSendMail extends Component
             'livewire.faults.pdfs.faults-more-pdf',
             [
                 'logoPath'          => $logoPath,
-                'title'             => 'Aluno com mais de 7,5% de faltas',
+                'title'             => 'Frequência escolar',
                 'students'          => $this->students,
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,

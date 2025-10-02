@@ -103,10 +103,7 @@ class FaultDisciplineJustification extends Component
             $selectedMitigating = false;
         }
 
-
-
-        $html = view(
-            'livewire.discipline.fault-disciplines.pdfs.justification-pdf',
+        $html = view('livewire.discipline.fault-disciplines.pdfs.justification-pdf',
             [
                 'fault_discipline'  => $this->fault_discipline,
                 'config'            => $config,

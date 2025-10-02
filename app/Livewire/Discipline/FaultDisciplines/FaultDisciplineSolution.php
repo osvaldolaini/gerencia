@@ -99,7 +99,7 @@ class FaultDisciplineSolution extends Component
 
         $mpdf->Output($down, 'F');
 
-        $this->dispatch('openPdfInNew', pdfPath: $pdfPath);
+        $this->dispatch('openPdfInNewTabSol', pdfPath: $pdfPath);
     }
 
 

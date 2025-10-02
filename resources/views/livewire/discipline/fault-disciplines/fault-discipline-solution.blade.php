@@ -92,6 +92,7 @@
                     Livewire.on('openPdfInNewTabSol', ({
                         pdfPath
                     }) => {
+                        console.log('aqui');
                         window.open(pdfPath, '_blank');
                     })
                 })

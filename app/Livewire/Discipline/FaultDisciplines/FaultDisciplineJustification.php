@@ -56,7 +56,7 @@ class FaultDisciplineJustification extends Component
         return view('livewire.discipline.fault-disciplines.fault-discipline-justification');
     }
     //Turmas
-    public function print()
+    public function printJust()
     {
 
         $config = Settings::find(1);
@@ -103,7 +103,8 @@ class FaultDisciplineJustification extends Component
             $selectedMitigating = false;
         }
 
-        $html = view('livewire.discipline.fault-disciplines.pdfs.justification-pdf',
+        $html = view(
+            'livewire.discipline.fault-disciplines.pdfs.justification-pdf',
             [
                 'fault_discipline'  => $this->fault_discipline,
                 'config'            => $config,
@@ -137,7 +138,7 @@ class FaultDisciplineJustification extends Component
 
         $mpdf->Output($down, 'F');
 
-        $this->dispatch('openPdfInNewTab', pdfPath: $pdfPath);
+        $this->dispatch('openPdfInNewTabJust', pdfPath: $pdfPath);
     }
 
 

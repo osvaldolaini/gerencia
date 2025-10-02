@@ -568,4 +568,18 @@
         </x-slot>
     </x-confirmation-modal>
 
+    <div>
+        @section('scripts')
+            <script>
+                document.addEventListener('livewire:init', () => {
+                    Livewire.on('openPdfInNew', ({
+                        pdfPath
+                    }) => {
+                        window.open(pdfPath, '_blank');
+                    })
+                })
+            </script>
+        @endsection
+    </div>
+
 </div>

@@ -72,7 +72,7 @@ class FaultDisciplineJustification extends Component
             'default_font_size'  => 9,
             'default_font'  => 'arial',
         ]);
-        dd($mpdf);
+        // dd($mpdf);
 
         // Renderize a view do Livewire
         $allFaults = Faults::where('active', 1)->get();
@@ -118,7 +118,7 @@ class FaultDisciplineJustification extends Component
                 'responsible'       => Auth::user()->name,
             ]
         )->render();
-        // dd($html);
+        dd($html);
 
 
         // Adicione o conteúdo HTML ao PDF

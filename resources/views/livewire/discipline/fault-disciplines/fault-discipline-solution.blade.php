@@ -1,6 +1,6 @@
 <div>
     <div class="flex items-center justify-center w-full mb-5 space-x-1">
-        <span wire:click="printSol()" class="btn btn-info">
+        <span wire:click="print()" class="btn btn-info">
             Imprimir Solução
             <svg class="w-6 h-6 mr-0 lg:mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -85,14 +85,13 @@
 
         </div>
     </div>
-    <div>
+    <div wire:ignore>
         @section('scripts')
             <script>
                 document.addEventListener('livewire:init', () => {
-                    Livewire.on('openPdfInNewTabSol', ({
+                    Livewire.on('openPdfInNewTab', ({
                         pdfPath
                     }) => {
-                        console.log('aqui');
                         window.open(pdfPath, '_blank');
                     })
                 })

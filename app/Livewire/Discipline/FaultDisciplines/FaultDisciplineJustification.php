@@ -56,7 +56,7 @@ class FaultDisciplineJustification extends Component
         return view('livewire.discipline.fault-disciplines.fault-discipline-justification');
     }
     //Turmas
-    public function printJust()
+    public function print()
     {
 
         $config = Settings::find(1);
@@ -137,8 +137,8 @@ class FaultDisciplineJustification extends Component
         $pdfPath = url('storage/pdf-tmp/' . $file);
 
         $mpdf->Output($down, 'F');
-        // dd();
-        $this->dispatch('openPdfInNewTabJust', pdfPath: $pdfPath);
+
+        $this->dispatch('openPdfInNewTab', pdfPath: $pdfPath);
     }
 
 

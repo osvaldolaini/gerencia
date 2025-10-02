@@ -37,7 +37,7 @@ class FaultDisciplineNote extends Component
         return view('livewire.discipline.fault-disciplines.fault-discipline-note');
     }
     //Turmas
-    public function printNote()
+    public function print()
     {
 
         $config = Settings::find(1);
@@ -87,7 +87,7 @@ class FaultDisciplineNote extends Component
 
         $mpdf->Output($down, 'F');
 
-        $this->dispatch('openPdfInNewTabNote', pdfPath: $pdfPath);
+        $this->dispatch('openPdfInNewTab', pdfPath: $pdfPath);
     }
 
     //pega o status do registro

@@ -298,13 +298,10 @@
                                     </label> --}}
                                     @livewire('students.student-history', ['student' => $student_id])
                                 </div>
-                                <div class="col-span-1">
-                                    {{-- <label class="block text-sm font-medium text-gray-900 dark:text-white"
-                                        for="title">
-                                        Ficha
-                                    </label> --}}
+                                {{-- <div class="col-span-1">
+
                                     @livewire('students.history.pdf', ['student' => $student_id])
-                                </div>
+                                </div> --}}
                             </div>
 
 

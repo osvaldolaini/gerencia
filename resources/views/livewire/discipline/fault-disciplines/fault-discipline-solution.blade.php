@@ -85,7 +85,7 @@
 
         </div>
     </div>
-    <div wire:ignore>
+    <div>
         @section('scripts')
             <script>
                 document.addEventListener('livewire:init', () => {

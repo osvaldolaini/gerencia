@@ -1,6 +1,6 @@
 <div>
     <div class="flex items-center justify-center w-full mb-5 space-x-1">
-        <span wire:click="print()" class="btn btn-info">
+        <span wire:click="printNote()" class="btn btn-info">
             Imprimir Nota
             <svg class="w-6 h-6 mr-0 lg:mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"

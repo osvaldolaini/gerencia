@@ -98,6 +98,7 @@ class FaultDisciplineSolution extends Component
         $pdfPath = url('storage/pdf-tmp/' . $file);
 
         $mpdf->Output($down, 'F');
+        // dd();
 
         $this->dispatch('openPdfInNewTabSol', pdfPath: $pdfPath);
     }

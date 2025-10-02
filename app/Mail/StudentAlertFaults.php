@@ -41,7 +41,7 @@ class StudentAlertFaults extends Mailable
             to: [
                 new Address($this->data['contact']->contact, $this->data['contact']->parent),
             ],
-            subject: 'Faltas acima de ' . $this->percent,
+            subject: 'Frequência escolar - Faltas acima de ' . $this->percent,
             tags: [$config->nick],
         );
     }

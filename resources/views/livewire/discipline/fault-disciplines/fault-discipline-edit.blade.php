@@ -575,6 +575,7 @@
                     Livewire.on('openPdfInNew', ({
                         pdfPath
                     }) => {
+                        alert();
                         window.open(pdfPath, '_blank');
                     })
                 })

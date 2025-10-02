@@ -19,6 +19,8 @@
                     Livewire.on('openPdfInNewTabNote', ({
                         pdfPath
                     }) => {
+
+                        alert();
                         window.open(pdfPath, '_blank');
                     })
                 })

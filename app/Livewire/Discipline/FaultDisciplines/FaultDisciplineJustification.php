@@ -118,7 +118,7 @@ class FaultDisciplineJustification extends Component
                 'responsible'       => Auth::user()->name,
             ]
         )->render();
-        dd($html);
+        // dd($html);
 
 
         // Adicione o conteúdo HTML ao PDF
@@ -137,7 +137,7 @@ class FaultDisciplineJustification extends Component
         $pdfPath = url('storage/pdf-tmp/' . $file);
 
         $mpdf->Output($down, 'F');
-
+        dd();
         $this->dispatch('openPdfInNewTabJust', pdfPath: $pdfPath);
     }
 

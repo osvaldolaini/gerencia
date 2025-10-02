@@ -11,9 +11,9 @@
         <div class="flex justify-between mx-2 space-x-2 text-gray-600 lg:mx-1">
             <h3 class="text-2xl font-bold tracki dark:text-gray-50">
                 {{ $breadcrumb }} <br>
-                <span class="badge badge-ghost {{ $al_sex == 'M' ? 'text-blue-500' : 'text-red-500' }}"> Al
+                {{-- <span class="badge badge-ghost {{ $al_sex == 'M' ? 'text-blue-500' : 'text-red-500' }}"> Al
                     {{ $al_nick }} ({{ $al_number }})
-                </span>
+                </span> --}}
             </h3>
             <div>
                 @livewire('discipline.fault-disciplines.fault-discipline-link', [$id])

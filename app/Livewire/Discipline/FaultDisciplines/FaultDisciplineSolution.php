@@ -44,7 +44,7 @@ class FaultDisciplineSolution extends Component
         return view('livewire.discipline.fault-disciplines.fault-discipline-solution');
     }
     //Turmas
-    public function print()
+    public function printSol()
     {
         $this->decision = $this->fault_discipline->decision;
         if (!$this->decision) {
@@ -99,7 +99,7 @@ class FaultDisciplineSolution extends Component
 
         $mpdf->Output($down, 'F');
 
-        $this->dispatch('openPdfInNewTab', pdfPath: $pdfPath);
+        $this->dispatch('openPdfInNewTabSol', pdfPath: $pdfPath);
     }
 
 

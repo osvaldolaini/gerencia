@@ -15,6 +15,7 @@
         @section('scripts')
             <script>
                 document.addEventListener('livewire:init', () => {
+                    alert();
                     Livewire.on('openPdfInNewTabNote', ({
                         pdfPath
                     }) => {

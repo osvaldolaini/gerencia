@@ -137,7 +137,7 @@ class FaultDisciplineJustification extends Component
         $pdfPath = url('storage/pdf-tmp/' . $file);
 
         $mpdf->Output($down, 'F');
-        dd();
+        // dd();
         $this->dispatch('openPdfInNewTabJust', pdfPath: $pdfPath);
     }
 

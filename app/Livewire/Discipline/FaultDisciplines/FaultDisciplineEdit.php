@@ -281,7 +281,16 @@ class FaultDisciplineEdit extends Component
             }
         }
         if ($property === 'dacision_days') {
-            $this->grau = Penalty::from($this->decision)->degree() * floatval($this->dacision_days);
+            if ($this->dacision_days > 0 and $this->dacision_days) {
+                if ($this->decision == 'retirada_cm') {
+                    $this->grau = Penalty::from($this->decision)->degree() * floatval($this->dacision_days);
+                } else {
+                    $this->grau = Penalty::from($this->decision)->degree();
+                }
+            } else {
+
+                $this->grau = Penalty::from($this->decision)->degree();
+            }
         }
     }
     public function sugestionText()

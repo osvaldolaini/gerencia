@@ -295,12 +295,13 @@
                                         @endif
 
                                     </ul>
+
                                 </div>
                                 <div class="col-span-full sm:col-span-2">
                                     <div class="justify-start block space-x-2 space-y-2 font-medium duration-200 ">
                                         <x-layout.table-options id='{{ $item->id }}'
                                             active='{{ $item->status }}'>
-                                            @if ($item->fafd == 0 && $item->fact_type == 'negativo')
+                                            @if ($item->fafd == 0 && $item->fact_type != 'positivo')
                                                 <x-slot name="extra">
 
 
@@ -421,6 +422,11 @@
                                             @endforeach
                                         </div>
                                     @endif
+                                    <div class="">
+                                        <p>Data lançamento SINCOMIL</p>
+                                        @livewire('discipline.fact-observeds.sincomil-date', ['fact_observed' => $item], key($item->id))
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

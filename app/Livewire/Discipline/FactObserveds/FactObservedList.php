@@ -201,9 +201,14 @@ class FactObservedList extends Component
     public function fafd_create($id)
     {
         $fact = FactObserved::where('id', $id)->first();
-        foreach (json_decode($fact->faults, true) as $value) {
-            $f[] = $value;
+        if ($fact->fact_type == 'negativo') {
+            foreach (json_decode($fact->faults, true) as $value) {
+                $f[] = $value;
+            }
+        } else {
+            $f = [];
         }
+
         $comandant = Companies::find($fact->company_id)->comandant;
         $fafd = FaultDiscipline::create([
             'active'                   => 1,

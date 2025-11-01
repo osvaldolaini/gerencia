@@ -152,6 +152,7 @@ class FactObservedEdit extends Component
             'fact'                     => $this->fact,
             'fact_hour'                => $this->fact_hour,
             'fact_date'                => $this->fact_date,
+            'fact_type'                => $this->fact_type,
             // 'faults'                   => $this->faults,
             'fact_observer'            => $this->fact_observer,
             'fact_observer_function'   => $this->fact_observer_function,
@@ -162,6 +163,9 @@ class FactObservedEdit extends Component
 
         if ($this->fact_type == 'negativo') {
             $fact->faults = $this->faults;
+            $fact->save();
+        } else {
+            $fact->faults = [];
             $fact->save();
         }
 

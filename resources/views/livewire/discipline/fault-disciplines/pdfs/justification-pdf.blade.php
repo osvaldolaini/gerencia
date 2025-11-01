@@ -181,17 +181,20 @@
                 <tr>
                     <td colspan="4" style="border-top: 1px solid black;">
                         {{ $fault_discipline->fact }}
-                        ({{ count($fault_discipline->json_faults) > 0 ? 'itens' : 'item' }}
-                        @if (is_array($fault_discipline->json_faults) && count($fault_discipline->json_faults) > 0)
-                            @foreach ($fault_discipline->json_faults as $key => $item)
-                                {{ $item }}@if ($loop->remaining === 1)
-                                    e
-                                @elseif (!$loop->last)
-                                    ,
-                                @endif
-                            @endforeach
-                        @endif do
-                        apêndice 1 do anexo F do RICM 2024)
+                        @if ($fault_discipline->fact_type == 'negativo')
+                            ({{ count($fault_discipline->json_faults) > 0 ? 'itens' : 'item' }}
+                            @if (is_array($fault_discipline->json_faults) && count($fault_discipline->json_faults) > 0)
+                                @foreach ($fault_discipline->json_faults as $key => $item)
+                                    {{ $item }}@if ($loop->remaining === 1)
+                                        e
+                                    @elseif (!$loop->last)
+                                        ,
+                                    @endif
+                                @endforeach
+                            @endif do
+                            apêndice 1 do anexo F do RICM 2024)
+                        @endif
+
                     </td>
                 </tr>
 
@@ -522,85 +525,95 @@
             <div class="number">
                 FAFD Nº {{ $fault_discipline->number }}/{{ $fault_discipline->year }}
             </div>
-            <table class="identification" style="margin-top: 10px;">
+            @if ($fault_discipline->fact_type == 'negativo')
+                <table class="identification" style="margin-top: 10px;">
 
-                @if ($selectedFaults)
-                    <tr>
-                        <td colspan="4" Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
-                            Enquadramento
-                        </td>
-                    </tr>
-                    @foreach ($selectedFaults as $number => $title)
+                    @if ($selectedFaults)
                         <tr>
-                            <td style="text-align:center;border-top: 1px solid black;">
-                                {{ $number }})
-                            </td>
-                            <td style="text-align:center;border-top: 1px solid black;">
-                                {{ $title }}
+                            <td colspan="4"
+                                Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
+                                Enquadramento
                             </td>
                         </tr>
-                    @endforeach
-                @endif
 
-                @if ($selectedMitigating)
-                    <tr>
-                        <td colspan="4" Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
-                            Atenuantes
-                        </td>
-                    </tr>
-                    @foreach ($selectedMitigating as $number => $title)
-                        <tr>
-                            <td style="text-align:center;border-top: 1px solid black;">
-                                {{ $number }})
-                            </td>
-                            <td style="text-align:center;border-top: 1px solid black;">
-                                {{ $title }}
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
-                @if ($selectedAggravating)
-                    <tr>
-                        <td colspan="4" Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
-                            Agravantes
-                        </td>
-                    </tr>
-                    @foreach ($selectedAggravating as $number => $title)
-                        <tr>
-                            <td style="text-align:center;border-top: 1px solid black;">
-                                {{ $number }})
-                            </td>
-                            <td style="text-align:center;border-top: 1px solid black;">
-                                {{ $title }}
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
-
-                @if ($selectedFaults)
-                    <tr>
-                        <td colspan="4" Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
-                            Reincidente na(s) falta(s) nr
-                        </td>
-                    </tr>
-                    @foreach ($selectedFaults as $number => $title)
-                        @php
-                            $v = $fault_discipline->reincident(
-                                $number,
-                                $fault_discipline->fact_date,
-                                $fault_discipline->student_id,
-                            );
-                        @endphp
-                        @if ($v > 0)
+                        @foreach ($selectedFaults as $number => $title)
                             <tr>
-                                <td colspan="4" style="text-align:center;border-top: 1px solid black;">
-                                    {{ $v }} vez{{ $v > 0 ? 'es' : '' }} no item {{ $number }}
+                                <td style="text-align:center;border-top: 1px solid black;">
+                                    {{ $number }})
+                                </td>
+                                <td style="text-align:center;border-top: 1px solid black;">
+                                    {{ $title }}
                                 </td>
                             </tr>
-                        @endif
-                    @endforeach
-                @endif
-            </table>
+                        @endforeach
+                    @endif
+
+                    @if ($selectedMitigating)
+                        <tr>
+                            <td colspan="4"
+                                Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
+                                Atenuantes
+                            </td>
+                        </tr>
+                        @foreach ($selectedMitigating as $number => $title)
+                            <tr>
+                                <td style="text-align:center;border-top: 1px solid black;">
+                                    {{ $number }})
+                                </td>
+                                <td style="text-align:center;border-top: 1px solid black;">
+                                    {{ $title }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    @if ($selectedAggravating)
+                        <tr>
+                            <td colspan="4"
+                                Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
+                                Agravantes
+                            </td>
+                        </tr>
+                        @foreach ($selectedAggravating as $number => $title)
+                            <tr>
+                                <td style="text-align:center;border-top: 1px solid black;">
+                                    {{ $number }})
+                                </td>
+                                <td style="text-align:center;border-top: 1px solid black;">
+                                    {{ $title }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+
+                    @if ($selectedFaults)
+                        <tr>
+                            <td colspan="4"
+                                Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
+                                Reincidente na(s) falta(s) nr
+                            </td>
+                        </tr>
+                        @foreach ($selectedFaults as $number => $title)
+                            @php
+                                $v = $fault_discipline->reincident(
+                                    $number,
+                                    $fault_discipline->fact_date,
+                                    $fault_discipline->student_id,
+                                );
+                            @endphp
+                            @if ($v > 0)
+                                <tr>
+                                    <td colspan="4" style="text-align:center;border-top: 1px solid black;">
+                                        {{ $v }} vez{{ $v > 0 ? 'es' : '' }} no item {{ $number }}
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    @endif
+                </table>
+            @else
+                <p>FAFD INFORMATIVO</p>
+            @endif
+
         </div>
     </div>
 </body>

@@ -7,6 +7,7 @@
 -   Colocar a data do lançamento no SINCOMIL direto na listagem
 -   FO! gerar FAFD
 -   Trocar de FO- para FO!
+-   Botão para ir para sair do app e ir para o painel
 
 > Correções
 

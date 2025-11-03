@@ -15,33 +15,42 @@
             margin-top: 50px;
             padding-top: 50px;
         }
+
         .class {
             width: 100%;
             font-size: 12pt;
         }
+
         .turmas-table {
             width: 100%;
             font-size: 12pt;
             border-collapse: collapse;
         }
+
         .border {
             border: solid thin #000;
         }
+
         .w-20 {
             min-width: 20%;
         }
+
         .w-10 {
             min-width: 10%;
         }
+
         .header {
             font-size: 20px;
         }
+
         .turma-wrapper {
             width: 100%;
         }
+
         .text-center {
             text-align: center;
         }
+
         .text-left {
             text-align: left;
         }
@@ -52,16 +61,20 @@
             margin-top: 100px;
             page-break-after: always;
         }
+
         .summary-table {
             width: 60%;
             margin: 30px auto;
             border-collapse: collapse;
             font-size: 14pt;
         }
-        .summary-table th, .summary-table td {
+
+        .summary-table th,
+        .summary-table td {
             border: 1px solid #000;
             padding: 8px 12px;
         }
+
         .summary-table th {
             background-color: #f2f2f2;
         }
@@ -71,48 +84,50 @@
 
 <body>
     @php
-   
-    // Agrupa por 'decision' e conta
-    $penaltiesCount = $data->groupBy('decision')->map->count();
-    $load = $data->where('decision','')->count();
 
-    // Monta resumo baseado no Enum (mantendo ordem)
-    $penaltySummary = [];
-    foreach (Penalty::cases() as $penalty) {
-        $penaltySummary[$penalty->label()] = $penaltiesCount[$penalty->value] ?? 0;
-    }
+        // Agrupa por 'decision' e conta
+        $penaltiesCount = $data->groupBy('decision')->map->count();
+        $load = $data->where('decision', '')->count();
 
-    $totalPenalties = array_sum($penaltySummary);
-@endphp
- <!-- Página de capa -->
-    <div class="cover-page">
-        <h1>Relatório de FAFDs</h1>
-        <h3>Resumo das Punições</h3>
-        <table class="summary-table">
-            <thead>
-                <tr>
-                    <th>Punição</th>
-                    <th>Quantidade</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($penaltySummary as $label => $count)
+        // Monta resumo baseado no Enum (mantendo ordem)
+        $penaltySummary = [];
+        foreach (Penalty::cases() as $penalty) {
+            $penaltySummary[$penalty->label()] = $penaltiesCount[$penalty->value] ?? 0;
+        }
+
+        $totalPenalties = array_sum($penaltySummary);
+    @endphp
+    <!-- Página de capa -->
+    @if ($title == 'Todas' or $title == 'Publicação')
+        <div class="cover-page">
+            <h1>Relatório de FAFDs</h1>
+            <h3>Resumo das Punições</h3>
+            <table class="summary-table">
+                <thead>
                     <tr>
-                        <td>{{ $label }}</td>
-                        <td style="text-align:center;">{{ $count }}</td>
+                        <th>Punição</th>
+                        <th>Quantidade</th>
                     </tr>
-                @endforeach
-                <tr>
+                </thead>
+                <tbody>
+                    @foreach ($penaltySummary as $label => $count)
+                        <tr>
+                            <td>{{ $label }}</td>
+                            <td style="text-align:center;">{{ $count }}</td>
+                        </tr>
+                    @endforeach
+                    <tr>
                         <td>Aguardando</td>
                         <td style="text-align:center;">{{ $load }}</td>
                     </tr>
-                <tr>
-                    <td style="text-align:right; font-weight:bold;">TOTAL</td>
-                    <td style="text-align:center; font-weight:bold;">{{ $totalPenalties + $load }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                    <tr>
+                        <td style="text-align:right; font-weight:bold;">TOTAL</td>
+                        <td style="text-align:center; font-weight:bold;">{{ $totalPenalties + $load }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    @endif
     <div class="container">
         @if ($title == 'Justificativa')
             <div>

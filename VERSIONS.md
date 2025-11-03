@@ -8,6 +8,10 @@
 -   FO! gerar FAFD
 -   Trocar de FO- para FO!
 
+> Correções
+
+-   Nota de comportamento em ordem cronológica
+
 ## Versão Santos Dumont 1.7.1 – 2025-09-30
 
 > Melhorias

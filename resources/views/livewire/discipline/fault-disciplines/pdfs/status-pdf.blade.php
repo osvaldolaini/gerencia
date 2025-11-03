@@ -279,17 +279,29 @@
                         <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->deliv_date }}</td>
                         <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->just_date }}</td>
                         <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->s_date }}</td>
-                        <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->b_date }}</td>
-                        <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->supplement_number }} /
-                            {{ $fafd?->bi_number }}</td>
-                        <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->sim_date }}</td>
-                        <td class="text-center border" style="font-size: 8pt;">
-                            @if ($fafd->active == 1)
-                                {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}
-                            @else
-                                Excluida
-                            @endif
-                        </td>
+                        @if ($fafd->decision == 'fo' or $fafd->decision == 'justificado')
+                            <td colspan="4" class="text-center border" style="font-size: 8pt; ">
+                                @if ($fafd->active == 1)
+                                    {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}
+                                @else
+                                    Excluida
+                                @endif
+                            </td>
+                        @else
+                            <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->b_date }}</td>
+                            <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->supplement_number }} /
+                                {{ $fafd?->bi_number }}</td>
+                            <td class="text-center border" style="font-size: 8pt;">{{ $fafd?->sim_date }}</td>
+                            <td class="text-center border" style="font-size: 8pt; ">
+                                @if ($fafd->active == 1)
+                                    {{ $fafd->decision ? Penalty::from($fafd->decision)->label() : 'Aguardando' }}
+                                @else
+                                    Excluida
+                                @endif
+                            </td>
+                        @endif
+
+
                     </tr>
                 @endforeach
                 <tr class="border">

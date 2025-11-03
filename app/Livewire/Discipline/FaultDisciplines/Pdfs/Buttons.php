@@ -60,7 +60,7 @@ class Buttons extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Todas',
-                'data'              => FaultDiscipline::orderBy('number')->get(),
+                'data'              => FaultDiscipline::orderByDesc('number')->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]
@@ -87,7 +87,16 @@ class Buttons extends Component
               <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
           </tr>
       </table>');
-        $mpdf->WriteHTML($html);
+        // $mpdf->WriteHTML($html);
+
+        // 🔹 AQUI: Divide o HTML em partes menores antes de enviar ao mPDF
+        ini_set("pcre.backtrack_limit", "10000000"); // aumenta o limite, só pra garantir
+        ini_set("pcre.recursion_limit", "10000000");
+
+        $chunks = str_split($html, 50000); // divide em blocos de 50 mil caracteres
+        foreach ($chunks as $chunk) {
+            $mpdf->WriteHTML($chunk);
+        }
 
         // Salve o PDF temporariamente
         $file = trim('todas_' . Str::uuid() . '.pdf');

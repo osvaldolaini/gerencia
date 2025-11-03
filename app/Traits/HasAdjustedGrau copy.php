@@ -57,16 +57,22 @@ trait HasAdjustedGrau
         }
     }
 
-    protected function calculateAdjustedGrau()
+    protected function calculateAdjustedGrau(?Carbon $dataFinal = null)
     {
         $nota = floatval($this->grau);
-        $punicoes = $this->fafd()->whereNotNull('bi_date')->orderBy('bi_date')->get();
-
-        // Elogios (elogios não reiniciam data de referência)
-        $elogios = $this->compliments()
+        $dataFinal = $dataFinal ?? now();
+        $punicoes = $this->fafd()
             ->whereNotNull('bi_date')
+            ->where('bi_date', '<=', $dataFinal)
             ->orderBy('bi_date')
             ->get();
+
+        $elogios = $this->compliments()
+            ->whereNotNull('bi_date')
+            ->where('bi_date', '<=', $dataFinal)
+            ->orderBy('bi_date')
+            ->get();
+
 
         $dataReferencia = null;
         // Log::debug("Sem punições. Dias após 90 da matrícula: {$dias}. Aumento: {$incremento}. Nota final: {$nota}");
@@ -84,6 +90,13 @@ trait HasAdjustedGrau
                     Log::debug("Sem punições. Dias após 90 da matrícula: {$dias}. Aumento: {$incremento}. Nota final: {$nota}");
                 } else {
                     Log::debug("Sem punições. Ainda não passaram 90 dias desde a matrícula.");
+                }
+                // 🔥 Adiciona elogios (independente de punição)
+                foreach ($elogios as $e) {
+                    $grauElogio = floatval($e->grau);
+                    $nota += $grauElogio;
+                    $nota = min($nota, 10.00);
+                    Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
                 }
             }
             return number_format($nota, 2);
@@ -117,7 +130,11 @@ trait HasAdjustedGrau
             // $nota -= $grauPunicao * $p->dacision_days;
             if ($p->dacision_days > 0 and $p->dacision_days) {
 
-                $nota -= $grauPunicao * $p->dacision_days;
+                if ($p->decision == 'retirada_cm'){
+                    $nota -= $grauPunicao * $p->dacision_days;
+                }else{
+                    $nota -= $grauPunicao;
+                }
             } else {
 
                 $nota -= $grauPunicao;
@@ -148,9 +165,10 @@ trait HasAdjustedGrau
         foreach ($elogios as $e) {
             $grauElogio = floatval($e->grau);
             $nota += $grauElogio;
-            // $nota = min($nota, 10.00);
+            $nota = min($nota, 10.00);
             Log::debug("Elogio em {$e->bi_date}: +{$grauElogio}. Nota atual: {$nota}");
         }
+
 
         return number_format($nota, 2);
     }

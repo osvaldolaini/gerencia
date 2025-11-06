@@ -203,8 +203,8 @@ class LegionHonor extends Component
     }
     public function showNewLegionary()
     {
-
         $this->dispatch('clearStudent');
+        $this->legionary = '';
         $this->showModal = true;
     }
     public function showEditLegionary(LegionOfHonor $legionary)

@@ -26,6 +26,10 @@ class LegionOfHonorInsert extends Component
     public $rules;
     public $student;
 
+    public function mount()
+    {
+        $this->student = '';
+    }
     public function render()
     {
         return view('livewire.student-corps.legion-of-honor-insert');

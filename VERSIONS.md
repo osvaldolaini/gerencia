@@ -6,6 +6,10 @@
 
 -   Legião de Honra
 
+> Correções
+
+-   Erro ao filtrar na lista de FO
+
 ## Versão Santos Dumont 1.7.2 – 2025-11-01
 
 > Melhorias

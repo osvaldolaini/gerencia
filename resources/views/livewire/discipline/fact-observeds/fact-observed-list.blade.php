@@ -130,7 +130,7 @@
         <!-- Lista de itens arrastáveis -->
         <div>
             @foreach ($dataTable as $item)
-                <div class="mb-10 rounded-md cursor-pointer">
+                <div class="mb-10 rounded-md cursor-pointer" wire:key='item-{{ $item->id }}'>
                     <h2 id="w-full text-center items-center">
                         <div type="button"
                             class="items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 dark:bg-gray-900 rounded-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
@@ -303,8 +303,6 @@
                                             active='{{ $item->status }}'>
                                             @if ($item->fafd == 0 && $item->fact_type != 'positivo')
                                                 <x-slot name="extra">
-
-
 
                                                     <div class="p-0 tooltip tooltip-top" data-tip="Gerar FAFD?">
                                                         <button wire:click='showModalFafd({{ $item->id }})'

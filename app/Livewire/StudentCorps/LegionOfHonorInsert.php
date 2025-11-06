@@ -26,14 +26,23 @@ class LegionOfHonorInsert extends Component
     public $rules;
     public $student;
 
-    public function mount()
+    #[On('clearStudent')]
+    public function clear()
     {
-        $this->student = '';
+        $this->student           = '';
+        $this->student_id        = '';
+        $this->year              = '';
+        $this->local             = '';
+        $this->bi_text           = '';
+        $this->bi_number         = '';
+        $this->supplement_number = '';
+        $this->bi_date           = '';
     }
     public function render()
     {
         return view('livewire.student-corps.legion-of-honor-insert');
     }
+
 
     public function save()
     {

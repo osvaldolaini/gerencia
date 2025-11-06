@@ -32,14 +32,7 @@
                                             <h3 class="font-bold">Al. {{ $legionary->student->nick }}</h3>
                                             <div class="text-xs">T. {{ $legionary->student->class }}</div>
                                         </div>
-                                        <span wire:click="removeStudents()"
-                                            class="btn btn-sm {{ $legionary->student->sex == 'F' ? 'btn-secondary' : 'btn-info' }}">Excluir
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                class="inline-block w-4 h-4 cursor-pointer stroke-current">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M6 18L18 6M6 6l12 12"></path>
-                                            </svg>
-                                        </span>
+
                                     </div>
                                     <div class="grid grid-cols-2 col-span-2 gap-2 mb-1 sm:grid-cols-6 sm:gap-3 sm:mb-5">
                                         <div class="col-span-full sm:col-span-1">

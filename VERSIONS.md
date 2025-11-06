@@ -1,5 +1,11 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.7.3 – 2025-11-06
+
+> Novidades
+
+-   Legião de Honra
+
 ## Versão Santos Dumont 1.7.2 – 2025-11-01
 
 > Melhorias

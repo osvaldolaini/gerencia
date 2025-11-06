@@ -58,6 +58,22 @@
             </ul>
         </div>
     </x-user-accesses-section>
+    {{-- CORPO DE ALUNOS --}}
+    <x-user-accesses-section title="Corpo de alunos" description="Legião de honra, Guarda bandeira, etc..">
+        <div class="col-span-full lg:col-span-3">
+            <ul
+                class="grid items-center w-full grid-cols-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg col-span-full lg:col-span-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white ">
+                <x-link-checkbox-new :access="$inputAccess" page="legion" title="Legião de honra">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                </x-link-checkbox-new>
+            </ul>
+
+        </div>
+    </x-user-accesses-section>
     {{-- COMPANHIAS --}}
     <x-user-accesses-section title="Companhia" description="Criar companhias, turmas, batalhão, etc..">
         <div class="col-span-full lg:col-span-3">

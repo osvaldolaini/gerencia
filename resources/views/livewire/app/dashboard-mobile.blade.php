@@ -93,7 +93,7 @@
                     </x-slot>
                     <x-slot name="title">Início</x-slot>
                 </x-app.tab-nav>
-                <a href="/dashboard" class='flex flex-col items-center text-gray-600 dark:text-white'
+                <a href="{{ route('dashboard') }}" class='flex flex-col items-center text-gray-600 dark:text-white'
                     class="flex items-center text-sm font-medium transition duration-75">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6" fill="none" xmlns="http://www.w3.org/2000/svg">

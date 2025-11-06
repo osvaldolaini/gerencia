@@ -55,6 +55,7 @@ use App\Livewire\Settings\SchoolClassesYears\SchoolClassesYearList;
 use App\Livewire\Settings\SchoolClassroomSeats\SchoolClassroomSeatForm;
 use App\Livewire\Settings\SchoolGrades\SchoolGradeForm;
 use App\Livewire\Settings\SchoolGrades\SchoolGradeList;
+use App\Livewire\StudentCorps\LegionHonor;
 use App\Livewire\Students\StudentForm;
 use App\Livewire\Students\StudentList;
 use Illuminate\Support\Facades\Route;
@@ -132,6 +133,20 @@ Route::middleware([
         ->name('student-create');
     Route::get('/cadastros/alunos/{students}/editar', StudentForm::class)
         ->name('student-edit');
+});
+
+//CORPO DE ALUNOS //
+//Legião//
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:legions' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/legiao-de-honra', LegionHonor::class)
+        ->name('legion-list');
 });
 
 //COMPANIAS //

@@ -141,6 +141,7 @@ class LegionHonor extends Component
         $config = Settings::find(1);
 
         $logoPath = url('storage/logos-school/logo-header.png');
+        $legion = url('storage/logos-school/legion.png');
 
         // Crie uma instância do mPDF
         $mpdf = new \Mpdf\Mpdf([
@@ -154,10 +155,11 @@ class LegionHonor extends Component
         ]);
         // dd($mpdf);
         $html = view(
-            'livewire.faults.pdfs.faults-more-pdf',
+            'livewire.student-corps.legion-of-honor-pdf',
             [
                 'logoPath'          => $logoPath,
-                'title'             => 'Frequência escolar',
+                'legion'            => $legion,
+                'title'             => 'Legião de honra',
                 'students'          => $this->students,
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
@@ -188,7 +190,7 @@ class LegionHonor extends Component
         $mpdf->WriteHTML($html);
 
         // Salve o PDF temporariamente
-        $file = trim('alunos_com_mais_faltas_' . Str::uuid() . '.pdf');
+        $file = trim('legiao_de_honra_' . Str::uuid() . '.pdf');
 
         if (!is_dir(storage_path('app/public/pdf-tmp'))) {
             mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário
@@ -199,7 +201,7 @@ class LegionHonor extends Component
 
         $mpdf->Output($down, 'F');
 
-        $this->dispatch('openPdfInNewTabClasses', pdfPath: $pdfPath);
+        $this->dispatch('openPdfLegion', pdfPath: $pdfPath);
     }
     public function showNewLegionary()
     {

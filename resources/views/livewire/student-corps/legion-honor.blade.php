@@ -14,7 +14,7 @@
             <div class="p-0 tooltip tooltip-top" wire:click='print()' data-tip="Lista em pdf" wire:ignore>
                 <button
                     class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
-                    <x-layout.svg.pdf></x-layout.svg.pdf>
+                    <x-layout.svg.pdf class="w-8 h-8 text-white"></x-layout.svg.pdf>
                 </button>
             </div>
         </div>
@@ -323,7 +323,7 @@
     @section('scripts')
         <script>
             document.addEventListener('livewire:init', () => {
-                Livewire.on('openPdfInNewTabClasses', ({
+                Livewire.on('openPdfLegion', ({
                     pdfPath
                 }) => {
                     window.open(pdfPath, '_blank');

@@ -60,6 +60,13 @@
                         </x-slot>
                         <x-slot name="title">Atividades extras </x-slot>
                     </x-layout.tabs-nav>
+                    <x-layout.tabs-nav tab="tab6">
+                        <x-slot name="svg">
+                            <x-layout.svg.pdf
+                                class="w-5 h-5 transition duration-75 shrink-0 text-primary-600 dark:text-primary-400"></x-layout.svg.pdf>
+                        </x-slot>
+                        <x-slot name="title">Certificados </x-slot>
+                    </x-layout.tabs-nav>
                 @endif
 
                 <x-layout.button-back route="{{ $back }}"></x-layout.button-back>
@@ -127,6 +134,55 @@
                                     <span class="error">{{ $message }}</span>
                                 @enderror --}}
                             </div>
+                            <div class="col-span-full sm:col-span-2 ">
+
+                            </div>
+                            <div class="col-span-full sm:col-span-2 ">
+                                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                                    Data nascimento</label>
+                                <input type="date" wire:model="birthday"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                @error('birthday')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-span-full sm:col-span-3">
+                                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="name">
+                                    Cidade de nascimento</label>
+                                <input type="text" wire:model="city_birth" required
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                @error('city_birth')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-span-full sm:col-span-1">
+                                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="name">
+                                    Estado (UF)</label>
+                                <input type="text" maxlength="2" wire:model="state_birth" required
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                @error('state_birth')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-span-full sm:col-span-3">
+                                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="name">
+                                    Mãe</label>
+                                <input type="text" wire:model="mom" required
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                @error('mom')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-span-full sm:col-span-3">
+                                <label class="block text-sm font-medium text-gray-900 dark:text-white" for="name">
+                                    Pai</label>
+                                <input type="text" wire:model="dad" required
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                @error('dad')
+                                    <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -142,6 +198,104 @@
                     </div>
                     <div id="tab5" x-show="activeTab === '#tab5'" wire:ignore>
                         @livewire('students.student-extra-activity', [$id])
+                    </div>
+                    <div id="tab6" x-show="activeTab === '#tab6'" wire:ignore>
+                        <div class="grid grid-cols-4">
+                            <div class="shadow-sm card w-96 bg-base-100">
+                                <div class="card-body">
+                                    <div class="flex justify-between">
+                                        <h2 class="text-3xl font-bold">Matrícula</h2>
+                                    </div>
+                                    <ul class="flex flex-col gap-2 mt-6 text-xs">
+                                        <li>
+                                            @if ($student?->al_class?->classGrade)
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="inline-block size-4 me-2 text-success" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            @else
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    class="inline-block text-red-500 cursor-pointer stroke-current size-4 me-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                            @endif
+
+                                            <span>Ano escolar </span>
+                                        </li>
+
+
+                                        <li>
+                                            @if ($student?->mom or $student?->dad)
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="inline-block size-4 me-2 text-success" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            @else
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    class="inline-block text-red-500 cursor-pointer stroke-current size-4 me-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                            @endif
+                                            <span>Filiação </span>
+                                        </li>
+                                        <li>
+                                            @if ($student?->city_birth)
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="inline-block size-4 me-2 text-success" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            @else
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    class="inline-block text-red-500 cursor-pointer stroke-current size-4 me-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                            @endif
+                                            <span>Local de nascimento </span>
+                                        </li>
+                                        <li>
+                                            @if ($student?->birthday)
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="inline-block size-4 me-2 text-success" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            @else
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    class="inline-block text-red-500 cursor-pointer stroke-current size-4 me-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                            @endif
+                                            <span>Data de nascimento </span>
+                                        </li>
+                                    </ul>
+                                    <div class="mt-6">
+                                        <button class="btn btn-primary btn-block">Imprimir</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-0 tooltip tooltip-top" data-tip="Matrícula" wire:ignore>
+                                <button wire:click="classes()"
+                                    class="px-3 py-2 text-black transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
+                                    <x-layout.svg.pdf class="w-10 h-10"></x-layout.svg.pdf>
+                                </button>
+                            </div>
+
+                        </div>
                     </div>
                 @endif
             </x-slot>

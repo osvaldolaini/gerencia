@@ -1,5 +1,7 @@
 <div>
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 512 512" xml:space="preserve">
+    @props(['class' => true])
+    <svg xmlns="http://www.w3.org/2000/svg" class="{{ $class }}" fill="currentColor" viewBox="0 0 512 512"
+        xml:space="preserve">
 
         <g>
             <path d="M347.746,346.204c-8.398-0.505-28.589,0.691-48.81,4.533c-11.697-11.839-21.826-26.753-29.34-39.053

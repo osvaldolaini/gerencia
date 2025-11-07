@@ -25,20 +25,34 @@ class StudentForm extends Component
     public $grau;
     public $entry_date;
     public $english_level;
+    public $student;
+
+    public $birthday;
+    public $state_birth;
+    public $city_birth;
+    public $mom;
+    public $dad;
 
 
     public function mount(Peoples $students)
     {
         if ($students->getAttributes()) {
+            $this->student           = $students;
             $this->id           = $students->id;
             $this->name         = $students->name;
             $this->nick         = $students->nick;
             $this->number       = $students->number;
             $this->sex          = $students->sex;
+            $this->birthday          = $students->birthday;
+            $this->state_birth          = $students->state_birth;
+            $this->city_birth          = $students->city_birth;
+            $this->mom          = $students->mom;
+            $this->dad          = $students->dad;
             $this->grau         = number_format($students->grau, 2);
             $this->entry_date   = $students->entry_date;
             $this->english_level  = $students->english_level;
         }
+        // dd($students->birth);
     }
 
     public function render()
@@ -61,7 +75,6 @@ class StudentForm extends Component
 
     public function real_save()
     {
-
         $this->rules = [
             // 'number' => 'max:5|required|' . Rule::unique('peoples')->ignore($this->id),
             'sex'   => 'required',
@@ -80,8 +93,13 @@ class StudentForm extends Component
                 'number' => $this->number,
                 'sex' => $this->sex,
                 'grau' => $this->grau,
-                'english_level' => $this->english_level,
                 'entry_date' => $this->entry_date,
+                'birthday' => $this->birthday,
+                'state_birth' => $this->state_birth,
+                'city_birth' => $this->city_birth,
+                'dad' => $this->dad,
+                'mom' => $this->mom,
+                'english_level' => $this->english_level,
             ]);
 
             $id = false;
@@ -96,6 +114,11 @@ class StudentForm extends Component
                 'english_level' => $this->english_level,
                 'entry_date' => $this->entry_date,
                 'grau'      => $this->grau,
+                'birthday' => $this->birthday,
+                'state_birth' => $this->state_birth,
+                'city_birth' => $this->city_birth,
+                'dad' => $this->dad,
+                'mom' => $this->mom,
                 'type'      => 1,
                 'code'      => Str::uuid(),
             ]);

@@ -284,8 +284,8 @@
                                         </li>
                                     </ul>
                                     <div class="mt-6">
-                                        <button class="btn btn-primary btn-block"
-                                            wire:click='printRegistration()'>Imprimir</button>
+                                        <span class="flex btn btn-primary btn-block"
+                                            wire:click='printRegistration()'>Imprimir</span>
                                     </div>
                                 </div>
                             </div>

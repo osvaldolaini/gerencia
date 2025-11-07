@@ -2,8 +2,10 @@
 
 namespace App\Models\Admin\Settings;
 
+use App\Models\Peoples;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
 class Settings extends Model
@@ -26,6 +28,7 @@ class Settings extends Model
         'complement',
         'board',
         'logo_path',
+        'signature_id',
         'updated_by',
     ];
 
@@ -47,5 +50,10 @@ class Settings extends Model
     {
         $this->attributes['name'] = mb_strtoupper($value);
         $this->attributes['slug'] = Str::slug($value);
+    }
+
+    public function signature(): BelongsTo
+    {
+        return $this->belongsTo(Peoples::class, 'signature_id', 'id')->where('active', 1);
     }
 }

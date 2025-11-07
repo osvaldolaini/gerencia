@@ -175,25 +175,32 @@ class StudentForm extends Component
 
         // Adicione o conteúdo HTML ao PDF
         $mpdf->SetHTMLHeader('
-                  <table width="100%">
-                      <tr >
-                          <td width="100%">
-                              <img width="50" src="' . $logoPath . '" alt="Logo">
-                          </td>
-                          <td width="100%">
-                              MINISTÉRIO DA DEFESA
-                          </td>
-                          <td width="100%">
-                              EXÉRCITO BRASILEIRO
-                          </td>
-                          <td width="100%">
+                  <table width="100%" style="text-align:center;">
+                        <tr >
+                            <td width="100%">
+                                <img width="50" src="' . $logoPath . '" alt="Logo">
+                            </td>
+                        </tr>
+                        <tr >
+                            <td width="100%">
+                                MINISTÉRIO DA DEFESA
+                            </td>
+                        </tr>
+                        <tr >
+                            <td width="100%">
+                                EXÉRCITO BRASILEIRO
+                            </td>
+                        </tr>
+                        <tr >
+                            <td width="100%">
                               ' . $config->name . '
-                          </td>
-                          <td width="100%">
+                            </td>
+                        </tr>
+                        <tr >
+                            <td width="100%">
                               ' . $config->nick . '
-                          </td>
-
-                      </tr>
+                            </td>
+                        </tr>
                   </table>
                   ');
         $mpdf->SetHTMLFooter('

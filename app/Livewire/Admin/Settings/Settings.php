@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Admin\Settings;
 
+use App\Enums\MilitaryRank;
 use App\Models\Admin\Settings\Settings as Configs;
+use App\Models\Peoples;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -31,11 +33,7 @@ class Settings extends Component
     public $state;
     public $complement;
     public $board;
-    public $airfield_codigoOaci;
-    public $airfield_ciad;
-    public $airfield_name;
-    public $airfield_city;
-    public $airfield_state;
+    public $signature_id;
     public $logo_path;
     public $contacts;
     public $chart_categories;
@@ -66,6 +64,7 @@ class Settings extends Component
         $this->state = $this->configs->state;
         $this->complement = $this->configs->complement;
         $this->logo_path = $this->configs->logo_path;
+        $this->signature_id = $this->configs->signature_id;
         // dd($this->configs->logo_path);
         // }
     }
@@ -106,6 +105,7 @@ class Settings extends Component
             'state' => $this->state,
             'complement' => $this->complement,
             'logo_path' => $this->logo_path,
+            'signature_id' => $this->signature_id,
             'updated_by ' => Auth::user()->name,
         ]);
 
@@ -124,6 +124,11 @@ class Settings extends Component
         Storage::deleteDirectory('public/logos-school');
         Storage::deleteDirectory('public/favicons-school');
         $this->logo = $this->configs->logo_path;
+    }
+    #[On('updatePeople')]
+    public function updatePeople($id)
+    {
+        $this->signature_id = $id;
     }
     public function updated($property)
     {

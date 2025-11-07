@@ -66,16 +66,16 @@
             <tbody>
                 @foreach ($students as $student)
                     <tr>
-                        <td class="text-center">
+                        <td style="text-align:center;">
                             {{ $student->grade ?? 'sem turma' }}
                         </td>
-                        <td class="text-center">{{ $student?->student->nick ?? $student?->oldSudents?->nick }}
+                        <td style="text-align:center;">{{ $student?->student->nick ?? $student?->oldSudents?->nick }}
                             ({{ $student?->student->number ?? $student?->oldSudents?->number }})
                         </td>
 
-                        <td class="text-center">{{ $student->year ?? 'Não informado' }}</td>
-                        <td class="text-center">{{ $student->local ?? 'Não informado' }}</td>
-                        <td class="text-center"> {{ $student?->grau }}</td>
+                        <td style="text-align:center;">{{ $student->year ?? 'Não informado' }}</td>
+                        <td style="text-align:center;">{{ $student->local ?? 'Não informado' }}</td>
+                        <td style="text-align:center;"> {{ $student?->grau }}</td>
 
                     </tr>
                 @endforeach

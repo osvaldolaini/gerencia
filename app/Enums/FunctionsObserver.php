@@ -12,6 +12,8 @@ enum FunctionsObserver: string
     case CmtDe = 'cmt_de';
     case CmtCm = 'cmt_cm';
     case Professor = 'professor';
+    case AdjCa = 'adj_ca';
+
     case Outros = 'outros';
 
     public function dbName(): string
@@ -24,6 +26,7 @@ enum FunctionsObserver: string
             self::CmtDe => 'cmt_de',
             self::CmtCm => 'cmt_cm',
             self::Professor => 'professor',
+            self::AdjCa => 'adj_ca',
             self::Outros => 'outros',
         };
     }
@@ -38,6 +41,7 @@ enum FunctionsObserver: string
             self::CmtDe => 'Comandante da DE',
             self::CmtCm => 'Comandante do colégio',
             self::Professor => 'Professor',
+            self::AdjCa => 'Adjunto do CA',
             self::Outros => 'Outros',
         };
     }

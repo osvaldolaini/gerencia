@@ -200,8 +200,8 @@
                         @livewire('students.student-extra-activity', [$id])
                     </div>
                     <div id="tab6" x-show="activeTab === '#tab6'" wire:ignore>
-                        <div class="grid grid-cols-4">
-                            <div class="shadow-sm card w-96 bg-base-100">
+                        <div class="grid grid-cols-4 space-x-2">
+                            <div class="col-span-1 shadow-sm card w-96 bg-base-100">
                                 <div class="card-body">
                                     <div class="flex justify-between">
                                         <h2 class="text-3xl font-bold">Matrícula</h2>
@@ -283,17 +283,50 @@
                                             <span>Data de nascimento </span>
                                         </li>
                                     </ul>
-                                    <div class="mt-6">
-                                        <span class="flex btn btn-primary btn-block"
-                                            wire:click='printRegistration()'>Imprimir</span>
-                                    </div>
+                                    @if (
+                                        $student?->al_class?->classGrade || $student?->birthday || $student?->city_birth || $student?->mom or
+                                            $student?->dad)
+                                        <div class="mt-6">
+                                            <span class="flex btn btn-primary btn-block"
+                                                wire:click='printRegistration()'>Imprimir</span>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
-                            <div class="p-0 tooltip tooltip-top" data-tip="Matrícula" wire:ignore>
-                                <button wire:click="classes()"
-                                    class="px-3 py-2 text-black transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
-                                    <x-layout.svg.pdf class="w-10 h-10"></x-layout.svg.pdf>
-                                </button>
+                            <div class="col-span-1 shadow-sm card w-96 bg-base-100">
+                                <div class="card-body">
+                                    <div class="flex justify-between">
+                                        <h2 class="text-3xl font-bold">Carteirinha estudantil</h2>
+                                    </div>
+                                    <ul class="flex flex-col gap-2 mt-6 text-xs">
+                                        <li>
+                                            @if ($student?->al_class?->classGrade)
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="inline-block size-4 me-2 text-success" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            @else
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    class="inline-block text-red-500 cursor-pointer stroke-current size-4 me-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                            @endif
+
+                                            <span>Ano escolar </span>
+                                        </li>
+
+                                    </ul>
+                                    @if ($student?->al_class?->classGrade)
+                                        <div class="mt-6">
+                                            <span class="flex btn btn-primary btn-block"
+                                                wire:click='printCard()'>Imprimir</span>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
 
                         </div>

@@ -54,7 +54,8 @@
         <div style="text-align:justify;text-indent:1.5em;">
             <strong>DECLARO</strong>, para os devidos fins, que {{ $student->name }}, nascid{{ $article }} em
             {{ $birth }}, na cidade de {{ $student->city_birth }} - {{ $student->state_birth }},
-            filh{{ $article }} de {{ $student->mom }} e {{ $student->dad }}, está matriculad{{ $article }} e
+            filh{{ $article }} de {{ $student->mom }} {{ $student->dad ?? 'e ' }}{{ $student->dad }}, está
+            matriculad{{ $article }} e
             frequentará o {{ strtolower($student->al_class->classGrade->name) }} do Ensino {{ $level }} neste
             Estabelecimento de Ensino no ano letivo de {{ date('Y') }}, com atividades presenciais compreendidas
             no período de 09 de Fevereiro a 30 de Dezembro de {{ date('Y') }}.

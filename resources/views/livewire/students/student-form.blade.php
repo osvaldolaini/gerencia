@@ -226,8 +226,6 @@
 
                                             <span>Ano escolar </span>
                                         </li>
-
-
                                         <li>
                                             @if ($student?->mom or $student?->dad)
                                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -284,12 +282,16 @@
                                         </li>
                                     </ul>
                                     @if (
-                                        $student?->al_class?->classGrade || $student?->birthday || $student?->city_birth || $student?->mom or
-                                            $student?->dad)
-                                        <div class="mt-6">
-                                            <span class="flex btn btn-primary btn-block"
-                                                wire:click='printRegistration()'>Imprimir</span>
-                                        </div>
+                                        $student?->al_class?->classGrade and
+                                            $student?->al_class?->classGrade and
+                                            $student?->birthday and
+                                            $student?->city_birth)
+                                        @if ($student?->mom or $student?->dad)
+                                            <div class="mt-6">
+                                                <span class="flex btn btn-primary btn-block"
+                                                    wire:click='printRegistration()'>Imprimir</span>
+                                            </div>
+                                        @endif
                                     @endif
                                 </div>
                             </div>

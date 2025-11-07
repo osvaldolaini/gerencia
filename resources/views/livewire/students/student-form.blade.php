@@ -284,7 +284,8 @@
                                         </li>
                                     </ul>
                                     <div class="mt-6">
-                                        <button class="btn btn-primary btn-block">Imprimir</button>
+                                        <button class="btn btn-primary btn-block"
+                                            wire:click='printRegistration()'>Imprimir</button>
                                     </div>
                                 </div>
                             </div>
@@ -321,4 +322,15 @@
             Salvar e sair
         </button>
     </div>
+    @section('scripts')
+        <script>
+            document.addEventListener('livewire:init', () => {
+                Livewire.on('openPdfRegistration', ({
+                    pdfPath
+                }) => {
+                    window.open(pdfPath, '_blank');
+                })
+            })
+        </script>
+    @endsection
 </div>

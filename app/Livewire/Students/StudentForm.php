@@ -5,11 +5,18 @@ namespace App\Livewire\Students;
 use App\Models\Peoples;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Admin\Settings\Settings;
+
+use App\Traits\HandlesTmpUploads;
 
 class StudentForm extends Component
 {
+
+    use HandlesTmpUploads;
     public $rules;
 
     public $back = 'student-list';
@@ -133,13 +140,83 @@ class StudentForm extends Component
     {
         $this->dispatch('openAlert', $status, $msg);
     }
-    // public function updated($property)
-    // {
-    //     if ($property === 'grau') {
-    //         if ($this->grau > 10.00) {
-    //             $this->dispatch('openAlert', 'error', 'O valor não pode ser maior que 10,00');
-    //             $this->grau = 0.00;
-    //         }
-    //     }
-    // }
+    //Imprimir relação
+    public function printRegistration()
+    {
+        // dd($this->student);
+        //Apagar itens do diretório temporário
+        $this->clearTmpDirectory('public/pdf-tmp');
+
+        $config = Settings::find(1);
+
+        $logoPath = url('storage/logos/brasao-brasil-preto-e-branco.png');
+
+        // Crie uma instância do mPDF
+        $mpdf = new \Mpdf\Mpdf([
+            'mode'          => 'utf-8',
+            // 'orientation'        => 'P', //[P,L]
+            'format' => 'A4-P',
+            'margin_left'   => 15,
+            'margin_top'    => 25,
+            'default_font_size'  => 9,
+            'default_font'  => 'arial',
+        ]);
+        // dd($mpdf);
+        $html = view(
+            'livewire.students.student-registration-pdf',
+            [
+                'logoPath'          => $logoPath,
+                'title'             => 'Certidão de matrícula',
+                'student'           => $this->student,
+                'config'            => $config,
+                'responsible'       => Auth::user()->name,
+            ]
+        )->render();
+
+        // Adicione o conteúdo HTML ao PDF
+        $mpdf->SetHTMLHeader('
+                  <table width="100%">
+                      <tr >
+                          <td width="100%">
+                              <img width="50" src="' . $logoPath . '" alt="Logo">
+                          </td>
+                          <td width="100%">
+                              MINISTÉRIO DA DEFESA
+                          </td>
+                          <td width="100%">
+                              EXÉRCITO BRASILEIRO
+                          </td>
+                          <td width="100%">
+                              ' . $config->name . '
+                          </td>
+                          <td width="100%">
+                              ' . $config->nick . '
+                          </td>
+
+                      </tr>
+                  </table>
+                  ');
+        $mpdf->SetHTMLFooter('
+           <table width="100%">
+               <tr>
+                   <td width="66%">Impressão realizada em {DATE j/m/Y} às {DATE H:i:s}</td>
+                   <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
+               </tr>
+           </table>');
+        $mpdf->WriteHTML($html);
+
+        // Salve o PDF temporariamente
+        $file = trim('certidao_de_matricula_' . Str::uuid() . '.pdf');
+
+        if (!is_dir(storage_path('app/public/pdf-tmp'))) {
+            mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário
+        }
+
+        $down = storage_path('app/public/pdf-tmp/' . $file);
+        $pdfPath = url('storage/pdf-tmp/' . $file);
+
+        $mpdf->Output($down, 'F');
+
+        $this->dispatch('openPdfRegistration', pdfPath: $pdfPath);
+    }
 }

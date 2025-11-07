@@ -6,7 +6,7 @@
     <title>Legião de honra</title>
     <style>
         .container {
-            margin-top: 30px;
+
             padding-top: 40px;
             width: 100%;
         }
@@ -19,7 +19,7 @@
         .reports {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+
         }
 
         .text-center {
@@ -27,7 +27,7 @@
         }
 
         h2 {
-            margin-top: 50px;
+            margin-top: 5px;
         }
 
         th,
@@ -44,16 +44,20 @@
 </head>
 
 <body>
-
+    <p style="width: 100%;text-align:center;padding:0;">
+        <img width="100" src="{{ $legion }}" alt="Logo">
+    </p>
     <div class="container">
+
         <h2>Legião de honra</h2>
         <p>Data:{{ date('d/m/Y') }}</p>
 
         <table class="reports">
             <thead>
                 <tr>
-                    <th>Aluno</th>
+
                     <th class="text-center">Ano escolar</th>
+                    <th class="text-center">Aluno</th>
                     <th class="text-center">Ano entrada</th>
                     <th class="text-center">Local</th>
                     <th class="text-center">Comportamento</th>
@@ -62,12 +66,13 @@
             <tbody>
                 @foreach ($students as $student)
                     <tr>
-                        <td>{{ $student?->student->nick ?? $student?->oldSudents?->nick }}
-                            ({{ $student?->student->number ?? $student?->oldSudents?->number }})
-                        </td>
                         <td class="text-center">
                             {{ $student->grade ?? 'sem turma' }}
                         </td>
+                        <td class="text-center">{{ $student?->student->nick ?? $student?->oldSudents?->nick }}
+                            ({{ $student?->student->number ?? $student?->oldSudents?->number }})
+                        </td>
+
                         <td class="text-center">{{ $student->year ?? 'Não informado' }}</td>
                         <td class="text-center">{{ $student->local ?? 'Não informado' }}</td>
                         <td class="text-center"> {{ $student?->grau }}</td>

@@ -141,7 +141,7 @@ class LegionHonor extends Component
         $config = Settings::find(1);
 
         $logoPath = url('storage/logos-school/logo-header.png');
-        $legion = url('storage/logos-school/legion.png');
+        $legion = url('storage/logos/legiao-de-honra.png');
 
         // Crie uma instância do mPDF
         $mpdf = new \Mpdf\Mpdf([

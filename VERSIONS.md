@@ -1,5 +1,11 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.8.1 – 2025-11-08
+
+> Novidades
+
+-   Justificativa de falta impressa do sistema
+
 ## Versão Santos Dumont 1.8.0 – 2025-11-06
 
 > Novidades
@@ -7,7 +13,7 @@
 -   Legião de Honra
 -   Certificados (matricula e carteirinha)
 
-> Correções
+    > Correções
 
 -   Erro ao filtrar na lista de FO
 

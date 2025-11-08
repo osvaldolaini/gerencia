@@ -47,7 +47,6 @@ class SecondChance extends Component
                 $this->signature = false;
             }
         }
-        dd($this->signature);
     }
     public function render()
     {

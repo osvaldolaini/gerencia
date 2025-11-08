@@ -4,7 +4,7 @@
     setlocale(LC_TIME, 'pt_BR.UTF-8', 'pt_BR', 'Portuguese_Brazil');
     $date = DateTime::createFromFormat('Y-m-d', $student->birthday);
     $birth = strftime('%d de %B de %Y', $date->getTimestamp());
-    $article = $student->sex == 'f' ? 'a' : 'o';
+    $article = $student->sex == 'F' ? 'a' : 'o';
     $level = $student->al_class->classGrade->nick > 600 ? 'Fundamental' : 'Médio';
     $d = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
     $today = strftime('%d de %B de %Y', $d->getTimestamp());

@@ -140,7 +140,7 @@
 
     @foreach ($authorizations as $item)
         @php
-            $article = $item->fault->students->sex == 'f' ? 'a' : 'o';
+            $article = $item->fault->students->sex == 'F' ? 'a' : 'o';
         @endphp
         <div class="container">
             <table width="100%" style="text-align:center;">
@@ -172,7 +172,7 @@
             </table>
             <p style="font-size: 12pt;"><strong>JUSTIFICATIVA DE FALTA PARA REALIZAÇÃO DE 2º CHAMADA DE AP</strong></p>
             <div style="text-align: justify; text-indent:1.5em;font-size: 12pt;">
-                Informo que alun{{ $article }} nr {{ $item->fault->students->number }},
+                Informo que {{ $article }} alun{{ $article }} nr {{ $item->fault->students->number }},
                 nome {{ $item->fault->students->name }}
                 turma {{ $item->fault->students->al_class->title }},
                 faltou a AP {{ $item->number }}

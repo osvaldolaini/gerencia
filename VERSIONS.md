@@ -5,7 +5,7 @@
 > Novidades
 
 -   Legião de Honra
--   Certificados
+-   Certificados (matricula e carteirinha)
 
 > Correções
 

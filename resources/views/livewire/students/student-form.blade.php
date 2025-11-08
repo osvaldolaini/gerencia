@@ -200,7 +200,7 @@
                         @livewire('students.student-extra-activity', [$id])
                     </div>
                     <div id="tab6" x-show="activeTab === '#tab6'" wire:ignore>
-                        <div class="grid grid-cols-4 space-x-2">
+                        <div class="grid grid-cols-4 space-x-2" wire:poll.keep-alive>
                             <div class="col-span-1 shadow-sm card w-96 bg-base-100">
                                 <div class="card-body">
                                     <div class="flex justify-between">

@@ -226,4 +226,90 @@ class StudentForm extends Component
 
         $this->dispatch('openPdfRegistration', pdfPath: $pdfPath);
     }
+    //Imprimir relação
+    public function printCard()
+    {
+        // dd($this->student);
+        //Apagar itens do diretório temporário
+        $this->clearTmpDirectory('public/pdf-tmp');
+
+        $config = Settings::find(1);
+
+        $logoPath = url('storage/logos/brasao-brasil-preto-e-branco.png');
+
+        // Crie uma instância do mPDF
+        $mpdf = new \Mpdf\Mpdf([
+            'mode'          => 'utf-8',
+            // 'orientation'        => 'P', //[P,L]
+            'format' => 'A4-P',
+            'margin_left'   => 15,
+            'margin_top'    => 25,
+            'default_font_size'  => 9,
+            'default_font'  => 'arial',
+        ]);
+        // dd($mpdf);
+        $html = view(
+            'livewire.students.student-card-pdf',
+            [
+                'logoPath'          => $logoPath,
+                'title'             => 'Carteirinha estudantil',
+                'student'           => $this->student,
+                'config'            => $config,
+                'responsible'       => Auth::user()->name,
+            ]
+        )->render();
+
+        // Adicione o conteúdo HTML ao PDF
+        $mpdf->SetHTMLHeader('
+                  <table width="100%" style="text-align:center;">
+                        <tr >
+                            <td width="100%">
+                                <img width="50" src="' . $logoPath . '" alt="Logo">
+                            </td>
+                        </tr>
+                        <tr >
+                            <td width="100%">
+                                MINISTÉRIO DA DEFESA
+                            </td>
+                        </tr>
+                        <tr >
+                            <td width="100%">
+                                EXÉRCITO BRASILEIRO
+                            </td>
+                        </tr>
+                        <tr >
+                            <td width="100%">
+                              ' . $config->name . '
+                            </td>
+                        </tr>
+                        <tr >
+                            <td width="100%">
+                              ' . $config->nick . '
+                            </td>
+                        </tr>
+                  </table>
+                  ');
+        $mpdf->SetHTMLFooter('
+           <table width="100%">
+               <tr>
+                   <td width="66%">Impressão realizada em {DATE j/m/Y} às {DATE H:i:s}</td>
+                   <td width="33%" style="text-align: right;">{PAGENO}/{nbpg}</td>
+               </tr>
+           </table>');
+        $mpdf->WriteHTML($html);
+
+        // Salve o PDF temporariamente
+        $file = trim('carteirinha_estudantil' . Str::uuid() . '.pdf');
+
+        if (!is_dir(storage_path('app/public/pdf-tmp'))) {
+            mkdir(storage_path('app/public/pdf-tmp'), 0775, true); // Cria o diretório, incluindo os subdiretórios, se necessário
+        }
+
+        $down = storage_path('app/public/pdf-tmp/' . $file);
+        $pdfPath = url('storage/pdf-tmp/' . $file);
+
+        $mpdf->Output($down, 'F');
+
+        $this->dispatch('openPdfRegistration', pdfPath: $pdfPath);
+    }
 }

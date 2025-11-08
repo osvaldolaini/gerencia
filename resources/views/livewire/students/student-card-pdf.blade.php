@@ -55,17 +55,11 @@
             <strong><u>DECLARAÇÃO</u></strong>
         </p>
         <div style="text-align:justify;text-indent:1.5em;">
-            <strong>DECLARO</strong>, para os devidos fins, que <strong>{{ $student->name }}</strong>,
-            nascid{{ $article }} em
-            <strong>{{ $birth }}</strong>, na cidade de <strong>{{ $student->city_birth }} -
-                {{ $student->state_birth }}</strong>,
-            filh{{ $article }} de <strong>{{ $student->mom }}</strong>
-            {{ $student->dad ? 'e ' : '' }}<strong>{{ $student->dad }}</strong>, está
-            matriculad{{ $article }} e
-            frequentará o <strong>{{ strtolower($student->al_class->classGrade->name) }}</strong> do <strong>Ensino
-                {{ $level }}</strong> neste
-            Estabelecimento de Ensino no ano letivo de <strong>{{ date('Y') }}</strong>, com atividades presenciais
-            compreendidas
+            Declaro, para fins de confecção da Carteira Estudantil, que <strong>{{ $student->name }}</strong>
+            é alun{{ $article }} do <strong>{{ $config->name }}</strong> e está matriculado
+            no <strong>{{ strtolower($student->al_class->classGrade->name) }}</strong> do <strong>Ensino
+                {{ $level }}</strong>
+            no ano letivo de {{ date('Y') }}, com atividades presenciais compreendidas
             no período de 09 de Fevereiro a 30 de Dezembro de {{ date('Y') }}.
         </div>
         <div style="text-align:right;padding-top:50px;">

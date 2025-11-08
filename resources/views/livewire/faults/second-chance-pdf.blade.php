@@ -18,121 +18,18 @@
             line-height: 1.5;
         }
 
-        .break-page {
-            page-break-before: always;
-        }
-
         .container {
             width: 100%;
             border: 1px solid black;
-            margin-top: 20px;
+            padding: 5px;
         }
 
         p {
-            text-align: justify;
-            text-indent: 1.5cm;
-        }
-
-        .header {
-            width: 100%;
-            border: 1px solid black;
-        }
-
-        .header table {
-            padding: 10px;
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .header tr td {
-            padding-top: 10px;
-            padding-bottom: 10px;
-            text-align: center;
-            vertical-align: center;
-            font-weight: bold;
-        }
-
-        .identification {
-            width: 100%;
-            border: 1px solid black;
-        }
-
-        .identification table {
-            padding: 10px;
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .identification tr td {
-            text-align: left;
-            vertical-align: center;
-            padding-left: 5px;
-            font-weight: thin;
-        }
-
-        .title {
-            text-align: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .section {
-            margin-top: 10px;
-            padding: 5px;
-            border: 1px solid black;
-        }
-
-        .label {
-            font-weight: bold;
-        }
-
-        .signature {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .checkbox {
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            border: 1px solid black;
-            margin-right: 5px;
-        }
-
-        .small-text {
-            font-size: 10px;
-            text-align: justify;
-        }
-
-        .number {
-            font-weight: bold;
-            font-size: 12pt;
             width: 100%;
             text-align: center;
-            margin-top: 30px;
-            margin-bottom: 10px;
-        }
-
-        .assign {
-            border-top: 1px solid black;
-            width: 100%;
-            text-align: center;
-            padding: 30px;
-        }
-
-        .mt-0 {
-            margin-top: opx;
-        }
-
-        .pt-0 {
-            padding-top: opx;
-        }
-
-        .table-signature {
-            margin-top: 20px;
-            font-size: 12pt;
-            text-align: center;
-            width: 100%;
+            padding: 0;
+            margin: 0;
+            font-size: 8pt;
         }
     </style>
     <title>{{ $title }} </title>
@@ -145,74 +42,49 @@
             $article = $item->fault->students->sex == 'F' ? 'a' : 'o';
         @endphp
         <div class="container">
-            <table width="100%" style="text-align:center;">
-                <tr>
-                    <td width="100%">
-                        <img width="20" src="{{ $logoPath }}" alt="Logo">
-                    </td>
-                </tr>
-                <tr>
-                    <td width="100%">
-                        MINISTÉRIO DA DEFESA
-                    </td>
-                </tr>
-                <tr>
-                    <td width="100%">
-                        EXÉRCITO BRASILEIRO
-                    </td>
-                </tr>
-                <tr>
-                    <td width="100%">
-                        {{ $config->name }}
-                    </td>
-                </tr>
-                <tr>
-                    <td width="100%">
-                        {{ $item->fault->companies->name }}
-                    </td>
-                </tr>
-            </table>
-            <p style="font-size: 12pt;"><strong>JUSTIFICATIVA DE FALTA PARA REALIZAÇÃO DE 2º CHAMADA DE AP</strong></p>
-            <div style="text-align: justify; text-indent:1.5em;font-size: 12pt;">
-                Informo que {{ $article }} alun{{ $article }} nr {{ $item->fault->students->number }},
-                nome {{ $item->fault->students->name }}
-                turma {{ $item->fault->students->al_class->title }},
-                faltou a AP {{ $item->number }}
-                de {{ $item->discipline }}, no dia {{ $item->fault->date_view }},
-                por motivo <strong>justificado</strong>, estando autorizad{{ $article }} a realizar a 2º chamada.
+            <div>
+                <p>
+                    <img width="40" src="{{ $logoPath }}" alt="Logo">
+                </p>
+                <p>MINISTÉRIO DA DEFESA</p>
+                <p>EXÉRCITO BRASILEIRO</p>
+                <p>{{ $config->name }}</p>
+                <p>{{ $item->fault->companies->name }}</p>
 
+                <p style="font-size: 12pt;margin:5px;"><strong>JUSTIFICATIVA DE FALTA PARA REALIZAÇÃO DE 2º CHAMADA DE
+                        AP</strong></p>
+                <div style="text-align: justify; text-indent:1.5em;font-size: 12pt;">
+                    Informo que {{ $article }} alun{{ $article }} nr {{ $item->fault->students->number }},
+                    nome {{ $item->fault->students->name }},
+                    turma {{ $item->fault->students->al_class->title }},
+                    faltou a AP {{ $item->number }}
+                    de {{ $item->discipline }}, no dia {{ $item->fault->date_view }},
+                    por motivo <strong>justificado</strong>, estando autorizad{{ $article }} a realizar a 2º
+                    chamada.
+
+                </div>
+                <div style="text-align:right;padding-top:5px; font-size: 12pt;padding-bottom:0px; ">
+                    {{ $config->city }}-{{ $config->state }}, {{ $today }}.
+                </div>
             </div>
-            <div style="text-align:right;padding-top:20px; font-size: 12pt;">
-                {{ $config->city }}-{{ $config->state }}, {{ $today }}.
+
+            <div style="margin: 0px;padding:0px;margin-top: -50px;">
+                <p>
+                    @if ($signature)
+                        <img src="{{ $signature }}" style="width: 150px; margin-bottom: -50px;">
+                    @endif
+                </p>
+                <p style="border-top: solid 2px thin #000; width:100%;"></p>
+                <p>
+                    {{ $item->fault->companies->comandant->name }} -
+                    {{ MilitaryRank::from($item->fault->companies->comandant->posto_grad)->label() }}
+                </p>
+                <p>
+                    Comandante da {{ $item->fault->companies->name }}
+                </p>
             </div>
-            <table class="table-signature">
-                <tr>
-                    <td>
-
-                    </td>
-                    <td> {{-- Imagem da assinatura acima do texto --}}
-                        @if ($signature)
-                            <img src="{{ $signature }}" style="width: 150px; margin-bottom: -25px;">
-                        @endif
-                        <p style="border-top: solid thin #000; width:100%;"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-
-                    </td>
-                    <td> {{ $item->fault->companies->comandant->name }} -
-                        {{ MilitaryRank::from($item->fault->companies->comandant->posto_grad)->label() }}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Comandante da {{ $item->fault->companies->name }}</td>
-                </tr>
-            </table>
-
-
         </div>
-        <div style="margin-bottom: 10px;margin-top:10px;">
+        <div style="margin-bottom: 5px;margin-top:5px;">
             <svg viewBox="0 0 600 600" version="1.1" id="svg9724" sodipodi:docname="cut.svg"
                 inkscape:version="1.2.2 (1:1.2.2+202212051550+b0a8486541)" width="15" height="15"
                 xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"

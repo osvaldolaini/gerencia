@@ -76,7 +76,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td>{{ $config->signature->name }}</td>
+                <td>{{ $config->signature?->name ?? '' }}</td>
             </tr>
             <tr>
                 <td></td>

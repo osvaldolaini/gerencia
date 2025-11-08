@@ -28,7 +28,7 @@ class SincomilDate extends Component
 
     public function updatedSincomilDate($faults)
     {
-        $fact = FactObserved::updateOrCreate([
+        FactObserved::updateOrCreate([
             'id'    => $this->id,
         ], [
             'sincomil_date'            => $this->sincomil_date,

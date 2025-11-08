@@ -36,6 +36,7 @@ use App\Livewire\Faults\SchoolFaultForm;
 use App\Livewire\Faults\SchoolFaultJustified;
 use App\Livewire\Faults\SchoolFaultList;
 use App\Livewire\Faults\SchoolFaultListSendMail;
+use App\Livewire\Faults\SecondChance;
 use App\Livewire\Peoples\PeopleForm;
 use App\Livewire\Peoples\PeopleList;
 use App\Livewire\Settings\Companies\CompanyForm;
@@ -344,6 +345,9 @@ Route::middleware([
 
     Route::get('/faltas-escolares/alunos-com-mais-faltas', SchoolFaultListSendMail::class)
         ->name('school-faults-more');
+
+    Route::get('/faltas-escolares/{school_faults}/segunda-chamada', SecondChance::class)
+        ->name('school-faults-second-call');
 });
 
 Route::middleware([

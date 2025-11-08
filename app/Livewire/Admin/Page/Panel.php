@@ -36,9 +36,9 @@ class Panel extends Component
         }
         $this->config = Settings::find(1);
 
-        if (Auth::user()->panel == 'user') {
-            $this->redirect('aplicativo');
-        }
+        // if (Auth::user()->panel == 'user') {
+        //     $this->redirect('aplicativo');
+        // }
 
         $this->students = Peoples::where('active', 1)->where('type', 1)->get()->count();
         $this->school_grades = SchoolGrades::where('active', 1)->orderBy('nick', 'asc')->get();

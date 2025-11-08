@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Admin\Settings\Settings;
+use App\Models\Settings\Companies;
 use App\Traits\HandlesTmpUploads;
 
 class SecondChance extends Component
@@ -28,11 +29,25 @@ class SecondChance extends Component
 
     public $number;
     public $discipline_call;
+    public $signature;
 
     public function mount(SchoolFaults $school_faults)
     {
         $this->authorizations = $school_faults->secondCall;
         $this->school_faults = $school_faults;
+
+        if ($school_faults->companies->id) {
+            $company = Companies::find($school_faults->companies->id);
+            $files = Storage::files('public/companies/' . $company->id . '/signature');
+            if ($files) {
+                $signature = explode('/', $files[0]);
+                // dd($signature[4]);
+                $this->signature = url('storage/companies/' . $company->id . '/signature/' . $signature[4]); // Nome do arquivo
+            } else {
+                $this->signature = false;
+            }
+        }
+        dd($this->signature);
     }
     public function render()
     {
@@ -85,6 +100,7 @@ class SecondChance extends Component
                 'title'             => 'Autorizações de 2º chamada de AP',
                 'authorizations'          => $this->authorizations,
                 'config'            => $config,
+                'signature'            => $this->signature,
                 'responsible'       => Auth::user()->name,
             ]
         )->render();

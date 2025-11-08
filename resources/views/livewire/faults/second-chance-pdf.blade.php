@@ -195,7 +195,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td>
+                        {{-- Imagem da assinatura acima do texto --}}
+                        @if ($signature)
+                            <img src="{{ $signature }}" style="width: 150px; margin-bottom: -25px;">
+                        @endif
+                    </td>
                     <td> {{ $item->fault->companies->comandant->name }} -
                         {{ MilitaryRank::from($item->fault->companies->comandant->posto_grad)->label() }}</td>
                 </tr>

@@ -4,7 +4,9 @@
     $d = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
     $today = strftime('%d de %B de %Y', $d->getTimestamp());
 
+    use App\Enums\MilitaryRank;
 @endphp
+
 
 <head>
     <meta charset="UTF-8">
@@ -177,7 +179,7 @@
                 turma {{ $item->fault->students->al_class->title }},
                 faltou a AP {{ $item->number }}
                 de {{ $item->discipline }}, no dia {{ $item->fault->date_view }},
-                por motivo <strong>justificado </strong>, estando autorizad{{ $article }} a realizar a 2º chamada.
+                por motivo <strong>justificado</strong>, estando autorizad{{ $article }} a realizar a 2º chamada.
 
             </div>
             <div style="text-align:right;padding-top:20px; font-size: 12pt;">
@@ -194,7 +196,8 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td> {{ $item->fault->companies->comandant->name }} </td>
+                    <td> {{ $item->fault->companies->comandant->name }} -
+                        {{ MilitaryRank::from($item->fault->companies->comandant->posto_grad)->label() }}</td>
                 </tr>
                 <tr>
                     <td></td>

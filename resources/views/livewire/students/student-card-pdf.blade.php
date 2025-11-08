@@ -50,11 +50,11 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="padding:5px;">
         <p style="text-align: center;">
             <strong><u>DECLARAÇÃO</u></strong>
         </p>
-        <div style="text-align:justify;text-indent:1.5em;">
+        <div style="text-align:justify;text-indent:1.5em;margin:5px;">
             Declaro, para fins de confecção da Carteira Estudantil, que <strong>{{ $student->name }}</strong>
             é alun{{ $article }} do <strong>{{ $config->name }}</strong> e está matriculado
             no <strong>{{ strtolower($student->al_class->classGrade->name) }}</strong> do <strong>Ensino

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 @php
-    use App\Enums\MilitaryRank;
+    setlocale(LC_TIME, 'pt_BR.UTF-8', 'pt_BR', 'Portuguese_Brazil');
+    $d = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
+    $today = strftime('%d de %B de %Y', $d->getTimestamp());
+
 @endphp
 
 <head>
@@ -122,6 +125,13 @@
         .pt-0 {
             padding-top: opx;
         }
+
+        .table-signature {
+            margin-top: 20px;
+            font-size: 12pt;
+            text-align: center;
+            width: 100%;
+        }
     </style>
     <title>{{ $title }} </title>
 </head>
@@ -129,33 +139,71 @@
 <body>
 
     @foreach ($authorizations as $item)
-        <table width="100%" style="text-align:center;" class="container">
-            <tr>
-                <td width="100%">
-                    <img width="20" src="{{ $logoPath }}" alt="Logo">
-                </td>
-            </tr>
-            <tr>
-                <td width="100%">
-                    MINISTÉRIO DA DEFESA
-                </td>
-            </tr>
-            <tr>
-                <td width="100%">
-                    EXÉRCITO BRASILEIRO
-                </td>
-            </tr>
-            <tr>
-                <td width="100%">
-                    {{ $config->name }}
-                </td>
-            </tr>
-            <tr>
-                <td width="100%">
-                    CIA
-                </td>
-            </tr>
-        </table>
+        @php
+            $article = $item->fault->students->sex == 'f' ? 'a' : 'o';
+        @endphp
+        <div class="container">
+            <table width="100%" style="text-align:center;">
+                <tr>
+                    <td width="100%">
+                        <img width="20" src="{{ $logoPath }}" alt="Logo">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100%">
+                        MINISTÉRIO DA DEFESA
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100%">
+                        EXÉRCITO BRASILEIRO
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100%">
+                        {{ $config->name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100%">
+                        {{ $item->fault->companies->name }}
+                    </td>
+                </tr>
+            </table>
+            <p style="font-size: 12pt;"><strong>JUSTIFICATIVA DE FALTA PARA REALIZAÇÃO DE 2º CHAMADA DE AP</strong></p>
+            <div style="text-align: justify; text-indent:1.5em;font-size: 12pt;">
+                Informo que alun{{ $article }} nr {{ $item->fault->students->number }},
+                nome {{ $item->fault->students->name }}
+                turma {{ $item->fault->students->al_class->title }},
+                faltou a AP {{ $item->number }}
+                de {{ $item->discipline }}, no dia {{ $item->fault->date_view }},
+                por motivo <strong>justificado </strong>, estando autorizad{{ $article }} a realizar a 2º chamada.
+
+            </div>
+            <div style="text-align:right;padding-top:20px; font-size: 12pt;">
+                {{ $config->city }}-{{ $config->state }}, {{ $today }}.
+            </div>
+            <table class="table-signature">
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        <p style="border-top: solid thin #000; width:100%;"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td> {{ $item->fault->companies->comandant->name }} </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Comandante da {{ $item->fault->companies->name }}</td>
+                </tr>
+            </table>
+
+
+        </div>
         <div style="margin-bottom: 10px;margin-top:10px;">
             <svg viewBox="0 0 600 600" version="1.1" id="svg9724" sodipodi:docname="cut.svg"
                 inkscape:version="1.2.2 (1:1.2.2+202212051550+b0a8486541)" width="15" height="15"

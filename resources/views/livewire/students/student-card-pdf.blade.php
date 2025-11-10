@@ -50,7 +50,7 @@
 </head>
 
 <body>
-    <div class="container" style="padding:5px;">
+    <div class="container">
         <p style="text-align: center;">
             <strong><u>DECLARAÇÃO</u></strong>
         </p>

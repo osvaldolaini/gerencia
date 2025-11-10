@@ -4,19 +4,19 @@
             <div class="p-0 tooltip tooltip-top" wire:click='justify()' data-tip="Justificativa" wire:ignore>
                 <button
                     class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
-                    <x-layout.svg.pdf></x-layout.svg.pdf>
+                    <x-layout.svg.pdf class="w-8 h-8"></x-layout.svg.pdf>
                 </button>
             </div>
             <div class="p-0 tooltip tooltip-top" wire:click='solution()' data-tip="Solução" wire:ignore>
                 <button
                     class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
-                    <x-layout.svg.pdf></x-layout.svg.pdf>
+                    <x-layout.svg.pdf class="w-8 h-8"></x-layout.svg.pdf>
                 </button>
             </div>
             <div class="p-0 tooltip tooltip-top" wire:click='publi()' data-tip="Publicação" wire:ignore>
                 <button
                     class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
-                    <x-layout.svg.pdf></x-layout.svg.pdf>
+                    <x-layout.svg.pdf class="w-8 h-8"></x-layout.svg.pdf>
                 </button>
             </div>
         </div>
@@ -26,7 +26,7 @@
             <div class="p-0 tooltip tooltip-top" wire:click='allData()' data-tip="Todas" wire:ignore>
                 <button
                     class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
-                    <x-layout.svg.pdf></x-layout.svg.pdf>
+                    <x-layout.svg.pdf class="w-8 h-8"></x-layout.svg.pdf>
                 </button>
             </div>
         </div>

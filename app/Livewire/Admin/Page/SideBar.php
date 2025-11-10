@@ -9,6 +9,7 @@ use Livewire\Attributes\On;
 class SideBar extends Component
 {
     public $fo;
+    public $foo;
     #[On('update')]
     public function render()
     {

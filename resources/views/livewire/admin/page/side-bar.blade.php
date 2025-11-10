@@ -257,6 +257,8 @@
                             <div class="indicator" wire:click='view()'>
                                 @if ($fo > 0)
                                     <span class="indicator-item-bottom badge badge-error"></span>
+                                @elseif($foo > 0)
+                                    <span class="indicator-item-bottom badge badge-success"></span>
                                 @endif
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="w-6 h-6 ml-2 mr-2 text-gray-500 dark:text-gray-300" viewBox="0 0 48 48"

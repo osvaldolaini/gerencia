@@ -322,7 +322,7 @@
                                         </li>
 
                                     </ul>
-                                    @if ($student?->al_class?->classGrade)
+                                    @if ($student?->al_class)
                                         <div class="mt-6">
                                             <span class="flex btn btn-primary btn-block"
                                                 wire:click='printCard()'>Imprimir</span>

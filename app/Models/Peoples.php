@@ -171,8 +171,7 @@ class Peoples extends Model
             ->orderBy('created_at', 'asc')
             ->where('people_id', $this->id)->first();
         if ($studentClass) {
-            if ($studentClass->school_classes_id) {
-
+            if ($studentClass->class) {
                 return $studentClass->class;
             } else {
                 return false;

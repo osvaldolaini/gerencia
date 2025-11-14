@@ -208,7 +208,7 @@
                                     </div>
                                     <ul class="flex flex-col gap-2 mt-6 text-xs">
                                         <li>
-                                            @if ($student?->al_class?->classGrade)
+                                            @if ($student?->al_class)
                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                     class="inline-block size-4 me-2 text-success" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -281,11 +281,7 @@
                                             <span>Data de nascimento </span>
                                         </li>
                                     </ul>
-                                    @if (
-                                        $student?->al_class?->classGrade and
-                                            $student?->al_class?->classGrade and
-                                            $student?->birthday and
-                                            $student?->city_birth)
+                                    @if ($student?->al_class and $student?->al_class and $student?->birthday and $student?->city_birth)
                                         @if ($student?->mom or $student?->dad)
                                             <div class="mt-6">
                                                 <span class="flex btn btn-primary btn-block"
@@ -302,7 +298,7 @@
                                     </div>
                                     <ul class="flex flex-col gap-2 mt-6 text-xs">
                                         <li>
-                                            @if ($student?->al_class?->classGrade)
+                                            @if ($student?->al_class)
                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                     class="inline-block size-4 me-2 text-success" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">

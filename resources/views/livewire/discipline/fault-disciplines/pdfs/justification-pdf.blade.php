@@ -181,7 +181,7 @@
                 <tr>
                     <td colspan="4" style="border-top: 1px solid black;">
                         {{ $fault_discipline->fact }}
-                        @if ($fault_discipline->fact_type == 'negativo')
+                        {{-- @if ($fault_discipline->fact_type == 'negativo')
                             ({{ count($fault_discipline->json_faults) > 0 ? 'itens' : 'item' }}
                             @if (is_array($fault_discipline->json_faults) && count($fault_discipline->json_faults) > 0)
                                 @foreach ($fault_discipline->json_faults as $key => $item)
@@ -193,7 +193,7 @@
                                 @endforeach
                             @endif do
                             apêndice 1 do anexo F do RICM 2024)
-                        @endif
+                        @endif --}}
 
                     </td>
                 </tr>

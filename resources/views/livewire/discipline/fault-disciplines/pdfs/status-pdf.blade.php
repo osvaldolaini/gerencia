@@ -300,13 +300,12 @@
                                 @endif
                             </td>
                         @endif
-
-
                     </tr>
                 @endforeach
                 <tr class="border">
                     <td colspan="4" class="text-right border">Total</td>
                     <td class="text-center border">{{ $c }}</td>
+                    <td colspan="7" class="text-right border">Total</td>
                 </tr>
             </table>
         @endif

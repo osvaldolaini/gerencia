@@ -86,11 +86,13 @@
     @php
 
         // Agrupa por 'decision' e conta
-        $penaltiesCount = $data->groupBy('decision')->map->count();
+        $penaltiesCount = $data->where('active', 1)->groupBy('decision')->map->count();
         $load = $data->where('decision', '')->where('active', 1)->count();
+        $inactive = $data->where('active', 1)->count();
 
         // Monta resumo baseado no Enum (mantendo ordem)
         $penaltySummary = [];
+
         foreach (Penalty::cases() as $penalty) {
             $penaltySummary[$penalty->label()] = $penaltiesCount[$penalty->value] ?? 0;
         }
@@ -122,7 +124,7 @@
                     </tr>
                     <tr>
                         <td style="text-align:right; font-weight:bold;">TOTAL</td>
-                        <td style="text-align:center; font-weight:bold;">{{ $totalPenalties + $load }}</td>
+                        <td style="text-align:center; font-weight:bold;">{{ $totalPenalties + $load + $inactive }}</td>
                     </tr>
                 </tbody>
             </table>

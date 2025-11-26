@@ -95,9 +95,8 @@
 
         foreach (Penalty::cases() as $penalty) {
             $penaltySummary[$penalty->label()] = $penaltiesCount[$penalty->value] ?? 0;
-            $penaltySummary['Excluídos'] = $inactive;
         }
-
+        $penaltySummary['Excluídos'] = $inactive;
         $totalPenalties = array_sum($penaltySummary);
     @endphp
     <!-- Página de capa -->

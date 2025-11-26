@@ -87,7 +87,7 @@
 
         // Agrupa por 'decision' e conta
         $penaltiesCount = $data->groupBy('decision')->map->count();
-        $load = $data->where('decision', '')->count();
+        $load = $data->where('decision', '')->where('active', 1)->count();
 
         // Monta resumo baseado no Enum (mantendo ordem)
         $penaltySummary = [];

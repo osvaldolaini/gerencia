@@ -248,7 +248,7 @@
             <table class="turmas-table">
                 <tr class="class" style="font-size: 8pt;">
                     <td class="text-left border">FAFD Nº</td>
-                    <td class="text-left border">Status</td>
+                    {{-- <td class="text-left border">Status</td> --}}
                     <td class="text-left border">Aluno</td>
                     <td class="text-left border">Turma</td>
                     <td class="text-left border">Abertura</td>
@@ -267,8 +267,8 @@
                         @if ($fafd->active == 0) style="background-color:#f00;font-size: 8pt;" @endif>
                         <td class="text-left border" style="font-size: 8pt;">{{ $fafd->number }}/{{ $fafd->year }}
                         </td>
-                        <td class="text-left border" style="font-size: 8pt;">
-                            {{ $fafd->active == 1 ? 'Ativa' : 'Excluida' }}</td>
+                        {{-- <td class="text-left border" style="font-size: 8pt;">
+                            {{ $fafd->active == 1 ? 'Ativa' : 'Excluida' }}</td> --}}
                         <td class="text-left border" style="font-size: 8pt;">
                             {{ $fafd?->students?->nick ?? $fafd->al_nick }}
                             ({{ $fafd?->students?->number ?? $fafd->al_number }})

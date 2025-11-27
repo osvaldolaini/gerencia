@@ -3,7 +3,6 @@
 namespace App\Livewire\Settings\Pdf;
 
 use App\Models\Admin\Settings\Settings;
-use App\Models\Settings\ClassroomSeats;
 use App\Models\Settings\SchoolBattalions;
 use App\Models\Settings\SchoolClasses;
 use App\Models\Settings\SchoolGrades;
@@ -14,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Str;
+
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PlanilhaGrauView;
 
 class Buttons extends Component
 {
@@ -26,6 +28,7 @@ class Buttons extends Component
     public $print_battalion = false;
     public $print_classroom = false;
     public $print_grau = false;
+    public $print_grau_plan = false;
 
     public $school_classes;
     public $grade;
@@ -50,6 +53,7 @@ class Buttons extends Component
         $this->print_battalion      = $button == 'print_battalion' ?? true;
         $this->print_classroom      = $button == 'print_classroom' ?? true;
         $this->print_grau           = $button == 'print_grau' ?? true;
+        $this->print_grau_plan      = $button == 'print_grau_plan' ?? true;
 
         $this->battalion_id = SchoolBattalions::where('active', 1)->first();
         $this->company = $this->grade->getCompany;
@@ -363,5 +367,18 @@ class Buttons extends Component
         $mpdf->Output($down, 'F');
 
         $this->dispatch('openPdfInNewTabClasses', pdfPath: $pdfPath);
+    }
+    //Turmas
+    public function grau_plan()
+    {
+        return Excel::download(
+            new PlanilhaGrauView(
+                $this->school_classes,
+                $this->grade,
+                $this->company,
+                Settings::find(1)
+            ),
+            'planilha_comportamento_' . $this->grade->name . '.xlsx'
+        );
     }
 }

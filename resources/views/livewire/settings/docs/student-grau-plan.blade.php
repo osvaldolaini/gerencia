@@ -25,7 +25,8 @@
                             {{ $pivot?->students?->name }} ({{ $pivot?->students?->nick }})
                         </td>
                         <td>
-                            {{ $pivot?->students?->adjusted_grau }}
+                            {{ number_format($pivot?->students?->adjusted_grau, 2, ',', '') }}
+                            {{-- {{ $pivot?->students?->adjusted_grau }} --}}
                         </td>
                         <td>
                             {{ ucfirst(strtolower($pivot?->students?->grau_status)) }}

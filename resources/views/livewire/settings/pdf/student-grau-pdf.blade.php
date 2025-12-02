@@ -31,7 +31,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Comportamento do {{ $grade }}</title>
+    <title>Comportamento do {{ $grade->name }}</title>
     <style>
         /* .container {
             margin-top: 50px;

@@ -322,7 +322,7 @@ class Buttons extends Component
             [
                 'logoPath'          => $logoPath,
                 'school_classes'    => $this->school_classes,
-                'grade'             => $this->grade->name,
+                'grade'             => $this->grade,
                 'config'            => $config,
                 'companies'         => $this->company,
                 'subtext'           => 'Comportamento do ' . $this->grade->name,

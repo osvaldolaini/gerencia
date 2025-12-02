@@ -1,6 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 
+@php
+    setlocale(LC_TIME, 'pt_BR.UTF-8', 'pt_BR', 'Portuguese_Brazil');
+    $d = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
+    $today = strftime('%d de %B de %Y', $d->getTimestamp());
+    $level = $grade->nick > 600 ? 'Fundamental' : 'Médio';
+    switch ($grade->nick) {
+        case '200':
+            $order = 'b';
+            break;
+        case '300':
+            $order = 'c';
+            break;
+        case '700':
+            $order = 'b';
+            break;
+        case '800':
+            $order = 'c';
+            break;
+        case '900':
+            $order = 'd';
+            break;
+
+        default:
+            $order = 'a';
+            break;
+    }
+@endphp
+
 <head>
     <meta charset="UTF-8">
     <title>Comportamento do {{ $grade }}</title>
@@ -58,12 +86,17 @@
     <div class="container">
         <div>
             <table class="turmas-table">
-
                 <tr class="class">
-                    <td class="text-center border">NR</td>
-                    <td class="text-center border">NOME</td>
-                    <td class="text-center border">GRAU</td>
-                    <td class="text-center border">COMPORTAMENTO</td>
+                    <td colspan="4" class="text-center border">
+                        {{ $order }})) Em {{ $today }}, o(a) do {{ $grade->name }} do Ensino
+                        {{ $level }}, encontra-se com o seguinte grau e conceito de comportamento:
+                    </td>
+                </tr>
+                <tr class="class">
+                    <td class="text-center border">Nr</td>
+                    <td class="text-center border">Nome</td>
+                    <td class="text-center border">Grau</td>
+                    <td class="text-center border">Comportamento</td>
                 </tr>
                 @php
                     $c = 0;
@@ -76,10 +109,13 @@
                             @endphp
                             <tr class="class">
                                 <td class="text-center border">{{ $pivot?->students?->number }}</td>
-                                <td class="text-center border">{{ $pivot?->students?->name }} ({{ $pivot?->students?->nick }})</td>
+                                <td class="text-center border">{{ $pivot?->students?->name }}
+                                    ({{ $pivot?->students?->nick }})
+                                </td>
                                 {{-- <td class="text-center border">{{ $pivot?->students?->al_class->title }}</td> --}}
                                 <td class="text-center border">{{ $pivot?->students?->adjusted_grau }}</td>
-                                <td class="text-center border">{{ ucfirst(strtolower($pivot?->students?->grau_status)) }}</td>
+                                <td class="text-center border">
+                                    {{ ucfirst(strtolower($pivot?->students?->grau_status)) }}</td>
                             </tr>
                         @endif
                     @endforeach

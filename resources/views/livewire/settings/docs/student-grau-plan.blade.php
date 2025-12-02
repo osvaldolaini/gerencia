@@ -1,13 +1,38 @@
 @php
     setlocale(LC_TIME, 'pt_BR.UTF-8', 'pt_BR', 'Portuguese_Brazil');
-
     $d = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
     $today = strftime('%d de %B de %Y', $d->getTimestamp());
-
     $level = $grade->nick > 600 ? 'Fundamental' : 'Médio';
+    switch ($grade->nick) {
+        case '200':
+            $order = 'b';
+            break;
+        case '300':
+            $order = 'c';
+            break;
+        case '700':
+            $order = 'b';
+            break;
+        case '800':
+            $order = 'c';
+            break;
+        case '900':
+            $order = 'd';
+            break;
+
+        default:
+            $order = 'a';
+            break;
+    }
 @endphp
 <table>
     <thead>
+        <tr>
+            <td colspan="4">
+                {{ $order }})) Em {{ $today }}, o(a) do {{ $grade->name }} do Ensino
+                {{ $level }}, encontra-se com o seguinte grau e conceito de comportamento:
+            </td>
+        </tr>
         <tr>
             <td>Nr</td>
             <td>Nome</td>
@@ -16,12 +41,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td colspan="4">
-                a)) Em {{ $today }}, o(a) do {{ $grade->name }} do Ensino
-                {{ $level }}, encontra-se com o seguinte grau e conceito de comportamento:
-            </td>
-        </tr>
+
         @php
             $c = 0;
         @endphp

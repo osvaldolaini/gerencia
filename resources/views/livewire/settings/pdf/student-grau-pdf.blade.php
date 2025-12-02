@@ -87,7 +87,7 @@
         <div>
             <table class="turmas-table">
                 <tr class="class">
-                    <td colspan="4" class="text-center border">
+                    <td colspan="4" class="text-left border">
                         {{ $order }})) Em {{ $today }}, o(a) do {{ $grade->name }} do Ensino
                         {{ $level }}, encontra-se com o seguinte grau e conceito de comportamento:
                     </td>

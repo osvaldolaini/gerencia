@@ -1,7 +1,5 @@
 @php
     setlocale(LC_TIME, 'pt_BR.UTF-8', 'pt_BR', 'Portuguese_Brazil');
-    $date = DateTime::createFromFormat('Y-m-d', $student->birthday);
-    $birth = strftime('%d de %B de %Y', $date->getTimestamp());
 
     $d = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
     $today = strftime('%d de %B de %Y', $d->getTimestamp());

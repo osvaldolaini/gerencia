@@ -25,6 +25,15 @@
             break;
     }
 @endphp
+<style>
+    tr {
+        text-align: left;
+    }
+
+    tr td {
+        text-align: left;
+    }
+</style>
 <table>
     <thead>
         <tr>
@@ -35,7 +44,7 @@
         </tr>
         <tr>
             <td>Nr</td>
-            <td>Nome</td>
+            <td width="50%">Nome</td>
             <td>Grau</td>
             <td>Comportamento</td>
         </tr>

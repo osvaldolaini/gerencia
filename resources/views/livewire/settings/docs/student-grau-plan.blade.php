@@ -1,13 +1,29 @@
+@php
+    setlocale(LC_TIME, 'pt_BR.UTF-8', 'pt_BR', 'Portuguese_Brazil');
+    $date = DateTime::createFromFormat('Y-m-d', $student->birthday);
+    $birth = strftime('%d de %B de %Y', $date->getTimestamp());
+
+    $d = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
+    $today = strftime('%d de %B de %Y', $d->getTimestamp());
+
+    $level = $grade->nick > 600 ? 'Fundamental' : 'Médio';
+@endphp
 <table>
     <thead>
         <tr>
-            <td>NR</td>
-            <td>NOME</td>
-            <td>GRAU</td>
-            <td>COMPORTAMENTO</td>
+            <td>Nr</td>
+            <td>Nome</td>
+            <td>Grau</td>
+            <td>Comportamento</td>
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td colspan="4">
+                a)) Em {{ $today }}, o(a) do {{ $grade->name }} do Ensino
+                {{ $level }}, encontra-se com o seguinte grau e conceito de comportamento:
+            </td>
+        </tr>
         @php
             $c = 0;
         @endphp

@@ -28,7 +28,7 @@
                             <table cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td style="padding: 10px 0 0 0; font-family:arial;">
-                                        <h4>Senhor(a) Responsável, boa dia.</h4>
+                                        <h4>Senhor(a) Responsável!</h4>
                                         <p>
                                             Encaminho ao seu conhecimento a Ficha Individual do seu
                                             dependente.

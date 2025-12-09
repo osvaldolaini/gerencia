@@ -69,6 +69,21 @@
                     </td>
                 </tr>
             </table>
+            <table width="100%" margin-bottom="10px;">
+                <tr>
+                    <td colspan="2" style="font-size:16px;text-align:center;">
+                        Equipe de manutenção
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border" style="height: 40px;">
+
+                    </td>
+                    <td class="border">
+
+                    </td>
+                </tr>
+            </table>
             <div class="turma-wrapper">
                 <!-- Primeira Tabela -->
                 <table class="turmas-table">
@@ -145,11 +160,23 @@
                     </tr>
                 </table>
             </div>
+            <div>
+                <p>* O chefe de turma deverá apresentar a turma na aula</p>
+                <p>** O sub-chefe é o responsável pela chamada.</p>
+                <ul>
+                    <li>Tarefas dos chefes e da equipe de manutenção</li>
+                    <li>Organizar as cadeiras</li>
+                    <li>Recolher os lixos do chão</li>
+                    <li>Ligar/Desligar o computador e projetor</li>
+                    <li>A equipe</li>
+                </ul>
+            </div>
             @if (!$loop->last)
                 <pagebreak />
             @endif
         @endforeach
     </div>
+
 
 
 </body>

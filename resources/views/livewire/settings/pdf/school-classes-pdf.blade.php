@@ -52,7 +52,23 @@
 <body>
 
     <div class="container">
+
         @foreach ($school_classes as $class)
+            <table width="100%" margin-bottom="10px;">
+                <tr>
+                    <td colspan="2" style="font-size:16px;text-align:center;">
+                        Chefes de turma
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border" style="height: 40px;">
+
+                    </td>
+                    <td class="border">
+
+                    </td>
+                </tr>
+            </table>
             <div class="turma-wrapper">
                 <!-- Primeira Tabela -->
                 <table class="turmas-table">
@@ -62,7 +78,7 @@
                                 <span>{{ $class->title }}</span>
                             </small>
                         </th>
-                        <th>
+                        {{-- <th>
                             &nbsp;
                             &nbsp;
                             &nbsp;
@@ -71,7 +87,7 @@
                             <small>
                                 <span>{{ $class->title }}</span>
                             </small>
-                        </th>
+                        </th> --}}
                     </tr>
                     <tr class="w-full ">
                         <th class="w-20 text-center border">Nr</th>
@@ -81,14 +97,14 @@
                         <th class="w-10 text-center border">4ªf</th>
                         <th class="w-10 text-center border">5ªf</th>
                         <th class="w-10 text-center border">6ªf</th>
-                        <th style="width: 0rem;"></th>
+                        {{-- <th style="width: 0rem;"></th>
                         <th class="w-20 text-center border">Nr</th>
                         <th class="w-20 text-center border">Aluno</th>
                         <th class="w-10 text-center border">2ªf</th>
                         <th class="w-10 text-center border">3ªf</th>
                         <th class="w-10 text-center border">4ªf</th>
                         <th class="w-10 text-center border">5ªf</th>
-                        <th class="w-10 text-center border">6ªf</th>
+                        <th class="w-10 text-center border">6ªf</th> --}}
                     </tr>
                     @php
                         $c = 0;
@@ -106,14 +122,14 @@
                                 <td class="text-center border"></td>
                                 <td class="text-center border"></td>
                                 <td class="text-center border"></td>
-                                <td></td>
+                                {{-- <td></td>
                                 <td class="text-left border">{{ $pivot->students->number }}</td>
                                 <td class="text-left border">{{ $pivot->students->nick }}</td>
                                 <td class="text-center border"></td>
                                 <td class="text-center border"></td>
                                 <td class="text-center border"></td>
                                 <td class="text-center border"></td>
-                                <td class="text-center border"></td>
+                                <td class="text-center border"></td> --}}
                             </tr>
                         @endif
                     @endforeach
@@ -121,9 +137,9 @@
                     <tr class="">
                         <td colspan="6" class="text-right border">Total</td>
                         <td class="text-center border">{{ $c }}</td>
-                        <td></td>
+                        {{-- <td></td>
                         <td colspan="6" class="text-right border">Total</td>
-                        <td class="text-center border">{{ $c }}</td>
+                        <td class="text-center border">{{ $c }}</td> --}}
                     </tr>
 
                     </tr>

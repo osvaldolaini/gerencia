@@ -56,7 +56,7 @@ class SchoolClassesView extends Component
         $mpdf = new \Mpdf\Mpdf([
             'mode'          => 'utf-8',
             // 'orientation'        => 'P', //[P,L]
-            'format' => 'A4-L',
+            'format' => 'A4-P',
             'margin_left'   => 15,
             'margin_top'    => 15,
             'default_font_size'  => 9,
@@ -89,18 +89,8 @@ class SchoolClassesView extends Component
                         ' . $this->company->name . '<br>
                         Turmas do ' . $this->title . '
                     </td>
-                    <td width="6%">
 
-                    </td>
 
-                    <td width="22%">
-                        <img width="50" src="' . $logoPath . '" alt="Logo">
-                    </td>
-                    <td width="25%" style="text-align: right;">
-                        <strong>' . $config->name . '</strong><br>
-                        ' . $this->company->name . '<br>
-                        Turmas do ' . $this->title . '
-                    </td>
                 </tr>
             </table>
         ');

@@ -299,7 +299,10 @@
                         $dados = [];
 
                         foreach ($faultsOrdenadas as $fault) {
-                            $acumulado += $fault->qtd;
+                            if ($fault->justified != 2) {
+                                $acumulado += $fault->qtd;
+                            }
+
                             $percentual = number_format(
                                 ($acumulado / ($fault->students->company->workload ?? 1200)) * 100,
                                 2,

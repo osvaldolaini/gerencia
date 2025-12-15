@@ -328,7 +328,9 @@
                                 {{ $fault['qtd'] }}
                             </td>
                             <td class="text-center border-bottom">
-                                {{ $fault['justified'] }}
+                                @if ($fault->justified == 2)
+                                    *
+                                @endif {{ $fault['justified'] }}
                                 {{-- @if ($fault['justified'] == 0)
                                     <span class="badge badge-error">Não</span>
                                 @endif
@@ -343,6 +345,8 @@
                     @endforeach
 
                 </table>
+                <p>*As faltas abonadas são as de responsabilidade do colégio (ex: visitas de grêmios)</p>
+                <p>**Todas as faltas são computadas</p>
             @else
                 <div class="linha-tabela">Não possui</div>
             @endif

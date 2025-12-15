@@ -168,7 +168,6 @@
                     <li>Organizar as cadeiras</li>
                     <li>Recolher os lixos do chão</li>
                     <li>Ligar/Desligar o computador e projetor</li>
-                    <li>A equipe</li>
                 </ul>
             </div>
             @if (!$loop->last)

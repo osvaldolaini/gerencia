@@ -328,7 +328,7 @@
                                 {{ $fault['qtd'] }}
                             </td>
                             <td class="text-center border-bottom">
-                                @if ($fault->justified == 2)
+                                @if ($fault['justified'] == 'abonado')
                                     *
                                 @endif {{ $fault['justified'] }}
                                 {{-- @if ($fault['justified'] == 0)

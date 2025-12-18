@@ -122,6 +122,10 @@ class SchoolClasses extends Model
     {
         return $this->belongsTo(SchoolClassesYears::class, 'school_classes_year_id', 'id')->where('active', 1);
     }
+    public function AllClassYears(): BelongsTo
+    {
+        return $this->belongsTo(SchoolClassesYears::class, 'school_classes_year_id', 'id');
+    }
     public function classGrade(): BelongsTo
     {
         return $this->belongsTo(SchoolGrades::class, 'school_grade_id', 'id')->where('active', 1);

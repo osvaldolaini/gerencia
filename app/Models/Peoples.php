@@ -160,7 +160,7 @@ class Peoples extends Model
             ->orderBy('created_at', 'asc')
             ->where('people_id', $this->id)->first();
         if ($studentClass) {
-            return $studentClass->class->title . ' / ' . ($studentClass->class->classYears->year ?? 'Não informado');
+            return $studentClass->class->title . ' / ' . ($studentClass->class->AllClassYears->year ?? 'Não informado');
         } else {
             return false;
         }

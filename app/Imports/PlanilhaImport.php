@@ -22,7 +22,9 @@ class PlanilhaImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         if ($row['nr_do_aluno_00000'] != '*' && $row['nr_do_aluno_00000'] != '**') {
-            $students = Peoples::create([
+            $students = Peoples::updateOrCreate([
+                'number'    => $row['nr_do_aluno_00000'],
+            ], [
                 'active'    => 1,
                 'name'      => mb_strtoupper($row['nome_completo']),
                 'birthday'  => $this->convertDay($row['data_nascimento_ddmmaaaa']),
@@ -30,6 +32,11 @@ class PlanilhaImport implements ToModel, WithHeadingRow
                 'sex'       => mb_strtoupper($row['sexo_mf']),
                 'number'    => $row['nr_do_aluno_00000'],
                 'entry_date'  => $this->convertDay($row['data_ingresso_ddmmaaaa']),
+                'city_birth'    => $row['cidade_nascimento'],
+                'state_birth'    => $row['estado_nascimento'],
+                'dad'    => $row['nome_completo_pai'],
+                'mom'    => $row['nome_completo_mae'],
+                'number'    => $row['nr_do_aluno_00000'],
                 'type'      => 1,
                 'code'      => Str::uuid(),
             ]);

@@ -6,6 +6,10 @@
             <th>Nome aluno</th>
             <th>Data nascimento (dd/mm/aaaa)</th>
             <th>Sexo (M/F)</th>
+            <th>Cidade nascimento</th>
+            <th>Estado nascimento</th>
+            <th>Nome completo (pai)</th>
+            <th>Nome completo (mãe)</th>
             <th>Data Ingresso (dd/mm/aaaa)</th>
         </tr>
     </thead>

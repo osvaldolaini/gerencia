@@ -29,6 +29,7 @@ class PlanilhaImport implements ToModel, WithHeadingRow
                 'nick'      => mb_strtoupper($row['nome_aluno']),
                 'sex'       => mb_strtoupper($row['sexo_mf']),
                 'number'    => $row['nr_do_aluno_00000'],
+                'entry_date'  => $this->convertDay($row['data_ingresso_ddmmaaaa']),
                 'type'      => 1,
                 'code'      => Str::uuid(),
             ]);

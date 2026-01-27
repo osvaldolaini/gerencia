@@ -6,6 +6,7 @@
             <th>Nome aluno</th>
             <th>Data nascimento (dd/mm/aaaa)</th>
             <th>Sexo (M/F)</th>
+            <th>Data Ingresso (dd/mm/aaaa)</th>
         </tr>
     </thead>
     <tbody>

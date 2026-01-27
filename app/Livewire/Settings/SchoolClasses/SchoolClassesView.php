@@ -21,12 +21,15 @@ class SchoolClassesView extends Component
 
     public function mount(SchoolGrades $school_grades)
     {
+
         if ($school_grades->getAttributes()) {
+
             $this->title    = $school_grades->name;
             $this->id      = $school_grades->id;
             $this->company = $school_grades->getCompany;
             $this->classes = $school_grades->getClasses;
             $this->print = $school_grades->getClasses->pluck('id')->toArray();
+            // dd($school_grades->getClasses);
         }
     }
     public function render()

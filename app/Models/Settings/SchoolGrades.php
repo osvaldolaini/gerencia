@@ -95,7 +95,8 @@ class SchoolGrades extends Model
     }
     public function getClasses(): HasMany
     {
-        return $this->hasMany(SchoolClasses::class, 'school_grade_id', 'id');
+        $actived = SchoolClassesYears::where("active", 1)->first()->id;
+        return $this->hasMany(SchoolClasses::class, 'school_grade_id', 'id')->where('school_classes_year_id', $actived);
     }
 
     public function students_live($school_classes_year_id)

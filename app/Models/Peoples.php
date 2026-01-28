@@ -31,6 +31,7 @@ class Peoples extends Model
     use HasFactory, LogsActivity, HasAttributeConversions, HasAdjustedGrau;
 
     protected $table = 'peoples';
+    protected $actived = '';
 
     protected $fillable = [
         'active',
@@ -216,7 +217,19 @@ class Peoples extends Model
     }
     public function getTotalFaultsAttribute()
     {
-        return $this->faults->where('active', 1)->where('justified', '!=', 2)->sum('qtd');
+        // return $this->faults->where('active', 1)->where('justified', '!=', 2)->sum('qtd');
+        // $actived = now()->year;
+        $this->actived = now()->year;
+        if (SchoolClassesYears::where("active", 1)->first()) {
+            $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
+        }
+        return $this->faults
+            ->where('active', 1)
+            ->where('justified', '!=', 2)
+            ->filter(function ($fault) {
+                return \Carbon\Carbon::parse($fault->date)->year == $this->actived;
+            })
+            ->sum('qtd');
     }
     public function getTotalFaultsPercentAttribute()
     {

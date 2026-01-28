@@ -5,6 +5,7 @@
 > Correções
 
 -   Aparecendo turmas do ano anterior no momento de imprimir a chamada
+-   Percentual de faltas somente do ano
 
 ## Versão Santos Dumont 1.8.1 – 2025-11-08
 

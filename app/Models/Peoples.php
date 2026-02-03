@@ -158,7 +158,7 @@ class Peoples extends Model
     public function getPeopleClassAttribute()
     {
         $studentClass = SchoolClassesStudent::where('active', 1)
-            ->orderBy('created_at', 'asc')
+            ->orderBy('created_at', 'desc')
             ->where('people_id', $this->id)->first();
         if ($studentClass) {
             return $studentClass->class->title . ' / ' . ($studentClass->class->AllClassYears->year ?? 'Não informado');
@@ -169,7 +169,7 @@ class Peoples extends Model
     public function getAlClassAttribute()
     {
         $studentClass = SchoolClassesStudent::where('active', 1)
-            ->orderBy('created_at', 'asc')
+            ->orderBy('created_at', 'desc')
             ->where('people_id', $this->id)->first();
         if ($studentClass) {
             if ($studentClass->class) {
@@ -192,7 +192,7 @@ class Peoples extends Model
     public function getPeopleGradeAttribute()
     {
         $studentClass = SchoolClassesStudent::where('active', 1)
-            ->orderBy('created_at', 'asc')
+            ->orderBy('created_at', 'desc')
             ->where('people_id', $this->id)->first();
         if ($studentClass) {
             return $studentClass->class->school_grade_id;

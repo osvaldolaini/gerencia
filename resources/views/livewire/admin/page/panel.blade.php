@@ -67,6 +67,7 @@
             @endforeach
         @endif
         @livewire('discipline.panel.discipline-panel-card')
+
     </div>
     @if ($companies)
         <div class="flex flex-wrap sm:justify-center">

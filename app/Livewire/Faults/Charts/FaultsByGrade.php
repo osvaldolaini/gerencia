@@ -3,6 +3,7 @@
 namespace App\Livewire\Faults\Charts;
 
 use App\Models\Fault\SchoolFaults;
+use App\Models\Settings\SchoolClassesYears;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;

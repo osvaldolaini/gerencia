@@ -58,7 +58,7 @@
                                         {{-- {{ $fault->students->al_class->title }} --}}
                                         {{ $fault->students->al_class->title ?? 'Sem turma' }}
                                     </span>
-                                    {{ $fault->students->name }}
+                                    {{ $fault->students->name ?? '' }}
                                 </p>
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
                                     {{ \Carbon\Carbon::parse($fault->date)->format('d/m/Y') }}

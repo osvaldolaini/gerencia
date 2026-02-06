@@ -37,7 +37,7 @@ class FaultsPanel extends Component
                 $query->whereIn('companies_id', $companiesAccess);
             })
             ->where('active', 1)
-            $this->year = SchoolClassesYears::where("active", 1)->first()->year;
+            ->whereYear('date', $this->year)
             ->selectRaw('student_id, SUM(qtd) as total_faults')
             ->groupBy('student_id')
             ->orderByDesc('total_faults')

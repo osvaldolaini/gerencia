@@ -11,10 +11,14 @@ class FaultsByGrade extends Component
 {
     public $labels;
     public $data;
+    public $year;
 
 
     public function render()
     {
+        $this->year = now()->year;
+        $this->year = SchoolClassesYears::where("active", 1)->first()->year;
+
         $this->chart();
         return view('livewire.faults.charts.faults-by-grade');
     }
@@ -26,6 +30,8 @@ class FaultsByGrade extends Component
                 $query->whereIn('companies_id', $companiesAccess);
             })
             ->where('active', 1)
+
+            ->whereYear('date', $this->year)
             ->groupBy('school_grades_id')
             ->with('grades')
             ->get();

@@ -8,7 +8,7 @@
     $level = $student->al_class->classGrade->nick > 600 ? 'Fundamental' : 'Médio';
     $d = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
     $today = strftime('%d de %B de %Y', $d->getTimestamp());
-
+    use App\Enums\MilitaryRank;
 @endphp
 
 <head>
@@ -79,14 +79,43 @@
                 <td>
                     <p style="border-top: solid thin #000; width:100%;"></p>
                 </td>
+                <td>
+
+                </td>
             </tr>
+            {{-- <tr>
+                <td></td>
+                <td>{{ mb_strtoupper(MilitaryRank::fromDb($student->company?->comandant?->posto_grad)?->label() ?? '') }}
+                    {{ $config->signature?->name ?? '' }}</td>
+            </tr> --}}
             <tr>
                 <td></td>
-                <td>{{ $config->signature?->name ?? '' }}</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Adjunto do corpo de Alunos </td>
+                <td colspan="4" class="assign"
+                    style="border-top: 1px solid black;
+                    width: 100%;
+                    text-align: center;
+                    padding-top: 15px;">
+
+                    {{-- Imagem da assinatura acima do texto --}}
+                    {{-- @if ($signature)
+                        <img src="{{ $signature }}" style="width: 150px; margin-bottom: -25px;">
+                    @endif --}}
+
+
+                    {{-- Nome do comandante --}}
+                    <p style="margin: 0;">
+                        {{ mb_strtoupper(MilitaryRank::fromDb($student->company?->comandant?->posto_grad)?->label() ?? '') }}
+                        {{ $config->signature?->name ?? '' }}
+                    </p>
+
+                    {{-- Cargo abaixo --}}
+                    <p style="margin: 0;">
+                        COMANDANTE DA {{ mb_strtoupper($student->company?->name) }}
+                    </p>
+                </td>
+                <td>
+
+                </td>
             </tr>
         </table>
     </div>

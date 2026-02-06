@@ -26,7 +26,7 @@ class FaultDisciplineList extends Component
     public $model = "App\Models\Discipline\FaultDiscipline"; //Model principal
     public $modelId = "fault_disciplines.id"; //Ex: 'table.id' or 'id'
     public $search;
-    public $sorts = ['date' => 'asc', 'number' => 'desc'];
+    public $sorts = ['year' => 'asc', 'number' => 'desc'];
     public $relationTables = "peoples,peoples.id,fault_disciplines.student_id";  //Relacionamentos ( table , key , foreingKey )
     public $customSearch; //Colunas personalizadas, customizar no model
     public $columnsInclude = 'fault_disciplines.number,decision,peoples.logo_path,year,al_nick,fault_disciplines.student_id,al_number,al_class,fact_date,solution_date,delivered_date,justification_date,bi_date,sincomil_date,fault_disciplines.active as status';

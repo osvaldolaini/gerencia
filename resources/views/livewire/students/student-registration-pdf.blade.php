@@ -105,7 +105,7 @@
                     {{-- Nome do comandante --}}
                     <p style="margin: 0;">
                         {{ mb_strtoupper(MilitaryRank::fromDb($student->company?->comandant?->posto_grad)?->label() ?? '') }}
-                        {{ $config->signature?->name ?? '' }}
+                        {{ $student->company?->comandant?->name ?? '' }}
                     </p>
 
                     {{-- Cargo abaixo --}}

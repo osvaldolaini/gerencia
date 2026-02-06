@@ -401,7 +401,7 @@
                 </tr>
 
             </table>
-            <div style="margin-bottom: 10px;margin-top:10px;">
+            {{-- <div style="margin-bottom: 10px;margin-top:10px;">
                 <svg viewBox="0 0 600 600" version="1.1" id="svg9724" sodipodi:docname="cut.svg"
                     inkscape:version="1.2.2 (1:1.2.2+202212051550+b0a8486541)" width="15" height="15"
                     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -439,7 +439,7 @@
                 </svg>
 
                 <div style="width:100%;border-bottom:#333 1px dashed;top-20"></div>
-            </div>
+            </div> --}}
             {{-- <table class="identification">
                 <tr>
                     <td colspan="4" Style="font-weight: bold;text-align:center;border-top: 1px solid black;">

@@ -5,11 +5,11 @@
     $date = DateTime::createFromFormat('Y-m-d', $student->birthday);
     $birth = strftime('%d de %B de %Y', $date->getTimestamp());
     $article = $student->sex == 'F' ? 'a' : 'o';
-    $level = $student->al_class->classGrade->nick > 600 ? 'Fundamental' : 'Médio';
+    $level = $student->al_class->classGrade->nick >= 600 ? 'Fundamental' : 'Médio';
     $d = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
     $today = strftime('%d de %B de %Y', $d->getTimestamp());
     use App\Enums\MilitaryRank;
-    dd($level, $student->al_class->classGrade->nick);
+    // dd($level, $student->al_class->classGrade->nick);
 @endphp
 
 <head>

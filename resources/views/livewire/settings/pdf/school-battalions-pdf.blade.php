@@ -116,6 +116,26 @@
                                 @if ($total === 1)
                                     <tr>
                                         <td colspan="2" class="py-2 text-center border-b">
+                                            @if ($item->students)
+                                                @if ($item->students->code_image)
+                                                    <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
+                                                        class="student-image">
+                                                @else
+                                                    <img src="{{ Storage::url('ranks/fundo/default.png') }}"
+                                                        class="student-image">
+                                                @endif
+                                                <h3 class="font-semibold">Al. {{ $item->students->nick }}</h3>
+                                                <p>T. {{ $item->students->people_class }}</p>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @else
+                                    @if ($count % 2 == 0)
+                                        <tr>
+                                    @endif
+
+                                    <td class="w-1/2 py-2 text-center border-b">
+                                        @if ($item->students)
                                             @if ($item->students->code_image)
                                                 <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
                                                     class="student-image">
@@ -125,23 +145,7 @@
                                             @endif
                                             <h3 class="font-semibold">Al. {{ $item->students->nick }}</h3>
                                             <p>T. {{ $item->students->people_class }}</p>
-                                        </td>
-                                    </tr>
-                                @else
-                                    @if ($count % 2 == 0)
-                                        <tr>
-                                    @endif
-
-                                    <td class="w-1/2 py-2 text-center border-b">
-                                        @if ($item->students->code_image)
-                                            <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"
-                                                class="student-image">
-                                        @else
-                                            <img src="{{ Storage::url('ranks/fundo/default.png') }}"
-                                                class="student-image">
                                         @endif
-                                        <h3 class="font-semibold">Al. {{ $item->students->nick }}</h3>
-                                        <p>T. {{ $item->students->people_class }}</p>
                                     </td>
 
                                     @php $count++; @endphp

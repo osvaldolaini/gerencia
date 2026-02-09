@@ -8,7 +8,7 @@
     $level = $student->al_class->classGrade->nick >= 600 ? 'Fundamental' : 'Médio';
     $d = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
     $today = strftime('%d de %B de %Y', $d->getTimestamp());
-
+    use App\Enums\MilitaryRank;
 @endphp
 
 <head>

@@ -76,7 +76,7 @@
                 </div>
                 <!-- Listar os alunos dentro do posto -->
                 @foreach ($items->where('active', 1) as $item)
-                    @if ($item->people_id)
+                    @if ($item->students)
                         <div class="py-2 text-center border-b">
                             @if ($item->students->code_image)
                                 <img src="{{ url('storage/student/' . $item->students->id . '/' . $item->students->code_image . '_list.png') }}"

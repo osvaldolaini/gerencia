@@ -9,6 +9,7 @@
     $d = DateTime::createFromFormat('Y-m-d', date('Y-m-d'));
     $today = strftime('%d de %B de %Y', $d->getTimestamp());
     use App\Enums\MilitaryRank;
+    dd($level, $student->al_class->classGrade->nick);
 @endphp
 
 <head>

@@ -37,7 +37,7 @@ class Panel extends Component
         $this->config = Settings::find(1);
 
         foreach ($this->companies as $company) {
-            $this->students = +$company->students_live($this->school_years->id);
+            $this->students += $company->students_live($this->school_years->id);
         };
         // if (Auth::user()->panel == 'user') {
         //     $this->redirect('aplicativo');

@@ -287,14 +287,16 @@ class FaultDiscipline extends Model
         $year = now()->year;
         $year = SchoolClassesYears::where("active", 1)->first()->year;
 
+        $startOfYear = \Carbon\Carbon::create($year)->startOfYear();
+
         $reincident = $this->where('student_id', $student_id)
             // ->where('faults', 'LIKE', '%' . $number . '%')
             ->whereJsonContains('faults', (int) $number)
-
-            // ->whereYear('fact_date', $year)
-            ->where('fact_date', '<', $date)
             ->where('active', 1)
             ->where('decision', '!=', 'justificado')
+            // ->whereYear('fact_date', $year)
+            // ->endwhere('fact_date', '<', $date)
+            ->whereBetween('fact_date', [$startOfYear, $date])
             ->get()->count();
         return $reincident;
     }

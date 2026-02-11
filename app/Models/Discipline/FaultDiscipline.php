@@ -295,8 +295,8 @@ class FaultDiscipline extends Model
             ->where('active', 1)
             ->where('decision', '!=', 'justificado')
             // ->whereYear('fact_date', $year)
-            // ->endwhere('fact_date', '<', $date)
-            ->whereBetween('fact_date', [$startOfYear, $date])
+            ->endwhere('fact_date', '>', $date)
+            // ->whereBetween('fact_date', [$startOfYear, $date])
             ->get()->count();
         return $reincident;
     }

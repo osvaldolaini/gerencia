@@ -5,6 +5,7 @@ namespace App\Models\Discipline;
 use App\Models\Discipline\Settings\Faults;
 use App\Models\Peoples;
 use App\Models\Settings\Companies;
+use App\Models\Settings\SchoolClassesYears;
 use App\Traits\HasAttributeConversions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -168,10 +169,16 @@ class FactObserved extends Model
     }
     public function reincident($number, $date, $student_id)
     {
+        $year = now()->year;
+        $year = SchoolClassesYears::where("active", 1)->first()->year;
+
+        $startOfYear = \Carbon\Carbon::create($year)->startOfYear();
+
         $reincident = FactObserved::where('student_id', $student_id)
             // ->where('faults', 'LIKE', '%' . $number . '%')
             ->whereJsonContains('faults', (int) $number)
-            ->where('fact_date', '<', $date)
+            ->whereYear('fact_date', $year)
+            ->endwhere('fact_date', '<', $date)
             ->where('active', 1)
             ->get()->count();
         return $reincident;

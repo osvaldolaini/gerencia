@@ -26,7 +26,7 @@ class FaultObservedPanel extends Component
             ->latest()
             ->where('active', 1)
 
-            ->whereYear('date', $year)
+            ->whereYear('year', $year)
             ->take(10)
             ->get();
 
@@ -37,7 +37,7 @@ class FaultObservedPanel extends Component
             ->selectRaw('student_id, COUNT(*) as total')
             ->where('active', 1)
 
-            ->whereYear('date', $year)
+            ->whereYear('year', $year)
             ->groupBy('student_id')
             ->orderByDesc('total')
             ->with('students') // Certifique-se de que a relação está definida no model

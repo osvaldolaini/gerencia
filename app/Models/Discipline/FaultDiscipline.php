@@ -15,6 +15,7 @@ use Spatie\Activitylog\LogOptions;
 
 use Illuminate\Support\Carbon;
 use App\Enums\Penalty;
+use App\Models\Settings\SchoolClassesYears;
 
 class FaultDiscipline extends Model
 {
@@ -283,9 +284,14 @@ class FaultDiscipline extends Model
     }
     public function reincident($number, $date, $student_id)
     {
+        $year = now()->year;
+        $year = SchoolClassesYears::where("active", 1)->first()->year;
+
         $reincident = $this->where('student_id', $student_id)
             // ->where('faults', 'LIKE', '%' . $number . '%')
             ->whereJsonContains('faults', (int) $number)
+
+            ->whereYear('fact_date', $year)
             ->where('fact_date', '<', $date)
             ->where('active', 1)
             ->where('decision', '!=', 'justificado')

@@ -3,6 +3,7 @@
 namespace App\Livewire\Discipline\Panel;
 
 use App\Models\Discipline\FactObserved;
+use App\Models\Settings\SchoolClassesYears;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -13,6 +14,9 @@ class FaultObservedPanel extends Component
 
     public function render()
     {
+
+        $year = now()->year;
+        $year = SchoolClassesYears::where("active", 1)->first()->year;
         $companiesAccess = Auth::user()->json_companies;
         $this->recentFos = FactObserved::query()
             ->when(!in_array('all', $companiesAccess), function ($query) use ($companiesAccess) {
@@ -21,6 +25,8 @@ class FaultObservedPanel extends Component
             ->with(['students'])
             ->latest()
             ->where('active', 1)
+
+            ->whereYear('date', $year)
             ->take(10)
             ->get();
 
@@ -30,6 +36,8 @@ class FaultObservedPanel extends Component
             })
             ->selectRaw('student_id, COUNT(*) as total')
             ->where('active', 1)
+
+            ->whereYear('date', $year)
             ->groupBy('student_id')
             ->orderByDesc('total')
             ->with('students') // Certifique-se de que a relação está definida no model

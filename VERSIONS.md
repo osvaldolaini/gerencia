@@ -1,5 +1,11 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.8.3 – 2026-02-11
+
+> Correções
+
+-   Percentual de FAFD e FO somente do ano
+
 ## Versão Santos Dumont 1.8.2 – 2026-01-27
 
 > Correções

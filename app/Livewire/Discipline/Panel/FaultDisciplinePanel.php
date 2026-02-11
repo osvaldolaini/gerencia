@@ -5,6 +5,7 @@ namespace App\Livewire\Discipline\Panel;
 use App\Models\Admin\Settings\Settings;
 use App\Models\Discipline\FaultDiscipline;
 use App\Models\Peoples;
+use App\Models\Settings\SchoolClassesYears;
 use App\Traits\HandlesTmpUploads;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
@@ -35,13 +36,18 @@ class FaultDisciplinePanel extends Component
     }
     public function render()
     {
+        $year = now()->year;
+        $year = SchoolClassesYears::where("active", 1)->first()->year;
+
         $companiesAccess = Auth::user()->json_companies;
         $this->recentFafd = FaultDiscipline::query()
             ->when(!in_array('all', $companiesAccess), function ($query) use ($companiesAccess) {
                 $query->whereIn('company_id', $companiesAccess);
             })
+
             ->with(['students'])
             ->where('active', 1)
+            ->whereYear('date', $year)
             ->latest()
             ->take(10)
             ->get();
@@ -52,6 +58,7 @@ class FaultDisciplinePanel extends Component
             })
             ->selectRaw('student_id, COUNT(*) as total')
             ->where('active', 1)
+            ->whereYear('date', $year)
             ->groupBy('student_id')
             ->orderByDesc('total')
             ->with('students') // Certifique-se de que a relação está definida no model

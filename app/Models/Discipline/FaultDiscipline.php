@@ -291,7 +291,7 @@ class FaultDiscipline extends Model
             // ->where('faults', 'LIKE', '%' . $number . '%')
             ->whereJsonContains('faults', (int) $number)
 
-            ->whereYear('fact_date', $year)
+            // ->whereYear('fact_date', $year)
             ->where('fact_date', '<', $date)
             ->where('active', 1)
             ->where('decision', '!=', 'justificado')

@@ -12,6 +12,7 @@ use Livewire\Attributes\On;
 use App\Enums\Penalty;
 use App\Models\Discipline\FactObserved;
 use App\Models\Discipline\Settings\Faults;
+use App\Models\Settings\SchoolClassesYears;
 
 class FaultDisciplineEdit extends Component
 {
@@ -85,6 +86,8 @@ class FaultDisciplineEdit extends Component
 
     public function mount(FaultDiscipline $fault_discipline)
     {
+        $year = now()->year;
+        $year = SchoolClassesYears::where("active", 1)->first()->year;
         if ($fault_discipline->getAttributes()) {
             $this->note = $fault_discipline->note;
 
@@ -158,6 +161,7 @@ class FaultDisciplineEdit extends Component
             // Busca outras linhas do mesmo aluno
             $this->relatedFaults = FaultDiscipline::where('student_id', $fault_discipline->student_id)
                 ->where('id', '!=', $fault_discipline->id)
+                ->whereYear('fact_date', $year)
                 ->get()
                 ->flatMap(function ($row) {
                     $decoded = json_decode($row->faults);

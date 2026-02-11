@@ -178,7 +178,7 @@ class FactObserved extends Model
             // ->where('faults', 'LIKE', '%' . $number . '%')
             ->whereJsonContains('faults', (int) $number)
             ->whereYear('fact_date', $year)
-            ->endwhere('fact_date', '<', $date)
+            ->where('fact_date', '<', $date)
             ->where('active', 1)
             ->get()->count();
         return $reincident;

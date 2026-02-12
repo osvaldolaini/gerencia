@@ -97,47 +97,56 @@
             </table>
         </div> --}}
         @php
-            $students = collect();
+            /**
+             * Função auxiliar para montar as duas tabelas por sexo
+             */
+            function splitBySex($school_classes, $sex)
+            {
+                $students = collect();
 
-            foreach ($school_classes as $class) {
-                foreach ($class->studentsPivot as $pivot) {
-                    if (
-                        $pivot->active &&
-                        $pivot->students &&
-                        $pivot->students->active &&
-                        $pivot->students->sex === 'F'
-                    ) {
-                        $students->push($pivot);
+                foreach ($school_classes as $class) {
+                    foreach ($class->studentsPivot as $pivot) {
+                        if (
+                            $pivot->active &&
+                            $pivot->students &&
+                            $pivot->students->active &&
+                            $pivot->students->sex === $sex
+                        ) {
+                            $students->push($pivot);
+                        }
                     }
                 }
+
+                $students = $students->sortBy(fn($p) => $p->students->nick)->values();
+
+                $half = ceil($students->count() / 2);
+
+                return [
+                    'left' => $students->slice(0, $half),
+                    'right' => $students->slice($half),
+                    'total' => $students->count(),
+                ];
             }
 
-            $students = $students->sortBy(fn($p) => $p->students->nick)->values();
+            // Feminino
+            $female = splitBySex($school_classes, 'F');
 
-            $half = ceil($students->count() / 2);
-
-            $table1 = $students->slice(0, $half);
-            $table2 = $students->slice($half);
+            // Masculino
+            $male = splitBySex($school_classes, 'M');
         @endphp
-
-
         <table width="100%" cellpadding="5" cellspacing="0">
             <tr>
                 <th colspan="8" class="border header">
                     <small><span>Feminino</span></small>
                 </th>
             </tr>
+
             <tr>
 
                 {{-- COLUNA ESQUERDA --}}
                 <td width="50%" valign="top">
 
                     <table class="turmas-table" width="100%" cellpadding="5" cellspacing="0">
-                        {{-- <tr>
-                            <th colspan="4" class="border header">
-                                <small><span>Feminino</span></small>
-                            </th>
-                        </tr> --}}
                         <tr class="class">
                             <td class="border">Nr</td>
                             <td class="border">Aluna</td>
@@ -145,7 +154,7 @@
                             <td class="text-center border">P/F</td>
                         </tr>
 
-                        @foreach ($table1 as $pivot)
+                        @foreach ($female['left'] as $pivot)
                             <tr class="class">
                                 <td class="border">{{ $pivot->students->number }}</td>
                                 <td class="border">{{ $pivot->students->nick }}</td>
@@ -161,11 +170,6 @@
                 <td width="50%" valign="top">
 
                     <table class="turmas-table" width="100%" cellpadding="5" cellspacing="0">
-                        {{-- <tr>
-                            <th colspan="4" class="border header">
-                                <small><span>Feminino</span></small>
-                            </th>
-                        </tr> --}}
                         <tr class="class">
                             <td class="border">Nr</td>
                             <td class="border">Aluna</td>
@@ -173,7 +177,7 @@
                             <td class="text-center border">P/F</td>
                         </tr>
 
-                        @foreach ($table2 as $pivot)
+                        @foreach ($female['right'] as $pivot)
                             <tr class="class">
                                 <td class="border">{{ $pivot->students->number }}</td>
                                 <td class="border">{{ $pivot->students->nick }}</td>
@@ -189,45 +193,67 @@
         </table>
 
 
+
         <pagebreak />
         <div>
-            <table class="turmas-table">
-                <tr class="w-full py-5">
-                    <th colspan="4" class="border header">
-                        <small>
-                            <span>Masculino</span>
-                        </small>
+            <table width="100%" cellpadding="5" cellspacing="0" style="margin-top:20px;">
+                <tr>
+                    <th colspan="8" class="border header">
+                        <small><span>Masculino</span></small>
                     </th>
                 </tr>
-                <tr class="class">
-                    <td class="text-left border">Nr</td>
-                    <td class="text-left border">Aluno</td>
-                    <td class="text-left border">Turma</td>
-                    <td class="text-center border">P/F</td>
-                </tr>
-                @php
-                    $c = 0;
-                @endphp
-                @foreach ($school_classes as $class)
-                    @foreach ($class->studentsPivot->where('active', 1)->where('students.sex', 'M')->sortBy('students.nick') as $pivot)
-                        @if ($pivot->students->where('active', 1))
-                            @php
-                                $c += 1;
-                            @endphp
+
+                <tr>
+
+                    {{-- COLUNA ESQUERDA --}}
+                    <td width="50%" valign="top">
+
+                        <table class="turmas-table" width="100%" cellpadding="5" cellspacing="0">
                             <tr class="class">
-                                <td class="text-left border">{{ $pivot->students->number }}</td>
-                                <td class="text-left border">{{ $pivot->students->nick }}</td>
-                                <td class="text-left border">{{ $pivot->students->al_class->title }}</td>
-                                <td class="text-center border"></td>
+                                <td class="border">Nr</td>
+                                <td class="border">Aluno</td>
+                                <td class="border">Turma</td>
+                                <td class="text-center border">P/F</td>
                             </tr>
-                        @endif
-                    @endforeach
-                @endforeach
-                <tr class="border">
-                    <td colspan="3" class="text-right border">Total</td>
-                    <td class="text-center border">{{ $c }}</td>
+
+                            @foreach ($male['left'] as $pivot)
+                                <tr class="class">
+                                    <td class="border">{{ $pivot->students->number }}</td>
+                                    <td class="border">{{ $pivot->students->nick }}</td>
+                                    <td class="border">{{ $pivot->students->al_class->title }}</td>
+                                    <td class="text-center border"></td>
+                                </tr>
+                            @endforeach
+                        </table>
+
+                    </td>
+
+                    {{-- COLUNA DIREITA --}}
+                    <td width="50%" valign="top">
+
+                        <table class="turmas-table" width="100%" cellpadding="5" cellspacing="0">
+                            <tr class="class">
+                                <td class="border">Nr</td>
+                                <td class="border">Aluno</td>
+                                <td class="border">Turma</td>
+                                <td class="text-center border">P/F</td>
+                            </tr>
+
+                            @foreach ($male['right'] as $pivot)
+                                <tr class="class">
+                                    <td class="border">{{ $pivot->students->number }}</td>
+                                    <td class="border">{{ $pivot->students->nick }}</td>
+                                    <td class="border">{{ $pivot->students->al_class->title }}</td>
+                                    <td class="text-center border"></td>
+                                </tr>
+                            @endforeach
+                        </table>
+
+                    </td>
+
                 </tr>
             </table>
+
         </div>
     </div>
 </body>

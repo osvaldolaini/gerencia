@@ -102,6 +102,11 @@ class Peoples extends Model
             }
         });
     }
+
+    public function getNumberAttribute()
+    {
+        return str_pad($this->number, 5, '0', STR_PAD_LEFT);
+    }
     public function setUpperCaseAttributes(array $attributes)
     {
         foreach ($attributes as $attribute) {
@@ -257,6 +262,8 @@ class Peoples extends Model
             return $code[0];
         }
     }
+
+
     public function setTitle()
     {
         return $this->nick . ' (Turma ' . $this->people_class . ')';

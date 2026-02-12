@@ -134,69 +134,68 @@
             // Masculino
             $male = splitBySex($school_classes, 'M');
         @endphp
-        <table width="100%" cellpadding="5" cellspacing="0">
-            <tr>
-                <th colspan="8" class="border header">
-                    <small><span>Feminino</span></small>
-                </th>
-            </tr>
+        <div>
+            <table width="100%" cellpadding="4" cellspacing="0">
+                <tr>
+                    <th colspan="8" class="border header">
+                        <small><span>Feminino</span></small>
+                    </th>
+                </tr>
 
-            <tr>
+                <tr>
 
-                {{-- COLUNA ESQUERDA --}}
-                <td width="50%" valign="top">
+                    {{-- COLUNA ESQUERDA --}}
+                    <td width="50%" valign="top">
 
-                    <table class="turmas-table" width="100%" cellpadding="5" cellspacing="0">
-                        <tr class="class">
-                            <td class="border">Nr</td>
-                            <td class="border">Aluna</td>
-                            <td class="border">Turma</td>
-                            <td class="text-center border">P/F</td>
-                        </tr>
-
-                        @foreach ($female['left'] as $pivot)
+                        <table class="turmas-table" width="100%" cellpadding="4" cellspacing="0">
                             <tr class="class">
-                                <td class="border">{{ $pivot->students->number }}</td>
-                                <td class="border">{{ $pivot->students->nick }}</td>
-                                <td class="border">{{ $pivot->students->al_class->title }}</td>
-                                <td class="text-center border"></td>
+                                <td class="border">Nr</td>
+                                <td class="border">Aluna</td>
+                                <td class="border">Turma</td>
+                                <td class="text-center border">P/F</td>
                             </tr>
-                        @endforeach
-                    </table>
 
-                </td>
+                            @foreach ($female['left'] as $pivot)
+                                <tr class="class">
+                                    <td class="border">{{ $pivot->students->number }}</td>
+                                    <td class="border">{{ $pivot->students->nick }}</td>
+                                    <td class="border">{{ $pivot->students->al_class->title }}</td>
+                                    <td class="text-center border"></td>
+                                </tr>
+                            @endforeach
+                        </table>
 
-                {{-- COLUNA DIREITA --}}
-                <td width="50%" valign="top">
+                    </td>
 
-                    <table class="turmas-table" width="100%" cellpadding="5" cellspacing="0">
-                        <tr class="class">
-                            <td class="border">Nr</td>
-                            <td class="border">Aluna</td>
-                            <td class="border">Turma</td>
-                            <td class="text-center border">P/F</td>
-                        </tr>
+                    {{-- COLUNA DIREITA --}}
+                    <td width="50%" valign="top">
 
-                        @foreach ($female['right'] as $pivot)
+                        <table class="turmas-table" width="100%" cellpadding="4" cellspacing="0">
                             <tr class="class">
-                                <td class="border">{{ $pivot->students->number }}</td>
-                                <td class="border">{{ $pivot->students->nick }}</td>
-                                <td class="border">{{ $pivot->students->al_class->title }}</td>
-                                <td class="text-center border"></td>
+                                <td class="border">Nr</td>
+                                <td class="border">Aluna</td>
+                                <td class="border">Turma</td>
+                                <td class="text-center border">P/F</td>
                             </tr>
-                        @endforeach
-                    </table>
 
-                </td>
+                            @foreach ($female['right'] as $pivot)
+                                <tr class="class">
+                                    <td class="border">{{ $pivot->students->number }}</td>
+                                    <td class="border">{{ $pivot->students->nick }}</td>
+                                    <td class="border">{{ $pivot->students->al_class->title }}</td>
+                                    <td class="text-center border"></td>
+                                </tr>
+                            @endforeach
+                        </table>
 
-            </tr>
-        </table>
+                    </td>
 
-
-
+                </tr>
+            </table>
+        </div>
         <pagebreak />
         <div>
-            <table width="100%" cellpadding="5" cellspacing="0" style="margin-top:20px;">
+            <table width="100%" cellpadding="4" cellspacing="0" style="margin-top:20px;">
                 <tr>
                     <th colspan="8" class="border header">
                         <small><span>Masculino</span></small>
@@ -208,7 +207,7 @@
                     {{-- COLUNA ESQUERDA --}}
                     <td width="50%" valign="top">
 
-                        <table class="turmas-table" width="100%" cellpadding="5" cellspacing="0">
+                        <table class="turmas-table" width="100%" cellpadding="4" cellspacing="0">
                             <tr class="class">
                                 <td class="border">Nr</td>
                                 <td class="border">Aluno</td>
@@ -231,7 +230,7 @@
                     {{-- COLUNA DIREITA --}}
                     <td width="50%" valign="top">
 
-                        <table class="turmas-table" width="100%" cellpadding="5" cellspacing="0">
+                        <table class="turmas-table" width="100%" cellpadding="4" cellspacing="0">
                             <tr class="class">
                                 <td class="border">Nr</td>
                                 <td class="border">Aluno</td>
@@ -253,7 +252,6 @@
 
                 </tr>
             </table>
-
         </div>
     </div>
 </body>

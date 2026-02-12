@@ -96,6 +96,30 @@
                 </tr>
             </table>
         </div> --}}
+        @php
+            $students = collect();
+
+            foreach ($school_classes as $class) {
+                foreach ($class->studentsPivot as $pivot) {
+                    if (
+                        $pivot->active &&
+                        $pivot->students &&
+                        $pivot->students->active &&
+                        $pivot->students->sex === 'F'
+                    ) {
+                        $students->push($pivot);
+                    }
+                }
+            }
+
+            $students = $students->sortBy(fn($p) => $p->students->nick)->values();
+
+            $half = ceil($students->count() / 2);
+
+            $left = $students->slice(0, $half);
+            $right = $students->slice($half);
+        @endphp
+
         <div class="grid grid-cols-2 gap-4">
 
             {{-- COLUNA ESQUERDA --}}

@@ -116,9 +116,10 @@
 
             $half = ceil($students->count() / 2);
 
-            $left = $students->slice(0, $half);
-            $right = $students->slice($half);
+            $table1 = $students->slice(0, $half);
+            $table2 = $students->slice($half);
         @endphp
+
 
         <table width="100%" cellpadding="5" cellspacing="0">
             <tr>

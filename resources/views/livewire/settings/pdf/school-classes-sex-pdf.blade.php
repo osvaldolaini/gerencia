@@ -120,57 +120,68 @@
             $right = $students->slice($half);
         @endphp
 
-        <div class="grid grid-cols-2 gap-4">
+        <table width="100%" cellpadding="5" cellspacing="0">
+            <tr>
 
-            {{-- COLUNA ESQUERDA --}}
-            <table class="w-full turmas-table">
-                <tr>
-                    <th colspan="4" class="border header">
-                        <small><span>Feminino</span></small>
-                    </th>
-                </tr>
-                <tr class="class">
-                    <td class="border">Nr</td>
-                    <td class="border">Aluna</td>
-                    <td class="border">Turma</td>
-                    <td class="text-center border">P/F</td>
-                </tr>
+                {{-- COLUNA ESQUERDA --}}
+                <td width="50%" valign="top">
 
-                @foreach ($left as $pivot)
-                    <tr class="class">
-                        <td class="border">{{ $pivot->students->number }}</td>
-                        <td class="border">{{ $pivot->students->nick }}</td>
-                        <td class="border">{{ $pivot->students->al_class->title }}</td>
-                        <td class="text-center border"></td>
-                    </tr>
-                @endforeach
-            </table>
+                    <table class="turmas-table" width="100%" cellpadding="5" cellspacing="0">
+                        <tr>
+                            <th colspan="4" class="border header">
+                                <small><span>Feminino</span></small>
+                            </th>
+                        </tr>
+                        <tr class="class">
+                            <td class="border">Nr</td>
+                            <td class="border">Aluna</td>
+                            <td class="border">Turma</td>
+                            <td class="text-center border">P/F</td>
+                        </tr>
 
-            {{-- COLUNA DIREITA --}}
-            <table class="w-full turmas-table">
-                <tr>
-                    <th colspan="4" class="border header">
-                        <small><span>Feminino</span></small>
-                    </th>
-                </tr>
-                <tr class="class">
-                    <td class="border">Nr</td>
-                    <td class="border">Aluna</td>
-                    <td class="border">Turma</td>
-                    <td class="text-center border">P/F</td>
-                </tr>
+                        @foreach ($table1 as $pivot)
+                            <tr class="class">
+                                <td class="border">{{ $pivot->students->number }}</td>
+                                <td class="border">{{ $pivot->students->nick }}</td>
+                                <td class="border">{{ $pivot->students->al_class->title }}</td>
+                                <td class="text-center border"></td>
+                            </tr>
+                        @endforeach
+                    </table>
 
-                @foreach ($right as $pivot)
-                    <tr class="class">
-                        <td class="border">{{ $pivot->students->number }}</td>
-                        <td class="border">{{ $pivot->students->nick }}</td>
-                        <td class="border">{{ $pivot->students->al_class->title }}</td>
-                        <td class="text-center border"></td>
-                    </tr>
-                @endforeach
-            </table>
+                </td>
 
-        </div>
+                {{-- COLUNA DIREITA --}}
+                <td width="50%" valign="top">
+
+                    <table class="turmas-table" width="100%" cellpadding="5" cellspacing="0">
+                        <tr>
+                            <th colspan="4" class="border header">
+                                <small><span>Feminino</span></small>
+                            </th>
+                        </tr>
+                        <tr class="class">
+                            <td class="border">Nr</td>
+                            <td class="border">Aluna</td>
+                            <td class="border">Turma</td>
+                            <td class="text-center border">P/F</td>
+                        </tr>
+
+                        @foreach ($table2 as $pivot)
+                            <tr class="class">
+                                <td class="border">{{ $pivot->students->number }}</td>
+                                <td class="border">{{ $pivot->students->nick }}</td>
+                                <td class="border">{{ $pivot->students->al_class->title }}</td>
+                                <td class="text-center border"></td>
+                            </tr>
+                        @endforeach
+                    </table>
+
+                </td>
+
+            </tr>
+        </table>
+
 
         <pagebreak />
         <div>

@@ -123,16 +123,21 @@
 
         <table width="100%" cellpadding="5" cellspacing="0">
             <tr>
+                <th colspan="8" class="border header">
+                    <small><span>Feminino</span></small>
+                </th>
+            </tr>
+            <tr>
 
                 {{-- COLUNA ESQUERDA --}}
                 <td width="50%" valign="top">
 
                     <table class="turmas-table" width="100%" cellpadding="5" cellspacing="0">
-                        <tr>
+                        {{-- <tr>
                             <th colspan="4" class="border header">
                                 <small><span>Feminino</span></small>
                             </th>
-                        </tr>
+                        </tr> --}}
                         <tr class="class">
                             <td class="border">Nr</td>
                             <td class="border">Aluna</td>
@@ -156,11 +161,11 @@
                 <td width="50%" valign="top">
 
                     <table class="turmas-table" width="100%" cellpadding="5" cellspacing="0">
-                        <tr>
+                        {{-- <tr>
                             <th colspan="4" class="border header">
                                 <small><span>Feminino</span></small>
                             </th>
-                        </tr>
+                        </tr> --}}
                         <tr class="class">
                             <td class="border">Nr</td>
                             <td class="border">Aluna</td>

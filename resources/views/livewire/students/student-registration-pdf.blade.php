@@ -105,7 +105,7 @@
             <tr>
                 <td></td>
                 <td colspan="4"
-                    style="border-top: 1px solid black;
+                    style=";
                     width: 100%;
                     text-align: center;
                     padding-top: 15px;">

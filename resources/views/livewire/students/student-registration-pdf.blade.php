@@ -89,7 +89,7 @@
                 <td colspan="4">
                     {{-- Imagem da assinatura acima do texto --}}
                     @if ($signature)
-                        <img src="{{ $signature }}" style="width: 150px; margin-bottom: -25px;">
+                        <img src="{{ $signature }}" style="width: 150px; margin-bottom: -40px;">
                     @endif
                 </td>
                 <td></td>

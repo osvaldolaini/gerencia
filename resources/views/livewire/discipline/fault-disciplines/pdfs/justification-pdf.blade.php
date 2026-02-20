@@ -220,9 +220,9 @@
                         padding-top: 15px;">
 
                         {{-- Imagem da assinatura acima do texto --}}
-                        @if ($signature)
+                        {{-- @if ($signature)
                             <img src="{{ $signature }}" style="width: 150px; margin-bottom: -25px;">
-                        @endif
+                        @endif --}}
 
 
                         {{-- Nome do comandante --}}

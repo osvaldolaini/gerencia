@@ -47,6 +47,13 @@
             text-align: center;
             width: 100%;
         }
+
+        .assign {
+            border-top: 1px solid black;
+            width: 100%;
+            text-align: center;
+            padding: 30px;
+        }
     </style>
 </head>
 
@@ -74,6 +81,15 @@
         </div>
         <table class="table-signature">
             <tr>
+                <td></td>
+                <td>
+                    {{-- Imagem da assinatura acima do texto --}}
+                    @if ($signature)
+                        <img src="{{ $signature }}" style="width: 150px; margin-bottom: -25px;">
+                    @endif
+                </td>
+            </tr>
+            <tr>
                 <td>
 
                 </td>
@@ -84,11 +100,7 @@
 
                 </td>
             </tr>
-            {{-- <tr>
-                <td></td>
-                <td>{{ mb_strtoupper(MilitaryRank::fromDb($student->company?->comandant?->posto_grad)?->label() ?? '') }}
-                    {{ $config->signature?->name ?? '' }}</td>
-            </tr> --}}
+
             <tr>
                 <td></td>
                 <td colspan="4" class="assign"
@@ -96,12 +108,6 @@
                     width: 100%;
                     text-align: center;
                     padding-top: 15px;">
-
-                    {{-- Imagem da assinatura acima do texto --}}
-                    @if ($signature)
-                        <img src="{{ $signature }}" style="width: 150px; margin-bottom: -25px;">
-                    @endif
-
 
                     {{-- Nome do comandante --}}
                     <p style="margin: 0;">

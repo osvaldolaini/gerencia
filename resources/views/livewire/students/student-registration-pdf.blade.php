@@ -88,8 +88,9 @@
                         <img src="{{ $signature }}" style="width: 150px; margin-bottom: -25px;">
                     @endif
                 </td>
+                <td></td>
             </tr>
-            {{-- <tr>
+            <tr>
                 <td>
 
                 </td>
@@ -99,11 +100,11 @@
                 <td>
 
                 </td>
-            </tr> --}}
+            </tr>
 
             <tr>
                 <td></td>
-                <td colspan="4" class="assign"
+                <td colspan="4"
                     style="border-top: 1px solid black;
                     width: 100%;
                     text-align: center;

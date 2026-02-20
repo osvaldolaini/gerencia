@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Admin\Settings\Settings;
-
+use App\Models\Settings\Companies;
 use App\Traits\HandlesTmpUploads;
 
 class StudentForm extends Component
@@ -39,6 +39,7 @@ class StudentForm extends Component
     public $city_birth;
     public $mom;
     public $dad;
+    public $signature;
 
 
     public function mount(Peoples $students)
@@ -58,6 +59,19 @@ class StudentForm extends Component
             $this->grau         = number_format($students->grau, 2);
             $this->entry_date   = $students->entry_date;
             $this->english_level  = $students->english_level;
+
+
+            if ($students->company) {
+                $company = Companies::find($students->company->id);
+                $files = Storage::files('public/companies/' . $company->id . '/signature');
+                if ($files) {
+                    $signature = explode('/', $files[0]);
+                    // dd($signature[4]);
+                    $this->signature = url('storage/companies/' . $company->id . '/signature/' . $signature[4]); // Nome do arquivo
+                } else {
+                    $this->signature = false;
+                }
+            }
         }
         // dd($students->birth);
     }
@@ -151,6 +165,8 @@ class StudentForm extends Component
 
         $logoPath = url('storage/logos/brasao-brasil-preto-e-branco.png');
 
+
+
         // Crie uma instância do mPDF
         $mpdf = new \Mpdf\Mpdf([
             'mode'          => 'utf-8',
@@ -168,6 +184,7 @@ class StudentForm extends Component
                 'logoPath'          => $logoPath,
                 'title'             => 'Certidão de matrícula',
                 'student'           => $this->student,
+                'signature'         => $this->signature,
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]

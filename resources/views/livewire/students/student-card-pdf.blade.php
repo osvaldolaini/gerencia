@@ -56,9 +56,9 @@
         </p>
         <div style="text-align:justify;text-indent:1.5em;margin:5px;">
             Declaro, para fins de confecção da Carteira Estudantil, que <strong>{{ $student->name }}</strong>
-            é alun{{ $article }} do <strong>{{ $config->name }}</strong> e está matriculado
-            no <strong>{{ strtolower($student->al_class->classGrade->name) }}</strong> do <strong>Ensino
-                {{ $level }}</strong>
+            é alun{{ $article }} do {{ $config->name }} e está matriculado
+            no {{ strtolower($student->al_class->classGrade->name) }} do Ensino
+            {{ $level }}
             no ano letivo de {{ date('Y') }}, com atividades presenciais compreendidas
             no período de 09 de Fevereiro a 30 de Dezembro de {{ date('Y') }}.
         </div>

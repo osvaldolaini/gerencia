@@ -77,6 +77,9 @@
         <div class="turma-wrapper">
             <table class="mt-0 turmas-table">
                 <tr class="mt-0">
+                    @php
+                        $tot = 0;
+                    @endphp
                     @foreach ($school_classes as $class)
                         <td class="mt-0">
                             <div class="mt-0 turma-wrapper">
@@ -114,7 +117,16 @@
                                 </table>
                             </div>
                         </td>
+                        @php
+                            $tot += $c;
+                        @endphp
                     @endforeach
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                        Efetivo: {{ $tot }}</td>
                 </tr>
             </table>
         </div>

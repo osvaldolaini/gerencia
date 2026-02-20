@@ -271,6 +271,7 @@ class StudentForm extends Component
                 'logoPath'          => $logoPath,
                 'title'             => 'Carteirinha estudantil',
                 'student'           => $this->student,
+                'signature'         => $this->signature,
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]

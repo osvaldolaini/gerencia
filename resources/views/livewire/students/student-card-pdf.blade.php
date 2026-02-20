@@ -77,11 +77,16 @@
 
                 </td>
             </tr>
-            {{-- <tr>
+            <tr>
                 <td></td>
-                <td>{{ mb_strtoupper(MilitaryRank::fromDb($student->company?->comandant?->posto_grad)?->label() ?? '') }}
-                    {{ $config->signature?->name ?? '' }}</td>
-            </tr> --}}
+                <td colspan="4">
+                    {{-- Imagem da assinatura acima do texto --}}
+                    @if ($signature)
+                        <img src="{{ $signature }}" style="width: 150px; margin-bottom: -40px;">
+                    @endif
+                </td>
+                <td></td>
+            </tr>
             <tr>
                 <td></td>
                 <td colspan="4" class="assign"
@@ -98,8 +103,9 @@
 
                     {{-- Nome do comandante --}}
                     <p style="margin: 0;">
-                        {{ mb_strtoupper(MilitaryRank::fromDb($student->company?->comandant?->posto_grad)?->label() ?? '') }}
                         {{ $student->company?->comandant?->name ?? '' }}
+                        {{ mb_strtoupper(MilitaryRank::fromDb($student->company?->comandant?->posto_grad)?->label() ?? '') }}
+
                     </p>
 
                     {{-- Cargo abaixo --}}

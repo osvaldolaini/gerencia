@@ -7,6 +7,7 @@ use App\Models\Discipline\Compliments;
 use App\Models\Discipline\FactObserved;
 use App\Models\Discipline\FaultDiscipline;
 use App\Models\Settings\Companies;
+use App\Models\Settings\SchoolClassesYears;
 use App\Services\LaiGuz\TableService;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -53,6 +54,10 @@ class FactObservedList extends Component
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
+        $actived = now()->year;
+        if (SchoolClassesYears::where("active", 1)->first()) {
+            $actived = SchoolClassesYears::where("active", 1)->first()->year;
+        }
         $where = [];
         if (!$this->sincomil_date) {
             $where['sincomil_date'] = null;
@@ -77,6 +82,9 @@ class FactObservedList extends Component
                 'paginate' => $this->paginate,
                 'search' => $this->search,
                 'where' => $where,
+                'filterYear' => [
+                    $actived,
+                ],
                 'customSearch' => $this->customSearch,
                 'active' => $this->active,
             ])

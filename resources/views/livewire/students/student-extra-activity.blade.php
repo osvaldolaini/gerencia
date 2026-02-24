@@ -14,7 +14,7 @@
                 <tr class="dark:text-white">
                     <th>ATIVIDADES</th>
                     <th>GIP</th>
-                    <th>BÔNUS</th>
+                    {{-- <th>BÔNUS</th> --}}
                     <th>APAGAR</th>
                     <th>INSERIDO / EDITADO</th>
                 </tr>
@@ -29,7 +29,7 @@
                             <x-layout.table-toggle-active id='{{ $extra->id }}'
                                 active='{{ $extra->gip }}'></x-layout.table-toggle-active>
                         </td>
-                        <td>
+                        {{-- <td>
                             @if ($extra->bonus == 1)
                                 <div class="p-0 tooltip tooltip-top " data-tip="Desativar">
                                     <div class="mr-1 md:hidden">
@@ -83,7 +83,7 @@
                                 </div>
                             @endif
 
-                        </td>
+                        </td> --}}
                         <td>
                             <div class="p-0 tooltip tooltip-top" data-tip="Apagar">
                                 <button wire:click="showModalDelete({{ $extra->id }})"

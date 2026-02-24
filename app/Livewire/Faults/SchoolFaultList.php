@@ -36,9 +36,6 @@ class SchoolFaultList extends Component
     public $paginate = 15; //Qtd de registros por página
     public $active = 'school_faults.active';
 
-    public $actived;
-
-
 
     #[On('see_excluded')]
     public function render(TableService $queryService)
@@ -60,16 +57,21 @@ class SchoolFaultList extends Component
                 'paginate' => $this->paginate,
                 'search' => $this->search,
                 // 'where' => [
-                //     'school_faults.created_by' => Auth::user()->name,
+                //     'school_faults.date' => ,
                 // ],
                 'customSearch' => $this->customSearch,
                 'active' => $this->active,
             ])
             ->getData();
-        // dd($dataTable);
+        // dd($dataTable->filter(function ($fault) {
+        //     return \Carbon\Carbon::parse($fault->date)->year == $this->actived;
+        // }));
+        $dataTable->filter(function ($fault) {
+            return \Carbon\Carbon::parse($fault->date)->year == $this->actived;
+        });
         return view(
             'livewire.faults.school-fault-list',
-            compact('dataTable', 'actived')
+            compact('dataTable')
         );
     }
     public function addSort($field)

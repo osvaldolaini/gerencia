@@ -80,6 +80,9 @@
                                         <p>
                                             T. {{ $item->al_class }}
                                         </p>
+                                        <p>
+                                            Cia. {{ $item->company->title }}
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="pl-2 col-span-full sm:col-span-3">

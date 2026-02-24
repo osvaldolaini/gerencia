@@ -86,7 +86,7 @@
 
                             <button wire:click='list({{ $item->id }})'
                                 class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
-                                <x-layout.svg.pdf class="w-8 h-8"></x-layout.svg.pdf>
+                                <x-layout.svg.pdf class="w-6 h-6"></x-layout.svg.pdf>
                             </button>
                         </td>
 

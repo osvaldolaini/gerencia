@@ -81,8 +81,8 @@
                                             T. {{ $item->al_class }}
                                         </p>
                                         <p>
-                                            <span class="badge badge-accent">Cia.
-                                                {{ $item->students->company->title }}</span>
+                                            <span class="badge badge-accent">
+                                                {{ $item->students->company->nick ?? '' }}</span>
                                         </p>
                                     </div>
                                 </div>

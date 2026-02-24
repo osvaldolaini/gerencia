@@ -86,7 +86,7 @@
                         <th class="text-center">Nr</th>
                         <th class="text-center">Aluno</th>
                         <th class="text-center">GIP</th>
-                        <th class="text-center">Bônus</th>
+                        {{-- <th class="text-center">Bônus</th> --}}
                     </tr>
                     @foreach ($data->students->where('active', 1)->sortBy('gip') as $student)
                         <tr class="linha-tabela">
@@ -100,9 +100,9 @@
                             <td class="text-center border-bottom">
                                 {{ $student->gip ? 'X' : '' }}
                             </td>
-                            <td class="text-center border-bottom">
+                            {{-- <td class="text-center border-bottom">
                                 {{ $student->bonus ? 'X' : '' }}
-                            </td>
+                            </td> --}}
                     @endforeach
 
 

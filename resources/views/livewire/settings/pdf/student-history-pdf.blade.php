@@ -114,7 +114,7 @@
                         <th class="text-left">Tipo</th>
                         <th class="text-center">Atividade</th>
                         <th class="text-center">GIP</th>
-                        <th class="text-center">Bônus</th>
+                        {{-- <th class="text-center">Bônus</th> --}}
                     </tr>
                     @foreach ($student->activities->where('active', 1)->sortByDesc('gip') as $extra)
                         <tr class="linha-tabela">
@@ -128,10 +128,10 @@
                                 {{ $extra->gip ? 'Sim' : 'Não' }}
                             </td>
 
-
+                            {{--
                             <td class="text-center border-bottom">
                                 {{ $extra->bonus ? 'Sim' : 'Não' }}
-                            </td>
+                            </td> --}}
                         </tr>
                     @endforeach
 

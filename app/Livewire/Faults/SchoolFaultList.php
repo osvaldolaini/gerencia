@@ -69,7 +69,7 @@ class SchoolFaultList extends Component
         // dd($dataTable);
         return view(
             'livewire.faults.school-fault-list',
-            compact('dataTable')
+            compact('dataTable', 'actived')
         );
     }
     public function addSort($field)

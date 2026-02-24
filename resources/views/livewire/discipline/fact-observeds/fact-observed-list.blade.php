@@ -179,6 +179,22 @@
                                         <p>
                                             T. {{ $item->al_class }}
                                         </p>
+                                        <p>
+                                            @if ($item->students?->company->code_image)
+                                                <picture>
+                                                    <source
+                                                        srcset="{{ url('storage/companies/' . $item->students?->company->id . '/' . $item->students?->company->code_image . '_list.png') }}" />
+                                                    <source
+                                                        srcset="{{ url('storage/companies/' . $item->students?->company->id . '/' . $item->students?->company->code_image . '_list.webp') }}" />
+                                                    <img src="{{ url('storage/companies/' . $item->students?->company->id . '/' . $item->students?->company->code_image . '_list.png') }}"
+                                                        alt="{{ $item->students?->company->name }}">
+                                                </picture>
+                                            @else
+                                                <span class="badge badge-accent">
+                                                    {{ $item->students?->company?->nick ?? '' }}
+                                                </span>
+                                            @endif
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="pl-2 col-span-full sm:col-span-3">

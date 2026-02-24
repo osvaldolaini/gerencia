@@ -284,7 +284,7 @@
         </div>
         <div class="section">
             <div class="section-title">Faltas</div>
-            @if ($student->activeFaults->where('active', 1)->count() > 0)
+            @if ($student->active_faults->where('active', 1)->count() > 0)
 
                 <table class="w-full" style="border-collapse: collapse;">
                     <tr>

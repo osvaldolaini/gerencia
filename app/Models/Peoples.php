@@ -290,7 +290,7 @@ class Peoples extends Model
     {
         return $this->hasMany(SchoolFaults::class, 'student_id', 'id');
     }
-    public function activeFaults()
+    public function getActiveFaultsAttribute()
     {
         $this->actived = now()->year;
         if (SchoolClassesYears::where("active", 1)->first()) {

@@ -295,7 +295,7 @@
                     </tr>
                     @php
                         $acumulado = 0;
-                        $faultsOrdenadas = $student->faults->where('active', 1)->sortBy('date'); // ordem CRESCENTE
+                        $faultsOrdenadas = $student->active_faults->where('active', 1)->sortBy('date'); // ordem CRESCENTE
                         $dados = [];
 
                         foreach ($faultsOrdenadas as $fault) {

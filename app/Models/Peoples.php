@@ -290,6 +290,20 @@ class Peoples extends Model
     {
         return $this->hasMany(SchoolFaults::class, 'student_id', 'id');
     }
+    public function activeFaults()
+    {
+        $this->actived = now()->year;
+        if (SchoolClassesYears::where("active", 1)->first()) {
+            $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
+        }
+        return $this->faults
+            ->where('active', 1)
+            ->where('justified', '!=', 2)
+            ->filter(function ($fault) {
+                return \Carbon\Carbon::parse($fault->date)->year == $this->actived;
+            });
+        // return $this->faults();
+    }
     public function contacts(): HasMany
     {
         return $this->hasMany(StudentContacts::class, 'student_id', 'id');

@@ -81,7 +81,7 @@
                                             T. {{ $item->al_class }}
                                         </p>
                                         <p>
-                                            Cia. {{ $item->company->title }}
+                                            Cia. {{ $item->students->company->title }}
                                         </p>
                                     </div>
                                 </div>

@@ -3,6 +3,7 @@
 namespace App\Livewire\Faults;
 
 use App\Models\Fault\SchoolFaults;
+use App\Models\Settings\SchoolClassesYears;
 use App\Services\LaiGuz\TableService;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -35,10 +36,19 @@ class SchoolFaultList extends Component
     public $paginate = 15; //Qtd de registros por página
     public $active = 'school_faults.active';
 
+    public $actived;
+
+
 
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
+
+        $this->actived = now()->year;
+        if (SchoolClassesYears::where("active", 1)->first()) {
+            $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
+        }
+
         $dataTable = $queryService
             ->setModel($this->model)
             ->setParameters([

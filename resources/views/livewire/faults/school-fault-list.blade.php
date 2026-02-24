@@ -25,7 +25,9 @@
     <div class="mt-5 space-y-4">
         <!-- Lista de itens arrastáveis -->
         <div>
-            @foreach ($dataTable as $item)
+            @foreach ($dataTable->filter(function ($fault) {
+        return \Carbon\Carbon::parse($fault->date)->year == $actived;
+    }) as $item)
                 <div class="mb-10 rounded-md cursor-pointer">
                     <h2 id="w-full text-center items-center">
                         <div type="button"

@@ -50,18 +50,21 @@ class FactObservedList extends Component
     public $sincomil_date = false;
     public $fafd = 0;
     public $compliment = 0;
+    public $actived;
 
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
-        $actived = now()->year;
+        $this->actived = now()->year;
         if (SchoolClassesYears::where("active", 1)->first()) {
-            $actived = SchoolClassesYears::where("active", 1)->first()->year;
+            $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
         }
+        $where['year'] = $this->actived;
         $where = [];
         if (!$this->sincomil_date) {
             $where['sincomil_date'] = null;
         }
+
 
         if ($this->fact_type != 'todos') {
             $where['fact_type'] = $this->fact_type;
@@ -82,9 +85,9 @@ class FactObservedList extends Component
                 'paginate' => $this->paginate,
                 'search' => $this->search,
                 'where' => $where,
-                'filterYear' => [
-                    $actived,
-                ],
+                // 'filterYear' => [
+                //     $actived,
+                // ],
                 'customSearch' => $this->customSearch,
                 'active' => $this->active,
             ])

@@ -3,6 +3,7 @@
 namespace App\Livewire\Discipline\FaultDisciplines;
 
 use App\Models\Discipline\FaultDiscipline;
+use App\Models\Settings\SchoolClassesYears;
 use App\Services\LaiGuz\TableService;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -34,10 +35,17 @@ class FaultDisciplineList extends Component
 
     public $paginate = 10; //Qtd de registros por página
     public $active = 'fault_disciplines.active';
+    public $actived;
 
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
+        $this->actived = now()->year;
+        if (SchoolClassesYears::where("active", 1)->first()) {
+            $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
+        }
+        $where['year'] = $this->actived;
+
         $dataTable = $queryService
             ->setModel($this->model)
             ->setParameters([

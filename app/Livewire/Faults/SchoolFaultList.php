@@ -41,11 +41,10 @@ class SchoolFaultList extends Component
     public function render(TableService $queryService)
     {
 
-        $this->actived = now()->year;
+        $actived = now()->year;
         if (SchoolClassesYears::where("active", 1)->first()) {
-            $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
+            $actived = SchoolClassesYears::where("active", 1)->first()->year;
         }
-
         $dataTable = $queryService
             ->setModel($this->model)
             ->setParameters([
@@ -57,18 +56,16 @@ class SchoolFaultList extends Component
                 'paginate' => $this->paginate,
                 'search' => $this->search,
                 // 'where' => [
-                //     'school_faults.date' => ,
+                //     'school_faults.created_by' => Auth::user()->name,
                 // ],
+                'filterYear' => [
+                    $actived,
+                ],
                 'customSearch' => $this->customSearch,
                 'active' => $this->active,
             ])
             ->getData();
-        // dd($dataTable->filter(function ($fault) {
-        //     return \Carbon\Carbon::parse($fault->date)->year == $this->actived;
-        // }));
-        $dataTable->filter(function ($fault) {
-            return \Carbon\Carbon::parse($fault->date)->year == $this->actived;
-        });
+        // dd($dataTable);
         return view(
             'livewire.faults.school-fault-list',
             compact('dataTable')

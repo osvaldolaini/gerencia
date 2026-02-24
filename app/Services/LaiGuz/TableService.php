@@ -21,6 +21,7 @@ class TableService
     protected $search;
     protected $customSearch;
     protected $active;
+    protected $filterYear;
 
     public function __construct()
     {
@@ -45,12 +46,17 @@ class TableService
         $this->search           = $params['search'];
         $this->customSearch     = $params['customSearch'];
         $this->active           = $params['active'];
+        $this->filterYear       = $params['filterYear'] ?? [];
         return $this;
     }
 
     public function getData()
     {
         $query = $this->model::query();
+
+        if ($this->filterYear) {
+            $query->whereYear('date', $this->filterYear);
+        }
 
         if (in_array('admin', Auth::user()->jsonGroups) or in_array('super_admin', Auth::user()->jsonGroups)) {
             if (Auth::user()->see_excluded) {

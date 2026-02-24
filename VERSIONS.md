@@ -2,6 +2,10 @@
 
 ## Versão Santos Dumont 1.8.4 – 2026-02-24
 
+> Melhorias
+
+-   Listas de (Faltas, FO, FAFD) mostrando somente os registros do ano
+
 > Correções
 
 -   Remoção das faltas de anos anteriores da ficha individual

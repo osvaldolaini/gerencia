@@ -12,19 +12,24 @@ class DisciplinePanelCard extends Component
 {
     public $fo;
     public $fafd;
+    public $title;
+    public $actived;
+
     public function mount(Companies $companies)
     {
-        $actived = now()->year;
+        $this->actived = now()->year;
         if (SchoolClassesYears::where("active", 1)->first()) {
-            $actived = SchoolClassesYears::where("active", 1)->first()->year;
+            $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
         }
+
         // dd($companies);
         if ($companies) {
-            $this->fo = FactObserved::where("company_id", $companies->id)->where("active", 1)->where('year', $actived)->get();
-            $this->fafd = FaultDiscipline::where("company_id", $companies->id)->where("active", 1)->where('year', $actived)->get();
+            $this->fo = FactObserved::where("company_id", $companies->id)->where("active", 1)->where('year',  $this->actived)->get();
+            $this->fafd = FaultDiscipline::where("company_id", $companies->id)->where("active", 1)->where('year',  $this->actived)->get();
+            $this->title = $companies->nick;
         } else {
-            $this->fo = FactObserved::where("active", 1)->where('year', $actived)->get();
-            $this->fafd = FaultDiscipline::where("active", 1)->where('year', $actived)->get();
+            $this->fo = FactObserved::where("active", 1)->where('year',  $this->actived)->get();
+            $this->fafd = FaultDiscipline::where("active", 1)->where('year',  $this->actived)->get();
         }
     }
     public function render()

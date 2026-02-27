@@ -5,6 +5,7 @@
 > Melhorias
 
 -   Listas de (Faltas, FO, FAFD) mostrando somente os registros do ano
+-   Painel separado por CIA
 
 > Correções
 

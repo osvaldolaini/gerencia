@@ -12,7 +12,7 @@ class DisciplinePanelCard extends Component
 {
     public $fo;
     public $fafd;
-    public $title;
+    public $title = 'Geral';
     public $actived;
 
     public function mount(Companies $companies)

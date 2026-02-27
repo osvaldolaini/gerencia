@@ -67,6 +67,12 @@
             @endforeach
         @endif
         @livewire('discipline.panel.discipline-panel-card')
+        @if ($companies)
+            @foreach ($companies as $company)
+                {{-- @livewire('component', ['user' => $user], key($user->id)) --}}
+                @livewire('discipline.panel.discipline-panel-card', ['companies' => $company], key($company->id))
+            @endforeach
+        @endif
 
     </div>
     @if ($companies)

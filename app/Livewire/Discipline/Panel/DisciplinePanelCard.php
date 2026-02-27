@@ -12,7 +12,7 @@ class DisciplinePanelCard extends Component
 {
     public $fo;
     public $fafd;
-    public $title = 'Geral';
+    public $title = ' - Geral';
     public $actived;
 
     public function mount(Companies $companies)
@@ -26,7 +26,7 @@ class DisciplinePanelCard extends Component
         if ($companies) {
             $this->fo = FactObserved::where("company_id", $companies->id)->where("active", 1)->where('year',  $this->actived)->get();
             $this->fafd = FaultDiscipline::where("company_id", $companies->id)->where("active", 1)->where('year',  $this->actived)->get();
-            $this->title = $companies->nick;
+            $this->title = ' - ' . $companies->nick;
         } else {
             $this->fo = FactObserved::where("active", 1)->where('year',  $this->actived)->get();
             $this->fafd = FaultDiscipline::where("active", 1)->where('year',  $this->actived)->get();

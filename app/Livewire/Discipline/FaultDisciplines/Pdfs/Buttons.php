@@ -18,20 +18,28 @@ class Buttons extends Component
     public $status;
     public $supplements;
     public $supplement;
+    public $years;
+    public $year;
 
     use HandlesTmpUploads;
     public function mount($status)
     {
-        // dd($this->status);
+        $this->year = date('Y');
         $this->status = $status;
-        $this->supplements = FaultDiscipline::whereNotNull('supplement_number')
-            ->distinct()
-            ->orderBy('supplement_number', 'asc') // ou 'desc' para ordem decrescente
-            ->pluck('supplement_number');
+
+        // dd($this->year);
+
+        $this->years = ['2026', '2025'];
     }
 
     public function render()
     {
+        $this->supplements = FaultDiscipline::where('year', $this->year)
+            ->whereNotNull('supplement_number')
+            ->distinct()
+            ->orderBy('supplement_number', 'asc') // ou 'desc' para ordem decrescente
+            ->pluck('supplement_number');
+
         return view('livewire.discipline.fault-disciplines.pdfs.buttons');
     }
     //Todas
@@ -358,7 +366,8 @@ class Buttons extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Aditamento',
-                'data'              => FaultDiscipline::where('active', 1)
+                'data'              => FaultDiscipline::where('year', $this->year)
+                    ->where('active', 1)
                     ->where('supplement_number', $number)
                     ->where('decision', '!=', 'fo')
                     ->where('decision', '!=', 'justificado')

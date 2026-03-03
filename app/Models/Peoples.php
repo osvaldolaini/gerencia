@@ -190,7 +190,7 @@ class Peoples extends Model
     public function getCompanyAttribute()
     {
         if ($this->active == 1) {
-            return $this->al_class->classGrade->company;
+            return $this->al_class->classGrade->company ?? '';
         } else {
             return false;
         }

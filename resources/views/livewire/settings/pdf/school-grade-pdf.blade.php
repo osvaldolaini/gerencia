@@ -106,7 +106,7 @@
                                         @endphp
                                         <tr class="mt-0">
                                             <td class="text-center border">{{ $student->students->number ?? '' }}</td>
-                                            <td class="text-center border">{{ $student->students->nick }}</td>
+                                            <td class="text-center border">{{ $student->students->nick ?? '' }}</td>
                                             <td class="text-center border"></td>
                                         </tr>
                                     @endforeach

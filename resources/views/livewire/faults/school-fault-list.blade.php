@@ -60,7 +60,7 @@
                                             nº. {{ $item?->students?->number ?? $item?->oldSudents?->number }}
                                         </p>
                                         <p>
-                                            T. {{ $item?->students?->al_class->title }}
+                                            T. {{ $item?->students?->al_class->title ?? '' }}
                                         </p>
                                         <p>
                                             @if ($item->students?->company->code_image)

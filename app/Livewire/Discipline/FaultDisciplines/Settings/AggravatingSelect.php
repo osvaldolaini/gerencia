@@ -9,12 +9,14 @@ class AggravatingSelect extends Component
 {
     public array $selectedAggravating = [];
     public array $aggravatingOptions;
+    public $aggravat;
 
     public function mount($aggravating)
     {
         if (!is_array($aggravating)) {
             $aggravating = [];
         }
+
         $this->aggravatingOptions = collect(\App\Enums\Aggravating::cases())
             ->reject(fn($case) => in_array($case->value, $aggravating)) // Remove os que já estão em $aggravating
             ->mapWithKeys(fn($case) => [$case->value => $case->label()])
@@ -35,7 +37,9 @@ class AggravatingSelect extends Component
             unset($this->aggravatingOptions[$value]); // Remove da select
 
         }
-
+        $this->aggravatingOptions[0] = 'Selecione';
+        // dd($this->aggravatingOptions);
+        $this->aggravat = 0;
         ksort($this->aggravatingOptions); // Reordena a lista selecionada
         ksort($this->selectedAggravating); // Reordena a lista selecionada
 
@@ -49,6 +53,8 @@ class AggravatingSelect extends Component
             unset($this->selectedAggravating[$value]);
         }
         ksort($this->selectedAggravating); // Reordena a lista selecionada
+        $this->aggravat = 0;
+        ksort($this->aggravatingOptions); // Reordena a lista selecionada
         $this->dispatch('updateAggravating', array_keys($this->selectedAggravating));
     }
 

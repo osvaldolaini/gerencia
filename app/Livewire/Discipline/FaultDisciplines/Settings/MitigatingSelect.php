@@ -9,6 +9,7 @@ class MitigatingSelect extends Component
 {
     public array $selectedMitigating = [];
     public array $mitigatingOptions;
+    public $mitigat;
 
     public function mount($mitigating)
     {
@@ -37,6 +38,8 @@ class MitigatingSelect extends Component
         }
 
         ksort($this->selectedMitigating); // Reordena a lista selecionada
+        $this->mitigat = 0;
+        ksort($this->mitigatingOptions); // Reordena a lista selecionada
         $this->dispatch('updateMitigating', array_keys($this->selectedMitigating));
     }
 
@@ -47,6 +50,8 @@ class MitigatingSelect extends Component
             unset($this->selectedMitigating[$value]);
         }
         ksort($this->selectedMitigating); // Reordena a lista selecionada
+        $this->mitigat = 0;
+        ksort($this->mitigatingOptions); // Reordena a lista selecionada
         $this->dispatch('updateMitigating', array_keys($this->selectedMitigating));
     }
 

@@ -33,8 +33,10 @@ class AggravatingSelect extends Component
         if (isset($this->aggravatingOptions[$value])) {
             $this->selectedAggravating[$value] = $this->aggravatingOptions[$value];
             unset($this->aggravatingOptions[$value]); // Remove da select
+
         }
 
+        ksort($this->aggravatingOptions); // Reordena a lista selecionada
         ksort($this->selectedAggravating); // Reordena a lista selecionada
 
         $this->dispatch('updateAggravating', array_keys($this->selectedAggravating));

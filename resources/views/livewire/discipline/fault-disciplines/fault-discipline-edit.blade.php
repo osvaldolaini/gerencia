@@ -172,7 +172,7 @@
                                             <span class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="col-span-full sm:col-span-2 ">
+                                    <div class="col-span-full sm:col-span-1 ">
                                         <label class="block text-sm font-medium text-gray-900 dark:text-white"
                                             for="title">
                                             Nº aluno</label>
@@ -181,6 +181,14 @@
                                         @error('al_number')
                                             <span class="error">{{ $message }}</span>
                                         @enderror
+                                    </div>
+                                    <div class="col-span-full sm:col-span-1 ">
+                                        <label class="block text-sm font-medium text-gray-900 dark:text-white"
+                                            for="title">
+                                            Grau de comportamento</label>
+                                        <input type="text" readonly wire:model="student_grau" minlength="5"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+
                                     </div>
                                     <div class="col-span-full sm:col-span-1 ">
                                         <label class="block text-sm font-medium text-gray-900 dark:text-white"
@@ -327,6 +335,11 @@
                             <span class="text-red-500">*Não é sua primeira falta</span>
                         @endif
                     </div>
+                    <div>
+                        @if ($student_grau > 5.99)
+                            <span class="text-red-500">**Aluno com nota de comportamento acima de 5,99</span>
+                        @endif
+                    </div>
                     @livewire('discipline.fault-disciplines.settings.aggravating-select', [$aggravating])
                     <div>
                         @if (!empty($relatedFaults))
@@ -343,6 +356,11 @@
                                 {{ Rank::fromDb($students->rank->posto_grad)?->label() ?? 'Patente' }}
                             </span>
                         @endif
+                        <div>
+                            @if ($student_grau < 5.99)
+                                <span class="text-red-500">**Aluno com nota de comportamento abaixo de 5,99</span>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div id="tab4" x-show="activeTab === '#tab4'">

@@ -81,6 +81,7 @@ class FaultDisciplineEdit extends Component
 
     public $old_faults;
     public $relatedFaults;
+    public $student_grau;
 
     public $note;
 
@@ -89,6 +90,7 @@ class FaultDisciplineEdit extends Component
         $year = now()->year;
         $year = SchoolClassesYears::where("active", 1)->first()->year;
         if ($fault_discipline->getAttributes()) {
+            $this->student_grau = $fault_discipline->students->adjusted_grau;
             $this->note = $fault_discipline->note;
 
             $this->students                 = $fault_discipline->students;

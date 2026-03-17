@@ -2,6 +2,10 @@
 
 ## Versão Santos Dumont 1.8.5 – 2026-03-17
 
+> Melhorias
+
+-   Nota de comportamento no cadastro do aluno na FAFD
+
 > Correções
 
 -   Erro ao selecionar (agravante, falta, atenuante)

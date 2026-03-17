@@ -1,5 +1,12 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.8.5 – 2026-03-17
+
+> Correções
+
+-   Erro ao selecionar (agravante, falta, atenuante)
+-   Erro no email de aviso de 7,5% de faltas
+
 ## Versão Santos Dumont 1.8.4 – 2026-02-24
 
 > Melhorias

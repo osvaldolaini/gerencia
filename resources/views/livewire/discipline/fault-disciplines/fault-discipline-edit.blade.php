@@ -358,7 +358,7 @@
                         @endif
                         <div>
                             @if ($student_grau < 5.99)
-                                <span class="text-red-500">**Aluno com nota de comportamento abaixo de 5,99</span>
+                                <span class="text-red-500">***Aluno com nota de comportamento abaixo de 5,99</span>
                             @endif
                         </div>
                     </div>

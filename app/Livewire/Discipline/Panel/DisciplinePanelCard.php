@@ -22,14 +22,15 @@ class DisciplinePanelCard extends Component
             $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
         }
 
-        // dd($companies);
-        if ($companies) {
+
+        if ($companies->id) {
             $this->fo = FactObserved::where("company_id", $companies->id)->where("active", 1)->where('year',  $this->actived)->get();
             $this->fafd = FaultDiscipline::where("company_id", $companies->id)->where("active", 1)->where('year',  $this->actived)->get();
             $this->title = ' - ' . $companies->nick;
         } else {
             $this->fo = FactObserved::where("active", 1)->where('year',  $this->actived)->get();
             $this->fafd = FaultDiscipline::where("active", 1)->where('year',  $this->actived)->get();
+            // dd($this->fafd);
         }
     }
     public function render()

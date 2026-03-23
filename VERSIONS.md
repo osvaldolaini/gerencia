@@ -5,6 +5,7 @@
 > Melhorias
 
 -   Nota de comportamento no cadastro do aluno na FAFD
+-   Painel de FO e FAFD geral funcionando
 
 > Correções
 

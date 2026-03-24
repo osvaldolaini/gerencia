@@ -42,7 +42,7 @@ class StudentList extends Component
     public $sorts = ['number' => 'asc'];
     public $relationTables; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'name,nick,sex,number,logo_path,grau,entry_date,active as status';
+    public $columnsInclude = 'type,name,nick,sex,number,logo_path,grau,entry_date,active as status';
     public $searchable = 'name,nick,sex,number'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página

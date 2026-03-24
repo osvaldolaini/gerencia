@@ -84,7 +84,7 @@
                             @endif
 
                             <span class="{{ $item->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
-                                {{ $item->number }}
+                                {{ $item->num }}
                             </span>
                         </td>
 

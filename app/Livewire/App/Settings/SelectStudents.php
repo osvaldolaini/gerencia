@@ -51,8 +51,9 @@ class SelectStudents extends Component
     public function render()
     {
         if ($this->inputSearch != '') {
-            $this->results = Peoples::select('id', 'name', 'number', 'nick', 'sex', 'logo_path')
+            $this->results = Peoples::select('id', 'active', 'name', 'number', 'nick', 'sex', 'logo_path')
                 ->where('type', 1)
+                ->where('active', 1)
                 ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
                 ->orwhere('number', 'LIKE', '%' . $this->inputSearch . '%')
                 ->limit(5)

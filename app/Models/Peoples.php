@@ -103,10 +103,12 @@ class Peoples extends Model
         });
     }
 
-    // public function getNumberAttribute()
-    // {
-    //     return str_pad($this->number, 5, '0', STR_PAD_LEFT);
-    // }
+    public function getNumAttribute()
+    {
+        if ($this->type == 1) {
+            return $this->number ? str_pad($this->number, 5, '0', STR_PAD_LEFT) : 'SN';
+        }
+    }
 
     public function setUpperCaseAttributes(array $attributes)
     {
@@ -159,7 +161,7 @@ class Peoples extends Model
 
     public function getStudentTitleAttribute()
     {
-        return $this->number . ' - ' . $this->nick;
+        return $this->num . ' - ' . $this->nick;
     }
     public function getPeopleClassAttribute()
     {

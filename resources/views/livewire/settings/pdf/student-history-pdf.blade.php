@@ -119,10 +119,10 @@
                     @foreach ($student->activities->where('active', 1)->sortByDesc('gip') as $extra)
                         <tr class="linha-tabela">
                             <td class="text-left border-bottom">
-                                {{ $extra->activity->modality->title }}
+                                {{ $extra->activity?->modality?->title }}
                             </td>
                             <td class="text-center border-bottom">
-                                {{ $extra->activity->title }}
+                                {{ $extra->activity?->title }}
                             </td>
                             <td class="text-center border-bottom">
                                 {{ $extra->gip ? 'Sim' : 'Não' }}

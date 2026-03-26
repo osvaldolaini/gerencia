@@ -82,7 +82,7 @@
                                         </p>
 
                                         <p>
-                                            @if ($item->students?->company?->code_image)
+                                            @if ($item->students?->company)
                                                 <picture>
                                                     <source
                                                         srcset="{{ url('storage/companies/' . $item->students?->company->id . '/' . $item->students?->company->code_image . '_list.png') }}" />

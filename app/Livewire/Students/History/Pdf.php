@@ -4,8 +4,8 @@ namespace App\Livewire\Students\History;
 
 use App\Models\Peoples;
 
-use App\Services\LaiGuz\TableService;
-use Livewire\Attributes\On;
+// use App\Services\LaiGuz\TableService;
+// use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 

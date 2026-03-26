@@ -82,15 +82,21 @@
                                         </p>
 
                                         <p>
-                                            @if ($item->students?->company->code_image)
-                                                <picture>
-                                                    <source
-                                                        srcset="{{ url('storage/companies/' . $item->students?->company->id . '/' . $item->students?->company->code_image . '_list.png') }}" />
-                                                    <source
-                                                        srcset="{{ url('storage/companies/' . $item->students?->company->id . '/' . $item->students?->company->code_image . '_list.webp') }}" />
-                                                    <img src="{{ url('storage/companies/' . $item->students?->company->id . '/' . $item->students?->company->code_image . '_list.png') }}"
-                                                        alt="{{ $item->students?->company->name }}">
-                                                </picture>
+                                            @if ($item->students?->company_id)
+                                                @if ($item->students?->company?->code_image)
+                                                    <picture>
+                                                        <source
+                                                            srcset="{{ url('storage/companies/' . $item->students?->company->id . '/' . $item->students?->company->code_image . '_list.png') }}" />
+                                                        <source
+                                                            srcset="{{ url('storage/companies/' . $item->students?->company->id . '/' . $item->students?->company->code_image . '_list.webp') }}" />
+                                                        <img src="{{ url('storage/companies/' . $item->students?->company->id . '/' . $item->students?->company->code_image . '_list.png') }}"
+                                                            alt="{{ $item->students?->company->name }}">
+                                                    </picture>
+                                                @else
+                                                    <span class="badge badge-accent">
+                                                        {{ $item->students?->company?->nick ?? '' }}
+                                                    </span>
+                                                @endif
                                             @else
                                                 <span class="badge badge-accent">
                                                     {{ $item->students?->company?->nick ?? '' }}

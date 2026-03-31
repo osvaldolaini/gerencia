@@ -431,8 +431,8 @@ class Peoples extends Model
                 if (!empty($p->dacision_days) && $p->dacision_days > 0) {
                     // regra que você tinha: para decision 'retirada_cm' multiplicar por dias; caso contrário apenas subtrair
                     if (isset($p->decision) && $p->decision === 'retirada_cm') {
-                        $nota -= Penalty::from($this->decision)->degree() * $p->dacision_days;
-                        // $nota -= $grauPunicao * $p->dacision_days;
+                        // $nota -= Penalty::from($this->decision)->degree() * $p->dacision_days;
+                        $nota -= $grauPunicao * $p->dacision_days;
                     } else {
                         $nota -= $grauPunicao;
                     }

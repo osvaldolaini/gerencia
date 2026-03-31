@@ -146,7 +146,7 @@ class FaultDisciplineEdit extends Component
 
             if ($this->decision) {
                 $this->days = Penalty::from($this->decision)->days();
-                $this->grau = Penalty::from($this->decision)->degree();
+                $this->grau = $fault_discipline->grau ?? Penalty::from($this->decision)->degree();
             }
 
             if ($this->solution) {

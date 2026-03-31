@@ -126,7 +126,7 @@ class FaultDisciplineEdit extends Component
             $this->repeat_number            = $fault_discipline->repeat_number;
             $this->solution                 = $fault_discipline->solution;
             $this->solution_date            = $fault_discipline->solution_date;
-            $this->grau                     = $fault_discipline->grau;
+            $this->grau                     = $fault_discipline->grau * $fault_discipline->dacision_days;
 
             $this->mitigating         = $fault_discipline->json_mitigating;
             $this->aggravating        = $fault_discipline->json_aggravating;

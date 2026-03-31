@@ -131,7 +131,11 @@
                 <p>{{ $fault_discipline->fact }}</p>
                 <p>2. {{ $fault_discipline->solution }}</p>
                 @if ($fault_discipline->first)
-                    <p>3. Por fim, no uso de minhas atribuições de Comandante de Companhia, deixo de aplicar medida disciplinar de Retirada ao aluno, em cumprimento ao número 29, da letra c, do nº 5, Anexo F, das Normas Reguladoras do Regime Disciplinar (NRDD), do Regimento Interno dos Colégios Militares (RICM 2024), “A 1ª falta do aluno passível de medida mínima de retirada do CM é da competência do Cmt CM”.</p>
+                    <p>3. Por fim, no uso de minhas atribuições de Comandante de Companhia, deixo de aplicar medida
+                        disciplinar de Retirada ao aluno, em cumprimento ao número 29, da letra c, do nº 5, Anexo F, das
+                        Normas Reguladoras do Regime Disciplinar (NRDD), do Regimento Interno dos Colégios Militares
+                        (RICM 2024), “A 1ª falta do aluno passível de medida mínima de retirada do CM é da competência
+                        do Cmt CM”.</p>
                 @else
                     <p>3. {{ Penalty::from($fault_discipline->decision)->sugestion($fault_discipline->dacision_days) }}
                     </p>
@@ -210,12 +214,12 @@
                     <td style="border-top: 1px solid black;border-right: 1px solid">
                         AOE
                         {{ $fault_discipline->decision == 'atividade_orientacao_educacional' ? $fault_discipline->dacision_days : '  ' }}
-                        {{ $fault_discipline->decisino_days > 1 ? 'dias':'dia' }}
+                        {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }}
                     </td>
                     <td style="border-top: 1px solid black;border-right: 1px solid">
                         Retirada
                         {{ $fault_discipline->decision == 'retirada_cm' ? $fault_discipline->dacision_days : '  ' }}
-                        {{ $fault_discipline->decisino_days > 1 ? 'dias':'dia' }}
+                        {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }}
                     </td>
                 </tr>
                 <tr>
@@ -268,7 +272,11 @@
                     </p>
                     <p>{{ $fault_discipline->fact }}</p>
                     <p>2. {{ $fault_discipline->solution }}</p>
-                    <p>3. Por fim, no uso de minhas atribuições de Comandante do Corpo de Alunos, deixo de aplicar medida disciplinar de Retirada ao aluno, em cumprimento ao número 29, da letra c, do nº 5, Anexo F, das Normas Reguladoras do Regime Disciplinar (NRDD), do Regimento Interno dos Colégios Militares (RICM 2024), “A 1ª falta do aluno passível de medida mínima de retirada do CM é da competência do Cmt CM”.</p>
+                    <p>3. Por fim, no uso de minhas atribuições de Comandante do Corpo de Alunos, deixo de aplicar
+                        medida disciplinar de Retirada ao aluno, em cumprimento ao número 29, da letra c, do nº 5, Anexo
+                        F, das Normas Reguladoras do Regime Disciplinar (NRDD), do Regimento Interno dos Colégios
+                        Militares (RICM 2024), “A 1ª falta do aluno passível de medida mínima de retirada do CM é da
+                        competência do Cmt CM”.</p>
                     </p>
                 </div>
 
@@ -343,12 +351,12 @@
                         <td style="border-top: 1px solid black;border-right: 1px solid">
                             AOE
                             {{ $fault_discipline->decision == 'atividade_orientacao_educacional' ? $fault_discipline->dacision_days : '  ' }}
-                            {{ $fault_discipline->decisino_days > 1 ? 'dias':'dia' }}
+                            {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }}
                         </td>
                         <td style="border-top: 1px solid black;border-right: 1px solid">
                             Retirada
                             {{ $fault_discipline->decision == 'retirada_cm' ? $fault_discipline->dacision_days : '  ' }}
-                            {{ $fault_discipline->decisino_days > 1 ? 'dias':'dia' }}
+                            {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }}
                         </td>
                     </tr>
                     <tr>
@@ -478,12 +486,12 @@
                         <td style="border-top: 1px solid black;border-right: 1px solid">
                             AOE
                             {{ $fault_discipline->decision == 'atividade_orientacao_educacional' ? $fault_discipline->dacision_days : '  ' }}
-                            {{ $fault_discipline->decisino_days > 1 ? 'dias':'dia' }}
+                            {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }}
                         </td>
                         <td style="border-top: 1px solid black;border-right: 1px solid">
                             Retirada
                             {{ $fault_discipline->decision == 'retirada_cm' ? $fault_discipline->dacision_days : '  ' }}
-                            {{ $fault_discipline->decisino_days > 1 ? 'dias':'dia' }}
+                            {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }}
                         </td>
                     </tr>
                     <tr>

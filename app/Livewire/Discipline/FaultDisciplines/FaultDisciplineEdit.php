@@ -126,7 +126,7 @@ class FaultDisciplineEdit extends Component
             $this->repeat_number            = $fault_discipline->repeat_number;
             $this->solution                 = $fault_discipline->solution;
             $this->solution_date            = $fault_discipline->solution_date;
-            $this->grau                     = $fault_discipline->grau * $fault_discipline->dacision_days;
+            $this->grau                     = $fault_discipline->grau;
 
             $this->mitigating         = $fault_discipline->json_mitigating;
             $this->aggravating        = $fault_discipline->json_aggravating;
@@ -146,7 +146,7 @@ class FaultDisciplineEdit extends Component
 
             if ($this->decision) {
                 $this->days = Penalty::from($this->decision)->days();
-                $this->grau = $fault_discipline->grau ?? Penalty::from($this->decision)->degree();
+                $this->grau = $fault_discipline->dacision_days > 1 ? Penalty::from($this->decision)->degree() * $fault_discipline->dacision_days : $fault_discipline->grau;
             }
 
             if ($this->solution) {

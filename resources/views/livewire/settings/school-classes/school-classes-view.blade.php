@@ -101,7 +101,7 @@
                         @endphp
                         <tr class="border text-md">
                             <td class="text-left border">{{ $pivot->students?->nick ?? '' }}</td>
-                            <td class="text-center border">{{ $pivot->students?->number ?? '' }}</td>
+                            <td class="text-center border">{{ $pivot->students?->num ?? '' }}</td>
                         </tr>
                     @endforeach
                     <tr class="border">

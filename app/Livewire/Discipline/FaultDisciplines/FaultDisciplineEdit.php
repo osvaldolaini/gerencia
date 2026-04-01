@@ -256,7 +256,7 @@ class FaultDisciplineEdit extends Component
             'decision'                 => $this->decision,
             'dacision_days'            => $this->dacision_days,
             'first'                    => $this->first,
-            'grau'                     => Penalty::from($this->decision)->degree(),
+            'grau'                     => $this->decision ? Penalty::from($this->decision)->degree() : $this->grau,
             'bi_date'                  => $this->bi_date,
             'bi_text'                  => $this->bi_text,
             'supplement_number'        => $this->supplement_number,

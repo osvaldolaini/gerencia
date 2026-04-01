@@ -130,7 +130,7 @@
                                 $c += 1;
                             @endphp
                             <tr class="class">
-                                <td class="text-left border">{{ $pivot->students->number }}</td>
+                                <td class="text-left border">{{ $pivot->students->num }}</td>
                                 <td class="text-left border">{{ $pivot->students->nick }}</td>
                                 <td class="text-center border"></td>
                                 <td class="text-center border"></td>

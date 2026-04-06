@@ -54,7 +54,7 @@ class SelectStudents extends Component
             $this->results = Peoples::select('id', 'active', 'name', 'number', 'nick', 'sex', 'logo_path')
                 ->where('type', 1)
                 ->where('active', 1)
-                ->where('name', 'LIKE', '%' . $this->inputSearch . '%')
+                ->where('nick', 'LIKE', '%' . $this->inputSearch . '%')
                 ->orwhere('number', 'LIKE', '%' . $this->inputSearch . '%')
                 ->limit(5)
                 ->get();

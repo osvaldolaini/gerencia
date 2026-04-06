@@ -68,7 +68,7 @@
                 </div>
             </div>
 
-            <div style="margin: 0px;padding:0px;margin-top: -50px;">
+            <div style="margin: 0px;padding:0px;">
                 <p>
                     @if ($signature)
                         <img src="{{ $signature }}" style="width: 150px; margin-bottom: -50px;">

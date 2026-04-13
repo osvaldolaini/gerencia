@@ -146,7 +146,11 @@ class FaultDisciplineEdit extends Component
 
             if ($this->decision) {
                 $this->days = Penalty::from($this->decision)->days();
-                $this->grau = $fault_discipline->dacision_days > 1 ? Penalty::from($this->decision)->degree() * $fault_discipline->dacision_days : $fault_discipline->grau;
+                if ($this->decision == 'retirada_cm') {
+                    $this->grau = $fault_discipline->dacision_days > 1 ? Penalty::from($this->decision)->degree() * $fault_discipline->dacision_days : $fault_discipline->grau;
+                } else {
+                    $this->grau = Penalty::from($this->decision)->degree();
+                }
             }
 
             if ($this->solution) {
@@ -294,7 +298,6 @@ class FaultDisciplineEdit extends Component
                     $this->grau = Penalty::from($this->decision)->degree();
                 }
             } else {
-
                 $this->grau = Penalty::from($this->decision)->degree();
             }
         }

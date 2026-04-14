@@ -14,6 +14,8 @@ class SchoolClassesInfos extends Component
     public $rows;
     public $columns;
     public $door_side;
+    public $classroom_board_side;
+    public $orientation;
 
 
 
@@ -24,6 +26,8 @@ class SchoolClassesInfos extends Component
             $this->rows = $school_classes->rows;
             $this->columns = $school_classes->columns;
             $this->door_side = $school_classes->door_side;
+            $this->classroom_board_side = $school_classes->classroom_board_side;
+            $this->orientation = $school_classes->orientation;
         }
     }
     public function render()
@@ -36,6 +40,8 @@ class SchoolClassesInfos extends Component
             'columns' => 'min:1|max:1|required',
             'rows' => 'min:1|max:1|required',
             'door_side' => 'required',
+            'orientation' => 'required',
+            'classroom_board_side' => 'required',
         ];
         $this->validate();
         $class = SchoolClasses::updateOrCreate([
@@ -44,6 +50,8 @@ class SchoolClassesInfos extends Component
             'rows' => $this->rows,
             'columns' => $this->columns,
             'door_side' => $this->door_side,
+            'classroom_board_side' => $this->classroom_board_side,
+            'orientation' => $this->orientation,
         ]);
 
         $msg = 'Registro editado com sucesso.';

@@ -26,6 +26,8 @@ class SchoolClasses extends Model
         'rows',
         'columns',
         'door_side',
+        'classroom_board_side',
+        'orientation',
         'code',
         'updated_by',
         'created_by',

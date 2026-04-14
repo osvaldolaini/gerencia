@@ -30,6 +30,8 @@ class SchoolClassroomSeatForm extends Component
     public $rows;
     public $columns;
     public $door_side;
+    public $classroom_board_side;
+    public $orientation;
 
 
     public $title;
@@ -58,11 +60,13 @@ class SchoolClassroomSeatForm extends Component
             $this->year         = $school_classes->school_classes_year_id;
             $this->school_classes = $school_classes;
 
-            $this->school_classes_id = $school_classes->id;
-            $this->field = $school_classes->school_grade_id;
-            $this->rows = $school_classes->rows;
-            $this->columns = $school_classes->columns;
-            $this->door_side = $school_classes->door_side;
+            $this->school_classes_id    = $school_classes->id;
+            $this->field                = $school_classes->school_grade_id;
+            $this->rows                 = $school_classes->rows;
+            $this->columns              = $school_classes->columns;
+            $this->door_side            = $school_classes->door_side;
+            $this->classroom_board_side = $school_classes->classroom_board_side;
+            $this->orientation          = $school_classes->orientation;
             $this->breadcrumb .= $school_classes->title . ' / ' . $school_classes->classYears->year;
         }
     }
@@ -100,6 +104,8 @@ class SchoolClassroomSeatForm extends Component
         $this->rows = $school_classes->rows;
         $this->columns = $school_classes->columns;
         $this->door_side = $school_classes->door_side;
+        $this->orientation = $school_classes->orientation;
+        $this->classroom_board_side = $school_classes->classroom_board_side;
         $this->seats = ClassroomSeats::with('students')
             ->where('school_classes_id', $this->school_classes_id)
             ->get();
@@ -169,7 +175,7 @@ class SchoolClassroomSeatForm extends Component
         $mpdf = new \Mpdf\Mpdf([
             'mode'          => 'utf-8',
             // 'orientation'        => 'P', //[P,L]
-            'format' => 'A4-P',
+            'format' => 'A4-' . $school_classes->orientation,
             'margin_left'   => 15,
             'margin_top'    => 15,
             'default_font_size'  => 9,

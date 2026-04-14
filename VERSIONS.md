@@ -6,6 +6,10 @@
 
 -   Novo formato para o espelho de classe
 
+> Correções
+
+-   Textos retiradas FAFD
+
 ## Versão Santos Dumont 1.8.5 – 2026-03-17
 
 > Melhorias

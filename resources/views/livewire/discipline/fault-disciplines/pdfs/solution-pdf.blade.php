@@ -137,8 +137,20 @@
                         (RICM 2024), “A 1ª falta do aluno passível de medida mínima de retirada do CM é da competência
                         do Cmt CM”.</p>
                 @else
-                    <p>3. {{ Penalty::from($fault_discipline->decision)->sugestion($fault_discipline->dacision_days) }}
-                    </p>
+                    @if ($fault_discipline->decision != 'retirada_cm')
+                        <p>3.
+                            {{ Penalty::from($fault_discipline->decision)->sugestion($fault_discipline->dacision_days) }}
+                        </p>
+                    @else
+                        <p>3. Por fim, no uso de minhas atribuições de Comandante de Companhia, deixo de aplicar medida
+                            disciplinar de Retirada ao aluno, em cumprimento ao número 29, da letra c, do nº 5, Anexo F,
+                            das
+                            Normas Reguladoras do Regime Disciplinar (NRDD), do Regimento Interno dos Colégios Militares
+                            (RICM 2024), “A 1ª falta do aluno passível de medida mínima de retirada do CM é da
+                            competência
+                            do Cmt CM”.</p>
+                    @endif
+
                 @endif
 
             </div>
@@ -247,6 +259,7 @@
             </table>
         </div>
     </div>
+
 
     @if ($fault_discipline->first)
         {{-- COMANDANTE DO CA --}}
@@ -384,7 +397,7 @@
                 </table>
             </div>
         </div>
-        {{-- COMANDANTE DO CA --}}
+        {{-- COMANDANTE DO CM --}}
         <div class="break-page"></div>
         <div class="container">
             <div class="header">
@@ -519,6 +532,418 @@
                 </table>
             </div>
         </div>
+    @else
+        @if ($fault_discipline->decision == 'retirada_cm' && $fault_discipline->dacision_days <= 3)
+            {{-- COMANDANTE DO CA --}}
+            <div class="break-page"></div>
+            <div class="container">
+                <div class="header">
+                    <table class="identification">
+                        <tr>
+                            <td colspan="4"
+                                Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
+                                ANÁLISE E DECISÃO DO CMT DO CA SOBRE O FATO OBSERVADO E AS ALEGAÇÕES APRESENTADAS
+                            </td>
+                        </tr>
+
+
+                    </table>
+                    <div style="padding: 5px 5px;">
+                        <p>1. Após análise do fato descrito no FAFD Nr
+                            {{ $fault_discipline->number }}/{{ $fault_discipline->year }}
+                            de {{ $fault_discipline->f_date }},e considerar as alegações prestadas nas justificativas
+                            apresentadas por escrito e ouvir o(a) Al {{ $fault_discipline->al_number }}
+                            {{ $fault_discipline->al_nick }},
+                            concluo que o fato ocorreu da seguinte forma:
+                        </p>
+                        <p>{{ $fault_discipline->fact }}</p>
+                        <p>2. {{ $fault_discipline->solution }}</p>
+                        <p>3.
+                            {{ Penalty::from($fault_discipline->decision)->sugestion($fault_discipline->dacision_days) }}
+                        </p>
+
+                    </div>
+
+                    <table class="identification">
+                        <tr>
+                            <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid black;">
+                                Solução do Cmt do CA em: ______/________/20____
+                            </td>
+                            <td colspan="3" style="border-top: 1px solid black;">
+                                Assinatura Cmt do CA: __________________________
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border-top: 1px solid black; border-right: 1px solid black;">
+                                Enquadramento: Falta Nr
+
+                                @if (is_array($fault_discipline->json_faults) && count($fault_discipline->json_faults) > 0)
+                                    @foreach ($fault_discipline->json_faults as $key => $item)
+                                        {{ $item }}@if ($loop->remaining === 1)
+                                            e
+                                        @elseif (!$loop->last)
+                                            ,
+                                        @endif
+                                    @endforeach
+                                @endif
+
+                            </td>
+                            <td style="border-top: 1px solid black; border-right: 1px solid black;">
+                                Reincidência (
+                                {{ $fault_discipline->repeat == 1 ? $fault_discipline->repeat_number . 'x' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black; border-right: 1px solid black;">
+                                Agravante Nr
+                                @if (is_array($fault_discipline->json_aggravating) && count($fault_discipline->json_aggravating) > 0)
+                                    @foreach ($fault_discipline->json_aggravating as $key => $item)
+                                        {{ $item }}@if ($loop->remaining === 1)
+                                            e
+                                        @elseif (!$loop->last)
+                                            ,
+                                        @endif
+                                    @endforeach
+                                @endif
+
+                            </td>
+                            <td colspan="2" style="border-top: 1px solid black;">
+                                Atenuante Nr
+                                @if (is_array($fault_discipline->json_mitigating) && count($fault_discipline->json_mitigating) > 0)
+                                    @foreach ($fault_discipline->json_mitigating as $key => $item)
+                                        {{ $item }}@if ($loop->remaining === 1)
+                                            e
+                                        @elseif (!$loop->last)
+                                            ,
+                                        @endif
+                                    @endforeach
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Elogio (
+                                {{ $fault_discipline->decision == 'elogio' ? 'X' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Justificado ( {{ $fault_discipline->decision == 'justificado' ? 'X' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Advertência ( {{ $fault_discipline->decision == 'advertencia' ? 'X' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Repreensão ( {{ $fault_discipline->decision == 'repreensao' ? 'X' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                AOE
+                                {{ $fault_discipline->decision == 'atividade_orientacao_educacional' ? $fault_discipline->dacision_days : '  ' }}
+                                {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }}
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Retirada
+                                {{ $fault_discipline->decision == 'retirada_cm' ? $fault_discipline->dacision_days : '  ' }}
+                                {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border-top: 1px solid black;border-right: 1px solid">
+                                Nota p/Bol Nr: _____
+                            </td>
+                            <td colspan="1" style="border-top: 1px solid black;border-right: 1px solid">
+                                BAR Nr _____________
+                            </td>
+                            <td colspan="1" style="border-top: 1px solid black;border-right: 1px solid">
+                                FIOD Nr
+                            </td>
+                            <td colspan="2" style="border-top: 1px solid black;border-right: 1px solid">
+                                Grau de Comportamento:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid">
+                                Lançamento no SINCOMIL em ___/____/20___
+                            </td>
+                            <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid">
+                                Rubrica Sgtte: _________________________________
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        @else
+            {{-- COMANDANTE DO CA --}}
+            <div class="break-page"></div>
+            <div class="container">
+                <div class="header">
+                    <table class="identification">
+                        <tr>
+                            <td colspan="4"
+                                Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
+                                ANÁLISE E DECISÃO DO CMT DO CA SOBRE O FATO OBSERVADO E AS ALEGAÇÕES APRESENTADAS
+                            </td>
+                        </tr>
+
+
+                    </table>
+                    <div style="padding: 5px 5px;">
+                        <p>1. Após análise do fato descrito no FAFD Nr
+                            {{ $fault_discipline->number }}/{{ $fault_discipline->year }}
+                            de {{ $fault_discipline->f_date }},e considerar as alegações prestadas nas justificativas
+                            apresentadas por escrito e ouvir o(a) Al {{ $fault_discipline->al_number }}
+                            {{ $fault_discipline->al_nick }},
+                            concluo que o fato ocorreu da seguinte forma:
+                        </p>
+                        <p>{{ $fault_discipline->fact }}</p>
+                        <p>2. {{ $fault_discipline->solution }}</p>
+                        <p>3. Por fim, no uso de minhas atribuições de Comandante do Corpo de Alunos, deixo de aplicar
+                            medida disciplinar de Retirada ao aluno, em cumprimento ao número 29, da letra c, do nº 5,
+                            Anexo
+                            F, das Normas Reguladoras do Regime Disciplinar (NRDD), do Regimento Interno dos Colégios
+                            Militares (RICM 2024), “A 1ª falta do aluno passível de medida mínima de retirada do CM é da
+                            competência do Cmt CM”.</p>
+
+                    </div>
+
+                    <table class="identification">
+                        <tr>
+                            <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid black;">
+                                Solução do Cmt do CA em: ______/________/20____
+                            </td>
+                            <td colspan="3" style="border-top: 1px solid black;">
+                                Assinatura Cmt do CA: __________________________
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border-top: 1px solid black; border-right: 1px solid black;">
+                                Enquadramento: Falta Nr
+
+                                @if (is_array($fault_discipline->json_faults) && count($fault_discipline->json_faults) > 0)
+                                    @foreach ($fault_discipline->json_faults as $key => $item)
+                                        {{ $item }}@if ($loop->remaining === 1)
+                                            e
+                                        @elseif (!$loop->last)
+                                            ,
+                                        @endif
+                                    @endforeach
+                                @endif
+
+                            </td>
+                            <td style="border-top: 1px solid black; border-right: 1px solid black;">
+                                Reincidência (
+                                {{ $fault_discipline->repeat == 1 ? $fault_discipline->repeat_number . 'x' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black; border-right: 1px solid black;">
+                                Agravante Nr
+                                @if (is_array($fault_discipline->json_aggravating) && count($fault_discipline->json_aggravating) > 0)
+                                    @foreach ($fault_discipline->json_aggravating as $key => $item)
+                                        {{ $item }}@if ($loop->remaining === 1)
+                                            e
+                                        @elseif (!$loop->last)
+                                            ,
+                                        @endif
+                                    @endforeach
+                                @endif
+
+                            </td>
+                            <td colspan="2" style="border-top: 1px solid black;">
+                                Atenuante Nr
+                                @if (is_array($fault_discipline->json_mitigating) && count($fault_discipline->json_mitigating) > 0)
+                                    @foreach ($fault_discipline->json_mitigating as $key => $item)
+                                        {{ $item }}@if ($loop->remaining === 1)
+                                            e
+                                        @elseif (!$loop->last)
+                                            ,
+                                        @endif
+                                    @endforeach
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Elogio (
+                                {{ $fault_discipline->decision == 'elogio' ? 'X' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Justificado ( {{ $fault_discipline->decision == 'justificado' ? 'X' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Advertência ( {{ $fault_discipline->decision == 'advertencia' ? 'X' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Repreensão ( {{ $fault_discipline->decision == 'repreensao' ? 'X' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                AOE
+                                {{ $fault_discipline->decision == 'atividade_orientacao_educacional' ? $fault_discipline->dacision_days : '  ' }}
+                                {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }}
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Retirada
+                                {{ $fault_discipline->decision == 'retirada_cm' ? $fault_discipline->dacision_days : '  ' }}
+                                {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border-top: 1px solid black;border-right: 1px solid">
+                                Nota p/Bol Nr: _____
+                            </td>
+                            <td colspan="1" style="border-top: 1px solid black;border-right: 1px solid">
+                                BAR Nr _____________
+                            </td>
+                            <td colspan="1" style="border-top: 1px solid black;border-right: 1px solid">
+                                FIOD Nr
+                            </td>
+                            <td colspan="2" style="border-top: 1px solid black;border-right: 1px solid">
+                                Grau de Comportamento:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid">
+                                Lançamento no SINCOMIL em ___/____/20___
+                            </td>
+                            <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid">
+                                Rubrica Sgtte: _________________________________
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            {{-- COMANDANTE DO CM --}}
+            <div class="break-page"></div>
+            <div class="container">
+                <div class="header">
+                    <table class="identification">
+                        <tr>
+                            <td colspan="4"
+                                Style="font-weight: bold;text-align:center;border-top: 1px solid black;">
+                                ANÁLISE E DECISÃO DO CMT DO CM SOBRE O FATO OBSERVADO E AS ALEGAÇÕES APRESENTADAS
+                            </td>
+                        </tr>
+
+
+                    </table>
+                    <div style="padding: 5px 5px;">
+                        <p>1. Após análise do fato descrito no FAFD Nr
+                            {{ $fault_discipline->number }}/{{ $fault_discipline->year }}
+                            de {{ $fault_discipline->f_date }},e considerar as alegações prestadas nas justificativas
+                            apresentadas por escrito e ouvir o(a) Al {{ $fault_discipline->al_number }}
+                            {{ $fault_discipline->al_nick }},
+                            concluo que o fato ocorreu da seguinte forma:
+                        </p>
+                        <p>{{ $fault_discipline->fact }}</p>
+                        <p>2. {{ $fault_discipline->solution }}</p>
+                        <p>
+                            3. Por fim, no uso de minhas atribuições de Comandante do {{ $config->nick }} decido punir
+                            o(a)
+                            aluno(a)
+                            com {{ $fault_discipline->dacision_days }} dia
+                            {{ $fault_discipline->dacision_days > 1 ? 's' : '' }} de retirada
+                        </p>
+                    </div>
+
+                    <table class="identification">
+                        <tr>
+                            <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid black;">
+                                Solução do Cmt do CM em: ______/________/20____
+                            </td>
+                            <td colspan="3" style="border-top: 1px solid black;">
+                                Assinatura Cmt do CM: __________________________
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border-top: 1px solid black; border-right: 1px solid black;">
+                                Enquadramento: Falta Nr
+
+                                @if (is_array($fault_discipline->json_faults) && count($fault_discipline->json_faults) > 0)
+                                    @foreach ($fault_discipline->json_faults as $key => $item)
+                                        {{ $item }}@if ($loop->remaining === 1)
+                                            e
+                                        @elseif (!$loop->last)
+                                            ,
+                                        @endif
+                                    @endforeach
+                                @endif
+
+                            </td>
+                            <td style="border-top: 1px solid black; border-right: 1px solid black;">
+                                Reincidência (
+                                {{ $fault_discipline->repeat == 1 ? $fault_discipline->repeat_number . 'x' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black; border-right: 1px solid black;">
+                                Agravante Nr
+                                @if (is_array($fault_discipline->json_aggravating) && count($fault_discipline->json_aggravating) > 0)
+                                    @foreach ($fault_discipline->json_aggravating as $key => $item)
+                                        {{ $item }}@if ($loop->remaining === 1)
+                                            e
+                                        @elseif (!$loop->last)
+                                            ,
+                                        @endif
+                                    @endforeach
+                                @endif
+
+                            </td>
+                            <td colspan="2" style="border-top: 1px solid black;">
+                                Atenuante Nr
+                                @if (is_array($fault_discipline->json_mitigating) && count($fault_discipline->json_mitigating) > 0)
+                                    @foreach ($fault_discipline->json_mitigating as $key => $item)
+                                        {{ $item }}@if ($loop->remaining === 1)
+                                            e
+                                        @elseif (!$loop->last)
+                                            ,
+                                        @endif
+                                    @endforeach
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Elogio (
+                                {{ $fault_discipline->decision == 'elogio' ? 'X' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Justificado ( {{ $fault_discipline->decision == 'justificado' ? 'X' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Advertência ( {{ $fault_discipline->decision == 'advertencia' ? 'X' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Repreensão ( {{ $fault_discipline->decision == 'repreensao' ? 'X' : '  ' }} )
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                AOE
+                                {{ $fault_discipline->decision == 'atividade_orientacao_educacional' ? $fault_discipline->dacision_days : '  ' }}
+                                {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }}
+                            </td>
+                            <td style="border-top: 1px solid black;border-right: 1px solid">
+                                Retirada
+                                {{ $fault_discipline->decision == 'retirada_cm' ? $fault_discipline->dacision_days : '  ' }}
+                                {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="border-top: 1px solid black;border-right: 1px solid">
+                                Nota p/Bol Nr: _____
+                            </td>
+                            <td colspan="1" style="border-top: 1px solid black;border-right: 1px solid">
+                                BAR Nr _____________
+                            </td>
+                            <td colspan="1" style="border-top: 1px solid black;border-right: 1px solid">
+                                FIOD Nr
+                            </td>
+                            <td colspan="2" style="border-top: 1px solid black;border-right: 1px solid">
+                                Grau de Comportamento:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid">
+                                Lançamento no SINCOMIL em ___/____/20___
+                            </td>
+                            <td colspan="3" style="border-top: 1px solid black;border-right: 1px solid">
+                                Rubrica Sgtte: _________________________________
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        @endif
     @endif
 
 </body>

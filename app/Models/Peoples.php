@@ -529,14 +529,15 @@ class Peoples extends Model
 
     //     return number_format($nota, 2);
     // }
+    public function calculateAdjustedGrau(?Carbon $dataFinal = null)
     {
         $nota = floatval($this->grau);
         $dataFinal = $dataFinal ?? now();
-    
+
         // 1. Carregar eventos (elogios e punições)
         $punicoes = $this->fafd()->whereNotNull('bi_date')->where('bi_date', '<=', $dataFinal)->orderBy('bi_date')->get();
         $elogios = $this->compliments()->whereNotNull('bi_date')->where('bi_date', '<=', $dataFinal)->orderBy('bi_date')->get();
-    
+
         $events = [];
         foreach ($elogios as $e) {
             $events[] = ['type' => 'compliment', 'date' => Carbon::parse($e->bi_date), 'model' => $e];
@@ -544,72 +545,71 @@ class Peoples extends Model
         foreach ($punicoes as $p) {
             $events[] = ['type' => 'punition', 'date' => Carbon::parse($p->bi_date), 'model' => $p];
         }
-    
+
         // Ordenação: data ASC. Se mesma data, elogio antes da punição.
         usort($events, function ($a, $b) {
             if ($a['date']->eq($b['date'])) return ($a['type'] === 'compliment') ? -1 : 1;
             return $a['date']->lt($b['date']) ? -1 : 1;
         });
-    
+
         // Ponto de partida: 90 dias após a matrícula
         $dataReferencia = $this->entry_date ? Carbon::parse($this->entry_date)->addDays(90) : null;
-    
+
         Log::info("=== CÁLCULO DE NOTA INICIADO ===");
         Log::info("Nota inicial: " . number_format($nota, 2));
-    
+
         foreach ($events as $ev) {
             $dataEvento = $ev['date'];
             $dataFormatada = $dataEvento->format('d/m/Y');
-    
+
             // Pagamento de passivo acumulado (bonificação por tempo)
             if ($dataReferencia && $dataEvento->gt($dataReferencia)) {
                 $dias = $dataReferencia->diffInDays($dataEvento);
                 $ganho = $dias * 0.01;
                 $notaAntiga = $nota;
                 $nota = min($nota + $ganho, 10.00);
-    
+
                 Log::info("De {$dataReferencia->format('d/m/Y')} até {$dataFormatada} → passaram {$dias} dias sem punição → + " . number_format($ganho, 2) . " (nota: " . number_format($notaAntiga, 2) . " → " . number_format($nota, 2) . ")");
-    
+
                 $dataReferencia = $dataEvento->copy();
             }
-    
+
             if ($ev['type'] === 'compliment') {
                 $notaAntiga = $nota;
                 $ganho = floatval($ev['model']->grau);
                 $nota = min($nota + $ganho, 10.00);
-    
+
                 Log::info("Elogio em {$dataFormatada} → + " . number_format($ganho, 2) . " (nota: " . number_format($notaAntiga, 2) . " → " . number_format($nota, 2) . ")");
-            } 
-            else {
+            } else {
                 // Punição
                 $p = $ev['model'];
                 $perda = (isset($p->decision) && $p->decision === 'retirada_cm')
                     ? floatval($p->grau) * ($p->dacision_days ?: 1)
                     : floatval($p->grau);
-    
+
                 $notaAntiga = $nota;
                 $nota = max($nota - $perda, 0.00);
-    
+
                 $novaDataReferencia = $dataEvento->copy()->addDays(90);
-    
+
                 Log::info("Punição em {$dataFormatada} → perdeu " . number_format($perda, 2) . " (nota: " . number_format($notaAntiga, 2) . " → " . number_format($nota, 2) . ") → Nova carência de 90 dias até " . $novaDataReferencia->format('d/m/Y'));
-    
+
                 $dataReferencia = $novaDataReferencia;
             }
         }
-    
+
         // Cálculo final: do último evento/referência até a data atual
         if ($dataReferencia && $dataFinal->gt($dataReferencia)) {
             $dias = $dataReferencia->diffInDays($dataFinal);
             $ganho = $dias * 0.01;
             $notaAntiga = $nota;
             $nota = min($nota + $ganho, 10.00);
-    
+
             Log::info("De {$dataReferencia->format('d/m/Y')} até hoje ({$dataFinal->format('d/m/Y')}) → passaram {$dias} dias sem punição → + " . number_format($ganho, 2) . " (nota: " . number_format($notaAntiga, 2) . " → " . number_format($nota, 2) . ")");
         }
-    
+
         Log::info("=== CÁLCULO FINALIZADO - Nota final: " . number_format($nota, 2) . " ===");
-    
+
         return number_format($nota, 2);
     }
 

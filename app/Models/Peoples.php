@@ -464,15 +464,79 @@ class Peoples extends Model
 
     //     return number_format($nota, 2);
     // }
-    public function calculateAdjustedGrau(?Carbon $dataFinal = null)
+    // public function calculateAdjustedGrau(?Carbon $dataFinal = null)
+    // {
+    //     $nota = floatval($this->grau);
+    //     $dataFinal = $dataFinal ?? now();
+
+    //     // 1. Carregar eventos (elogios e punições)
+    //     $punicoes = $this->fafd()->whereNotNull('bi_date')->where('bi_date', '<=', $dataFinal)->orderBy('bi_date')->get();
+    //     $elogios = $this->compliments()->whereNotNull('bi_date')->where('bi_date', '<=', $dataFinal)->orderBy('bi_date')->get();
+
+    //     $events = [];
+    //     foreach ($elogios as $e) {
+    //         $events[] = ['type' => 'compliment', 'date' => Carbon::parse($e->bi_date), 'model' => $e];
+    //     }
+    //     foreach ($punicoes as $p) {
+    //         $events[] = ['type' => 'punition', 'date' => Carbon::parse($p->bi_date), 'model' => $p];
+    //     }
+
+    //     // Ordenação: data ASC. Se mesma data, elogio antes da punição.
+    //     usort($events, function ($a, $b) {
+    //         if ($a['date']->eq($b['date'])) return ($a['type'] === 'compliment') ? -1 : 1;
+    //         return $a['date']->lt($b['date']) ? -1 : 1;
+    //     });
+
+    //     // Ponto de partida: 90 dias após a matrícula
+    //     $dataReferencia = $this->entry_date ? Carbon::parse($this->entry_date)->addDays(90) : null;
+
+    //     foreach ($events as $ev) {
+    //         $dataEvento = $ev['date'];
+
+    //         // Se o evento ocorreu DEPOIS da data de referência, pagamos o passivo acumulado ATÉ o evento
+    //         if ($dataReferencia && $dataEvento->gt($dataReferencia)) {
+    //             $dias = $dataReferencia->diffInDays($dataEvento);
+    //             $nota = min($nota + ($dias * 0.01), 10.00);
+
+    //             // ATENÇÃO: A referência avança para a data do evento para não pagar o mesmo período de novo
+    //             $dataReferencia = $dataEvento->copy();
+    //             Log::debug("Pagando passivo acumulado até {$dataEvento->format('Y-m-d')}: {$dias} dias.");
+    //         }
+
+    //         if ($ev['type'] === 'compliment') {
+    //             // Elogio apenas soma na nota, NÃO altera a dataReferencia (o cronômetro continua de onde parou ou segue esperando dar 90 dias)
+    //             $nota = min($nota + floatval($ev['model']->grau), 10.00);
+    //             Log::debug("Elogio computado em {$dataEvento->format('Y-m-d')}. Nota: {$nota}");
+    //         } else {
+    //             // Punição subtrai e RESETA a referência (Zera o cronômetro: Data + 90)
+    //             $p = $ev['model'];
+    //             $perda = (isset($p->decision) && $p->decision === 'retirada_cm')
+    //                 ? floatval($p->grau) * ($p->dacision_days ?: 1)
+    //                 : floatval($p->grau);
+
+    //             $nota = max($nota - $perda, 0.00);
+    //             $dataReferencia = $dataEvento->copy()->addDays(90);
+    //             Log::debug("Punição em {$dataEvento->format('Y-m-d')}. Nova carência até: {$dataReferencia->format('Y-m-d')}");
+    //         }
+    //     }
+
+    //     // Cálculo final: do último evento/referência até a data atual
+    //     if ($dataReferencia && $dataFinal->gt($dataReferencia)) {
+    //         $dias = $dataReferencia->diffInDays($dataFinal);
+    //         $nota = min($nota + ($dias * 0.01), 10.00);
+    //         Log::debug("Passivo final até hoje: {$dias} dias.");
+    //     }
+
+    //     return number_format($nota, 2);
+    // }
     {
         $nota = floatval($this->grau);
         $dataFinal = $dataFinal ?? now();
-
+    
         // 1. Carregar eventos (elogios e punições)
         $punicoes = $this->fafd()->whereNotNull('bi_date')->where('bi_date', '<=', $dataFinal)->orderBy('bi_date')->get();
         $elogios = $this->compliments()->whereNotNull('bi_date')->where('bi_date', '<=', $dataFinal)->orderBy('bi_date')->get();
-
+    
         $events = [];
         foreach ($elogios as $e) {
             $events[] = ['type' => 'compliment', 'date' => Carbon::parse($e->bi_date), 'model' => $e];
@@ -480,53 +544,72 @@ class Peoples extends Model
         foreach ($punicoes as $p) {
             $events[] = ['type' => 'punition', 'date' => Carbon::parse($p->bi_date), 'model' => $p];
         }
-
+    
         // Ordenação: data ASC. Se mesma data, elogio antes da punição.
         usort($events, function ($a, $b) {
             if ($a['date']->eq($b['date'])) return ($a['type'] === 'compliment') ? -1 : 1;
             return $a['date']->lt($b['date']) ? -1 : 1;
         });
-
+    
         // Ponto de partida: 90 dias após a matrícula
         $dataReferencia = $this->entry_date ? Carbon::parse($this->entry_date)->addDays(90) : null;
-
+    
+        Log::info("=== CÁLCULO DE NOTA INICIADO ===");
+        Log::info("Nota inicial: " . number_format($nota, 2));
+    
         foreach ($events as $ev) {
             $dataEvento = $ev['date'];
-
-            // Se o evento ocorreu DEPOIS da data de referência, pagamos o passivo acumulado ATÉ o evento
+            $dataFormatada = $dataEvento->format('d/m/Y');
+    
+            // Pagamento de passivo acumulado (bonificação por tempo)
             if ($dataReferencia && $dataEvento->gt($dataReferencia)) {
                 $dias = $dataReferencia->diffInDays($dataEvento);
-                $nota = min($nota + ($dias * 0.01), 10.00);
-
-                // ATENÇÃO: A referência avança para a data do evento para não pagar o mesmo período de novo
+                $ganho = $dias * 0.01;
+                $notaAntiga = $nota;
+                $nota = min($nota + $ganho, 10.00);
+    
+                Log::info("De {$dataReferencia->format('d/m/Y')} até {$dataFormatada} → passaram {$dias} dias sem punição → + " . number_format($ganho, 2) . " (nota: " . number_format($notaAntiga, 2) . " → " . number_format($nota, 2) . ")");
+    
                 $dataReferencia = $dataEvento->copy();
-                Log::debug("Pagando passivo acumulado até {$dataEvento->format('Y-m-d')}: {$dias} dias.");
             }
-
+    
             if ($ev['type'] === 'compliment') {
-                // Elogio apenas soma na nota, NÃO altera a dataReferencia (o cronômetro continua de onde parou ou segue esperando dar 90 dias)
-                $nota = min($nota + floatval($ev['model']->grau), 10.00);
-                Log::debug("Elogio computado em {$dataEvento->format('Y-m-d')}. Nota: {$nota}");
-            } else {
-                // Punição subtrai e RESETA a referência (Zera o cronômetro: Data + 90)
+                $notaAntiga = $nota;
+                $ganho = floatval($ev['model']->grau);
+                $nota = min($nota + $ganho, 10.00);
+    
+                Log::info("Elogio em {$dataFormatada} → + " . number_format($ganho, 2) . " (nota: " . number_format($notaAntiga, 2) . " → " . number_format($nota, 2) . ")");
+            } 
+            else {
+                // Punição
                 $p = $ev['model'];
                 $perda = (isset($p->decision) && $p->decision === 'retirada_cm')
                     ? floatval($p->grau) * ($p->dacision_days ?: 1)
                     : floatval($p->grau);
-
+    
+                $notaAntiga = $nota;
                 $nota = max($nota - $perda, 0.00);
-                $dataReferencia = $dataEvento->copy()->addDays(90);
-                Log::debug("Punição em {$dataEvento->format('Y-m-d')}. Nova carência até: {$dataReferencia->format('Y-m-d')}");
+    
+                $novaDataReferencia = $dataEvento->copy()->addDays(90);
+    
+                Log::info("Punição em {$dataFormatada} → perdeu " . number_format($perda, 2) . " (nota: " . number_format($notaAntiga, 2) . " → " . number_format($nota, 2) . ") → Nova carência de 90 dias até " . $novaDataReferencia->format('d/m/Y'));
+    
+                $dataReferencia = $novaDataReferencia;
             }
         }
-
+    
         // Cálculo final: do último evento/referência até a data atual
         if ($dataReferencia && $dataFinal->gt($dataReferencia)) {
             $dias = $dataReferencia->diffInDays($dataFinal);
-            $nota = min($nota + ($dias * 0.01), 10.00);
-            Log::debug("Passivo final até hoje: {$dias} dias.");
+            $ganho = $dias * 0.01;
+            $notaAntiga = $nota;
+            $nota = min($nota + $ganho, 10.00);
+    
+            Log::info("De {$dataReferencia->format('d/m/Y')} até hoje ({$dataFinal->format('d/m/Y')}) → passaram {$dias} dias sem punição → + " . number_format($ganho, 2) . " (nota: " . number_format($notaAntiga, 2) . " → " . number_format($nota, 2) . ")");
         }
-
+    
+        Log::info("=== CÁLCULO FINALIZADO - Nota final: " . number_format($nota, 2) . " ===");
+    
         return number_format($nota, 2);
     }
 

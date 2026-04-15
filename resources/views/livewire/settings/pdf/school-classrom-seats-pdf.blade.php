@@ -22,6 +22,7 @@
             font-size: 12px;
         }
 
+
         . <svg fill="#000000" class="w-10 h-10" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4,23H20a1,1,0,0,0,0-2V2a1,1,0,0,0-1-1H5A1,1,0,0,0,4,2V21a1,1,0,0,0,0,2ZM6,3H18V21H6Zm3,8v2a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Z" /></svg> {
             background-color: #facc15;
             font-weight: bold;
@@ -92,7 +93,21 @@
 
 <body>
     @foreach ($school_classes as $class)
-        <h2 class="h2">Espelho da Turma: {{ $class->title }}</h2>
+        <h2 class="h2" style="text-align: center; margin-top: 40px;">
+            @if ($class->classroom_board_side == 'front')
+                Espelho da Turma: {{ $class->title }}
+            @else
+                <svg width="500" height="40" viewBox="0 0 500 40" xmlns="http://w3.org">
+                    <!-- x="250" y="20" coloca o texto no centro do SVG de 500x40 -->
+                    <text x="250" y="25" text-anchor="middle" transform="rotate(180, 250, 20)"
+                        style="font-family: sans-serif; font-size: 16pt; font-weight: bold; fill: #000;">
+                        Espelho da Turma: {{ $class->title }}
+                    </text>
+                </svg>
+            @endif
+
+        </h2>
+
         <table>
             <tr>
                 <td class="top_bottom_door" style="width:20%;align-items: left; text-align:center;align-items: center; "
@@ -106,7 +121,24 @@
                         </div>
                     @endif
                 </td>
-                <td class="square" style="width:80%;height:40px;">Quadro</td>
+                <td class="square" style="width:80%; height:40px; padding: 0;">
+                    @if ($class->classroom_board_side == 'front')
+                        <span>Quadro</span>
+                    @else
+                        <!-- SVG com largura 100% da célula -->
+                        <svg width="100%" height="40" viewBox="0 0 400 40" xmlns="http://w3.org">
+                            <!-- Fundo Azul (Opcional, caso o CSS da TD falhe) -->
+                            <rect width="400" height="40" fill="#1043cf" />
+
+                            <!-- Texto Branco Invertido -->
+                            <text x="200" y="26" text-anchor="middle" transform="rotate(180, 200, 20)"
+                                style="font-family: sans-serif; font-size: 16pt; font-weight: bold; fill: #ffffff;">
+                                Quadro
+                            </text>
+                        </svg>
+                    @endif
+                </td>
+
 
                 <td class="top_bottom_door" style="width:20%;text-align:center;align-items: center;"
                     rowspan="{{ $class->rows }}">
@@ -222,30 +254,62 @@
                                 @endif
                             @else
                                 @if ($seat?->students)
-                                    <table style="border-collapse: collapse; border:none; margin: 0px; padding:0px;">
-                                        <tr style="margin: 0px; padding:0px; font-size:6pt;">
-                                            <td style="border:none; margin: 0px; padding:0px; font-size:6pt;">
-                                                {{ $number }}
-                                            </td>
-                                        </tr>
-                                        <tr style="margin: 0px; padding:0px;">
-                                            <td style="margin: 0px; padding:0px; font-size:8pt;">
-                                                <span style="page-break-after: always;">
-                                                    {{-- {{ $seat?->students?->nick }} --}}
-                                                    {!! str_replace(' ', '<br>', $seat?->students?->nick) !!}
-                                                </span>
-
-                                            </td>
-                                        </tr>
-
-                                        <tr style="margin: 0px; padding:0px;">
-                                            <td style="border:none; margin: 0px; padding:0px;">
-                                                <img width="45px" style="transform: rotate(180deg);"
-                                                    src="{{ url('storage/student/' . $seat?->students?->id . '/' . $seat?->students?->code_image . '_list.png?tr=rt-180') }}"
-                                                    alt="{{ $seat?->students?->name }}">
+                                    <table style="border-collapse: collapse; width: 100%; margin: 0; padding: 0;">
+                                        <!-- NÚMERO - Altura reduzida para 10 -->
+                                        <tr>
+                                            <td style="text-align: center; padding: 0; line-height: 1px;">
+                                                <svg width="60" height="10" viewBox="0 0 60 10"
+                                                    xmlns="http://w3.org" style="display: block;">
+                                                    <text x="30" y="8" text-anchor="middle"
+                                                        transform="rotate(180, 30, 5)"
+                                                        style="font-family: sans-serif; font-size: 8px; fill: #000;">
+                                                        {{ $number }}
+                                                    </text>
+                                                </svg>
                                             </td>
                                         </tr>
 
+                                        <!-- NOME COMPOSTO - Altura ajustada e Ys aproximados -->
+                                        <tr>
+                                            <td style="text-align: center; padding: 0; line-height: 1px;">
+                                                @php
+                                                    $nomePartes = explode(' ', $seat?->students?->nick);
+                                                    $linha1 = $nomePartes[0] ?? '';
+                                                    $linha2 = isset($nomePartes[1])
+                                                        ? implode(' ', array_slice($nomePartes, 1))
+                                                        : '';
+                                                @endphp
+
+                                                <svg width="80" height="{{ $linha2 ? '22' : '11' }}"
+                                                    viewBox="0 0 80 {{ $linha2 ? '22' : '11' }}"
+                                                    xmlns="http://w3.org" style="display: block;">
+                                                    <!-- Linha 1 -->
+                                                    <text x="40" y="8" text-anchor="middle"
+                                                        transform="rotate(180, 40, {{ $linha2 ? '11' : '5.5' }})"
+                                                        style="font-family: sans-serif; font-size: 8px; fill: #000;">
+                                                        {{ $linha1 }}
+                                                    </text>
+
+                                                    @if ($linha2)
+                                                        <!-- Linha 2 aproximada (y=18 em vez de 22) -->
+                                                        <text x="40" y="18" text-anchor="middle"
+                                                            transform="rotate(180, 40, 11)"
+                                                            style="font-family: sans-serif; font-size: 8px; fill: #000;">
+                                                            {{ $linha2 }}
+                                                        </text>
+                                                    @endif
+                                                </svg>
+                                            </td>
+                                        </tr>
+
+                                        <!-- FOTO -->
+                                        <tr>
+                                            <td style="text-align: center; padding: 0; line-height: 1px;">
+                                                <img width="45px"
+                                                    style="transform: rotate(180deg); display: block; margin: 0 auto;"
+                                                    src="{{ url('storage/student/' . $seat?->students?->id . '/' . $seat?->students?->code_image . '_list.png') }}">
+                                            </td>
+                                        </tr>
                                     </table>
                                 @else
                                     <table style="border-collapse: collapse; border:none;">
@@ -332,7 +396,25 @@
                         </div>
                     @endif
                 </td>
-                <td class="square_bottom" style="width:80%;">FUNDO</td>
+                <td class="square_bottom" style="width:80%; height:40px; padding: 0;">
+                    @if ($class->classroom_board_side == 'front')
+                        <span>FUNDO</span>
+                    @else
+                        <!-- SVG com largura 100% da célula -->
+                        <svg width="100%" height="40" viewBox="0 0 400 40" xmlns="http://w3.org">
+                            <!-- Fundo Azul (Opcional, caso o CSS da TD falhe) -->
+                            <rect width="400" height="40" />
+
+                            <!-- Texto Branco Invertido -->
+                            <text x="200" y="26" text-anchor="middle" transform="rotate(180, 200, 20)"
+                                style="font-family: sans-serif; font-size: 16pt; font-weight: bold; fill: #ffffff;">
+                                FUNDO
+                            </text>
+                        </svg>
+                    @endif
+
+                </td>
+                {{-- <td class="square_bottom" style="width:80%;">FUNDO</td> --}}
 
                 <td class="top_bottom_door" style="width:20%;text-align:center;align-items: center;"
                     rowspan="{{ $class->rows }}">

@@ -17,13 +17,13 @@
             </h2>
             <ul class="divide-y divide-gray-200">
                 @foreach ($topStudentsFos as $fact)
-                    @if ( $fact->students)
+                    @if ($fact->students)
                         <li class="py-3">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="font-medium text-gray-800 dark:text-gray-100">
                                         <span class="shadow-md badge badge-neutral">
-                                            {{ $fact->students?->al_class?->title ?? 'Sem turma'}}
+                                            {{ $fact->students?->al_class?->title ?? 'Sem turma' }}
                                         </span>
                                         {{ $fact->students->name }}
                                     </p>
@@ -37,7 +37,6 @@
                             </div>
                         </li>
                     @endif
-
                 @endforeach
             </ul>
         </div>
@@ -60,7 +59,7 @@
                             <div>
                                 <p class="font-medium text-gray-800 dark:text-gray-100">
                                     <span class="shadow-md badge badge-neutral">
-                                        {{ $fault->students->al_class->title }}
+                                        {{ $fact->students?->al_class?->title ?? 'Sem turma' }}
                                     </span>
                                     {{ $fault->students->name }}
                                 </p>

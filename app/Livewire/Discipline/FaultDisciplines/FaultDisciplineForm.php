@@ -65,7 +65,7 @@ class FaultDisciplineForm extends Component
         $this->al_nick          = $people->nick;
         $this->al_name          = $people->name;
         $this->al_number        = $people->number;
-        $this->al_class         = $people->al_class->title ?? '';
+        $this->al_class         = $people->al_class->title;
         $this->cia              = $people->al_class->classGrade->company->name;
         $this->company_id       = $people->al_class->classGrade->company->id;
         // $this->cmt_cia_posto    = $people->al_class->classGrade->company->id;

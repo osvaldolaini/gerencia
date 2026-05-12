@@ -117,7 +117,7 @@ class FactObservedForm extends Component
             $this->al_nick          = $people->nick;
             $this->al_name          = $people->name;
             $this->al_number        = $people->number;
-            $this->al_class         = $people->al_class->title;
+            $this->al_class         = $people->al_class->title ?? '';
             $this->school_classes_id = $people->al_class->id;
             $this->cia              = $people->al_class->classGrade->company->name;
             $this->company_id       = $people->al_class->classGrade->company->id;

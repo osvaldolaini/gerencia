@@ -57,15 +57,15 @@ class FaultDisciplineForm extends Component
     public function updatePeople($id)
     {
         $people                 = Peoples::find($id);
-        if ($people->al_class) {
-            $this->openAlert('success', 'Aluno sem turma');
-            return;
-        }
+        // if ($people->al_class) {
+        //     $this->openAlert('success', 'Aluno sem turma');
+        //     return;
+        // }
         $this->student_id       = $id;
         $this->al_nick          = $people->nick;
         $this->al_name          = $people->name;
         $this->al_number        = $people->number;
-        $this->al_class         = $people->al_class->title;
+        $this->al_class         = $people->al_class->title ?? '';
         $this->cia              = $people->al_class->classGrade->company->name;
         $this->company_id       = $people->al_class->classGrade->company->id;
         // $this->cmt_cia_posto    = $people->al_class->classGrade->company->id;

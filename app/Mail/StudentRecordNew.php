@@ -31,6 +31,7 @@ class StudentRecordNew extends Mailable
         $this->attachment = $data['attachment'];
         $this->company = $data['company'];
 
+
         /**
          * CONFIGURA SMTP DINAMICAMENTE
          * Dados vindos da empresa/setor
@@ -84,6 +85,21 @@ class StudentRecordNew extends Mailable
         );
     }
 
+    // /**
+    //  * Get the message content definition.
+    //  */
+    // public function content(): Content
+    // {
+    //     return new Content(
+    //         view: 'livewire.students.student-record',
+
+    //         with: [
+    //             'config' => Settings::find(1),
+    //             'company' => $this->company,
+    //             'contact' => $this->contact,
+    //         ],
+    //     );
+    // }
     /**
      * Get the message content definition.
      */
@@ -91,11 +107,8 @@ class StudentRecordNew extends Mailable
     {
         return new Content(
             view: 'livewire.students.student-record',
-
             with: [
                 'config' => Settings::find(1),
-                'company' => $this->company,
-                'contact' => $this->contact,
             ],
         );
     }
@@ -103,18 +116,15 @@ class StudentRecordNew extends Mailable
     /**
      * Get the attachments for the message.
      *
-     * @return array<int, Attachment>
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
     public function attachments(): array
     {
+        // dd(storage_path('app/pdf-tmp/' . $this->data['attachment']));
         return [
-            Attachment::fromPath(
-                storage_path(
-                    'app/public/pdf-tmp/' . $this->attachment
-                )
-            )
-                ->as($this->attachment)
-                ->withMime('application/pdf'),
+            Attachment::fromPath(url('storage/pdf-tmp/' . $this->data['attachment']))
+                ->as($this->data['attachment'])
+                ->withMime('application/pdf')
         ];
     }
 }

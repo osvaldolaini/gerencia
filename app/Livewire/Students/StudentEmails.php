@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+
+use Illuminate\Support\Facades\Config;
+
 class StudentEmails extends Component
 {
     public $emails;
@@ -62,13 +65,41 @@ class StudentEmails extends Component
 
                     if (filter_var($contact->contact, FILTER_VALIDATE_EMAIL)) {
                         try {
-                            Mail::send(
-                                new \App\Mail\StudentRecordNew([
-                                    'contact'    => $contact,
-                                    'attachment' => $this->downloadTmp(),
-                                    'company'    => $this->student->company,
-                                ])
-                            );
+                            try {
+
+                                Config::set('mail.default', 'smtp');
+
+                                Config::set('mail.mailers.smtp.transport', 'smtp');
+
+                                Config::set('mail.mailers.smtp.host', $this->company->mail_host);
+                                Config::set('mail.mailers.smtp.port', $this->company->mail_port);
+
+                                Config::set('mail.mailers.smtp.username', $this->company->mail_username);
+                                Config::set('mail.mailers.smtp.password', $this->company->mail_password);
+
+                                Config::set('mail.mailers.smtp.encryption', $this->company->mail_encryption);
+
+                                Config::set('mail.from.address', $this->company->mail_from_address);
+                                Config::set('mail.from.name', $this->company->mail_from_name);
+
+
+                                Mail::purge();
+
+                                Mail::send(
+                                    new \App\Mail\StudentRecordNew([
+                                        'contact'    => $contact,
+                                        'attachment' => $this->downloadTmp(),
+                                        'company'    => $this->student->company,
+                                    ])
+                                );
+                                // Mail::send(new StudentRecordNew($data));
+                            } catch (\Exception $e) {
+
+                                logger()->error($e->getMessage());
+
+                                dd($e->getMessage());
+                            }
+
 
                             // se chegou aqui, e-mail foi disparado
                             $countMail++;

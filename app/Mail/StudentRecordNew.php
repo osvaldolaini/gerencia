@@ -10,8 +10,6 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Mail;
 
 class StudentRecordNew extends Mailable
 {
@@ -30,54 +28,6 @@ class StudentRecordNew extends Mailable
         $this->contact = $data['contact'];
         $this->attachment = $data['attachment'];
         $this->company = $data['company'];
-
-        // dd($this->company);
-
-        /**
-         * CONFIGURA SMTP DINAMICAMENTE
-         * Dados vindos da empresa/setor
-         */
-
-        dd([
-            'host' => $this->company->mail_host,
-            'port' => $this->company->mail_port,
-            'username' => $this->company->mail_username,
-            'password' => $this->company->mail_password,
-            'encryption' => $this->company->mail_encryption,
-        ]);
-
-        try {
-
-            Config::set('mail.default', 'smtp');
-
-            Config::set('mail.mailers.smtp.transport', 'smtp');
-
-            Config::set('mail.mailers.smtp.host', $this->company->mail_host);
-            Config::set('mail.mailers.smtp.port', $this->company->mail_port);
-
-            Config::set('mail.mailers.smtp.username', $this->company->mail_username);
-            Config::set('mail.mailers.smtp.password', $this->company->mail_password);
-
-            Config::set('mail.mailers.smtp.encryption', $this->company->mail_encryption);
-
-            Config::set('mail.from.address', $this->company->mail_from_address);
-            Config::set('mail.from.name', $this->company->mail_from_name);
-
-
-            Mail::purge();
-
-            // Mail::send(new StudentRecordNew($data));
-        } catch (\Exception $e) {
-
-            logger()->error($e->getMessage());
-
-            dd($e->getMessage());
-        }
-
-        /**
-         * LIMPA CONEXÕES ANTIGAS
-         */
-        // Mail::purge();
     }
 
     /**

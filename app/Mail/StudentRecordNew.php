@@ -38,7 +38,13 @@ class StudentRecordNew extends Mailable
          * Dados vindos da empresa/setor
          */
 
-
+        dd([
+            'host' => $this->company->mail_host,
+            'port' => $this->company->mail_port,
+            'username' => $this->company->mail_username,
+            'password' => $this->company->mail_password,
+            'encryption' => $this->company->mail_encryption,
+        ]);
 
         try {
 
@@ -57,13 +63,7 @@ class StudentRecordNew extends Mailable
             Config::set('mail.from.address', $this->company->mail_from_address);
             Config::set('mail.from.name', $this->company->mail_from_name);
 
-            dd([
-                'host' => $company->mail_host,
-                'port' => $company->mail_port,
-                'username' => $company->mail_username,
-                'password' => $company->mail_password,
-                'encryption' => $company->mail_encryption,
-            ]);
+
             Mail::purge();
 
             // Mail::send(new StudentRecordNew($data));

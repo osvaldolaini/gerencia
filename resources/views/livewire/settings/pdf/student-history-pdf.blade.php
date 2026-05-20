@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 
-
-
 <head>
     @php
         use App\Enums\Penalty;
@@ -345,8 +343,8 @@
                     @endforeach
 
                 </table>
-                <p>*As faltas abonadas são as de responsabilidade do colégio (ex: visitas de grêmios)</p>
-                <p>**Todas as faltas são computadas</p>
+                <p>*As faltas abonadas são as de responsabilidade do colégio (ex: visitas de grêmios).</p>
+                <p>**Todas as faltas são computadas, exceto as abonadas.</p>
             @else
                 <div class="linha-tabela">Não possui</div>
             @endif

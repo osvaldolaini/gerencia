@@ -34,6 +34,7 @@ class StudentRecordNew extends Mailable
     public function envelope(): Envelope
     {
         $config = Settings::find(1);
+        dd($this->data['company']->email, $this->data['company']);
         return new Envelope(
             from: new Address($this->data['company']->email, $this->data['company']->nick . ' - ' . $config->nick),
             to: [

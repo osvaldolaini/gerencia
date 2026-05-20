@@ -301,7 +301,7 @@ class Peoples extends Model
         }
         return $this->faults
             ->where('active', 1)
-            ->where('justified', '!=', 2)
+            // ->where('justified', '!=', 2)
             ->filter(function ($fault) {
                 return \Carbon\Carbon::parse($fault->date)->year == $this->actived;
             });

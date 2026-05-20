@@ -33,29 +33,46 @@ class StudentRecordNew extends Mailable
 
         // dd($this->company);
 
-        // /**
-        //  * CONFIGURA SMTP DINAMICAMENTE
-        //  * Dados vindos da empresa/setor
-        //  */
-        // Config::set('mail.default', 'smtp');
+        /**
+         * CONFIGURA SMTP DINAMICAMENTE
+         * Dados vindos da empresa/setor
+         */
 
-        // Config::set('mail.mailers.smtp.transport', 'smtp');
 
-        // Config::set('mail.mailers.smtp.host', $this->company->mail_host);
-        // Config::set('mail.mailers.smtp.port', $this->company->mail_port);
 
-        // Config::set('mail.mailers.smtp.username', $this->company->mail_username);
-        // Config::set('mail.mailers.smtp.password', $this->company->mail_password);
+        try {
 
-        // Config::set('mail.mailers.smtp.encryption', $this->company->mail_encryption);
+            Config::set('mail.default', 'smtp');
 
-        // Config::set('mail.from.address', $this->company->mail_from_address);
-        // Config::set('mail.from.name', $this->company->mail_from_name);
+            Config::set('mail.mailers.smtp.transport', 'smtp');
+
+            Config::set('mail.mailers.smtp.host', $this->company->mail_host);
+            Config::set('mail.mailers.smtp.port', $this->company->mail_port);
+
+            Config::set('mail.mailers.smtp.username', $this->company->mail_username);
+            Config::set('mail.mailers.smtp.password', $this->company->mail_password);
+
+            Config::set('mail.mailers.smtp.encryption', $this->company->mail_encryption);
+
+            Config::set('mail.from.address', $this->company->mail_from_address);
+            Config::set('mail.from.name', $this->company->mail_from_name);
+
+            Mail::purge();
+
+            Mail::send(new StudentRecordNew($data));
+        } catch (\Exception $e) {
+
+            dd([
+                'message' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile(),
+            ]);
+        }
 
         /**
          * LIMPA CONEXÕES ANTIGAS
          */
-        Mail::purge();
+        // Mail::purge();
     }
 
     /**

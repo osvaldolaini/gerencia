@@ -71,16 +71,16 @@ class StudentEmails extends Component
 
                                 Config::set('mail.mailers.smtp.transport', 'smtp');
 
-                                Config::set('mail.mailers.smtp.host', $this->company->mail_host);
-                                Config::set('mail.mailers.smtp.port', $this->company->mail_port);
+                                Config::set('mail.mailers.smtp.host', $this->student->company->mail_host);
+                                Config::set('mail.mailers.smtp.port', $this->student->company->mail_port);
 
-                                Config::set('mail.mailers.smtp.username', $this->company->mail_username);
-                                Config::set('mail.mailers.smtp.password', $this->company->mail_password);
+                                Config::set('mail.mailers.smtp.username', $this->student->company->mail_username);
+                                Config::set('mail.mailers.smtp.password', $this->student->company->mail_password);
 
-                                Config::set('mail.mailers.smtp.encryption', $this->company->mail_encryption);
+                                Config::set('mail.mailers.smtp.encryption', $this->student->company->mail_encryption);
 
-                                Config::set('mail.from.address', $this->company->mail_from_address);
-                                Config::set('mail.from.name', $this->company->mail_from_name);
+                                Config::set('mail.from.address', $this->student->company->mail_from_address);
+                                Config::set('mail.from.name', $this->student->company->mail_from_name);
 
 
                                 Mail::purge();

@@ -92,29 +92,37 @@ class StudentEmails extends Component
                                         'company'    => $this->student->company,
                                     ])
                                 );
+                                // se chegou aqui, e-mail foi disparado
+                                $countMail++;
+
+                                Emails::create([
+                                    'status'               => 1,
+                                    'type'                 => 'record',
+                                    'student_contacts_id'  => $contact->id,
+                                    'student_id'           => $this->student->id,
+                                    'to'                   => $contact->contact,
+                                    'subject'              => 'Ficha individual',
+                                    'message'              => 'Encaminho',
+                                    'attachment'           => $this->downloadTmp(),
+                                    'code'                 => Str::uuid(),
+                                ]);
                                 // Mail::send(new StudentRecordNew($data));
                             } catch (\Exception $e) {
 
-                                logger()->error($e->getMessage());
+                                Log::error('Erro ao enviar e-mail para ' . $contact->contact . ': ' . $e->getMessage());
 
-                                dd($e->getMessage());
+                                Emails::create([
+                                    'status'               => 0, // falhou
+                                    'type'                 => 'record',
+                                    'student_contacts_id'  => $contact->id,
+                                    'student_id'           => $this->student->id,
+                                    'to'                   => $contact->contact,
+                                    'subject'              => 'Ficha individual',
+                                    'message'              => 'Encaminho',
+                                    'attachment'           => $this->downloadTmp(),
+                                    'code'                 => Str::uuid(),
+                                ]);
                             }
-
-
-                            // se chegou aqui, e-mail foi disparado
-                            $countMail++;
-
-                            Emails::create([
-                                'status'               => 1,
-                                'type'                 => 'record',
-                                'student_contacts_id'  => $contact->id,
-                                'student_id'           => $this->student->id,
-                                'to'                   => $contact->contact,
-                                'subject'              => 'Ficha individual',
-                                'message'              => 'Encaminho',
-                                'attachment'           => $this->downloadTmp(),
-                                'code'                 => Str::uuid(),
-                            ]);
                         } catch (\Exception $e) {
                             // loga o erro para verificar porque falhou (ex: Gmail bloqueando)
                             // Log::info('Enviados ' . $countMail . ' fichas do(a) aluno(a)');

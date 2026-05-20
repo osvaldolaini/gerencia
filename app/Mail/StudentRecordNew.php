@@ -57,16 +57,21 @@ class StudentRecordNew extends Mailable
             Config::set('mail.from.address', $this->company->mail_from_address);
             Config::set('mail.from.name', $this->company->mail_from_name);
 
+            dd([
+                'host' => $company->mail_host,
+                'port' => $company->mail_port,
+                'username' => $company->mail_username,
+                'password' => $company->mail_password,
+                'encryption' => $company->mail_encryption,
+            ]);
             Mail::purge();
 
-            Mail::send(new StudentRecordNew($data));
+            // Mail::send(new StudentRecordNew($data));
         } catch (\Exception $e) {
 
-            dd([
-                'message' => $e->getMessage(),
-                'line' => $e->getLine(),
-                'file' => $e->getFile(),
-            ]);
+            logger()->error($e->getMessage());
+
+            dd($e->getMessage());
         }
 
         /**

@@ -39,6 +39,9 @@ class Companies extends Model
         'deleted_by',
         'deleted_at'
     ];
+    protected $casts = [
+        'mail_password' => 'encrypted',
+    ];
     protected static function boot()
     {
         parent::boot();

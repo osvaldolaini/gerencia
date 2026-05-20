@@ -27,6 +27,14 @@ class CompanyForm extends Component
     public $workload;
     public $email;
 
+    public $mail_host;
+    public $mail_port;
+    public $mail_username;
+    public $mail_password;
+    public $mail_encryption;
+    public $mail_from_address;
+    public $mail_from_name;
+
     public $people;
 
     public $newImg = '';
@@ -40,6 +48,14 @@ class CompanyForm extends Component
             $this->email        = $companies->email;
             $this->people_id    = $companies->people_id;
             $this->workload     = $companies->workload;
+
+            $this->mail_host = $companies->mail_host;
+            $this->mail_port = $companies->mail_port;
+            $this->mail_username = $companies->mail_username;
+            $this->mail_password = $companies->mail_password;
+            $this->mail_encryption = $companies->mail_encryption;
+            $this->mail_from_address = $companies->mail_from_address;
+            $this->mail_from_name = $companies->mail_from_name;
         }
     }
 
@@ -84,6 +100,15 @@ class CompanyForm extends Component
                 'nick' => $this->nick,
                 'workload' => $this->workload,
                 'people_id' => $this->people_id,
+
+
+                'mail_host' => $this->mail_host,
+                'mail_port' => $this->mail_port,
+                'mail_username' => $this->mail_username,
+                'mail_password' => $this->mail_password,
+                'mail_encryption' => $this->mail_encryption,
+                'mail_from_address' => $this->mail_from_address,
+                'mail_from_name' => $this->mail_from_name,
             ]);
 
             $id = false;
@@ -96,6 +121,14 @@ class CompanyForm extends Component
                 'workload' => $this->workload,
                 'email'     => $this->email,
                 'people_id' => $this->people_id,
+
+                'mail_host' => $this->mail_host,
+                'mail_port' => $this->mail_port,
+                'mail_username' => $this->mail_username,
+                'mail_password' => $this->mail_password,
+                'mail_encryption' => $this->mail_encryption,
+                'mail_from_address' => $this->mail_from_address,
+                'mail_from_name' => $this->mail_from_name,
 
                 'code'      => Str::uuid(),
             ]);

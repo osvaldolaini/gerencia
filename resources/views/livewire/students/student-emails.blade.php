@@ -3,9 +3,10 @@
         {{-- @livewire('message-alert-modal') --}}
         <span wire:click="showConfirm()"
             class="flex items-center justify-between px-3 py-1 text-white transition-colors duration-200 bg-green-500 border border-gray-500 rounded-md cursor-pointer hover:text-white dark:hover:bg-blue-500 hover:hover:bg-blue-500 whitespace-nowrap">
-            Enviar ficha indivídual <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 ml-2 "
-                version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 0 512 512" xml:space="preserve">
+            Enviar ficha indivídual
+            <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 ml-2 " version="1.1" id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"
+                xml:space="preserve">
                 <g>
                     <g>
                         <path d="M174.545,302.545H81.455c-6.982,0-11.636,4.655-11.636,11.636s4.655,11.636,11.636,11.636h93.091
@@ -69,12 +70,12 @@
                 @foreach ($emails as $email)
                     <tr>
                         <td>
-                            {{ $email->subject }} 
+                            {{ $email->subject }}
                         </td>
                         <td>
                             {{ $email->studentContact->parent }}
                             <br />
-                            <span class="badge {{($email->status== 1 ? 'badge-ghost': 'badge-error')}} badge-sm ">
+                            <span class="badge {{ $email->status == 1 ? 'badge-ghost' : 'badge-error' }} badge-sm ">
                                 {{ $email->studentContact->contact }}
                             </span>
                         </td>

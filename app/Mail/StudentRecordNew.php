@@ -31,6 +31,7 @@ class StudentRecordNew extends Mailable
         $this->attachment = $data['attachment'];
         $this->company = $data['company'];
 
+        // dd($this->company);
 
         /**
          * CONFIGURA SMTP DINAMICAMENTE
@@ -44,7 +45,7 @@ class StudentRecordNew extends Mailable
         Config::set('mail.mailers.smtp.port', $this->company->mail_port);
 
         Config::set('mail.mailers.smtp.username', $this->company->mail_username);
-        Config::set('mail.mailers.smtp.password', $this->company->mail_password);
+        Config::set('mail.mailers.smtp.password', 'oxgo xiww zzyo tilv');
 
         Config::set('mail.mailers.smtp.encryption', $this->company->mail_encryption);
 
@@ -63,25 +64,14 @@ class StudentRecordNew extends Mailable
     public function envelope(): Envelope
     {
         $config = Settings::find(1);
-
+        // dd($this->data['company']->email, $this->data['company']);
         return new Envelope(
-            from: new Address(
-                $this->company->mail_from_address,
-                $this->company->mail_from_name . ' - ' . $config->nick
-            ),
-
+            from: new Address($this->data['company']->email, $this->data['company']->nick . ' - ' . $config->nick),
             to: [
-                new Address(
-                    $this->contact->contact,
-                    $this->contact->parent
-                ),
+                new Address($this->data['contact']->contact, $this->data['contact']->parent),
             ],
-
             subject: 'Ficha individual',
-
-            tags: [
-                $config->nick
-            ],
+            tags: [$config->nick],
         );
     }
 
@@ -116,15 +106,18 @@ class StudentRecordNew extends Mailable
     /**
      * Get the attachments for the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @return array<int, Attachment>
      */
     public function attachments(): array
     {
-        // dd(storage_path('app/pdf-tmp/' . $this->data['attachment']));
         return [
-            Attachment::fromPath(url('storage/pdf-tmp/' . $this->data['attachment']))
-                ->as($this->data['attachment'])
-                ->withMime('application/pdf')
+            Attachment::fromPath(
+                storage_path(
+                    'app/public/pdf-tmp/' . $this->attachment
+                )
+            )
+                ->as($this->attachment)
+                ->withMime('application/pdf'),
         ];
     }
 }

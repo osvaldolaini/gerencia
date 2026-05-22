@@ -282,6 +282,7 @@
                                         @endforeach
 
                                     </table>
+
                                 </div>
                             @elseif ($activeTab === 'atividades')
                                 <div id="atividades">
@@ -319,11 +320,11 @@
                                                 </td>
                                                 <td class="px-2 py-1 font-bold text-center">
                                                     @if ($activity['bonus'] == 0)
-                                                    <span class="badge badge-error">Não</span>
-                                                @endif
-                                                @if ($activity['bonus'] == 1)
-                                                    <span class="badge badge-success">Sim</span>
-                                                @endif
+                                                        <span class="badge badge-error">Não</span>
+                                                    @endif
+                                                    @if ($activity['bonus'] == 1)
+                                                        <span class="badge badge-success">Sim</span>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

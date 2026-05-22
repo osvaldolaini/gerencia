@@ -343,8 +343,74 @@
                     @endforeach
 
                 </table>
-                <p>*As faltas abonadas são as de responsabilidade do colégio (ex: visitas de grêmios).</p>
-                <p>**Todas as faltas são computadas, exceto as abonadas.</p>
+                <table class="w-full" style="border-collapse: collapse;">
+                    <tr>
+                        <th class="text-center">Justificada</th>
+                        <th class="text-center">Não justificada</th>
+                        <th class="text-center">Abonadas</th>
+                        <th class="text-center">Carga horária</th>
+                    </tr>
+                    @php
+                        $just = 0;
+                        $njust = 0;
+                        $abo = 0;
+                        $faultsOrdenadas = $student->active_faults->where('active', 1)->sortBy('date'); // ordem CRESCENTE
+                        $dados = [];
+
+                        foreach ($faultsOrdenadas as $fault) {
+                            switch ($fault->justified) {
+                                case 0:
+                                    $just += $fault->qtd;
+                                    break;
+                                case 1:
+                                    $njust += $fault->qtd;
+                                    break;
+                                case 2:
+                                    $abo += $fault->qtd;
+                                    break;
+
+                                default:
+                                    $just += $fault->qtd;
+                                    break;
+                            }
+
+                            $just_p = number_format(
+                                ($just / ($fault->students->company->workload ?? 1200)) * 100,
+                                2,
+                                ',',
+                                '',
+                            );
+                            $njust_p = number_format(
+                                ($njust / ($fault->students->company->workload ?? 1200)) * 100,
+                                2,
+                                ',',
+                                '',
+                            );
+                            $abo_p = number_format(
+                                ($abo / ($fault->students->company->workload ?? 1200)) * 100,
+                                2,
+                                ',',
+                                '',
+                            );
+                        }
+                    @endphp
+
+                    <tr>
+                        <td class="text-center border-bottom">
+                            {{ $just_p }}%
+                        </td>
+                        <td class="text-center border-bottom">
+                            {{ $njust_p }}%
+                        </td>
+                        <td class="text-center border-bottom">
+                            {{ $abo_p }}%
+                        </td>
+                        <td class="text-center border-bottom">
+                            {{ $fault->students->company->workload ?? 1200 }} períodos
+                        </td>
+                    </tr>
+
+                </table>
             @else
                 <div class="linha-tabela">Não possui</div>
             @endif

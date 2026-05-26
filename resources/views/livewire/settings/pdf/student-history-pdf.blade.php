@@ -360,15 +360,14 @@
                         foreach ($faultsOrdenadas as $fault) {
                             switch ($fault->justified) {
                                 case 0:
-                                    $just += $fault->qtd;
+                                    $njust += $fault->qtd;
                                     break;
                                 case 1:
-                                    $njust += $fault->qtd;
+                                    $just += $fault->qtd;
                                     break;
                                 case 2:
                                     $abo += $fault->qtd;
                                     break;
-
                                 default:
                                     $just += $fault->qtd;
                                     break;

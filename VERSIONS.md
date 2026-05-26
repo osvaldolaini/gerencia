@@ -1,5 +1,12 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.8.7 – 2026-05-20
+
+> Melhorias
+
+-   Configuração dos dados para disparo de email
+-   Ajustes na ficha individual (percentual de faltas)
+
 ## Versão Santos Dumont 1.8.6 – 2026-04-14
 
 > Melhorias

@@ -37,7 +37,7 @@ class Buttons extends Component
         $this->supplements = FaultDiscipline::where('year', $this->year)
             ->whereNotNull('supplement_number')
             ->distinct()
-            ->orderBy('supplement_number', 'asc') // ou 'desc' para ordem decrescente
+            ->orderBy(['year' => 'desc', 'supplement_number' => 'asc']) // ou 'desc' para ordem decrescente
             ->pluck('supplement_number');
 
         return view('livewire.discipline.fault-disciplines.pdfs.buttons');

@@ -19,15 +19,11 @@ class Buttons extends Component
     public $status;
     public $supplements;
     public $supplement;
-    public $years;
-    public $year;
 
     use HandlesTmpUploads;
     public function mount($status)
     {
         // dd($this->status);
-        $this->year = date('Y');
-        $this->years = ['2026', '2025'];
         $this->status = $status;
         $this->supplements = Compliments::where('year', $this->year)
             ->whereNotNull('supplement_number')

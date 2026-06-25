@@ -27,7 +27,7 @@ class ComplimentList extends Component
     public $model = "App\Models\Discipline\Compliments"; //Model principal
     public $modelId = "compliments.id"; //Ex: 'table.id' or 'id'
     public $search;
-    public $sorts = ['number' => 'desc'];
+    public $sorts = ['year' => 'desc', 'number' => 'desc'];
     public $relationTables = "peoples,peoples.id,compliments.student_id";  //Relacionamentos ( table , key , foreingKey )
     public $customSearch; //Colunas personalizadas, customizar no model
     public $columnsInclude = 'compliments.number,peoples.logo_path,year,al_nick,compliments.student_id,al_number,al_class,fact_date,solution_date,bi_date,sincomil_date,compliments.active as status';

@@ -1,5 +1,11 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.8.8 – 2026-06-25
+
+> Melhorias
+
+-   Inclusão da select de ano nas listas de elogio
+
 ## Versão Santos Dumont 1.8.7 – 2026-05-20
 
 > Melhorias

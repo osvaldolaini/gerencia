@@ -68,7 +68,7 @@
                                     <div class="justify-start block space-x-2 space-y-2 font-medium duration-200 ">
 
                                         @if (in_array('update', auth()->user()->jsonActivities))
-                                            @if ($item->alertEmails->count() < 1)
+                                            @if ($item->alertEmails->where('type', 'alert_7,5')->filter(fn($email) => $email->created_at->year == now()->year)->count() < 0)
                                                 <span wire:click='showConfirm({{ $item }},"7,5%")'
                                                     class="flex items-center justify-between px-3 py-1 text-white transition-colors duration-200 bg-green-500 border border-gray-500 rounded-md cursor-pointer hover:text-white dark:hover:bg-blue-500 hover:hover:bg-blue-500 whitespace-nowrap">
                                                     Enviar aviso 7,5%

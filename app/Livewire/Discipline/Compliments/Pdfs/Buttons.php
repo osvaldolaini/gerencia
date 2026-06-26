@@ -67,7 +67,7 @@ class Buttons extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Todas',
-                'data'              => Compliments::orderBy('number')->get(),
+                'data'              => Compliments::where('year', $this->year)->orderBy('number')->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]
@@ -137,7 +137,7 @@ class Buttons extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Solução',
-                'data'              => Compliments::where('active', 1)
+                'data'              => Compliments::where('year', $this->year)->where('active', 1)
                     ->where('solution_date', NULL)->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
@@ -208,7 +208,7 @@ class Buttons extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Publicação',
-                'data'              => Compliments::where('active', 1)
+                'data'              => Compliments::where('year', $this->year)->where('active', 1)
                     ->where('solution_date', '!=', NULL)
                     ->where('bi_date', NULL)
                     ->orderBy('fact_date', 'asc')
@@ -282,7 +282,7 @@ class Buttons extends Component
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Aditamento',
-                'data'              => Compliments::where('active', 1)
+                'data'              => Compliments::where('year', $this->year)->where('active', 1)
                     ->where('supplement_number', $number)
                     ->orderBy('fact_date', 'asc')
                     ->get(),

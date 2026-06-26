@@ -130,7 +130,7 @@
                                                     {{-- em {{ $item->alertEmails->where('type', 'alert_7,5')->first()->created_at }} --}}
 
                                                 </span>
-                                                @if ($item->alertEmails->where('type', 'alert_20')->whereYear('created_at', date('Y'))->count() > 0)
+                                                @if ($item->alertEmails->where('type', 'alert_20')->filter(fn($email) => $email->created_at->year == now()->year)->count() > 0)
                                                     <span
                                                         class="flex items-center justify-between px-3 py-1 text-white transition-colors duration-200 bg-blue-500 border border-gray-500 rounded-md whitespace-nowrap">
                                                         Aviso 20% Enviado

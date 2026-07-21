@@ -7,7 +7,6 @@
     use App\Enums\MilitaryRank;
 @endphp
 
-
 <head>
     <meta charset="UTF-8">
     <x-favicons></x-favicons>
@@ -70,8 +69,8 @@
 
             <div style="margin: 0px;padding:0px;margin-top: 10px;">
                 <p>
-                    @if ($signature)
-                        <img src="{{ $signature }}" style="width: 150px; margin-bottom: -50px;">
+                    @if ($signatureStamp)
+                        {!! $signatureStamp !!}
                     @endif
                 </p>
                 <p style="border-top: solid 2px thin #000; width:100%;"></p>

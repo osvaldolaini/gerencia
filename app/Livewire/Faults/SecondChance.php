@@ -8,8 +8,6 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 
 use Livewire\WithPagination;
-use App\Models\Peoples;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -17,10 +15,19 @@ use App\Models\Admin\Settings\Settings;
 use App\Models\Settings\Companies;
 use App\Traits\HandlesTmpUploads;
 
+//assinatura
+use App\Models\Signatures\DocumentSigned;
+use App\Traits\Signatures\PdfSignatureTrait;
+
+use App\Enums\SignedDocumentStatus;
+use App\Enums\DocumentType;
+
 class SecondChance extends Component
 {
     use WithPagination;
     use HandlesTmpUploads;
+    //assinatura
+    use PdfSignatureTrait;
 
     public $authorizations;
     public $school_faults;
@@ -30,6 +37,9 @@ class SecondChance extends Component
     public $number;
     public $discipline_call;
     public $signature;
+    public $documentType;
+
+    public bool $hasOfficialDocument = false;
 
     public function mount(SchoolFaults $school_faults)
     {
@@ -47,6 +57,17 @@ class SecondChance extends Component
                 $this->signature = false;
             }
         }
+
+        $this->hasOfficialDocument = DocumentSigned::where([
+            'document_model' => SchoolFaults::class,
+            'document_id'    => $this->school_faults->id,
+            'document_type' => DocumentType::SecondCallAuthorization,
+        ])
+            ->whereIn('status', [
+                SignedDocumentStatus::Current,
+                SignedDocumentStatus::Completed,
+            ])
+            ->exists();
     }
     public function render()
     {
@@ -70,10 +91,18 @@ class SecondChance extends Component
         $this->school_faults = $second_call->fault;
         $this->authorizations = $this->school_faults->secondCall;
     }
-    public function printAuthorization() //Imprimir relação
 
+    public function printAuthorization(
+        ?int $documentSignedId = null
+    ) //Imprimir relação
     {
-        // dd($this->students);
+        $documentSigned = null;
+
+        if ($documentSignedId) {
+            $documentSigned = DocumentSigned::with([
+                'signatures.signer.user',
+            ])->find($documentSignedId);
+        }
         //Apagar itens do diretório temporário
         $this->clearTmpDirectory('public/pdf-tmp');
 
@@ -91,18 +120,34 @@ class SecondChance extends Component
             'default_font_size'  => 9,
             'default_font'  => 'arial',
         ]);
-        // dd($mpdf);
-        $html = view(
-            'livewire.faults.second-chance-pdf',
-            [
-                'logoPath'          => $logoPath,
-                'title'             => 'Autorizações de 2º chamada de AP',
-                'authorizations'          => $this->authorizations,
-                'config'            => $config,
-                'signature'            => $this->signature,
-                'responsible'       => Auth::user()->name,
-            ]
-        )->render();
+
+        if ($documentSigned) {
+            $html = view(
+                'livewire.faults.second-chance-pdf',
+                [
+                    'logoPath'          => $logoPath,
+                    'title'             => 'Autorizações de 2º chamada de AP',
+                    'authorizations'    => $this->authorizations,
+                    'config'            => $config,
+                    'signature'         => $this->signature,
+                    'responsible'       => Auth::user()->name,
+                    'signatureStamp'    => $this->makeSignatureStamp($documentSigned),
+                ]
+            )->render();
+        } else {
+            $html = view(
+                'livewire.faults.second-chance-pdf',
+                [
+                    'logoPath'          => $logoPath,
+                    'title'             => 'Autorizações de 2º chamada de AP',
+                    'authorizations'    => $this->authorizations,
+                    'config'            => $config,
+                    'signature'         => $this->signature,
+                    'responsible'       => Auth::user()->name,
+                    'signatureStamp'    => null,
+                ]
+            )->render();
+        }
 
 
         $mpdf->SetHTMLFooter('
@@ -113,6 +158,33 @@ class SecondChance extends Component
                </tr>
            </table>');
         $mpdf->WriteHTML($html);
+        /*
+            |--------------------------------------------------------------------------
+            | PDF oficial assinado
+            |--------------------------------------------------------------------------
+            */
+
+        if ($documentSigned) {
+
+            $this->appendSignatureBlock(
+                $mpdf,
+                $documentSigned
+            );
+
+            $file = sprintf(
+                '%s_%s.pdf',
+                class_basename($documentSigned->document_model),
+                $documentSigned->uuid
+            );
+
+            $this->saveSignedPdf(
+                $mpdf,
+                $documentSigned,
+                $file
+            );
+
+            return;
+        }
 
         // Salve o PDF temporariamente
         $file = trim('segunda_chamada_ap_' . Str::uuid() . '.pdf');
@@ -126,6 +198,60 @@ class SecondChance extends Component
 
         $mpdf->Output($down, 'F');
 
-        $this->dispatch('openPdfSecond', pdfPath: $pdfPath);
+        $mpdf->Output(
+            $down,
+            \Mpdf\Output\Destination::FILE
+        );
+
+        $this->dispatch(
+            'openPdfSecond',
+            pdfPath: $pdfPath
+        );
+    }
+
+    /**
+     * Gera o carimbo de assinatura digital para ser exibido
+     * dentro de uma seção específica do documento.
+     */
+    protected function makeSignatureStamp(
+        DocumentSigned $document
+    ): string {
+
+        $document->loadMissing([
+            'signatures.signer.user',
+        ]);
+
+        return view(
+            'components.pdf.signatures.signature-stamp',
+            [
+                'document' => $document,
+                'authenticationBlock' => $this->generateQrCode($document),
+            ]
+        )->render();
+    }
+
+    #[On('document-signed')]
+    public function generateOfficialPdf(int $documentSignedId): void
+    {
+        $documentSigned = DocumentSigned::with([
+            'signatures.signer.user',
+        ])->find($documentSignedId);
+
+        if (!$documentSigned) {
+            $this->openAlert(
+                'error',
+                'Documento assinado não encontrado.'
+            );
+            return;
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Gera novamente o PDF já contendo o bloco de assinaturas.
+        |--------------------------------------------------------------------------
+        */
+
+        $this->printAuthorization($documentSigned->id);
+        $this->dispatch('official-document-generated');
     }
 }

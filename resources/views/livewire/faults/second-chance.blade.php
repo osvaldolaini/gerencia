@@ -9,17 +9,6 @@
             </h3>
         </x-slot>
     </x-layout.breadcrumb>
-    {{-- <div class="grid w-full grid-cols-8">
-        <div class="w-full col-span-1">
-            <div class="p-0 tooltip tooltip-top" wire:click='printAuthorization()' data-tip="Imprimir" wire:ignore>
-                <button
-                    class="px-3 py-2 text-gray-800 transition-colors duration-200 rounded-sm dark:text-white whitespace-nowrap">
-                    <x-layout.svg.pdf class="w-8 h-8 text-white"></x-layout.svg.pdf>
-                </button>
-            </div>
-        </div>
-    </div> --}}
-
     <div>
         <div class="mb-10 rounded-md cursor-pointer">
             <h2 id="w-full text-center items-center">
@@ -95,24 +84,31 @@
                             </div>
                         </div>
                         <div class="justify-center col-span-2 mb-5">
-                            {{-- @livewire('message-alert-modal') --}}
-                            <span wire:click="addAuthorization()" class="mb-2 btn btn-outline dark:btn-info">
-                                <x-layout.svg.plus class="w-4 h-4 mr-0 lg:mr-2"></x-layout.svg.plus>
-                                Nova autorização
-                            </span>
-                            @if ($authorizations->count() > 0)
-                                <div class="p-0 tooltip tooltip-top" wire:click='printAuthorization()'
-                                    data-tip="Imprimir" wire:ignore>
-                                    <button class="btn btn-outline dark:btn-info ">
-                                        <x-layout.svg.pdf class="w-8 h-8 "></x-layout.svg.pdf>
-                                        Imprimir
-                                    </button>
-                                </div>
+                            @if (!$hasOfficialDocument)
+                                {{-- @livewire('message-alert-modal') --}}
+                                <span wire:click="addAuthorization()" class="mb-2 btn btn-outline dark:btn-info">
+                                    <x-layout.svg.plus class="w-4 h-4 mr-0 lg:mr-2"></x-layout.svg.plus>
+                                    Nova autorização
+                                </span>
+                                @if ($authorizations->count() > 0)
+                                    <div class="p-0 tooltip tooltip-top" wire:click='printAuthorization()'
+                                        data-tip="Imprimir" wire:ignore>
+                                        <button class="btn btn-outline dark:btn-error ">
+                                            <x-layout.svg.pdf class="w-8 h-8 "></x-layout.svg.pdf>
+                                            Não assinado
+                                        </button>
+                                    </div>
+                                @endif
                             @endif
-
+                            @if ($authorizations->count() > 0)
+                                @livewire('signatures.document-sign-modal', [
+                                    'documentModel' => App\Models\Fault\SchoolFaults::class,
+                                    'documentId' => $school_faults->id,
+                                    'documentType' => App\Enums\DocumentType::SecondCallAuthorization,
+                                ])
+                            @endif
                         </div>
                     </div>
-                </div>
             </h2>
         </div>
     </div>
@@ -139,8 +135,6 @@
                             <div class="col-span-full">
                                 @livewire('faults.second-chance-form', ['second_call' => $authorization], key($authorization->id))
                             </div>
-
-
                         </div>
                     </div>
                 </div>

@@ -67,7 +67,7 @@ return new class extends Migration
             $table->string('aggravating')->nullable();
             $table->string('mitigating')->nullable();
             $table->string('decision')->nullable();
-            $table->integer('decision_days')->nullable();
+            $table->string('decision_days')->nullable();
             $table->boolean('first')->nullable();
             $table->decimal('grau', $precision = 10, $scale = 2)->nullable();
 

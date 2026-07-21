@@ -1,5 +1,28 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.8.9 – 2026-07-10
+
+> Melhorias
+
+-   Assinatura digital
+
+    -   trilha de auditoria;
+    -   integridade (hash);
+    -   autenticidade;
+    -   versionamento;
+    -   revogação;
+    -   validação pública por QR Code;
+    -   fluxo de assinaturas;
+    -   identificação dos signatários.
+
+-   Página de verificação
+    -   arquivo íntegro;
+    -   hash diferente;
+    -   PDF sem hash;
+    -   UUID inexistente;
+    -   documento revogado;
+    -   erro de leitura.
+
 ## Versão Santos Dumont 1.8.8 – 2026-06-25
 
 > Melhorias

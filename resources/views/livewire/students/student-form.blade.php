@@ -201,7 +201,7 @@
                     </div>
                     <div id="tab6" x-show="activeTab === '#tab6'" wire:ignore>
                         <div class="grid grid-cols-4 space-x-2" wire:poll.keep-alive>
-                            <div class="col-span-1 shadow-sm card w-96 bg-base-100">
+                            <div class="col-span-1 shadow-sm card  bg-base-100">
                                 <div class="card-body">
                                     <div class="flex justify-between">
                                         <h2 class="text-3xl font-bold">Matrícula</h2>
@@ -283,15 +283,29 @@
                                     </ul>
                                     @if ($student?->al_class and $student?->al_class and $student?->birthday and $student?->city_birth)
                                         @if ($student?->mom or $student?->dad)
-                                            <div class="mt-6">
-                                                <span class="flex btn btn-primary btn-block"
-                                                    wire:click='printRegistration()'>Imprimir</span>
+                                            @if (!$hasEnrollmentDocument)
+                                                <div class="mt-6">
+                                                    <div class="p-0 tooltip tooltip-top" data-tip="Imprimir assinado">
+                                                        <span class="flex btn btn-outline btn-error"
+                                                            wire:click='printRegistration()'>
+                                                            <x-layout.svg.pdf class="w-6 h-6 "></x-layout.svg.pdf>
+                                                            Imprimir
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            <div wire:ignore>
+                                                @livewire('signatures.document-sign-modal', [
+                                                    'documentModel' => App\Models\Peoples::class,
+                                                    'documentId' => $student->id,
+                                                    'documentType' => App\Enums\DocumentType::StudentEnrollment,
+                                                ])
                                             </div>
                                         @endif
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-span-1 shadow-sm card w-96 bg-base-100">
+                            <div class="col-span-1 shadow-sm card  bg-base-100">
                                 <div class="card-body">
                                     <div class="flex justify-between">
                                         <h2 class="text-3xl font-bold">Carteirinha estudantil</h2>
@@ -319,10 +333,25 @@
 
                                     </ul>
                                     @if ($student?->al_class)
-                                        <div class="mt-6">
-                                            <span class="flex btn btn-primary btn-block"
-                                                wire:click='printCard()'>Imprimir</span>
+                                        @if (!$hasCardDocument)
+                                            <div class="mt-6">
+                                                <div class="p-0 tooltip tooltip-top" data-tip="Imprimir assinado">
+                                                    <span class="flex btn btn-outline btn-error"
+                                                        wire:click='printCard()'>
+                                                        <x-layout.svg.pdf class="w-6 h-6 "></x-layout.svg.pdf>
+                                                        Imprimir
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <div wire:ignore>
+                                            @livewire('signatures.document-sign-modal', [
+                                                'documentModel' => App\Models\Peoples::class,
+                                                'documentId' => $student->id,
+                                                'documentType' => App\Enums\DocumentType::StudentCard,
+                                            ])
                                         </div>
+
                                     @endif
                                 </div>
                             </div>

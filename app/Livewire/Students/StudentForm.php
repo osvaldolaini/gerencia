@@ -13,10 +13,20 @@ use App\Models\Admin\Settings\Settings;
 use App\Models\Settings\Companies;
 use App\Traits\HandlesTmpUploads;
 
+//assinatura
+use App\Models\Signatures\DocumentSigned;
+use App\Traits\Signatures\PdfSignatureTrait;
+
+use App\Enums\SignedDocumentStatus;
+use App\Enums\DocumentType;
+use Livewire\Attributes\On;
+
 class StudentForm extends Component
 {
-
     use HandlesTmpUploads;
+    //assinatura
+    use PdfSignatureTrait;
+
     public $rules;
 
     public $back = 'student-list';
@@ -41,6 +51,9 @@ class StudentForm extends Component
     public $dad;
     public $signature;
 
+    //Assinaturas
+    public bool $hasCardDocument = false;
+    public bool $hasEnrollmentDocument = false;
 
     public function mount(Peoples $students)
     {
@@ -60,6 +73,26 @@ class StudentForm extends Component
             $this->entry_date   = $students->entry_date;
             $this->english_level  = $students->english_level;
 
+            $this->hasCardDocument = DocumentSigned::where([
+                'document_model' => Peoples::class,
+                'document_id'    => $students->id,
+                'document_type' => DocumentType::StudentCard,
+            ])
+                ->whereIn('status', [
+                    SignedDocumentStatus::Current,
+                    SignedDocumentStatus::Completed,
+                ])
+                ->exists();
+            $this->hasEnrollmentDocument = DocumentSigned::where([
+                'document_model' => Peoples::class,
+                'document_id'    => $students->id,
+                'document_type' => DocumentType::StudentEnrollment,
+            ])
+                ->whereIn('status', [
+                    SignedDocumentStatus::Current,
+                    SignedDocumentStatus::Completed,
+                ])
+                ->exists();
 
             if ($students->company) {
                 $company = Companies::find($students->company->id);
@@ -155,18 +188,21 @@ class StudentForm extends Component
         $this->dispatch('openAlert', $status, $msg);
     }
     //Imprimir relação
-    public function printRegistration()
+    public function printRegistration(
+        ?int $documentSignedId = null
+    ) //Imprimir relação
     {
-        // dd($this->student);
+        $documentSigned = null;
+
+        if ($documentSignedId) {
+            $documentSigned = DocumentSigned::with([
+                'signatures.signer.user',
+            ])->find($documentSignedId);
+        }
         //Apagar itens do diretório temporário
         $this->clearTmpDirectory('public/pdf-tmp');
-
         $config = Settings::find(1);
-
         $logoPath = url('storage/logos/brasao-brasil-preto-e-branco.png');
-
-
-
         // Crie uma instância do mPDF
         $mpdf = new \Mpdf\Mpdf([
             'mode'          => 'utf-8',
@@ -178,17 +214,36 @@ class StudentForm extends Component
             'default_font'  => 'arial',
         ]);
         // dd($mpdf);
-        $html = view(
-            'livewire.students.student-registration-pdf',
-            [
-                'logoPath'          => $logoPath,
-                'title'             => 'Certidão de matrícula',
-                'student'           => $this->student,
-                'signature'         => $this->signature,
-                'config'            => $config,
-                'responsible'       => Auth::user()->name,
-            ]
-        )->render();
+        if ($documentSigned) {
+            $html = view(
+                'livewire.students.student-registration-pdf',
+                [
+                    'logoPath'          => $logoPath,
+                    'title'             => 'Certidão de matrícula',
+                    'student'           => $this->student,
+                    'signature'         => $this->signature,
+                    'config'            => $config,
+                    'responsible'       => Auth::user()->name,
+                    // 'signatureStamp'    => $this->makeSignatureStamp($documentSigned),
+                    'signatureStamp'    => null,
+                ]
+            )->render();
+        } else {
+            $html = view(
+                'livewire.students.student-registration-pdf',
+                [
+                    'logoPath'          => $logoPath,
+                    'title'             => 'Certidão de matrícula',
+                    'student'           => $this->student,
+                    'signature'         => $this->signature,
+                    'config'            => $config,
+                    'responsible'       => Auth::user()->name,
+
+                    'signatureStamp'    => null,
+                ]
+            )->render();
+        }
+
 
         // Adicione o conteúdo HTML ao PDF
         $mpdf->SetHTMLHeader('
@@ -228,6 +283,28 @@ class StudentForm extends Component
                </tr>
            </table>');
         $mpdf->WriteHTML($html);
+
+        if ($documentSigned) {
+
+            $this->appendSignatureBlock(
+                $mpdf,
+                $documentSigned
+            );
+
+            $file = sprintf(
+                '%s_%s.pdf',
+                class_basename($documentSigned->document_model),
+                $documentSigned->uuid
+            );
+
+            $this->saveSignedPdf(
+                $mpdf,
+                $documentSigned,
+                $file
+            );
+
+            return;
+        }
 
         // Salve o PDF temporariamente
         $file = trim('certidao_de_matricula_' . Str::uuid() . '.pdf');
@@ -241,11 +318,25 @@ class StudentForm extends Component
 
         $mpdf->Output($down, 'F');
 
+        $mpdf->Output(
+            $down,
+            \Mpdf\Output\Destination::FILE
+        );
+
         $this->dispatch('openPdfRegistration', pdfPath: $pdfPath);
     }
     //Imprimir relação
-    public function printCard()
+    public function printCard(
+        ?int $documentSignedId = null
+    ) //Imprimir relação
     {
+        $documentSigned = null;
+
+        if ($documentSignedId) {
+            $documentSigned = DocumentSigned::with([
+                'signatures.signer.user',
+            ])->find($documentSignedId);
+        }
         // dd($this->student);
         //Apagar itens do diretório temporário
         $this->clearTmpDirectory('public/pdf-tmp');
@@ -265,17 +356,34 @@ class StudentForm extends Component
             'default_font'  => 'arial',
         ]);
         // dd($mpdf);
-        $html = view(
-            'livewire.students.student-card-pdf',
-            [
-                'logoPath'          => $logoPath,
-                'title'             => 'Carteirinha estudantil',
-                'student'           => $this->student,
-                'signature'         => $this->signature,
-                'config'            => $config,
-                'responsible'       => Auth::user()->name,
-            ]
-        )->render();
+
+        if ($documentSigned) {
+            $html = view(
+                'livewire.students.student-card-pdf',
+                [
+                    'logoPath'          => $logoPath,
+                    'title'             => 'Carteirinha estudantil',
+                    'student'           => $this->student,
+                    'signature'         => $this->signature,
+                    'config'            => $config,
+                    'responsible'       => Auth::user()->name,
+                    'signatureStamp'    => $this->makeSignatureStamp($documentSigned),
+                ]
+            )->render();
+        } else {
+            $html = view(
+                'livewire.students.student-card-pdf',
+                [
+                    'logoPath'          => $logoPath,
+                    'title'             => 'Carteirinha estudantil',
+                    'student'           => $this->student,
+                    'signature'         => $this->signature,
+                    'config'            => $config,
+                    'responsible'       => Auth::user()->name,
+                    'signatureStamp'    => '',
+                ]
+            )->render();
+        }
 
         // Adicione o conteúdo HTML ao PDF
         $mpdf->SetHTMLHeader('
@@ -316,6 +424,34 @@ class StudentForm extends Component
            </table>');
         $mpdf->WriteHTML($html);
 
+        /*
+            |--------------------------------------------------------------------------
+            | PDF oficial assinado
+            |--------------------------------------------------------------------------
+            */
+
+        if ($documentSigned) {
+
+            $this->appendSignatureBlock(
+                $mpdf,
+                $documentSigned
+            );
+
+            $file = sprintf(
+                '%s_%s.pdf',
+                class_basename($documentSigned->document_model),
+                $documentSigned->uuid
+            );
+
+            $this->saveSignedPdf(
+                $mpdf,
+                $documentSigned,
+                $file
+            );
+
+            return;
+        }
+
         // Salve o PDF temporariamente
         $file = trim('carteirinha_estudantil' . Str::uuid() . '.pdf');
 
@@ -326,8 +462,64 @@ class StudentForm extends Component
         $down = storage_path('app/public/pdf-tmp/' . $file);
         $pdfPath = url('storage/pdf-tmp/' . $file);
 
-        $mpdf->Output($down, 'F');
+        // $mpdf->Output($down, 'F');
+
+        $mpdf->Output(
+            $down,
+            \Mpdf\Output\Destination::FILE
+        );
 
         $this->dispatch('openPdfRegistration', pdfPath: $pdfPath);
+    }
+
+    #[On('document-signed')]
+    public function generateOfficialPdf(int $documentSignedId): void
+    {
+        $documentSigned = DocumentSigned::with([
+            'signatures.signer.user',
+        ])->find($documentSignedId);
+
+        if (!$documentSigned) {
+            $this->openAlert(
+                'error',
+                'Documento assinado não encontrado.'
+            );
+            return;
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Gera novamente o PDF já contendo o bloco de assinaturas.
+        |--------------------------------------------------------------------------
+        */
+
+        if ($documentSigned->document_type == DocumentType::StudentCard) {
+            $this->printCard($documentSigned->id);
+        } else {
+            $this->printRegistration($documentSigned->id);
+        }
+
+        $this->dispatch('official-document-generated');
+    }
+
+    /**
+     * Gera o carimbo de assinatura digital para ser exibido
+     * dentro de uma seção específica do documento.
+     */
+    protected function makeSignatureStamp(
+        DocumentSigned $document
+    ): string {
+
+        $document->loadMissing([
+            'signatures.signer.user',
+        ]);
+
+        return view(
+            'components.pdf.signatures.signature-stamp',
+            [
+                'document' => $document,
+                'authenticationBlock' => $this->generateQrCode($document),
+            ]
+        )->render();
     }
 }

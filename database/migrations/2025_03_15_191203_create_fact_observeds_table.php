@@ -66,12 +66,12 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->boolean('compliment')->nullable();
-            $table->foreignId('compliment_id')
-                ->nullable()
-                ->constrained('compliments')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            // $table->boolean('compliment')->nullable();
+            // $table->foreignId('compliment_id')
+            //     ->nullable()
+            //     ->constrained('compliments')
+            //     ->onUpdate('cascade')
+            //     ->onDelete('cascade');
 
 
             $table->date('sincomil_date')->nullable();

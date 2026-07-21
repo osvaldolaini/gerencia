@@ -65,59 +65,64 @@
         <div style="text-align:right;padding-top:50px;">
             {{ $config->city }}-{{ $config->state }}, {{ $today }}.
         </div>
-        <table class="table-signature">
-            <tr>
-                <td>
+        @if ($signatureStamp)
+            {!! $signatureStamp !!}
+        @else
+            <table class="table-signature">
+                <tr>
+                    <td>
 
-                </td>
-                <td>
-                    <p style="border-top: solid thin #000; width:100%;"></p>
-                </td>
-                <td>
+                    </td>
+                    <td>
+                        <p style="border-top: solid thin #000; width:100%;"></p>
+                    </td>
+                    <td>
 
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td colspan="4">
-                    {{-- Imagem da assinatura acima do texto --}}
-                    @if ($signature)
-                        <img src="{{ $signature }}" style="width: 150px; margin-bottom: -40px;">
-                    @endif
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td colspan="4" class="assign"
-                    style="border-top: 1px solid black;
-                    width: 100%;
-                    text-align: center;
-                    padding-top: 15px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="4">
+                        {{-- Imagem da assinatura acima do texto --}}
+                        @if ($signature)
+                            <img src="{{ $signature }}" style="width: 150px; margin-bottom: -40px;">
+                        @endif
 
-                    {{-- Imagem da assinatura acima do texto --}}
-                    {{-- @if ($signature)
-                        <img src="{{ $signature }}" style="width: 150px; margin-bottom: -25px;">
-                    @endif --}}
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="4" class="assign"
+                        style="border-top: 1px solid black;
+                                width: 100%;
+                                text-align: center;
+                                padding-top: 15px;">
+
+                        {{-- Imagem da assinatura acima do texto --}}
+                        {{-- @if ($signature)
+                                    <img src="{{ $signature }}" style="width: 150px; margin-bottom: -25px;">
+                                @endif --}}
 
 
-                    {{-- Nome do comandante --}}
-                    <p style="margin: 0;">
-                        {{ $student->company?->comandant?->name ?? '' }}
-                        {{ mb_strtoupper(MilitaryRank::fromDb($student->company?->comandant?->posto_grad)?->label() ?? '') }}
+                        {{-- Nome do comandante --}}
+                        <p style="margin: 0;">
+                            {{ $student->company?->comandant?->name ?? '' }}
+                            {{ mb_strtoupper(MilitaryRank::fromDb($student->company?->comandant?->posto_grad)?->label() ?? '') }}
 
-                    </p>
+                        </p>
 
-                    {{-- Cargo abaixo --}}
-                    <p style="margin: 0;">
-                        COMANDANTE DA {{ mb_strtoupper($student->company?->name) }}
-                    </p>
-                </td>
-                <td>
+                        {{-- Cargo abaixo --}}
+                        <p style="margin: 0;">
+                            COMANDANTE DA {{ mb_strtoupper($student->company?->name) }}
+                        </p>
+                    </td>
+                    <td>
 
-                </td>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+            </table>
+        @endif
     </div>
 </body>
 

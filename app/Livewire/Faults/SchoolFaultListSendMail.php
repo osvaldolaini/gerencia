@@ -68,7 +68,10 @@ class SchoolFaultListSendMail extends Component
     #[On('see_excluded')]
     public function render()
     {
-        $dataTable = Peoples::where('active', 1)->where('type', 1)->orderBy('nick', 'asc')->get();
+        $dataTable = Peoples::where('active', 1)
+            // ->where('nick', $this->search)
+            ->where('type', 1)
+            ->orderBy('nick', 'asc')->get();
         foreach ($dataTable as $student) {
             if ($student?->al_class) {
                 if ($student->total_faults_percent > 6.5) {

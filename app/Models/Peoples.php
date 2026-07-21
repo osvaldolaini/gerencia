@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Penalty;
+use App\Enums\SignatureRole;
 use App\Models\Discipline\Compliments;
 use App\Models\Discipline\FactObserved;
 use App\Models\Discipline\FaultDiscipline;
@@ -25,6 +26,8 @@ use Spatie\Activitylog\LogOptions;
 
 use App\Traits\HasAdjustedGrau;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Log;
 
 class Peoples extends Model
@@ -102,6 +105,20 @@ class Peoples extends Model
                 }
             }
         });
+    }
+
+    public function requiredSignatures(): array
+    {
+        return [
+            SignatureRole::Sargenteante,
+            SignatureRole::ComandanteCia,
+            // SignatureRole::Diretor,
+        ];
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function getNumAttribute()

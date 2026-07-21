@@ -56,6 +56,9 @@ use App\Livewire\Settings\SchoolClassesYears\SchoolClassesYearList;
 use App\Livewire\Settings\SchoolClassroomSeats\SchoolClassroomSeatForm;
 use App\Livewire\Settings\SchoolGrades\SchoolGradeForm;
 use App\Livewire\Settings\SchoolGrades\SchoolGradeList;
+use App\Livewire\Signatures\DocumentSignersForm;
+use App\Livewire\Signatures\DocumentSignersList;
+use App\Livewire\Signatures\OfficialDocumentViewer;
 use App\Livewire\StudentCorps\LegionHonor;
 use App\Livewire\Students\StudentForm;
 use App\Livewire\Students\StudentList;
@@ -64,6 +67,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::get(
+    '/documento/{uuid}',
+    OfficialDocumentViewer::class
+)->name('documents.show');
 
 // Route::get('/umask', function () {
 //     return decoct(umask());
@@ -87,6 +95,22 @@ Route::middleware([
 ])->group(function () {
     Route::get('/admin/configurações-gerais', Settings::class)->name('settings');
     Route::get('/log-viewer', Logs::class)->name('logs');
+});
+//ASSINATURAS
+//Assinadores
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:document_signers' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/assinaturas/assinador', DocumentSignersList::class)
+        ->name('document-signers-list');
+    Route::get('/assinaturas/assinador/novo', DocumentSignersForm::class)
+        ->name('document-signer-create');
+    Route::get('/assinaturas/assinador/{document_signers}/editar', DocumentSignersForm::class)
+        ->name('document-signer-edit');
 });
 Route::middleware([
     'auth:sanctum',

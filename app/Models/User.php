@@ -6,8 +6,10 @@ namespace App\Models;
 
 use App\Enums\UserGroups;
 use App\Models\Admin\AlertsUser;
+use App\Models\Signatures\DocumentSigner;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -177,5 +179,10 @@ class User extends Authenticatable
     public function people(): HasOne
     {
         return $this->hasOne(Peoples::class, 'user_id', 'id');
+    }
+
+    public function documentSigners(): HasMany
+    {
+        return $this->hasMany(DocumentSigner::class, 'user_id', 'id')->where('active', true);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models\Fault;
 
+use App\Enums\SignatureRole;
 use App\Models\Peoples;
 use App\Models\Settings\Companies;
 use App\Models\Settings\SchoolClasses;
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+
+// use App\Enums\DocumentType;
 
 class SchoolFaults extends Model
 {
@@ -40,6 +43,18 @@ class SchoolFaults extends Model
         'deleted_by',
         'deleted_at'
     ];
+
+
+    public function requiredSignatures(): array
+    {
+        return [
+            SignatureRole::Sargenteante,
+            // SignatureRole::ComandanteCia,
+            // SignatureRole::Diretor,
+        ];
+    }
+
+
     protected static function boot()
     {
         parent::boot();

@@ -42,8 +42,8 @@
 
         {{-- Status --}}
         <div class="mb-6 shadow-xl card bg-base-100">
-            <div class="card-body grid grid-cols-2">
-                <div class="flex items-center gap-4">
+            <div class="grid grid-cols-2 card-body">
+                <div class="flex items-center col-span-2 gap-4 sm:col-span-1">
                     <div class="text-5xl">
 
                         @if ($document->status->isCompleted())
@@ -68,7 +68,7 @@
 
                     </div>
                 </div>
-                <div class="text-right">
+                <div class="mt-10 text-center sm:text-right col-span-full sm:col-span-1 sm:mt-0">
                     @if ($document->status->isCompleted())
                         {{-- Download --}}
                         <div class="text-right">
@@ -219,7 +219,7 @@
                         <div class="timeline-middle">
                             <div class="badge badge-primary badge-sm"></div>
                         </div>
-                        <div class="timeline-end pb-8">
+                        <div class="pb-8 timeline-end">
                             <strong>Documento criado</strong>
                             <br>
                             {{ $document->creator?->name }}
@@ -240,7 +240,7 @@
                                 <div class="badge badge-success badge-sm"></div>
                             </div>
 
-                            <div class="timeline-end pb-8">
+                            <div class="pb-8 timeline-end">
 
                                 <strong>{{ $signature->role->label() }}</strong>
 
@@ -264,7 +264,7 @@
                             <div class="timeline-middle">
                                 <div class="badge badge-info badge-sm"></div>
                             </div>
-                            <div class="timeline-end pb-8">
+                            <div class="pb-8 timeline-end">
                                 <strong>Documento oficial gerado</strong>
                             </div>
                             <hr>

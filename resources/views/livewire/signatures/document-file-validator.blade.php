@@ -1,47 +1,19 @@
 <div class="border shadow-sm card bg-base-100 border-base-300">
 
     <div class="card-body">
-        <h2 class="card-title">
-            <x-layout.svg.shield-check class="w-6 h-6 text-success" />
-            Se vc recebeu o documento digital e quer verificar autenticidade de documento
+        <h2 class="justify-center block text-center sm:text-left sm:justify-start sm:flex card-title">
+            <x-layout.svg.shield-check class="w-6 h-6 mx-auto text-success" />
+            Verificar autenticidade de documento
         </h2>
 
-        <p class="mb-4 text-sm opacity-70">
-            Arraste um documento PDF ou clique abaixo para selecioná-lo.
+        <p class="mb-4 text-sm text-center opacity-70">
+            Se você recebeu o documento digital e quer verificar autenticidade, arraste o PDF ou
+            clique abaixo para selecioná-lo.
             O sistema verificará se o arquivo corresponde exatamente ao
             documento oficial emitido.
         </p>
 
-        {{-- <label
-            class="flex flex-col items-center justify-center w-full transition border-2 border-dashed cursor-pointer h-52 rounded-xl hover:border-primary">
 
-            <div class="flex flex-col items-center">
-
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 mb-3 opacity-50" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                        d="M12 16V4m0 0l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" />
-
-                </svg>
-
-                <span class="font-semibold">
-                    Arraste um PDF aqui
-                </span>
-
-                <span class="text-sm opacity-60">
-                    ou clique para selecionar
-                </span>
-
-                <span class="mt-2 text-xs opacity-50">
-                    Apenas arquivos PDF
-                </span>
-
-            </div>
-
-            <input type="file" wire:model="file" accept="application/pdf" class="hidden" id="verify-file">
-
-        </label>  --}}
         @if (!$result && !$verifying)
             {{-- Área de Upload --}}
             <label

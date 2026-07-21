@@ -62,7 +62,7 @@
             @foreach ($document->signatures as $signature)
                 <tr>
                     <td>
-                        {{ $signature->signer->user->name }}
+                        {{ $signature->signer->user?->people->name ?? $signature->signer->user->name }}
                     </td>
                     <td>
                         {{ $signature->role->label() }}

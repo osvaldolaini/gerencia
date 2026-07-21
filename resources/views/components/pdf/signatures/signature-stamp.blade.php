@@ -2,11 +2,6 @@
     style="border:1px solid #666;border-collapse:collapse;font-size:7pt;margin-top:5px;">
 
     <tr>
-        {{-- QR Code --}}
-        <td width="20%" align="center" valign="middle" style="border-right:1px solid #666;padding:6px;">
-            {!! $authenticationBlock !!}
-        </td>
-
         {{-- Informações --}}
         <td width="80%" valign="top">
 
@@ -20,8 +15,14 @@
             </div>
 
             <div style="margin-top:2px;">
+                <strong>Função:</strong>
+                {{ $document->signatures->last()->role->label() }}
+            </div>
+
+            <div style="margin-top:2px;">
                 <strong>Assinante:</strong>
-                {{ $document->signatures->last()?->signer->user->name }}
+                {{ $document->signatures->last()?->signer->user?->people->name ?? $document->signatures->last()?->signer->user->name }}
+                {{-- {{ $document->signatures->last()?->signer->user->name }} --}}
             </div>
 
             <div>
@@ -39,6 +40,12 @@
                 QR Code ou acesse o endereço indicado.
             </div>
 
+        </td>
+        {{-- QR Code --}}
+        <td width="20%" align="center" valign="middle" style="border-left:1px solid #666;padding:3px;">
+            {!! $authenticationBlock !!}
+            {{-- <br>
+            <small>Escaneie para validar</small> --}}
         </td>
     </tr>
 

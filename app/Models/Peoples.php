@@ -259,7 +259,8 @@ class Peoples extends Model
     }
     public function getTotalFaultsPercentAttribute()
     {
-        return ($this->total_faults ?? 0) / ($this?->company?->workload ?? 1200) * 100;
+        return ($this->total_faults ?? 0) / ($this->al_class->classGrade->company?->workload ?? 1200) * 100;
+        // return $this->al_class->classGrade->company->id ?? 0;
     }
     public function getTotalFaultsColorAttribute()
     {

@@ -20,7 +20,7 @@
                 </button>
             </div>
         </div>
-        <div class="flex flex-col w-full col-span-3">
+        <div class="flex flex-col w-full col-span-3 mt-3">
             <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
                 Selecione uma companhia </label>
             <select wire:model.lazy="companyId"

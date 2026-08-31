@@ -22,8 +22,8 @@
             </button>
         </x-slot>
     </x-layout.search>
-    <div class="grid grid-cols-3">
-        <div class="flex flex-col col-span-1">
+    <div class="grid grid-cols-3 mt-3">
+        {{-- <div class="flex flex-col col-span-1">
             <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
                 Selecione uma companhia </label>
             <select wire:model.lazy="companyId"
@@ -36,6 +36,39 @@
                     </option>
                 @endforeach
             </select>
+        </div> --}}
+        <div class="flex flex-wrap gap-3">
+
+            {{-- Todas --}}
+            <button type="button" wire:click="selectCompany('all')"
+                class="flex flex-col items-center justify-center w-16 h-16 rounded-lg border transition
+                {{ (string) $companyId === 'all'
+                    ? 'border-blue-600 bg-blue-100 dark:bg-blue-900'
+                    : 'border-gray-300 bg-white dark:bg-gray-800' }}">
+                <span class="text-sm font-medium text-gray-700 ">
+                    Todas
+                </span>
+            </button>
+
+            @foreach ($companies as $company)
+                <button type="button" wire:click="$set('companyId', {{ $company->id }})"
+                    wire:click="$dispatch('company-selected', { companyId: {{ $company->id }} })"
+                    class="p-1 flex flex-col items-center justify-center w-16 h-16 rounded-lg border
+                   {{ $companyId == $company->id
+                       ? 'border-blue-600 bg-blue-100 dark:bg-blue-900'
+                       : 'border-gray-300 bg-white dark:bg-gray-800' }}">
+
+                    <picture>
+                        <source
+                            srcset="{{ url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png') }}" />
+                        <source
+                            srcset="{{ url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.webp') }}" />
+                        <img src="{{ url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png') }}"
+                            alt="{{ $company->name }}">
+                    </picture>
+                </button>
+            @endforeach
+
         </div>
     </div>
 
@@ -129,8 +162,8 @@
                         xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
                             sketch:type="MSPage">
-                            <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-204.000000, -365.000000)"
-                                fill="currentColor">
+                            <g id="Icon-Set" sketch:type="MSLayerGroup"
+                                transform="translate(-204.000000, -365.000000)" fill="currentColor">
                                 <path
                                     d="M214,379 C211.791,379 210,377.209 210,375 C210,372.791 211.791,371 214,371 C216.209,371 218,372.791 218,375 C218,377.209 216.209,379 214,379 L214,379 Z M214,369 C210.687,369 208,371.687 208,375 C208,378.313 210.687,381 214,381 C217.314,381 220,378.313 220,375 C220,371.687 217.314,369 214,369 L214,369 Z M226,383 L214,383 C209.582,383 206,379.418 206,375 C206,370.582 209.582,367 214,367 L226,367 C230.418,367 234,370.582 234,375 C234,379.418 230.418,383 226,383 L226,383 Z M226,365 L214,365 C208.477,365 204,369.478 204,375 C204,380.522 208.477,385 214,385 L226,385 C231.523,385 236,380.522 236,375 C236,369.478 231.523,365 226,365 L226,365 Z"
                                     id="toggle-on" sketch:type="MSShapeGroup">

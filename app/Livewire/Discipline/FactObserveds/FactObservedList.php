@@ -55,6 +55,21 @@ class FactObservedList extends Component
     public $compliment = 0;
     public $actived;
 
+    public function selectCompany($companyId)
+    {
+        $this->companyId = (string) $companyId;
+
+        $this->dispatch('company-selected', companyId: $this->companyId);
+    }
+
+    #[On('company-selected')]
+    public function companySelected($companyId)
+    {
+        // $companyId terá o valor selecionado
+        $this->companyId = $companyId;
+        // dd($companyId);
+    }
+
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {

@@ -23,7 +23,40 @@
         <div class="flex flex-col w-full col-span-3 mt-3">
             <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
                 Selecione uma companhia </label>
-            <select wire:model.lazy="companyId"
+            <div class="flex flex-wrap gap-3">
+
+                {{-- Todas --}}
+                <button type="button" wire:click="selectCompany('all')"
+                    class="flex flex-col items-center justify-center w-16 h-16 rounded-lg border transition
+                        {{ (string) $companyId === 'all'
+                            ? 'border-blue-600 bg-blue-100 dark:bg-blue-900'
+                            : 'border-gray-300 bg-white dark:bg-gray-800' }}">
+                    <span class="text-sm font-medium text-gray-700 ">
+                        Todas
+                    </span>
+                </button>
+
+                @foreach ($companies as $company)
+                    <button type="button" wire:click="$set('companyId', {{ $company->id }})"
+                        wire:click="$dispatch('company-selected', { companyId: {{ $company->id }} })"
+                        class="p-1 flex flex-col items-center justify-center w-16 h-16 rounded-lg border
+                           {{ $companyId == $company->id
+                               ? 'border-blue-600 bg-blue-100 dark:bg-blue-900'
+                               : 'border-gray-300 bg-white dark:bg-gray-800' }}">
+
+                        <picture>
+                            <source
+                                srcset="{{ url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png') }}" />
+                            <source
+                                srcset="{{ url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.webp') }}" />
+                            <img src="{{ url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png') }}"
+                                alt="{{ $company->name }}">
+                        </picture>
+                    </button>
+                @endforeach
+
+            </div>
+            {{-- <select wire:model.lazy="companyId"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                 <option value="all">Selecione...</option>
 
@@ -32,7 +65,7 @@
                         {{ $company->nick }}
                     </option>
                 @endforeach
-            </select>
+            </select> --}}
         </div>
     @endif
 

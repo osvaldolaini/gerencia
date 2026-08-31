@@ -32,6 +32,9 @@ class FactObservedList extends Component
     public $id;
     public $read;
 
+    public $companyId = 'all';
+    public $companies;
+
     //Dados da tabela
     protected $queryService;
     public $model = "App\Models\Discipline\FactObserved"; //Model principal
@@ -55,7 +58,11 @@ class FactObservedList extends Component
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
+
+        $this->companies = Companies::where('active', 1)->get();
+
         $this->actived = now()->year;
+
         if (SchoolClassesYears::where("active", 1)->first()) {
             $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
         }
@@ -74,6 +81,10 @@ class FactObservedList extends Component
         $where['compliment'] = $this->compliment;
 
         // dd($where);
+        if ($this->companyId !== 'all') {
+            $where['company_id'] = $this->companyId;
+        }
+
         $dataTable = $queryService
             ->setModel($this->model)
             ->setParameters([

@@ -22,6 +22,23 @@
             </button>
         </x-slot>
     </x-layout.search>
+    <div class="grid grid-cols-3">
+        <div class="flex flex-col col-span-1">
+            <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                Selecione uma companhia </label>
+            <select wire:model.lazy="companyId"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                <option value="all">Selecione...</option>
+
+                @foreach ($companies as $company)
+                    <option value="{{ $company->id }}">
+                        {{ $company->nick }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+
     <div class="flex pt-5">
         <div class="w-full flex-nowrap justify-stretch">
             <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">

@@ -22,6 +22,8 @@ class FaultDisciplineList extends Component
     public $faults;
     public $id;
 
+    public $companyId = 'all';
+
 
     //Dados da tabela
     protected $queryService;
@@ -49,24 +51,51 @@ class FaultDisciplineList extends Component
         }
         $where['year'] = $this->actived;
 
-        $dataTable = $queryService
-            ->setModel($this->model)
-            ->setParameters([
-                'modelId' => $this->modelId,
-                'relationTables' => $this->relationTables,
-                'columnsInclude' => $this->columnsInclude,
-                'searchable' => $this->searchable,
-                'sort' => $this->sorts,
-                'paginate' => $this->paginate,
-                'search' => $this->search,
-                'customSearch' => $this->customSearch,
-                'active' => $this->active,
-            ])
-            ->getData();
+        if ($this->companyId == 'all') {
+            $dataTable = $queryService
+                ->setModel($this->model)
+                ->setParameters([
+                    'modelId' => $this->modelId,
+                    'relationTables' => $this->relationTables,
+                    'columnsInclude' => $this->columnsInclude,
+                    'searchable' => $this->searchable,
+                    'sort' => $this->sorts,
+                    'paginate' => $this->paginate,
+                    'search' => $this->search,
+                    'customSearch' => $this->customSearch,
+                    'active' => $this->active,
+                ])->getData();
+        } else {
+            $dataTable = $queryService
+                ->setModel($this->model)
+                ->setParameters([
+                    'modelId' => $this->modelId,
+                    'relationTables' => $this->relationTables,
+                    'columnsInclude' => $this->columnsInclude,
+                    'searchable' => $this->searchable,
+                    'sort' => $this->sorts,
+                    'paginate' => $this->paginate,
+                    'search' => $this->search,
+                    'customSearch' => $this->customSearch,
+                    'active' => $this->active,
+                    'where'          => [
+                        'company_id' => $this->companyId,
+                    ]
+                ])->getData();
+        }
+
         return view(
             'livewire.discipline.fault-disciplines.fault-discipline-list',
             compact('dataTable')
         );
+    }
+
+    #[On('company-selected')]
+    public function companySelected($companyId)
+    {
+        // $companyId terá o valor selecionado
+        $this->companyId = $companyId;
+        // dd($companyId);
     }
     public function addSort($field)
     {

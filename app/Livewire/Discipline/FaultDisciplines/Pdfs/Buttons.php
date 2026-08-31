@@ -4,6 +4,7 @@ namespace App\Livewire\Discipline\FaultDisciplines\Pdfs;
 
 use App\Models\Admin\Settings\Settings;
 use App\Models\Discipline\FaultDiscipline;
+use App\Models\Settings\Companies;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 use App\Traits\HandlesTmpUploads;
+use Livewire\Attributes\On;
 
 class Buttons extends Component
 {
@@ -20,16 +22,33 @@ class Buttons extends Component
     public $supplement;
     public $years;
     public $year;
+    public $companyId;
+    public $companies;
 
     use HandlesTmpUploads;
     public function mount($status)
     {
         $this->year = date('Y');
         $this->status = $status;
+        $this->companies = Companies::where('active', 1)->get();
+        $this->companyId = 'all';
 
         // dd($this->year);
 
         $this->years = ['2026', '2025'];
+    }
+
+    public function updatedCompanyId($value)
+    {
+        $this->dispatch('company-selected', companyId: $value);
+    }
+
+    #[On('company-selected')]
+    public function companySelected($companyId)
+    {
+        // $companyId terá o valor selecionado
+        $this->companyId = $companyId;
+        // dd($companyId);
     }
 
     public function render()
@@ -63,12 +82,19 @@ class Buttons extends Component
             'default_font'  => 'arial',
         ]);
         // dd($mpdf);
+        $query = FaultDiscipline::where('active', 1)
+            ->where('year', $this->year)->orderByDesc('number');
+
+        if ($this->companyId !== 'all') {
+            $query->where('company_id', $this->companyId);
+        }
+        // dd($this->companyId, $query->get());
         $html = view(
             'livewire.discipline.fault-disciplines.pdfs.status-pdf',
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Todas',
-                'data'              => FaultDiscipline::where('year', $this->year)->orderByDesc('number')->get(),
+                'data'              => $query->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]
@@ -140,12 +166,21 @@ class Buttons extends Component
             'default_font'  => 'arial',
         ]);
         // dd($mpdf);
+
+        // dd($this->companyId);
+        $query = FaultDiscipline::where('active', 1)
+            ->whereNull('justification_date');
+
+
+        if ($this->companyId !== 'all') {
+            $query->where('company_id', $this->companyId);
+        }
         $html = view(
             'livewire.discipline.fault-disciplines.pdfs.status-pdf',
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Justificativa',
-                'data'              => FaultDiscipline::where('active', 1)->where('justification_date', NULL)->get(),
+                'data'              => $query->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]
@@ -209,14 +244,18 @@ class Buttons extends Component
             'default_font'  => 'arial',
         ]);
         // dd($mpdf);
+        $query = FaultDiscipline::where('active', 1)
+            ->where('justification_date', '!=', NULL)
+            ->where('solution_date', NULL);
+        if ($this->companyId !== 'all') {
+            $query->where('company_id', $this->companyId);
+        }
         $html = view(
             'livewire.discipline.fault-disciplines.pdfs.status-pdf',
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Solução',
-                'data'              => FaultDiscipline::where('active', 1)
-                    ->where('justification_date', '!=', NULL)
-                    ->where('solution_date', NULL)->get(),
+                'data'              => $query->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]
@@ -281,22 +320,27 @@ class Buttons extends Component
             'default_font'  => 'arial',
         ]);
         // dd($mpdf);
+
+        $query = FaultDiscipline::where('active', 1)
+            ->where('justification_date', '!=', NULL)
+            ->where('solution_date', '!=', NULL)
+            ->where('bi_date', NULL)
+            // ->where('bi_number', NULL)
+            ->where('decision', '!=', NULL)
+            ->where('decision', '!=', 'fo')
+            ->where('decision', '!=', 'justificado')
+            ->orderBy('decision', 'asc')
+            ->orderBy('fact_date', 'asc');
+
+        if ($this->companyId !== 'all') {
+            $query->where('company_id', $this->companyId);
+        }
         $html = view(
             'livewire.discipline.fault-disciplines.pdfs.status-pdf',
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Publicação',
-                'data'              => FaultDiscipline::where('active', 1)
-                    ->where('justification_date', '!=', NULL)
-                    ->where('solution_date', '!=', NULL)
-                    ->where('bi_date', NULL)
-                    // ->where('bi_number', NULL)
-                    ->where('decision', '!=', NULL)
-                    ->where('decision', '!=', 'fo')
-                    ->where('decision', '!=', 'justificado')
-                    ->orderBy('decision', 'asc')
-                    ->orderBy('fact_date', 'asc')
-                    ->get(),
+                'data'              => $query->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]
@@ -361,19 +405,25 @@ class Buttons extends Component
             'default_font'  => 'arial',
         ]);
         // dd($mpdf);
+
+        $query = FaultDiscipline::where('active', 1)
+            ->where('year', $this->year)
+            ->where('active', 1)
+            ->where('supplement_number', $number)
+            ->where('decision', '!=', 'fo')
+            ->where('decision', '!=', 'justificado')
+            ->orderBy('decision', 'asc')
+            ->orderBy('fact_date', 'asc');
+
+        if ($this->companyId !== 'all') {
+            $query->where('company_id', $this->companyId);
+        }
         $html = view(
             'livewire.discipline.fault-disciplines.pdfs.status-pdf',
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Aditamento',
-                'data'              => FaultDiscipline::where('year', $this->year)
-                    ->where('active', 1)
-                    ->where('supplement_number', $number)
-                    ->where('decision', '!=', 'fo')
-                    ->where('decision', '!=', 'justificado')
-                    ->orderBy('decision', 'asc')
-                    ->orderBy('fact_date', 'asc')
-                    ->get(),
+                'data'              => $query->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]

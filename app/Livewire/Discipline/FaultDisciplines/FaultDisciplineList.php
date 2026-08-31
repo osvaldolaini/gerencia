@@ -22,6 +22,7 @@ class FaultDisciplineList extends Component
     public $faults;
     public $id;
 
+
     //Dados da tabela
     protected $queryService;
     public $model = "App\Models\Discipline\FaultDiscipline"; //Model principal
@@ -36,6 +37,8 @@ class FaultDisciplineList extends Component
     public $paginate = 10; //Qtd de registros por página
     public $active = 'fault_disciplines.active';
     public $actived;
+
+    public $company = 'all';
 
     #[On('see_excluded')]
     public function render(TableService $queryService)

@@ -70,7 +70,16 @@ class SchoolFaultsFilter extends Component
     }
     public function render()
     {
-        $startOfYear = now()->startOfYear()->toDateString();
+        $faults = $this->faults();
+        return view('livewire.faults.panel.school-faults-filter', [
+            'faults' => $faults,
+        ]);
+    }
+    
+    public function faults()
+    {
+        $startOfYear = now()->toDateString();
+        // $startOfYear = now()->startOfYear()->toDateString();
         $today = now()->toDateString();
 
         $dateStart = $this->date_start ?: $startOfYear;
@@ -101,11 +110,7 @@ class SchoolFaultsFilter extends Component
         }
 
         // Agora reordena para exibir decrescente
-        $faults = $faultsOrdered->sortByDesc('date')->values();
-
-        return view('livewire.faults.panel.school-faults-filter', [
-            'faults' => $faults,
-        ]);
+        return $faultsOrdered->sortByDesc('date')->values();
     }
     public function exportPdf()
     {

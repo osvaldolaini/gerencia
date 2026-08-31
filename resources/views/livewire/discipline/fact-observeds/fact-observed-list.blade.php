@@ -38,7 +38,8 @@
             </select>
         </div> --}}
         <div class="flex flex-wrap gap-3">
-
+            <label class="flex w-full text-sm font-medium text-gray-900 dark:text-white" for="title">
+                Selecione uma companhia </label>
             {{-- Todas --}}
             <button type="button" wire:click="selectCompany('all')"
                 class="flex flex-col items-center justify-center w-16 h-16 rounded-lg border transition

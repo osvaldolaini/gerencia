@@ -34,13 +34,13 @@
                     <span class="text-sm font-medium text-gray-700 ">
                         {{-- Todas --}}
                         @if (Storage::directoryMissing('public/logos-school'))
-                            <picture {{ $attributes }}>
+                            <picture>
                                 <source srcset="{{ url('storage/logos/logo-gerencia.png') }}" />
                                 <source srcset="{{ url('storage/logos/logo-gerencia.webp') }}" />
                                 <img src="{{ url('storage/logos/logo-gerencia.png') }}" alt="api-gerencia">
                             </picture>
                         @else
-                            <picture {{ $attributes }}>
+                            <picture>
                                 <source srcset="{{ url('storage/logos-school/logo.png') }}" />
                                 <source srcset="{{ url('storage/logos-school/logo.webp') }}" />
                                 <img src="{{ url('storage/logos-school/logo.png') }}" alt="api-gerencia">

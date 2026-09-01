@@ -47,8 +47,19 @@
                     ? 'border-blue-600 bg-blue-100 dark:bg-blue-900'
                     : 'border-gray-300 bg-white dark:bg-gray-800' }}">
                 <span class="text-sm font-medium text-gray-700 ">
-                    {{-- Todas --}}
-                    <img src="{{ url('storage/logos/logo.png') }}" />
+                    @if (Storage::directoryMissing('public/logos-school'))
+                        <picture {{ $attributes }}>
+                            <source srcset="{{ url('storage/logos/logo-gerencia.png') }}" />
+                            <source srcset="{{ url('storage/logos/logo-gerencia.webp') }}" />
+                            <img src="{{ url('storage/logos/logo-gerencia.png') }}" alt="api-gerencia">
+                        </picture>
+                    @else
+                        <picture {{ $attributes }}>
+                            <source srcset="{{ url('storage/logos-school/logo.png') }}" />
+                            <source srcset="{{ url('storage/logos-school/logo.webp') }}" />
+                            <img src="{{ url('storage/logos-school/logo.png') }}" alt="api-gerencia">
+                        </picture>
+                    @endif
                 </span>
             </button>
 
@@ -159,8 +170,8 @@
             @else
                 <button wire:click='buttonSee' class="text-red-500 btn btn-outline btn-error btn-sm">
                     Mostrar lançados
-                    <svg class="relative w-6 h-6" viewBox="0 -6 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                    <svg class="relative w-6 h-6" viewBox="0 -6 32 32" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                         xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
                             sketch:type="MSPage">

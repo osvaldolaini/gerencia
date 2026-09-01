@@ -33,7 +33,19 @@
                             : 'border-gray-300 bg-white dark:bg-gray-800' }}">
                     <span class="text-sm font-medium text-gray-700 ">
                         {{-- Todas --}}
-                        <img src="{{ url('storage/logos/logo.png') }}" />
+                        @if (Storage::directoryMissing('public/logos-school'))
+                            <picture {{ $attributes }}>
+                                <source srcset="{{ url('storage/logos/logo-gerencia.png') }}" />
+                                <source srcset="{{ url('storage/logos/logo-gerencia.webp') }}" />
+                                <img src="{{ url('storage/logos/logo-gerencia.png') }}" alt="api-gerencia">
+                            </picture>
+                        @else
+                            <picture {{ $attributes }}>
+                                <source srcset="{{ url('storage/logos-school/logo.png') }}" />
+                                <source srcset="{{ url('storage/logos-school/logo.webp') }}" />
+                                <img src="{{ url('storage/logos-school/logo.png') }}" alt="api-gerencia">
+                            </picture>
+                        @endif
                     </span>
                 </button>
 
@@ -44,7 +56,6 @@
                            {{ $companyId == $company->id
                                ? 'border-blue-600 bg-blue-100 dark:bg-blue-900'
                                : 'border-gray-300 bg-white dark:bg-gray-800' }}">
-
                         <picture>
                             <source
                                 srcset="{{ url('storage/companies/' . $company->id . '/' . $company->code_image . '_list.png') }}" />

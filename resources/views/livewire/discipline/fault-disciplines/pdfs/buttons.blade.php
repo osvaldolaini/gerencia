@@ -27,7 +27,7 @@
 
                 {{-- Todas --}}
                 <button type="button" wire:click="selectCompany('all')"
-                    class="flex flex-col items-center justify-center w-16 h-16 rounded-lg border transition
+                    class="p-1 flex flex-col items-center justify-center w-16 h-16 rounded-lg border transition
                         {{ (string) $companyId === 'all'
                             ? 'border-blue-600 bg-blue-100 dark:bg-blue-900'
                             : 'border-gray-300 bg-white dark:bg-gray-800' }}">

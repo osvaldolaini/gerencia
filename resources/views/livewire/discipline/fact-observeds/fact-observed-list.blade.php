@@ -47,7 +47,8 @@
                     ? 'border-blue-600 bg-blue-100 dark:bg-blue-900'
                     : 'border-gray-300 bg-white dark:bg-gray-800' }}">
                 <span class="text-sm font-medium text-gray-700 ">
-                    Todas
+                    {{-- Todas --}}
+                    <img src="{{ url('storage/logos/logo.png') }}" />
                 </span>
             </button>
 

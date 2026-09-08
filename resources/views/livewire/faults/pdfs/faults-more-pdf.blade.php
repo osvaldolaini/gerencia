@@ -51,7 +51,7 @@
 
     <div class="container">
         <h2>Relatório de alunos com mais de 7,5% de faltas</h2>
-        
+
         <table class="reports">
             <thead>
                 <tr>
@@ -65,9 +65,9 @@
             <tbody>
                 @foreach ($students as $student)
                     <tr>
-                        <td>{{ $student->nick .' ( '.$student->number.' )'?? '-' }}</td>
+                        <td>{{ $student->nick . ' ( ' . $student->num . ' )' ?? '-' }}</td>
                         <td>{{ $student->name ?? '-' }}</td>
-                        <td class="text-center">{{ $student?->al_class->title  ?? 'sem turma' }}</td>
+                        <td class="text-center">{{ $student?->al_class->title ?? 'sem turma' }}</td>
                         <td class="text-center">{{ $student->total_faults }}</td>
                         <td class="px-2 py-1 font-bold text-center">
                             ({{ number_format($student->total_faults_percent, 2, ',', '') }}%)

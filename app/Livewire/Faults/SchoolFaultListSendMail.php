@@ -2,8 +2,6 @@
 
 namespace App\Livewire\Faults;
 
-use App\Models\Fault\SchoolFaults;
-use App\Services\LaiGuz\TableService;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -23,6 +21,9 @@ use App\Models\Emails;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PlanilhaFaultsView;
+
 
 class SchoolFaultListSendMail extends Component
 {
@@ -39,25 +40,10 @@ class SchoolFaultListSendMail extends Component
     public $id;
     public $sex;
 
-    protected $queryService;
-    public $model = "App\Models\Peoples"; //Model principal
-    public $modelId = "id"; //Ex: 'table.id' or 'id'
-    public $search;
-    public $sorts = ['function' => 'asc'];
-    public $relationTables; //Relacionamentos ( table , key , foreingKey )
-    public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'name,nick,sex,function,logo_path,posto_grad,type,active as status';
-    public $searchable = 'name,nick,sex,function'; //Colunas pesquisadas no banco de dados
-
-    public $paginate = 15; //Qtd de registros por página
-    public $active = 'active';
-
-    public $students = array();
 
 
     public $emails;
     public $contacts;
-    public $student;
     public $attachment;
     public $percent;
 
@@ -65,30 +51,149 @@ class SchoolFaultListSendMail extends Component
     public $loading = false;
 
 
+    public $search;
+    public $sortStudents = 'percent_desc';
+    public $allStudents;
+    public $student;
+    public $students = array();
+
     #[On('see_excluded')]
     public function render()
     {
-        $dataTable = Peoples::where('active', 1)
-            // ->where('nick', $this->search)
-            ->where('type', 1)
-            ->orderBy('nick', 'asc')->get();
-        foreach ($dataTable as $student) {
-            if ($student?->al_class) {
-                if ($student->total_faults_percent > 6.5) {
-                    $this->students[] = $student;
-                }
-            }
-        }
-
-        // dd($this->students);
         return view(
             'livewire.faults.school-fault-list-send-mail'
         );
     }
-    //Imprimir relação
-    public function print()
+    public function mount()
     {
-        // dd($this->students);
+        $this->loadStudents();
+    }
+    public function updatedSearch()
+    {
+        $this->applyStudentFilters();
+    }
+
+    public function updatedSortStudents()
+    {
+        $this->applyStudentFilters();
+    }
+
+    // public function loadStudents()
+    // {
+    //     $dataTable = Peoples::where('active', 1)
+    //         ->where('type', 1)
+    //         ->when($this->search, function ($query) {
+    //             $query->where('nick', 'like', '%' . $this->search . '%');
+    //         })
+    //         ->get();
+
+    //     $this->students = $dataTable
+    //         ->filter(function ($student) {
+    //             return $student->al_class &&
+    //                 $student->total_faults_percent > 6.5;
+    //         });
+
+    //     switch ($this->sortStudents) {
+
+    //         case 'percent_desc':
+    //             $this->students = $this->students
+    //                 ->sortByDesc('total_faults_percent');
+    //             break;
+
+    //         case 'percent_asc':
+    //             $this->students = $this->students
+    //                 ->sortBy('total_faults_percent');
+    //             break;
+
+    //         case 'name_asc':
+    //             $this->students = $this->students
+    //                 ->sortBy('nick');
+    //             break;
+
+    //         case 'name_desc':
+    //             $this->students = $this->students
+    //                 ->sortByDesc('nick');
+    //             break;
+    //     }
+
+    //     $this->students = $this->students->values();
+    //     return $this->students;
+    // }
+    public function loadStudents()
+    {
+        $dataTable = Peoples::where('active', 1)
+            ->where('type', 1)
+            ->get();
+
+        $this->allStudents = $dataTable
+            ->filter(function ($student) {
+                return $student->al_class &&
+                    $student->total_faults_percent > 7.5;
+            })
+            ->values()
+            ->all();
+
+        $this->applyStudentFilters();
+    }
+    public function applyStudentFilters()
+    {
+        $students = collect($this->allStudents);
+
+        // SEARCH
+        if ($this->search) {
+
+            $search = mb_strtolower($this->search);
+
+            $students = $students->filter(function ($student) use ($search) {
+
+                $nick = mb_strtolower($student->nick ?? '');
+                $number = (string) ($student->number ?? '');
+
+                return str_contains($nick, $search)
+                    || str_contains($number, $search);
+            });
+        }
+
+        // SORT
+        switch ($this->sortStudents) {
+
+            case 'percent_desc':
+                $students = $students->sortByDesc('total_faults_percent');
+                break;
+
+            case 'percent_asc':
+                $students = $students->sortBy('total_faults_percent');
+                break;
+
+            case 'name_asc':
+                $students = $students->sortBy('nick');
+                break;
+
+            case 'name_desc':
+                $students = $students->sortByDesc('nick');
+                break;
+        }
+
+        $this->students = $students->values()->all();
+    }
+
+    //Baixar relação 
+    //Turmas
+    public function exportExcel()
+    {
+        return Excel::download(
+            new PlanilhaFaultsView(
+                $this->students,
+                Settings::find(1)
+            ),
+            'planilha_alunos_com_mais_de_7_5_%_de_faltas.xlsx'
+        );
+    }
+
+    //Imprimir relação
+    public function exportPdf()
+    {
+
         //Apagar itens do diretório temporário
         $this->clearTmpDirectory('public/pdf-tmp');
 
@@ -153,8 +258,10 @@ class SchoolFaultListSendMail extends Component
 
         $mpdf->Output($down, 'F');
 
-        $this->dispatch('openPdfInNewTabClasses', pdfPath: $pdfPath);
+        $this->dispatch('openPdfInNewTab', pdfPath: $pdfPath);
     }
+
+    //Enviar email 
     public function showConfirm(Peoples $student, $percent)
     {
         $this->contacts = $student->contacts;

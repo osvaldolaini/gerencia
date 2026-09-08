@@ -80,11 +80,14 @@
         </div>
 
     </div>
-    <div class="grid grid-cols-1 gap-3 mt-5 mb-5 md:grid-cols-2">
-        @livewire('settings.companies.select-company')
+    <div class="grid grid-cols-1 gap-3 mt-5 mb-5 md:grid-cols-3">
+        <div>
+            @livewire('settings.companies.select-company')
+        </div>
+
         {{-- Busca --}}
         <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            <label class="block text-sm font-medium text-gray-900 dark:text-white">
                 Buscar aluno
             </label>
 
@@ -97,7 +100,7 @@
 
         {{-- Ordenação --}}
         <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            <label class="block text-sm font-medium text-gray-900 dark:text-white">
                 Ordenar por
             </label>
 

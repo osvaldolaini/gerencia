@@ -1,7 +1,8 @@
-<div class="flex flex-col w-full col-span-3 mt-3">
-    <x-layout.loading.select-student></x-layout.loading.select-student>
+<div class="flex flex-col w-full">
+
     <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
-        Selecione uma companhia </label>
+        Selecione uma companhia
+    </label>
     <div class="flex flex-wrap gap-3">
         {{-- Todas --}}
         <button type="button" wire:click="selectCompany('all')"
@@ -46,4 +47,5 @@
         @endforeach
 
     </div>
+    <x-layout.loading.select-student></x-layout.loading.select-student>
 </div>

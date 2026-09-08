@@ -21,7 +21,9 @@
             </div>
         </div>
 
-        @livewire('settings.companies.select-company')
+        <div class="pt-5">
+            @livewire('settings.companies.select-company')
+        </div>
     @endif
 
     @if ($status == 'lista')

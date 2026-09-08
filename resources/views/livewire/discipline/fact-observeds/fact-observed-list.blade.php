@@ -23,7 +23,10 @@
         </x-slot>
     </x-layout.search>
 
-    @livewire('settings.companies.select-company')
+    <div class="pt-5">
+        @livewire('settings.companies.select-company')
+    </div>
+
 
     <div class="flex pt-5">
         <div class="w-full flex-nowrap justify-stretch">

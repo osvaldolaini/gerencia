@@ -40,8 +40,6 @@ class SchoolFaultListSendMail extends Component
     public $id;
     public $sex;
 
-
-
     public $emails;
     public $contacts;
     public $attachment;
@@ -50,12 +48,13 @@ class SchoolFaultListSendMail extends Component
     public $showModalConfirm = false;
     public $loading = false;
 
-
     public $search;
     public $sortStudents = 'percent_desc';
     public $allStudents;
     public $student;
     public $students = array();
+
+    public $companyId = 'all';
 
     #[On('see_excluded')]
     public function render()
@@ -64,6 +63,16 @@ class SchoolFaultListSendMail extends Component
             'livewire.faults.school-fault-list-send-mail'
         );
     }
+
+    #[On('company-selected')]
+    public function companySelected($companyId)
+    {
+        // $companyId terá o valor selecionado
+        $this->companyId = $companyId;
+        // dd($companyId);
+        $this->applyStudentFilters();
+    }
+
     public function mount()
     {
         $this->loadStudents();
@@ -78,47 +87,7 @@ class SchoolFaultListSendMail extends Component
         $this->applyStudentFilters();
     }
 
-    // public function loadStudents()
-    // {
-    //     $dataTable = Peoples::where('active', 1)
-    //         ->where('type', 1)
-    //         ->when($this->search, function ($query) {
-    //             $query->where('nick', 'like', '%' . $this->search . '%');
-    //         })
-    //         ->get();
 
-    //     $this->students = $dataTable
-    //         ->filter(function ($student) {
-    //             return $student->al_class &&
-    //                 $student->total_faults_percent > 6.5;
-    //         });
-
-    //     switch ($this->sortStudents) {
-
-    //         case 'percent_desc':
-    //             $this->students = $this->students
-    //                 ->sortByDesc('total_faults_percent');
-    //             break;
-
-    //         case 'percent_asc':
-    //             $this->students = $this->students
-    //                 ->sortBy('total_faults_percent');
-    //             break;
-
-    //         case 'name_asc':
-    //             $this->students = $this->students
-    //                 ->sortBy('nick');
-    //             break;
-
-    //         case 'name_desc':
-    //             $this->students = $this->students
-    //                 ->sortByDesc('nick');
-    //             break;
-    //     }
-
-    //     $this->students = $this->students->values();
-    //     return $this->students;
-    // }
     public function loadStudents()
     {
         $dataTable = Peoples::where('active', 1)
@@ -138,6 +107,14 @@ class SchoolFaultListSendMail extends Component
     public function applyStudentFilters()
     {
         $students = collect($this->allStudents);
+
+        // FILTRO POR COMPANHIA
+        // FILTRO POR COMPANHIA
+        if ($this->companyId !== 'all') {
+            $students = $students->filter(function ($student) {
+                return (string) $student->company?->id === (string) $this->companyId;
+            });
+        }
 
         // SEARCH
         if ($this->search) {
@@ -174,11 +151,12 @@ class SchoolFaultListSendMail extends Component
                 break;
         }
 
+
+
         $this->students = $students->values()->all();
     }
 
     //Baixar relação 
-    //Turmas
     public function exportExcel()
     {
         return Excel::download(

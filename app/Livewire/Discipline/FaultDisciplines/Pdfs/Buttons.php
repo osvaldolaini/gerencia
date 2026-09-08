@@ -22,25 +22,14 @@ class Buttons extends Component
     public $supplement;
     public $years;
     public $year;
-    public $companyId;
-    public $companies;
+    public $companyId = 'all';
 
     use HandlesTmpUploads;
     public function mount($status)
     {
         $this->year = date('Y');
         $this->status = $status;
-        $this->companies = Companies::where('active', 1)->get();
-        $this->companyId = 'all';
-
-        // dd($this->year);
-
         $this->years = ['2026', '2025'];
-    }
-
-    public function updatedCompanyId($value)
-    {
-        $this->dispatch('company-selected', companyId: $value);
     }
 
     #[On('company-selected')]
@@ -48,7 +37,6 @@ class Buttons extends Component
     {
         // $companyId terá o valor selecionado
         $this->companyId = $companyId;
-        // dd($companyId);
     }
 
     public function render()

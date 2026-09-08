@@ -2,6 +2,7 @@
     @php
         use Carbon\Carbon;
     @endphp
+    <x-layout.loading.select-student></x-layout.loading.select-student>
     <x-layout.breadcrumb>
         <x-slot name="left">
             <h3 class="text-2xl font-bold tracki dark:text-gray-50">
@@ -20,10 +21,10 @@
         </div>
     </div>
 
-    <div class="flex col-span-full ">
-        <div class='flex justify-center col-span-1 text-right'>
+    <div class="flex space-x-1 col-span-full">
+        <div class='flex justify-center '>
             <div class="p-0 tooltip tooltip-top" data-tip="imprimir relatório">
-                <a class="btn btn-outline btn-success" target="_blank" wire:click="exportPdf">
+                <a class="btn btn-outline btn-error" target="_blank" wire:click="exportPdf">
                     imprimir <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor"
                         viewBox="0 0 512 512" xml:space="preserve">
                         <g>
@@ -69,7 +70,7 @@
                 </a>
             </div>
         </div>
-        <div class='flex justify-center col-span-1 text-right'>
+        <div class='flex justify-center'>
             <div class="p-0 tooltip tooltip-top" data-tip="importar planilha">
                 <a class="btn btn-outline btn-success" target="_blank" wire:click="exportExcel">
                     Importar
@@ -80,7 +81,7 @@
 
     </div>
     <div class="grid grid-cols-1 gap-3 mt-5 mb-5 md:grid-cols-2">
-
+        @livewire('settings.companies.select-company')
         {{-- Busca --}}
         <div>
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">

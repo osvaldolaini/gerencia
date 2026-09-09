@@ -36,9 +36,16 @@ class ComplimentList extends Component
     public $paginate = 10; //Qtd de registros por página
     public $active = 'compliments.active';
 
+    public $companyId = 'all';
+
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
+        // dd($where);
+        $where = [];
+        if ($this->companyId !== 'all') {
+            $where['company_id'] = $this->companyId;
+        }
         $dataTable = $queryService
             ->setModel($this->model)
             ->setParameters([
@@ -49,6 +56,8 @@ class ComplimentList extends Component
                 'sort' => $this->sorts,
                 'paginate' => $this->paginate,
                 'search' => $this->search,
+
+                'where' => $where,
                 'customSearch' => $this->customSearch,
                 'active' => $this->active,
             ])
@@ -58,6 +67,14 @@ class ComplimentList extends Component
             compact('dataTable')
         );
     }
+
+    #[On('company-selected')]
+    public function companySelected($companyId)
+    {
+        // $companyId terá o valor selecionado
+        $this->companyId = $companyId;
+    }
+
     public function addSort($field)
     {
         // dd($field);

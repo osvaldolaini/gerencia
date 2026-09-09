@@ -28,6 +28,9 @@
                 @livewire('discipline.compliments.pdfs.buttons', ['status' => 'aditamentos'])
             </div>
         </div>
+                <div class="pt-5">
+            @livewire('settings.companies.select-company')
+        </div>
     </div>
 
     <x-layout.search>

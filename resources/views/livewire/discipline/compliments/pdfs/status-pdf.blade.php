@@ -137,7 +137,11 @@
                 @endphp
                 @if ($newdecision != $decision)
                     @php $decision = $newdecision; @endphp
-                    <h2>{{ mb_strtoupper(ComplimentType::from($newdecision)->label()) }}</h2>
+                    @if ($compliment->compliment_type)
+                        <h2>{{ mb_strtoupper(ComplimentType::from($newdecision)->label()) }}</h2>
+                    @else
+                        <h2>Não selecionado</h2>
+                    @endif
                 @endif
                 <div style="padding: 5px 5px; text-align:justify; text-indent:1.5cm;">
                     {{ $compliment->note }}

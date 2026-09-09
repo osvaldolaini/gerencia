@@ -33,21 +33,26 @@
                                             Conforme o § 1º do Art. 47 do RICM 2024, venho informar que seu dependente
                                             ultrapassou o percentual de {{ $percent }} de faltas nas atividades
                                             previstas no corrente ano escolar.
-                                            Ressalto a necessidade de presença maior de 75% (faltas não podem
-                                            ultrapassar 25%).
+
+                                            {{-- Ressalto a necessidade de presença maior de 75% (faltas não podem
+                                            ultrapassar 25%). --}}
                                         </p>
-                                        <p>
+                                        {{-- <p>
                                             Art. 47. Para ser aprovado, é necessário que o aluno cumpra a um mínimo de
                                             75% (setenta e cinco por cento) das horas letivas totais.
-                                        </p>
+                                        </p> --}}
                                         <p>
+                                            Nos casos em que o aluno for menor de 18 anos, o Conselho Tutelar do
+                                            Município será oficiado.
+                                        </p>
+                                        {{-- <p>
                                             § 1º O Diretor de Ensino delegará atribuição ao Cmt CA para informar ao
                                             responsável pelo aluno e notificar ao Conselho Tutelar do Município, a
                                             relação dos alunos que apresentem quantidade de faltas acima de 7,5% (sete
                                             virgula cinco por cento) da carga horária constante da grade curricular,
                                             devendo o professor/instrutor registrar estas faltas no diário de classe e
                                             no SINCOMIL.
-                                        </p>
+                                        </p> --}}
                                         <p>
                                             Respeitosamente,
                                         </p>

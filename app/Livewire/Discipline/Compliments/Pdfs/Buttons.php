@@ -5,13 +5,15 @@ namespace App\Livewire\Discipline\Compliments\Pdfs;
 
 use App\Models\Admin\Settings\Settings;
 use App\Models\Discipline\Compliments;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Str;
 
 use App\Traits\HandlesTmpUploads;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Livewire\Attributes\On;
 
 class Buttons extends Component
 {
@@ -21,6 +23,8 @@ class Buttons extends Component
     public $supplement;
     public $years;
     public $year;
+
+    public $companyId = 'all';
 
     use HandlesTmpUploads;
     public function mount($status)
@@ -35,7 +39,20 @@ class Buttons extends Component
             ->orderBy('supplement_number', 'desc') // ou 'desc' para ordem decrescente
             ->pluck('supplement_number');
         // $this->supplements = Compliments::where('supplement_number', '!=', NULL)->pluck('supplement_number');
+
+        $this->companyId = Cache::get(
+            'students_company_filter_' . Auth::id(),
+            'all'
+        );
     }
+
+    #[On('company-selected')]
+    public function companySelected($companyId)
+    {
+        // $companyId terá o valor selecionado
+        $this->companyId = $companyId;
+    }
+
 
     public function render()
     {
@@ -62,12 +79,17 @@ class Buttons extends Component
             'default_font'  => 'arial',
         ]);
         // dd($mpdf);
+        $query = Compliments::where('year', $this->year)->orderBy('number');
+
+        if ($this->companyId !== 'all') {
+            $query->where('company_id', $this->companyId);
+        }
         $html = view(
             'livewire.discipline.compliments.pdfs.status-pdf',
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Todas',
-                'data'              => Compliments::where('year', $this->year)->orderBy('number')->get(),
+                'data'              => $query->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]
@@ -132,13 +154,19 @@ class Buttons extends Component
             'default_font'  => 'arial',
         ]);
         // dd($mpdf);
+
+        $query = Compliments::where('year', $this->year)->where('active', 1)
+            ->where('solution_date', NULL);
+
+        if ($this->companyId !== 'all') {
+            $query->where('company_id', $this->companyId);
+        }
         $html = view(
             'livewire.discipline.compliments.pdfs.status-pdf',
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Solução',
-                'data'              => Compliments::where('year', $this->year)->where('active', 1)
-                    ->where('solution_date', NULL)->get(),
+                'data'              => $query->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]
@@ -203,16 +231,20 @@ class Buttons extends Component
             'default_font'  => 'arial',
         ]);
         // dd($mpdf);
+        $query = Compliments::where('year', $this->year)->where('active', 1)
+            ->where('solution_date', '!=', NULL)
+            ->where('bi_date', NULL)
+            ->orderBy('fact_date', 'asc');
+
+        if ($this->companyId !== 'all') {
+            $query->where('company_id', $this->companyId);
+        }
         $html = view(
             'livewire.discipline.compliments.pdfs.status-pdf',
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Publicação',
-                'data'              => Compliments::where('year', $this->year)->where('active', 1)
-                    ->where('solution_date', '!=', NULL)
-                    ->where('bi_date', NULL)
-                    ->orderBy('fact_date', 'asc')
-                    ->get(),
+                'data'              => $query->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]
@@ -277,15 +309,20 @@ class Buttons extends Component
             'default_font'  => 'arial',
         ]);
         // dd($mpdf);
+        $query = Compliments::where('year', $this->year)->where('active', 1)
+            ->where('supplement_number', $number)
+            ->orderBy('fact_date', 'asc');
+
+        if ($this->companyId !== 'all') {
+            $query->where('company_id', $this->companyId);
+        }
+
         $html = view(
             'livewire.discipline.compliments.pdfs.status-pdf',
             [
                 'logoPath'          => $logoPath,
                 'title'             => 'Aditamento',
-                'data'              => Compliments::where('year', $this->year)->where('active', 1)
-                    ->where('supplement_number', $number)
-                    ->orderBy('fact_date', 'asc')
-                    ->get(),
+                'data'              => $query->get(),
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,
             ]

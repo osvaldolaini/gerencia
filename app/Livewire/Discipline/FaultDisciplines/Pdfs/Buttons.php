@@ -4,15 +4,15 @@ namespace App\Livewire\Discipline\FaultDisciplines\Pdfs;
 
 use App\Models\Admin\Settings\Settings;
 use App\Models\Discipline\FaultDiscipline;
-use App\Models\Settings\Companies;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Str;
 
 use App\Traits\HandlesTmpUploads;
 use Livewire\Attributes\On;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class Buttons extends Component
 {
@@ -30,6 +30,11 @@ class Buttons extends Component
         $this->year = date('Y');
         $this->status = $status;
         $this->years = ['2026', '2025'];
+
+        $this->companyId = Cache::get(
+            'students_company_filter_' . Auth::id(),
+            'all'
+        );
     }
 
     #[On('company-selected')]
@@ -159,10 +164,10 @@ class Buttons extends Component
         $query = FaultDiscipline::where('active', 1)
             ->whereNull('justification_date');
 
-
         if ($this->companyId !== 'all') {
             $query->where('company_id', $this->companyId);
         }
+
         $html = view(
             'livewire.discipline.fault-disciplines.pdfs.status-pdf',
             [
@@ -235,9 +240,11 @@ class Buttons extends Component
         $query = FaultDiscipline::where('active', 1)
             ->where('justification_date', '!=', NULL)
             ->where('solution_date', NULL);
+
         if ($this->companyId !== 'all') {
             $query->where('company_id', $this->companyId);
         }
+
         $html = view(
             'livewire.discipline.fault-disciplines.pdfs.status-pdf',
             [

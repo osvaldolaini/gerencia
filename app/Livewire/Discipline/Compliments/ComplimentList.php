@@ -8,8 +8,10 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ComplimentList extends Component
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
+class ComplimentList extends Component
 {
     use WithPagination;
     public $breadcrumb = 'Elogios';
@@ -37,6 +39,14 @@ class ComplimentList extends Component
     public $active = 'compliments.active';
 
     public $companyId = 'all';
+
+    public function mount()
+    {
+        $this->companyId = Cache::get(
+            'students_company_filter_' . Auth::id(),
+            'all'
+        );
+    }
 
     #[On('see_excluded')]
     public function render(TableService $queryService)

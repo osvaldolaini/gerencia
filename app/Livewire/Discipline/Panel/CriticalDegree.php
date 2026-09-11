@@ -7,22 +7,16 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Peoples;
 
-
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Admin\Settings\Settings;
 use App\Traits\HandlesTmpUploads;
 
 
-use App\Enums\MilitaryRank;
-use App\Models\Discipline\FactObserved;
-use App\Models\Emails;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PlanilhaFaultsView;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class CriticalDegree extends Component
 {
@@ -72,6 +66,10 @@ class CriticalDegree extends Component
 
     public function mount()
     {
+        $this->companyId = Cache::get(
+            'students_company_filter_' . Auth::id(),
+            'all'
+        );
         $this->loadStudents();
     }
     public function loadStudents()

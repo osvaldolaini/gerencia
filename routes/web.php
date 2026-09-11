@@ -21,6 +21,7 @@ use App\Livewire\Discipline\FactObserveds\FactObservedList;
 use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineEdit;
 use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineForm;
 use App\Livewire\Discipline\FaultDisciplines\FaultDisciplineList;
+use App\Livewire\Discipline\Panel\CriticalDegree;
 use App\Livewire\Discipline\Settings\Faults\FaultForm;
 use App\Livewire\Discipline\Settings\Faults\FaultList;
 use App\Livewire\Discipline\Panel\DisciplinePanel;
@@ -296,6 +297,9 @@ Route::middleware([
 
     Route::get('/disciplina/painel', DisciplinePanel::class)
         ->name('fact-observed-panel');
+
+    Route::get('/disciplina/grau-baixo', CriticalDegree::class)
+        ->name('critical-degree');
 });
 
 //ELOGIOS

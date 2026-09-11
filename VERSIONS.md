@@ -7,6 +7,7 @@
 -   Filtros na lista de alunos com mais de 7,5% de faltas
 -   Botões de imprimir e exportar a lista de alunos com mais de 7,5% de faltas
 -   Correção do texto do email.
+-   Lista de alunos com grau de comportamento menor que 5
 
 ## Versão Santos Dumont 1.8.10 – 2026-08-31
 

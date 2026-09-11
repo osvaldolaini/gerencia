@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Discipline\Panel;
 
+use App\Exports\PlanilhaCriticalDegree;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -11,10 +12,7 @@ use Illuminate\Support\Str;
 use App\Models\Admin\Settings\Settings;
 use App\Traits\HandlesTmpUploads;
 
-
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\PlanilhaFaultsView;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
@@ -22,7 +20,7 @@ class CriticalDegree extends Component
 {
     use WithPagination;
     use HandlesTmpUploads;
-    public $breadcrumb = 'Faltas escolares';
+    public $breadcrumb = 'Grau de comportamento abaixo de 5';
     public $modal = true;
     public $showJetModal = false;
     public $showModalForm = false;
@@ -144,11 +142,11 @@ class CriticalDegree extends Component
     public function exportExcel()
     {
         return Excel::download(
-            new PlanilhaFaultsView(
+            new PlanilhaCriticalDegree(
                 $this->students,
                 Settings::find(1)
             ),
-            'planilha_alunos_com_mais_de_7_5_%_de_faltas.xlsx'
+            'planilha_alunos_com_grau_abaixo_de_5.xlsx'
         );
     }
 
@@ -175,10 +173,10 @@ class CriticalDegree extends Component
         ]);
         // dd($mpdf);
         $html = view(
-            'livewire.faults.pdfs.faults-more-pdf',
+            'livewire.settings.pdf.student-critical-degree-pdf',
             [
                 'logoPath'          => $logoPath,
-                'title'             => 'Frequência escolar',
+                'title'             => 'Grau de comportamento abaixo de 5',
                 'students'          => $this->students,
                 'config'            => $config,
                 'responsible'       => Auth::user()->name,

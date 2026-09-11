@@ -63,7 +63,7 @@
             filh{{ $article }} de {{ $student->mom }}
             {{ $student->dad ? 'e ' : '' }}{{ $student->dad }}, está
             matriculad{{ $article }} e
-            frequentará o {{ strtolower($student->al_class->classGrade->name) }} do Ensino
+            frequenta o {{ strtolower($student->al_class->classGrade->name) }} do Ensino
             {{ $level }} neste
             Estabelecimento de Ensino no ano letivo de {{ date('Y') }}, com atividades presenciais
             compreendidas

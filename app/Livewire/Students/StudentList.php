@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Admin\Settings\Settings;
 use App\Traits\HandlesTmpUploads;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class StudentList extends Component
 {

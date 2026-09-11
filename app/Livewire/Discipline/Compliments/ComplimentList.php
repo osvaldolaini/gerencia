@@ -53,6 +53,7 @@ class ComplimentList extends Component
     {
         // dd($where);
         $where = [];
+
         if ($this->companyId !== 'all') {
             $where['company_id'] = $this->companyId;
         }

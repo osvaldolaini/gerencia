@@ -15,6 +15,10 @@ use Livewire\WithPagination;
 
 use Illuminate\Support\Str;
 
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+
 class FactObservedList extends Component
 {
     use WithPagination;
@@ -62,6 +66,7 @@ class FactObservedList extends Component
         $this->companyId = $companyId;
     }
 
+
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
@@ -88,9 +93,16 @@ class FactObservedList extends Component
         $where['compliment'] = $this->compliment;
 
         // dd($where);
+
+        $this->companyId = Cache::get(
+            'students_company_filter_' . Auth::id(),
+            'all'
+        );
         if ($this->companyId !== 'all') {
+
             $where['company_id'] = $this->companyId;
         }
+
 
         $dataTable = $queryService
             ->setModel($this->model)

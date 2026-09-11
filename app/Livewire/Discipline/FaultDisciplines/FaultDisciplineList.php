@@ -9,6 +9,10 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+
 class FaultDisciplineList extends Component
 {
     use WithPagination;
@@ -42,6 +46,7 @@ class FaultDisciplineList extends Component
 
     public $company = 'all';
 
+
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
@@ -50,6 +55,11 @@ class FaultDisciplineList extends Component
             $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
         }
         $where['year'] = $this->actived;
+
+        $this->companyId = Cache::get(
+            'students_company_filter_' . Auth::id(),
+            'all'
+        );
 
         if ($this->companyId == 'all') {
             $dataTable = $queryService

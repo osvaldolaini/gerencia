@@ -258,6 +258,9 @@
                                                         Gerou FAFD nº {{ $item?->fafds->number }} /
                                                         {{ $item?->fafds->year }}
                                                     </a>
+                                                @else
+                                                    <span class="timeline-end timeline-box">Não foi criado
+                                                        corretamente</span>
                                                 @endif
 
 

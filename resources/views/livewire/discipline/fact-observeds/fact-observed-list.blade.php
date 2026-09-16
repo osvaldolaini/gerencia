@@ -252,11 +252,14 @@
                                                     </svg>
                                                 </div>
 
-                                                <a class="timeline-end timeline-box"
-                                                    href="{{ route('fault-discipline-edit', $item->fafds->id) }}#tab3">
-                                                    Gerou FAFD nº {{ $item->fafds->number }} /
-                                                    {{ $item->fafds->year }}
-                                                </a>
+                                                @if ($item->fafds)
+                                                    <a class="timeline-end timeline-box"
+                                                        href="{{ route('fault-discipline-edit', $item?->fafds->id) }}#tab3">
+                                                        Gerou FAFD nº {{ $item?->fafds->number }} /
+                                                        {{ $item?->fafds->year }}
+                                                    </a>
+                                                @endif
+
 
                                             </li>
                                         @elseif($item->compliment)

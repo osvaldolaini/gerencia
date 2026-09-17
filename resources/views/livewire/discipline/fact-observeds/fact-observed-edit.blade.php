@@ -224,10 +224,15 @@
                         </div>
                         <div class="col-span-full sm:col-span-1">
                             <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
-                                Gerar FAFD
+                                Gerou FAFD?
                             </label>
-                            <x-layout.toggle-true-false id="fafd"
-                                active="{{ $fafd }}"></x-layout.toggle-true-false>
+                            <label class="inline-flex items-center p-1 text-gray-100 cursor-pointer dark:bg-gray-700">
+                                <input {{ $fafd ? 'checked' : '' }} type="checkbox" class="hidden peer">
+                                <span
+                                    class="px-4 py-2 bg-red-500 peer-checked:bg-gray-700 peer-checked:text-gray-900">NÃO</span>
+                                <span class="px-4 py-2 bg-gray-700 peer-checked:bg-blue-600">SIM</span>
+                            </label>
+
                             @error('fafd')
                                 <span class="error">{{ $message }}</span>
                             @enderror

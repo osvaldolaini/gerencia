@@ -3,6 +3,7 @@
 namespace App\Livewire\Discipline\Compliments;
 
 use App\Models\Discipline\Compliments;
+use App\Models\Settings\SchoolClassesYears;
 use App\Services\LaiGuz\TableService;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -32,12 +33,14 @@ class ComplimentList extends Component
     public $sorts = ['year' => 'desc', 'number' => 'desc'];
     public $relationTables = "peoples,peoples.id,compliments.student_id";  //Relacionamentos ( table , key , foreingKey )
     public $customSearch; //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'compliments.number,peoples.logo_path,year,al_nick,compliments.student_id,al_number,al_class,fact_date,solution_date,bi_date,sincomil_date,compliments.active as status';
-    public $searchable = 'compliments.number,year,al_nick,al_number,al_class'; //Colunas pesquisadas no banco de dados
+    public $columnsInclude = 'compliments.number,compliments.sincomil_date,peoples.logo_path,year,al_nick,compliments.student_id,al_number,al_class,fact_date,solution_date,bi_date,sincomil_date,compliments.active as status';
+    public $searchable = 'compliments.number,compliments.sincomil_date,year,al_nick,al_number,al_class'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 10; //Qtd de registros por página
     public $active = 'compliments.active';
+    public $sincomil_date = false;
 
+    public $actived;
     public $companyId = 'all';
 
     public function mount()
@@ -51,11 +54,18 @@ class ComplimentList extends Component
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
-        // dd($where);
         $where = [];
+        $this->actived = now()->year;
+        if (SchoolClassesYears::where("active", 1)->first()) {
+            $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
+        }
+        $where['year'] = $this->actived;
 
         if ($this->companyId !== 'all') {
             $where['company_id'] = $this->companyId;
+        }
+        if (!$this->sincomil_date) {
+            $where['sincomil_date'] = null;
         }
         $dataTable = $queryService
             ->setModel($this->model)
@@ -77,6 +87,12 @@ class ComplimentList extends Component
             'livewire.discipline.compliments.compliment-list',
             compact('dataTable')
         );
+    }
+
+
+    public function buttonSee()
+    {
+        $this->sincomil_date = !$this->sincomil_date;
     }
 
     #[On('company-selected')]

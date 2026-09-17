@@ -37,29 +37,41 @@ class FaultDisciplineList extends Component
     public $sorts = ['year' => 'desc', 'number' => 'desc'];
     public $relationTables = "peoples,peoples.id,fault_disciplines.student_id";  //Relacionamentos ( table , key , foreingKey )
     public $customSearch; //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'fault_disciplines.number,decision,peoples.logo_path,year,al_nick,fault_disciplines.student_id,al_number,al_class,fact_date,solution_date,delivered_date,justification_date,bi_date,sincomil_date,fault_disciplines.active as status';
-    public $searchable = 'fault_disciplines.number,year,al_nick,al_number,al_class'; //Colunas pesquisadas no banco de dados
+    public $columnsInclude = 'fault_disciplines.number,decision,fault_disciplines.sincomil_date,peoples.logo_path,year,al_nick,fault_disciplines.student_id,al_number,al_class,fact_date,solution_date,delivered_date,justification_date,bi_date,sincomil_date,fault_disciplines.active as status';
+    public $searchable = 'fault_disciplines.number,fault_disciplines.sincomil_date,year,al_nick,al_number,al_class'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 10; //Qtd de registros por página
     public $active = 'fault_disciplines.active';
     public $actived;
 
+    public $sincomil_date = false;
+
     public $company = 'all';
 
+    public function mount()
+    {
+        $this->companyId = Cache::get(
+            'students_company_filter_' . Auth::id(),
+            'all'
+        );
+    }
 
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
+        $where = [];
         $this->actived = now()->year;
         if (SchoolClassesYears::where("active", 1)->first()) {
             $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
         }
         $where['year'] = $this->actived;
 
-        $this->companyId = Cache::get(
-            'students_company_filter_' . Auth::id(),
-            'all'
-        );
+        if ($this->companyId !== 'all') {
+            $where['company_id'] = $this->companyId;
+        }
+        if (!$this->sincomil_date) {
+            $where['sincomil_date'] = null;
+        }
 
         if ($this->companyId == 'all') {
             $dataTable = $queryService
@@ -72,6 +84,7 @@ class FaultDisciplineList extends Component
                     'sort' => $this->sorts,
                     'paginate' => $this->paginate,
                     'search' => $this->search,
+                    'where' => $where,
                     'customSearch' => $this->customSearch,
                     'active' => $this->active,
                 ])->getData();
@@ -88,9 +101,8 @@ class FaultDisciplineList extends Component
                     'search' => $this->search,
                     'customSearch' => $this->customSearch,
                     'active' => $this->active,
-                    'where'          => [
-                        'company_id' => $this->companyId,
-                    ]
+                    'where' => $where,
+
                 ])->getData();
         }
 
@@ -98,6 +110,11 @@ class FaultDisciplineList extends Component
             'livewire.discipline.fault-disciplines.fault-discipline-list',
             compact('dataTable')
         );
+    }
+
+    public function buttonSee()
+    {
+        $this->sincomil_date = !$this->sincomil_date;
     }
 
     #[On('company-selected')]

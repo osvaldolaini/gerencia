@@ -94,7 +94,7 @@
     <div class="mt-5 space-y-4 ">
         @if (!empty($selectedCompliments))
             <div class="fixed right-6 z-50 pr-5">
-                {{-- <h2 class="flex w-full text-gray-800 dark:text-white">Lançamentos multiplos:</h2> --}}
+
                 <button type="submit" wire:click="saveMultipleModal" wire:loading.attr="disabled"
                     class="text-white flex justify-center items-center space-x-2
                         bg-green-700 hover:bg-green-800

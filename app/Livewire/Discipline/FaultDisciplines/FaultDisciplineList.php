@@ -37,7 +37,7 @@ class FaultDisciplineList extends Component
     public $sorts = ['year' => 'desc', 'number' => 'desc'];
     public $relationTables = "peoples,peoples.id,fault_disciplines.student_id";  //Relacionamentos ( table , key , foreingKey )
     public $customSearch; //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'fault_disciplines.number,decision,fault_disciplines.sincomil_date,peoples.logo_path,year,al_nick,fault_disciplines.student_id,al_number,al_class,fact_date,solution_date,delivered_date,justification_date,bi_date,sincomil_date,fault_disciplines.active as status';
+    public $columnsInclude = 'fault_disciplines.number,fault_disciplines.decision,fault_disciplines.sincomil_date,peoples.logo_path,year,al_nick,fault_disciplines.student_id,al_number,al_class,fact_date,solution_date,delivered_date,justification_date,bi_date,sincomil_date,fault_disciplines.active as status';
     public $searchable = 'fault_disciplines.number,fault_disciplines.sincomil_date,year,al_nick,al_number,al_class'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 10; //Qtd de registros por página
@@ -60,6 +60,8 @@ class FaultDisciplineList extends Component
     public function render(TableService $queryService)
     {
         $where = [];
+        $orwhere = [];
+
         $this->actived = now()->year;
         if (SchoolClassesYears::where("active", 1)->first()) {
             $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
@@ -69,9 +71,15 @@ class FaultDisciplineList extends Component
         if ($this->companyId !== 'all') {
             $where['company_id'] = $this->companyId;
         }
+
+
         if (!$this->sincomil_date) {
             $where['sincomil_date'] = null;
+            $where['fault_disciplines.decision'] = null;
+        } else {
+            $orwhere['fault_disciplines.decision'] = 'justificado';
         }
+
 
         if ($this->companyId == 'all') {
             $dataTable = $queryService

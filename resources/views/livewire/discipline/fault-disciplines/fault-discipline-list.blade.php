@@ -339,6 +339,13 @@
                 <x-layout.table-options id='{{ $item->id }}' active='{{ $item->status }}'>
                 </x-layout.table-options>
             </div>
+            @if ($item->solution_date)
+                <div>
+                    <p>Data lançamento SINCOMIL</p>
+                    @livewire('discipline.fault-disciplines.sincomil-date', ['fault_discipline' => $item], key($item->id))
+                </div>
+            @endif
+
         </div>
     </div>
 </div>

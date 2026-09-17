@@ -259,6 +259,12 @@
                                             active='{{ $item->status }}'>
                                         </x-layout.table-options>
                                     </div>
+                                    @if ($item->solution_date)
+                                        <div>
+                                            <p>Data lançamento SINCOMIL</p>
+                                            @livewire('discipline.compliments.sincomil-date', ['compliment' => $item], key($item->id))
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -17,6 +17,7 @@ class TableService
     protected $searchable;
     protected $sort;
     protected $where;
+    protected $orWhere;
     protected $paginate;
     protected $search;
     protected $customSearch;
@@ -42,6 +43,7 @@ class TableService
         $this->searchable       = $params['searchable'];
         $this->sort             = $params['sort'];
         $this->where            = $params['where'] ?? [];
+        $this->orWhere          = $params['orWhere'] ?? [];
         $this->paginate         = $params['paginate'];
         $this->search           = $params['search'];
         $this->customSearch     = $params['customSearch'];
@@ -70,6 +72,11 @@ class TableService
         if ($this->where) {
             foreach ($this->where as $key => $value) {
                 $query->where($key,  $value);
+            }
+        }
+        if ($this->orWhere) {
+            foreach ($this->orWhere as $key => $value) {
+                $query->orWhere($key,  $value);
             }
         }
 

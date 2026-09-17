@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Discipline\Compliments;
 
+use App\Enums\ComplimentType;
 use App\Models\Discipline\Compliments;
 use App\Models\Settings\SchoolClassesYears;
 use App\Services\LaiGuz\TableService;
@@ -19,6 +20,7 @@ class ComplimentList extends Component
     public $modal = true;
     public $showJetModal = false;
     public $showModalForm = false;
+    public $showMultipleForm = false;
 
     public $rules;
     public $detail;
@@ -43,6 +45,33 @@ class ComplimentList extends Component
     public $actived;
     public $companyId = 'all';
 
+
+    public $selectedCompliments = [];
+    public $numMultiple;
+
+
+    //Fields
+    public $solution;
+    public $sugestion;
+    public $grau;
+
+    public $compliment_type;
+    public $solution_date;
+
+    public $sim_date;
+    public $bi_text;
+    public $bi_number;
+    public $supplement_number;
+    public $b_date;
+    public $bi_date;
+    public $s_date;
+
+    public $students;
+
+    public $fo;
+    public $f_date;
+    public $note;
+
     public function mount()
     {
         $this->companyId = Cache::get(
@@ -54,6 +83,8 @@ class ComplimentList extends Component
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
+        $this->numMultiple = count($this->selectedCompliments);
+
         $where = [];
         $this->actived = now()->year;
         if (SchoolClassesYears::where("active", 1)->first()) {
@@ -67,6 +98,7 @@ class ComplimentList extends Component
         if (!$this->sincomil_date) {
             $where['sincomil_date'] = null;
         }
+
         $dataTable = $queryService
             ->setModel($this->model)
             ->setParameters([
@@ -88,7 +120,6 @@ class ComplimentList extends Component
             compact('dataTable')
         );
     }
-
 
     public function buttonSee()
     {
@@ -173,5 +204,77 @@ class ComplimentList extends Component
     public function openAlert($status, $msg)
     {
         $this->dispatch('openAlert', $status, $msg);
+    }
+
+
+    //Multiple
+    public function saveMultipleModal()
+    {
+        $this->showMultipleForm = true;
+    }
+    public function save_out()
+    {
+        $this->real_save();
+        redirect()->route('compliment-list')->with('success', 'Registros criados com sucesso.');
+    }
+
+    public function real_save()
+    {
+        $this->rules = [
+            'compliment_type'   => 'required',
+            'solution_date'     => 'required',
+            'bi_date'           => 'required',
+            'supplement_number' => 'required',
+            'bi_number'         => 'required',
+            // 'sincomil_date'   => 'required',
+        ];
+
+        $this->validate();
+
+        foreach ($this->selectedCompliments as $key => $value) {
+
+            $compliment = Compliments::findOrFail($value);
+
+            $this->sugestionText($compliment);
+            // dd($this->solution);
+            Compliments::updateOrCreate([
+                'id'    => $value,
+            ], [
+                'compliment_type'          => $this->compliment_type,
+                'solution_date'            => $this->solution_date,
+                'solution'                 => $this->solution,
+                'grau'                     => $this->grau,
+                'bi_date'                  => $this->bi_date,
+                'bi_text'                  => $this->bi_text,
+                'supplement_number'        => $this->supplement_number,
+                'bi_number'                => $this->bi_number,
+                'sincomil_date'            => $this->sincomil_date,
+            ]);
+        }
+
+
+        $id = false;
+        $msg = 'Registro editado com sucesso.';
+
+        $this->openAlert('success', $msg);
+        return $id;
+    }
+    //Decision
+    public function updated($property)
+    {
+        if ($property === 'compliment_type') {
+            $this->grau = ComplimentType::from($this->compliment_type)->degree();
+        }
+    }
+    public function sugestionText($compliment)
+    {
+        if ($this->compliment_type) {
+            $this->sugestion = 'Em ' . $compliment->f_date . ', Al Nr ' . $compliment->al_number . ', ' . $compliment->students->name . ' ( ' . $compliment->students->nick . ' ), turma ' . $compliment->al_class . ' - ';
+            $this->sugestion .= $compliment->fact;
+            $this->sugestion .= ' (FO positivo nº ' . $compliment->fo->number . '/' . $compliment->fo->year . ').';
+            $this->sugestion .= ' Medida disciplinar: Elogio ' . ComplimentType::from($this->compliment_type)->label() . '.';
+
+            $this->solution = $this->sugestion;
+        }
     }
 }

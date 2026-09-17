@@ -227,7 +227,7 @@
                                 Gerou FAFD?
                             </label>
                             <label class="inline-flex items-center p-1 text-gray-100 cursor-pointer dark:bg-gray-700">
-                                <input {{ $fafd ? 'checked' : '' }} type="checkbox" class="hidden peer">
+                                <input {{ $fafd ? 'checked' : '' }} type="checkbox" class="hidden peer" readonly>
                                 <span
                                     class="px-4 py-2 bg-red-500 peer-checked:bg-gray-700 peer-checked:text-gray-900">NÃO</span>
                                 <span class="px-4 py-2 bg-gray-700 peer-checked:bg-blue-600">SIM</span>

@@ -60,8 +60,6 @@ class FaultDisciplineList extends Component
     public function render(TableService $queryService)
     {
         $where = [];
-        $orwhere = [];
-
         $this->actived = now()->year;
         if (SchoolClassesYears::where("active", 1)->first()) {
             $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
@@ -72,11 +70,8 @@ class FaultDisciplineList extends Component
             $where['company_id'] = $this->companyId;
         }
 
-
         if (!$this->sincomil_date) {
             $where['sincomil_date'] = null;
-            $where['fault_disciplines.decision'] = null;
-        } else {
             $orwhere['fault_disciplines.decision'] = 'justificado';
         }
 

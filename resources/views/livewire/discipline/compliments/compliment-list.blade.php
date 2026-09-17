@@ -1,6 +1,10 @@
 <div>
     @php
         use Carbon\Carbon;
+
+        use App\Enums\FunctionsObserver;
+        use App\Enums\ComplimentType;
+        use App\Enums\Rank;
     @endphp
     <x-layout.breadcrumb>
         <x-slot name="left">
@@ -32,7 +36,7 @@
             @livewire('settings.companies.select-company')
         </div>
         <div class="col-span-1">
-            <h2 class="flex w-full text-gray-800 dark:text-white">Mostrar lançados:</h2>
+            <h2 class="flex w-full text-gray-800 dark:text-white">Multiplos lançamentos:</h2>
             @if ($sincomil_date == true)
                 <button wire:click='buttonSee' class="text-green-500 btn btn-outline btn-success btn-sm">
                     Mostrar lançados
@@ -71,6 +75,7 @@
                 </button>
             @endif
         </div>
+
     </div>
 
     <x-layout.search>
@@ -86,11 +91,34 @@
             </button> --}}
         </x-slot>
     </x-layout.search>
-    <div class="mt-5 space-y-4">
+    <div class="mt-5 space-y-4 ">
+        @if (!empty($selectedCompliments))
+            <div class="fixed right-6 z-50 pr-5">
+                {{-- <h2 class="flex w-full text-gray-800 dark:text-white">Lançamentos multiplos:</h2> --}}
+                <button type="submit" wire:click="saveMultipleModal" wire:loading.attr="disabled"
+                    class="text-white flex justify-center items-center space-x-2
+                        bg-green-700 hover:bg-green-800
+                        focus:ring-4 focus:outline-none focus:ring-green-300
+                        font-medium rounded-lg text-lg px-5 py-2.5
+                        text-center dark:bg-green-600 dark:hover:bg-green-700
+                        dark:focus:ring-green-800">
+                    <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                    <svg class="h-8 w-8 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M18.1716 1C18.702 1 19.2107 1.21071 19.5858 1.58579L22.4142 4.41421C22.7893 4.78929 23 5.29799 23 5.82843V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H18.1716ZM4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21L5 21L5 15C5 13.3431 6.34315 12 8 12L16 12C17.6569 12 19 13.3431 19 15V21H20C20.5523 21 21 20.5523 21 20V6.82843C21 6.29799 20.7893 5.78929 20.4142 5.41421L18.5858 3.58579C18.2107 3.21071 17.702 3 17.1716 3H17V5C17 6.65685 15.6569 8 14 8H10C8.34315 8 7 6.65685 7 5V3H4ZM17 21V15C17 14.4477 16.5523 14 16 14L8 14C7.44772 14 7 14.4477 7 15L7 21L17 21ZM9 3H15V5C15 5.55228 14.5523 6 14 6H10C9.44772 6 9 5.55228 9 5V3Z"
+                            fill="currentColor" />
+                    </svg>
+                    <span>
+                        Gravar múltiplos ({{ $numMultiple }})
+                    </span>
+
+                </button>
+            </div>
+        @endif
         <!-- Lista de itens arrastáveis -->
         <div>
             @foreach ($dataTable as $item)
-                <div class="mb-10 rounded-md cursor-pointer">
+                <div class="mb-10 rounded-md cursor-pointer" wire:key='item-{{ $item->id }}'>
                     <h2 id="w-full text-center items-center">
                         <div type="button"
                             class="items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 dark:bg-gray-900 rounded-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
@@ -127,7 +155,7 @@
                                 </div>
                                 <div class="pl-2 col-span-full sm:col-span-3">
                                     <ul class="timeline timeline-vertical">
-                                        <li>
+
 
                                         <li>
                                             <div class="timeline-start">
@@ -257,14 +285,33 @@
                                     <div class="justify-start block space-x-2 space-y-2 font-medium duration-200 ">
                                         <x-layout.table-options id='{{ $item->id }}'
                                             active='{{ $item->status }}'>
+
                                         </x-layout.table-options>
+
                                     </div>
                                     @if ($item->solution_date)
                                         <div>
                                             <p>Data lançamento SINCOMIL</p>
                                             @livewire('discipline.compliments.sincomil-date', ['compliment' => $item], key($item->id))
                                         </div>
+                                    @else
+                                        <div class="btn btn-outline btn-success">
+                                            <label class="inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" wire:model.live="selectedCompliments"
+                                                    value="{{ $item->id }}"
+                                                    class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded-md
+                                                       focus:ring-2 focus:ring-blue-500
+                                                       dark:bg-gray-700 dark:border-gray-600
+                                                       dark:focus:ring-blue-600">
+                                            </label>
+
+                                            <p>Selecione múltiplo</p>
+
+
+                                        </div>
                                     @endif
+
+
                                 </div>
                             </div>
                         </div>
@@ -327,6 +374,107 @@
         </x-slot>
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('showModalView')" class="mx-2">
+                Fechar
+            </x-secondary-button>
+        </x-slot>
+    </x-dialog-modal>
+    {{-- MODAL READ --}}
+    <x-dialog-modal wire:model="showMultipleForm">
+        <x-slot name="title">Múltiplos lançamentos</x-slot>
+        <x-slot name="content">
+            <div class="grid grid-cols-2 gap-2 mb-1 sm:grid-cols-6 sm:gap-3 sm:mb-5">
+                <div class="col-span-full">
+                    <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                        Tipo de elogio
+                    </label>
+
+                    @foreach (ComplimentType::cases() as $item)
+                        <div class="p-0 tooltip tooltip-top mt-1" data-tip="{{ $item->label() }}">
+                            <label
+                                class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
+                                    rounded-md cursor-pointer
+                                    {{ $item->value == $compliment_type ? 'bg-blue-500 text-gray-800' : 'bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900' }}">
+                                <input type="radio" wire:model.live="compliment_type" value="{{ $item->value }}"
+                                    class="hidden peer" {{ $item->value == $compliment_type ? 'checked' : '' }}>
+
+                                <span class="text-xs">
+                                    {{ $item->label() }}
+                                </span>
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="col-span-full sm:col-span-2">
+                    <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                        Data solução</label>
+                    <input type="date" wire:model.live="solution_date"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    @error('solution_date')
+                        <span class="error">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="col-span-full sm:col-span-2 ">
+                    <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                        Bonificação</label>
+                    <input type="number" wire:model.live="grau" readonly
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                </div>
+
+
+                <div class="col-span-full sm:col-span-2">
+                    <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                        Nota p/Bol Nr</label>
+                    <input type="number" wire:model="supplement_number"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    @error('supplement_number')
+                        <span class="error">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="col-span-full sm:col-span-2">
+                    <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                        BI Nr</label>
+                    <input type="number" wire:model="bi_number"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    @error('bi_number')
+                        <span class="error">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="col-span-full sm:col-span-2">
+                    <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                        Data publicação</label>
+                    <input type="date" wire:model="bi_date"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    @error('bi_date')
+                        <span class="error">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="col-span-full sm:col-span-2">
+                    <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                        Data SINCOMIL</label>
+                    <input type="date" wire:model="sincomil_date"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    @error('sincomil_date')
+                        <span class="error">{{ $message }}</span>
+                    @enderror
+                </div>
+
+
+            </div>
+
+        </x-slot>
+        <x-slot name="footer">
+            <button type="submit" wire:click="save_out"
+                class="text-white
+                        bg-green-700 hover:bg-green-800
+                        focus:ring-4 focus:outline-none focus:ring-green-300
+                        font-medium rounded-lg text-sm px-5 py-2.5
+                        text-center dark:bg-green-600 dark:hover:bg-green-700
+                        dark:focus:ring-green-800">
+                Salvar e sair
+            </button>
+            <x-secondary-button wire:click="$toggle('showMultipleForm')" class="mx-2">
                 Fechar
             </x-secondary-button>
         </x-slot>

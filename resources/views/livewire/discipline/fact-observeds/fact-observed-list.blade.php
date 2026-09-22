@@ -676,7 +676,7 @@
 
                     @foreach ($selectedList as $student)
                         <div
-                            class="flex items-center gap-3 p-3 rounded-lg
+                            class="flex items-center gap-3 p-1 rounded-lg
                         bg-gray-100 dark:bg-gray-800">
 
                             <div class="flex-1">
@@ -688,6 +688,9 @@
                                     Nº {{ $student['number'] }}
                                     · Turma {{ $student['class'] }}
                                 </div>
+                                <code class="text-xs text-gray-500">
+                                    {{ $student['fact'] }}
+                                </code>
                             </div>
 
                             <div class="text-xs text-gray-400">
@@ -728,7 +731,7 @@
 
                     @foreach ($selectedList as $student)
                         <div
-                            class="flex items-center gap-3 p-3 rounded-lg
+                            class="flex items-center gap-3 p-1 rounded-lg
                         bg-gray-100 dark:bg-gray-800">
 
                             <div class="flex-1">
@@ -740,6 +743,9 @@
                                     Nº {{ $student['number'] }}
                                     · Turma {{ $student['class'] }}
                                 </div>
+                                <code class="text-xs text-gray-500">
+                                    {{ $student['fact'] }}
+                                </code>
                             </div>
 
                             <div class="text-xs text-gray-400">

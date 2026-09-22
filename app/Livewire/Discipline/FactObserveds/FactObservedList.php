@@ -108,6 +108,7 @@ class FactObservedList extends Component
                     'nick'       => $item->al_nick,
                     'number'     => $item->al_number,
                     'class'      => $item->al_class,
+                    'fact'       => $item->fact,
                 ];
             })
             ->values()

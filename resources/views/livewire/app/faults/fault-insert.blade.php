@@ -1,10 +1,10 @@
 <div
     class="min-h-screen px-6 pt-6 pb-20 bg-gray-100 border-2 rounded-r-lg rounded-bl-lg dark:bg-gray-700 dark:text-gray-100">
     <form>
-        <div role="tabpanel" class="bg-gray-100 darg:bg-gray-700">
+        <div role="tabpanel" class="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white">
             <div class="grid grid-cols-1">
                 <div class="col-span-full ">
-                    <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                    <label class="block text-sm font-medium " for="title">
                         Companhia</label>
                     <select wire:model.live="companies_id" required
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
@@ -18,7 +18,7 @@
                     @enderror
                 </div>
                 <div class="col-span-full ">
-                    <label class="block text-sm font-medium text-gray-900 dark:text-white" for="qtd" required>
+                    <label class="block text-sm font-medium " for="qtd" required>
                         Períodos (qtd)</label>
                     <input type="number" wire:model="qtd" required
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
@@ -27,7 +27,7 @@
                     @enderror
                 </div>
                 <div class="col-span-full ">
-                    <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                    <label class="block text-sm font-medium " for="title">
                         Data</label>
                     <input type="date" wire:model="date" required
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
@@ -37,7 +37,7 @@
                 </div>
                 @if ($companies_id)
                     <div class="col-span-full ">
-                        <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                        <label class="block text-sm font-medium " for="title">
                             Ano</label>
                         <select wire:model.live="school_grades_id" required
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
@@ -53,7 +53,7 @@
                 @endif
                 @if ($school_grades_id)
                     <div class="col-span-full ">
-                        <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
+                        <label class="block text-sm font-medium " for="title">
                             Turma</label>
                         <select wire:model.live="school_classes_id" required
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">

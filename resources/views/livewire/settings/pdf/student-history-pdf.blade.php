@@ -104,7 +104,7 @@
                 </tr>
             </table>
         </div>
-        <div class="section">
+        {{-- <div class="section">
             <div class="section-title">Atividades extra</div>
             @if ($student->activities->where('active', 1)->count() > 0)
                 <table class="w-full" style="border-collapse: collapse;">
@@ -112,7 +112,7 @@
                         <th class="text-left">Tipo</th>
                         <th class="text-center">Atividade</th>
                         <th class="text-center">GIP</th>
-                        {{-- <th class="text-center">Bônus</th> --}}
+                        
                     </tr>
                     @foreach ($student->activities->where('active', 1)->sortByDesc('gip') as $extra)
                         <tr class="linha-tabela">
@@ -126,10 +126,7 @@
                                 {{ $extra->gip ? 'Sim' : 'Não' }}
                             </td>
 
-                            {{--
-                            <td class="text-center border-bottom">
-                                {{ $extra->bonus ? 'Sim' : 'Não' }}
-                            </td> --}}
+                           
                         </tr>
                     @endforeach
 
@@ -137,7 +134,7 @@
             @else
                 <div class="linha-tabela">Não possui</div>
             @endif
-        </div>
+        </div> --}}
         <div class="section">
             <div class="section-title">Formulários de Apuração de Falta Disciplinar (FAFD)</div>
             @if ($student->fafd->count() > 0)

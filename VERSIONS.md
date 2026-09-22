@@ -1,5 +1,12 @@
 <p align="center"><a href="https://github.com/osvaldolaini" target="_blank"><img src="https://avatars.githubusercontent.com/u/75580327?v=4" width="100" alt="Laravel Logo"></a></p>
 
+## Versão Santos Dumont 1.8.14 – 2026-09-22
+
+> Melhorias
+
+-   Lançamentos Múltiplos de FO's para elogio e FAFD
+-   Fundo do formulário (lançar faltas por turmas)
+
 ## Versão Santos Dumont 1.8.12 – 2026-09-17
 
 > Melhorias

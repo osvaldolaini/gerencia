@@ -130,7 +130,48 @@
                 </button>
             @endif
         </div>
+        @if (!empty($selectedPositive))
+            <div class="fixed right-6 z-50 pr-5">
+                <button type="submit" wire:click="saveMultipleComplimentModal" wire:loading.attr="disabled"
+                    class="text-white flex justify-center items-center space-x-2
+                    bg-green-700 hover:bg-green-800
+                    focus:ring-4 focus:outline-none focus:ring-green-300
+                    font-medium rounded-lg text-lg px-5 py-2.5
+                    text-center dark:bg-green-600 dark:hover:bg-green-700
+                    dark:focus:ring-green-800">
 
+                    <svg class="h-8 w-8 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M18.1716 1C18.702 1 19.2107 1.21071 19.5858 1.58579L22.4142 4.41421C22.7893 4.78929 23 5.29799 23 5.82843V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H18.1716ZM4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21L5 21L5 15C5 13.3431 6.34315 12 8 12L16 12C17.6569 12 19 13.3431 19 15V21H20C20.5523 21 21 20.5523 21 20V6.82843C21 6.29799 20.7893 5.78929 20.4142 5.41421L18.5858 3.58579C18.2107 3.21071 17.702 3 17.1716 3H17V5C17 6.65685 15.6569 8 14 8H10C8.34315 8 7 6.65685 7 5V3H4ZM17 21V15C17 14.4477 16.5523 14 16 14L8 14C7.44772 14 7 14.4477 7 15L7 21L17 21ZM9 3H15V5C15 5.55228 14.5523 6 14 6H10C9.44772 6 9 5.55228 9 5V3Z"
+                            fill="currentColor" />
+                    </svg>
+                    <span>
+                        Gerar {{ $numMultiplePositive }} Elogios
+                    </span>
+                </button>
+            </div>
+        @endif
+        @if (!empty($selectedNegative))
+            <div class="fixed right-6 z-50 pr-5">
+                <button type="submit" wire:click="saveMultipleFaultDisciplineModal" wire:loading.attr="disabled"
+                    class="text-white flex justify-center items-center space-x-2
+                    bg-red-700 hover:bg-red-800
+                    focus:ring-4 focus:outline-none focus:ring-red-300
+                    font-medium rounded-lg text-lg px-5 py-2.5
+                    text-center dark:bg-red-600 dark:hover:bg-red-700
+                    dark:focus:ring-red-800">
+
+                    <svg class="h-8 w-8 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M18.1716 1C18.702 1 19.2107 1.21071 19.5858 1.58579L22.4142 4.41421C22.7893 4.78929 23 5.29799 23 5.82843V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H18.1716ZM4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21L5 21L5 15C5 13.3431 6.34315 12 8 12L16 12C17.6569 12 19 13.3431 19 15V21H20C20.5523 21 21 20.5523 21 20V6.82843C21 6.29799 20.7893 5.78929 20.4142 5.41421L18.5858 3.58579C18.2107 3.21071 17.702 3 17.1716 3H17V5C17 6.65685 15.6569 8 14 8H10C8.34315 8 7 6.65685 7 5V3H4ZM17 21V15C17 14.4477 16.5523 14 16 14L8 14C7.44772 14 7 14.4477 7 15L7 21L17 21ZM9 3H15V5C15 5.55228 14.5523 6 14 6H10C9.44772 6 9 5.55228 9 5V3Z"
+                            fill="currentColor" />
+                    </svg>
+                    <span>
+                        Gerar {{ $numMultipleNegative }} FAFD
+                    </span>
+                </button>
+            </div>
+        @endif
     </div>
     <div class="mt-5 space-y-4">
         <!-- Lista de itens arrastáveis -->
@@ -448,10 +489,43 @@
                                             @endforeach
                                         </div>
                                     @endif
-                                    <div class="">
-                                        <p>Data lançamento SINCOMIL</p>
-                                        @livewire('discipline.fact-observeds.sincomil-date', ['fact_observed' => $item], key($item->id))
-                                    </div>
+                                    @if (!$item->fafd_id && !$item->compliment_id)
+                                        <div class="">
+                                            <p>Data lançamento SINCOMIL</p>
+                                            @livewire('discipline.fact-observeds.sincomil-date', ['fact_observed' => $item], key($item->id))
+                                        </div>
+                                        @if (!$item->sincomil_date)
+                                            @if ($item->fact_type == 'positivo')
+                                                <div class="btn btn-outline btn-success mt-2">
+                                                    <label class="inline-flex items-center cursor-pointer">
+                                                        <input type="checkbox" wire:model.live="selectedPositive"
+                                                            value="{{ $item->id }}"
+                                                            class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded-md
+                                                   focus:ring-2 focus:ring-blue-500
+                                                   dark:bg-gray-700 dark:border-gray-600
+                                                   dark:focus:ring-blue-600">
+                                                    </label>
+
+                                                    <p>Gerar múltiplo Elogio</p>
+                                                </div>
+                                            @endif
+                                            @if ($item->fact_type == 'negativo')
+                                                <div class="btn btn-outline btn-error mt-2">
+                                                    <label class="inline-flex items-center cursor-pointer">
+                                                        <input type="checkbox" wire:model.live="selectedNegative"
+                                                            value="{{ $item->id }}"
+                                                            class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded-md
+                                                   focus:ring-2 focus:ring-blue-500
+                                                   dark:bg-gray-700 dark:border-gray-600
+                                                   dark:focus:ring-blue-600">
+                                                    </label>
+
+                                                    <p>Gerar múltiplo FAFD</p>
+                                                </div>
+                                            @endif
+                                        @endif
+                                    @endif
+
 
                                 </div>
                             </div>
@@ -587,6 +661,111 @@
         </x-slot>
         <x-slot name="footer">
 
+        </x-slot>
+    </x-dialog-modal>
+
+    {{-- MODAL COMPLIMENTS --}}
+    <x-dialog-modal wire:model="showMultiplePositive">
+        <x-slot name="title">Lançamento múltiplo de Elogios</x-slot>
+        <x-slot name="content">
+            <h2 class="h2">Deseja gerar os elogios dos alunos abaixo?</h2>
+            <p>Não será possível reverter esta ação!</p>
+            @if (count($selectedList) > 0)
+
+                <div class="space-y-2">
+
+                    @foreach ($selectedList as $student)
+                        <div
+                            class="flex items-center gap-3 p-3 rounded-lg
+                        bg-gray-100 dark:bg-gray-800">
+
+                            <div class="flex-1">
+                                <div class="font-semibold">
+                                    {{ $student['nick'] }}
+                                </div>
+
+                                <div class="text-sm text-gray-500">
+                                    Nº {{ $student['number'] }}
+                                    · Turma {{ $student['class'] }}
+                                </div>
+                            </div>
+
+                            <div class="text-xs text-gray-400">
+                                #{{ $student['arquivo_id'] }}
+                            </div>
+
+                        </div>
+                    @endforeach
+
+                </div>
+
+            @endif
+        </x-slot>
+        <x-slot name="footer">
+            <button type="submit" wire:click="multiple_compliment_create"
+                class="text-white
+                        bg-green-700 hover:bg-green-800
+                        focus:ring-4 focus:outline-none focus:ring-green-300
+                        font-medium rounded-lg text-sm px-5 py-2.5
+                        text-center dark:bg-green-600 dark:hover:bg-green-700
+                        dark:focus:ring-green-800">
+                Salvar e sair
+            </button>
+            <x-secondary-button wire:click="$toggle('showMultiplePositive')" class="mx-2">
+                Fechar
+            </x-secondary-button>
+        </x-slot>
+    </x-dialog-modal>
+    {{-- MODAL FAULT DISCIPLINE --}}
+    <x-dialog-modal wire:model="showMultipleNegative">
+        <x-slot name="title">Lançamento múltiplo de FAFD</x-slot>
+        <x-slot name="content">
+            <h2 class="h2">Deseja gerar os FAFD's dos alunos abaixo?</h2>
+            <p>Não será possível reverter esta ação!</p>
+            @if (count($selectedList) > 0)
+
+                <div class="space-y-2">
+
+                    @foreach ($selectedList as $student)
+                        <div
+                            class="flex items-center gap-3 p-3 rounded-lg
+                        bg-gray-100 dark:bg-gray-800">
+
+                            <div class="flex-1">
+                                <div class="font-semibold">
+                                    {{ $student['nick'] }}
+                                </div>
+
+                                <div class="text-sm text-gray-500">
+                                    Nº {{ $student['number'] }}
+                                    · Turma {{ $student['class'] }}
+                                </div>
+                            </div>
+
+                            <div class="text-xs text-gray-400">
+                                #{{ $student['arquivo_id'] }}
+                            </div>
+
+                        </div>
+                    @endforeach
+
+                </div>
+
+            @endif
+        </x-slot>
+        <x-slot name="footer">
+            <button type="submit" wire:click="multiple_fafd_create"
+                class="text-white
+                        bg-green-700 hover:bg-green-800
+                        focus:ring-4 focus:outline-none focus:ring-green-300
+                        font-medium rounded-lg text-sm px-5 py-2.5
+                        text-center dark:bg-green-600 dark:hover:bg-green-700
+                        dark:focus:ring-green-800">
+                Salvar e sair
+            </button>
+            <x-secondary-button wire:click="$toggle('showMultipleNegative')" class="mx-2">
+                Fechar
+            </x-secondary-button>
         </x-slot>
     </x-dialog-modal>
 

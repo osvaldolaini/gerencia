@@ -59,6 +59,17 @@ class FactObservedList extends Component
     public $compliment = 0;
     public $actived;
 
+
+    public $selectedPositive = [];
+    public $selectedNegative = [];
+    public $numMultiplePositive;
+    public $numMultipleNegative;
+    public $fact_positive;
+    public $fact_negative;
+    public $showMultiplePositive = false;
+    public $showMultipleNegative = false;
+    public $selectedList = [];
+
     #[On('company-selected')]
     public function companySelected($companyId)
     {
@@ -66,10 +77,78 @@ class FactObservedList extends Component
         $this->companyId = $companyId;
     }
 
+    //Decision
+    public function updatedSelectedPositive()
+    {
+        if (count($this->selectedPositive) > 0) {
+            $this->selectedNegative = [];
+        }
+        $this->buildSelectedList();
+    }
+
+    public function updatedSelectedNegative()
+    {
+        if (count($this->selectedNegative) > 0) {
+            $this->selectedPositive = [];
+        }
+        $this->buildSelectedList();
+    }
+    private function buildSelectedList()
+    {
+        $ids = count($this->selectedPositive) > 0
+            ? $this->selectedPositive
+            : $this->selectedNegative;
+
+        $this->selectedList = FactObserved::whereIn('id', $ids)
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'arquivo_id' => $item->id,
+                    'student_id' => $item->student_id,
+                    'nick'       => $item->al_nick,
+                    'number'     => $item->al_number,
+                    'class'      => $item->al_class,
+                ];
+            })
+            ->values()
+            ->toArray();
+    }
+
+    //Modal Multiple 
+    public function saveMultipleComplimentModal()
+    {
+        $this->showMultiplePositive = true;
+    }
+    public function saveMultipleFaultDisciplineModal()
+    {
+        $this->showMultipleNegative = true;
+    }
+    //Save
+    public function multiple_fafd_create()
+    {
+        foreach ($this->selectedList as $student) {
+            $this->create_fafd($student['arquivo_id']);
+        }
+        $this->selectedNegative = [];
+        $this->showMultipleNegative = false;
+        $this->openAlert('success', 'Registro atualizado com sucesso.');
+    }
+    public function multiple_compliment_create()
+    {
+        foreach ($this->selectedList as $student) {
+            $this->compliment_create($student['arquivo_id']);
+        }
+        $this->selectedPositive = [];
+        $this->showMultiplePositive = false;
+        $this->openAlert('success', 'Registro atualizado com sucesso.');
+    }
+
 
     #[On('see_excluded')]
     public function render(TableService $queryService)
     {
+        $this->numMultiplePositive = count($this->selectedPositive);
+        $this->numMultipleNegative = count($this->selectedNegative);
 
         $this->companies = Companies::where('active', 1)->get();
 
@@ -241,6 +320,21 @@ class FactObservedList extends Component
 
     public function fafd_create($id)
     {
+        $this->create_fafd($id);
+
+        $this->modalFafd = false;
+        $this->openAlert('success', 'Registro atualizado com sucesso.');
+    }
+
+    public function compliment_create($id)
+    {
+        $this->create_compliment($id);
+        $this->modalCompliment = false;
+        $this->openAlert('success', 'Registro atualizado com sucesso.');
+    }
+
+    public function create_fafd($id)
+    {
         $fact = FactObserved::where('id', $id)->first();
         if ($fact->fact_type == 'negativo') {
             foreach (json_decode($fact->faults, true) as $value) {
@@ -279,11 +373,8 @@ class FactObservedList extends Component
         $fact->fafd = 1;
         $fact->fafd_id = $fafd->id;
         $fact->save();
-
-        $this->modalFafd = false;
-        $this->openAlert('success', 'Registro atualizado com sucesso.');
     }
-    public function compliment_create($id)
+    public function create_compliment($id)
     {
         $fact = FactObserved::where('id', $id)->first();
 
@@ -315,8 +406,5 @@ class FactObservedList extends Component
         $fact->compliment = 1;
         $fact->compliment_id = $compliment->id;
         $fact->save();
-
-        $this->modalCompliment = false;
-        $this->openAlert('success', 'Registro atualizado com sucesso.');
     }
 }

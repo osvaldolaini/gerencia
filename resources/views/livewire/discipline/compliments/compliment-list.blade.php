@@ -36,7 +36,7 @@
             @livewire('settings.companies.select-company')
         </div>
         <div class="col-span-1">
-            <h2 class="flex w-full text-gray-800 dark:text-white">Multiplos lançamentos:</h2>
+            <h2 class="flex w-full text-gray-800 dark:text-white">Mostrar lançados:</h2>
             @if ($sincomil_date == true)
                 <button wire:click='buttonSee' class="text-green-500 btn btn-outline btn-success btn-sm">
                     Mostrar lançados

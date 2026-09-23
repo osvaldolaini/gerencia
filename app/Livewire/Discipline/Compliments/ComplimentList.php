@@ -72,6 +72,7 @@ class ComplimentList extends Component
     public $f_date;
     public $note;
 
+
     public function mount()
     {
         $this->companyId = Cache::get(
@@ -145,6 +146,7 @@ class ComplimentList extends Component
         }
         // dd($this->sorts);
     }
+
     //CREATE
     public function showCreate()
     {

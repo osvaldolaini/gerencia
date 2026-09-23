@@ -93,7 +93,7 @@
     </x-layout.search>
     <div class="mt-5 space-y-4 ">
         @if (!empty($selectedCompliments))
-            <div class="fixed right-6 z-50 pr-5">
+            <div class="fixed z-50 pr-5 right-6">
                 <button type="submit" wire:click="saveMultipleModal" wire:loading.attr="disabled"
                     class="text-white flex justify-center items-center space-x-2
                         bg-green-700 hover:bg-green-800
@@ -102,7 +102,7 @@
                         text-center dark:bg-green-600 dark:hover:bg-green-700
                         dark:focus:ring-green-800">
 
-                    <svg class="h-8 w-8 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-8 h-8 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M18.1716 1C18.702 1 19.2107 1.21071 19.5858 1.58579L22.4142 4.41421C22.7893 4.78929 23 5.29799 23 5.82843V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H18.1716ZM4 3C3.44772 3 3 3.44772 3 4V20C3 20.5523 3.44772 21 4 21L5 21L5 15C5 13.3431 6.34315 12 8 12L16 12C17.6569 12 19 13.3431 19 15V21H20C20.5523 21 21 20.5523 21 20V6.82843C21 6.29799 20.7893 5.78929 20.4142 5.41421L18.5858 3.58579C18.2107 3.21071 17.702 3 17.1716 3H17V5C17 6.65685 15.6569 8 14 8H10C8.34315 8 7 6.65685 7 5V3H4ZM17 21V15C17 14.4477 16.5523 14 16 14L8 14C7.44772 14 7 14.4477 7 15L7 21L17 21ZM9 3H15V5C15 5.55228 14.5523 6 14 6H10C9.44772 6 9 5.55228 9 5V3Z"
                             fill="currentColor" />
@@ -283,7 +283,19 @@
                                     <div class="justify-start block space-x-2 space-y-2 font-medium duration-200 ">
                                         <x-layout.table-options id='{{ $item->id }}'
                                             active='{{ $item->status }}'>
+                                            <x-slot name="extra">
+                                                <div class="p-0 tooltip tooltip-top" data-tip="Ver Texto">
 
+                                                    @livewire(
+                                                        'discipline.show-read',
+                                                        [
+                                                            'model' => App\Models\Discipline\Compliments::class,
+                                                            'itemId' => $item->id,
+                                                        ],
+                                                        key('compliment-' . $item->id)
+                                                    )
+                                                </div>
+                                            </x-slot>
                                         </x-layout.table-options>
 
                                     </div>
@@ -297,10 +309,7 @@
                                             <label class="inline-flex items-center cursor-pointer">
                                                 <input type="checkbox" wire:model.live="selectedCompliments"
                                                     value="{{ $item->id }}"
-                                                    class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded-md
-                                                       focus:ring-2 focus:ring-blue-500
-                                                       dark:bg-gray-700 dark:border-gray-600
-                                                       dark:focus:ring-blue-600">
+                                                    class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600">
                                             </label>
 
                                             <p>Selecione múltiplo</p>
@@ -344,39 +353,8 @@
         </x-slot>
     </x-confirmation-modal>
 
-    {{-- MODAL READ --}}
-    <x-dialog-modal wire:model="showModalForm">
-        <x-slot name="title">Detalhes</x-slot>
-        <x-slot name="content">
-            <dl class="text-gray-900 divide-y divide-gray-200 max-w dark:text-white dark:divide-gray-700">
-                @if ($detail)
-                    @foreach ($detail as $item => $value)
-                        @if ($value)
-                            @if ($item == 'Foto')
-                                <figure class="w-48">
-                                    <img class="photo" src="{{ $value }}" alt="Movie" />
-                                </figure>
-                            @else
-                                <div class="flex flex-col pb-1">
-                                    <dt class="text-gray-500 md:text-lg dark:text-gray-400">{{ $item }}:
-                                    </dt>
-                                    <dd class="text-lg font-semibold">
-                                        {{ $value }}
-                                    </dd>
-                                </div>
-                            @endif
-                        @endif
-                    @endforeach
-                @endif
-            </dl>
-        </x-slot>
-        <x-slot name="footer">
-            <x-secondary-button wire:click="$toggle('showModalView')" class="mx-2">
-                Fechar
-            </x-secondary-button>
-        </x-slot>
-    </x-dialog-modal>
-    {{-- MODAL READ --}}
+
+    {{-- MODAL MULTIPLE --}}
     <x-dialog-modal wire:model="showMultipleForm">
         <x-slot name="title">Múltiplos lançamentos</x-slot>
         <x-slot name="content">
@@ -387,7 +365,7 @@
                     </label>
 
                     @foreach (ComplimentType::cases() as $item)
-                        <div class="p-0 tooltip tooltip-top mt-1" data-tip="{{ $item->label() }}">
+                        <div class="p-0 mt-1 tooltip tooltip-top" data-tip="{{ $item->label() }}">
                             <label
                                 class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
                                     rounded-md cursor-pointer

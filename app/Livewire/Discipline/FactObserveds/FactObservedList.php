@@ -28,13 +28,11 @@ class FactObservedList extends Component
     public $showModalForm = false;
     public $modalFafd = false;
     public $modalCompliment = false;
-    public $showReadModal = false;
 
     public $rules;
     public $detail;
     public $fact_observed;
     public $id;
-    public $read;
 
     public $companyId = 'all';
     public $companies;
@@ -261,15 +259,7 @@ class FactObservedList extends Component
             $this->id = '';
         }
     }
-    //VER
-    public function showRead($id)
-    {
-        $this->showReadModal = true;
-        $this->read = '';
-        if ($id) {
-            $this->read = FactObserved::find($id);
-        }
-    }
+
     //FAFD CREATE
     public function showModalFafd($id)
     {

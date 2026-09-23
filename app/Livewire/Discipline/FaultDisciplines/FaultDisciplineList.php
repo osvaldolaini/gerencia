@@ -9,7 +9,6 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
@@ -139,6 +138,7 @@ class FaultDisciplineList extends Component
         }
         // dd($this->sorts);
     }
+
     //CREATE
     public function showCreate()
     {

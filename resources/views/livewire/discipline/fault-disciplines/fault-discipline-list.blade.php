@@ -145,8 +145,9 @@
                                 </div>
                                 <div class="pl-2 col-span-full sm:col-span-3">
                                     <ul class="timeline timeline-vertical">
-                                        <li>
-                                            @if ($item->decision == 'justificado')
+                                        @if ($item->decision == 'justificado')
+                                            <li>
+
                                                 <div class="timeline-start">
                                                     {{ Carbon::createFromFormat('Y-m-d', $item->solution_date)->format('d/m') }}
                                                 </div>
@@ -162,268 +163,250 @@
                                                     href="{{ route('fault-discipline-edit', $item->id) }}#tab5">
                                                     Justificado
                                                 </a>
-                                        </li>
-                                    @else
-                                        <li>
-                                            <div class="timeline-start">
-                                                {{ Carbon::createFromFormat('Y-m-d', $item->fact_date)->format('d/m') }}
-                                            </div>
-                                            <div class="timeline-middle">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                    class="w-5 h-5 {{ $item->fact_date ? 'text-success' : '' }}">
-                                                    <path fill-rule="evenodd"
-                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </div>
+                                            </li>
+                                        @else
+                                            <li>
+                                                <div class="timeline-start">
+                                                    {{ Carbon::createFromFormat('Y-m-d', $item->fact_date)->format('d/m') }}
+                                                </div>
+                                                <div class="timeline-middle">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                        fill="currentColor"
+                                                        class="w-5 h-5 {{ $item->fact_date ? 'text-success' : '' }}">
+                                                        <path fill-rule="evenodd"
+                                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
 
-                                            <a class="timeline-end timeline-box"
-                                                href="{{ route('fault-discipline-edit', $item->id) }}#tab2">
-                                                Abertura
-                                            </a>
+                                                <a class="timeline-end timeline-box"
+                                                    href="{{ route('fault-discipline-edit', $item->id) }}#tab2">
+                                                    Abertura
+                                                </a>
 
-                                            @if ($item->fact_date)
-                                                <hr class="bg-success" />
-                                            @else
-                                                <hr />
-                                            @endif
-                                        </li>
-                                        <li>
-                                            @if ($item->fact_date)
-                                                <hr class="bg-success" />
-                                            @else
-                                                <hr />
-                                            @endif
-                                            <div class="timeline-start">
-
-                                                @if ($item->justification_date)
-                                                    {{ Carbon::createFromFormat('Y-m-d', $item->justification_date)->format('d/m') }}
+                                                @if ($item->fact_date)
+                                                    <hr class="bg-success" />
                                                 @else
-                                                    @if ($item->delivered_date)
-                                                        {{ Carbon::createFromFormat('Y-m-d', $item->delivered_date)->format('d/m') }}
-                                                    @endif
+                                                    <hr />
                                                 @endif
+                                            </li>
+                                            <li>
+                                                @if ($item->fact_date)
+                                                    <hr class="bg-success" />
+                                                @else
+                                                    <hr />
+                                                @endif
+                                                <div class="timeline-start">
 
-                                            </div>
-                                            <div class="timeline-middle">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                    class="w-5 h-5 {{ $item->justification_date ? 'text-success' : ($item->delivered_date ? 'text-warning' : '') }}">
-                                                    <path fill-rule="evenodd"
-                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </div>
-                                            <a class="timeline-end timeline-box
+                                                    @if ($item->justification_date)
+                                                        {{ Carbon::createFromFormat('Y-m-d', $item->justification_date)->format('d/m') }}
+                                                    @else
+                                                        @if ($item->delivered_date)
+                                                            {{ Carbon::createFromFormat('Y-m-d', $item->delivered_date)->format('d/m') }}
+                                                        @endif
+                                                    @endif
+
+                                                </div>
+                                                <div class="timeline-middle">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                        fill="currentColor"
+                                                        class="w-5 h-5 {{ $item->justification_date ? 'text-success' : ($item->delivered_date ? 'text-warning' : '') }}">
+                                                        <path fill-rule="evenodd"
+                                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <a class="timeline-end timeline-box
                                             {{ strtotime(date('Y-m-d')) > strtotime($item->delivered_date) &&
                                             $item->justification_date == null &&
                                             $item->delivered_date != null
                                                 ? 'bg-red-600'
                                                 : '' }}"
-                                                href="{{ route('fault-discipline-edit', $item->id) }}#tab4">
-                                                Justificativa
-                                            </a>
+                                                    href="{{ route('fault-discipline-edit', $item->id) }}#tab4">
+                                                    Justificativa
+                                                </a>
 
-                                            @if ($item->delivered_date)
-                                                @if ($item->justification_date)
-                                                    <hr class="bg-success" />
+                                                @if ($item->delivered_date)
+                                                    @if ($item->justification_date)
+                                                        <hr class="bg-success" />
+                                                    @else
+                                                        <hr class="bg-warning" />
+                                                    @endif
                                                 @else
-                                                    <hr class="bg-warning" />
+                                                    <hr />
                                                 @endif
-                                            @else
-                                                <hr />
-                                            @endif
-                                        </li>
-                                        <li>
-                                            @if ($item->delivered_date)
-                                                @if ($item->justification_date)
-                                                    <hr class="bg-success" />
+                                            </li>
+                                            <li>
+                                                @if ($item->delivered_date)
+                                                    @if ($item->justification_date)
+                                                        <hr class="bg-success" />
+                                                    @else
+                                                        <hr class="bg-warning" />
+                                                    @endif
                                                 @else
-                                                    <hr class="bg-warning" />
+                                                    <hr />
                                                 @endif
-                                            @else
-                                                <hr />
-                                            @endif
-                                            <div class="timeline-start">
+                                                <div class="timeline-start">
+                                                    @if ($item->solution_date)
+                                                        {{ Carbon::createFromFormat('Y-m-d', $item->solution_date)->format('d/m') }}
+                                                    @endif
+
+                                                </div>
+                                                <div class="timeline-middle">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                        fill="currentColor"
+                                                        class="w-5 h-5 {{ $item->solution_date ? 'text-success' : '' }}">
+                                                        <path fill-rule="evenodd"
+                                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <a class="timeline-end timeline-box"
+                                                    href="{{ route('fault-discipline-edit', $item->id) }}#tab5">
+                                                    Solução
+                                                </a>
+
+
                                                 @if ($item->solution_date)
-                                                    {{ Carbon::createFromFormat('Y-m-d', $item->solution_date)->format('d/m') }}
+                                                    <hr class="bg-success" />
+                                                @else
+                                                    <hr />
                                                 @endif
+                                            </li>
 
-                                            </div>
-                                            <div class="timeline-middle">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                    class="w-5 h-5 {{ $item->solution_date ? 'text-success' : '' }}">
-                                                    <path fill-rule="evenodd"
-                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </div>
-                                            <a class="timeline-end timeline-box"
-                                                href="{{ route('fault-discipline-edit', $item->id) }}#tab5">
-                                                Solução
-                                            </a>
+                                            <li>
+                                                @if ($item->solution_date)
+                                                    <hr class="bg-success" />
+                                                @else
+                                                    <hr />
+                                                @endif
+                                                <div class="timeline-start">
+                                                    @if ($item->bi_date)
+                                                        {{ Carbon::createFromFormat('Y-m-d', $item->bi_date)->format('d/m') }}
+                                                    @endif
 
+                                                </div>
+                                                <div class="timeline-middle">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                        fill="currentColor"
+                                                        class="w-5 h-5 {{ $item->bi_date ? 'text-success' : '' }}">
+                                                        <path fill-rule="evenodd"
+                                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <a class="timeline-end timeline-box"
+                                                    href="{{ route('fault-discipline-edit', $item->id) }}#tab6">
+                                                    Publicação
+                                                </a>
 
-                                            @if ($item->solution_date)
-                                                <hr class="bg-success" />
-                                            @else
-                                                <hr />
-                                            @endif
-                                        </li>
-
-                                        <li>
-                                            @if ($item->solution_date)
-                                                <hr class="bg-success" />
-                                            @else
-                                                <hr />
-                                            @endif
-                                            <div class="timeline-start">
                                                 @if ($item->bi_date)
-                                                    {{ Carbon::createFromFormat('Y-m-d', $item->bi_date)->format('d/m') }}
+                                                    <hr class="bg-success" />
+                                                @else
+                                                    <hr />
                                                 @endif
-
-                                            </div>
-                                            <div class="timeline-middle">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                    class="w-5 h-5 {{ $item->bi_date ? 'text-success' : '' }}">
-                                                    <path fill-rule="evenodd"
-                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </div>
-                                            <a class="timeline-end timeline-box"
-                                                href="{{ route('fault-discipline-edit', $item->id) }}#tab6">
-                                                Publicação
-                                            </a>
-
-                                            @if ($item->bi_date)
-                                                <hr class="bg-success" />
-                                            @else
-                                                <hr />
-                                            @endif
-                                        </li>
-                                        <li>
-                                            @if ($item->bi_date)
-                                                <hr class="bg-success" />
-                                            @else
-                                                <hr />
-                                            @endif
-                                            <div class="timeline-start">
-                                                @if ($item->sincomil_date)
-                                                    {{ Carbon::createFromFormat('Y-m-d', $item->sincomil_date)->format('d/m') }}
+                                            </li>
+                                            <li>
+                                                @if ($item->bi_date)
+                                                    <hr class="bg-success" />
+                                                @else
+                                                    <hr />
                                                 @endif
-                                            </div>
-                                            <div class="timeline-middle">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                    class="w-5 h-5 {{ $item->sincomil_date ? 'text-success' : '' }}">
-                                                    <path fill-rule="evenodd"
-                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
-                                            </div>
-                                            <a class="timeline-end timeline-box"
-                                                href="{{ route('fault-discipline-edit', $item->id) }}#tab6">
-                                                SINCOMIL
-                                            </a>
-                                        </li>
-            @endif
+                                                <div class="timeline-start">
+                                                    @if ($item->sincomil_date)
+                                                        {{ Carbon::createFromFormat('Y-m-d', $item->sincomil_date)->format('d/m') }}
+                                                    @endif
+                                                </div>
+                                                <div class="timeline-middle">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                        fill="currentColor"
+                                                        class="w-5 h-5 {{ $item->sincomil_date ? 'text-success' : '' }}">
+                                                        <path fill-rule="evenodd"
+                                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <a class="timeline-end timeline-box"
+                                                    href="{{ route('fault-discipline-edit', $item->id) }}#tab6">
+                                                    SINCOMIL
+                                                </a>
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </div>
+                                <div class="col-span-full sm:col-span-2">
+                                    <div class="justify-start block space-x-2 space-y-2 font-medium duration-200 ">
+                                        <x-layout.table-options id='{{ $item->id }}'
+                                            active='{{ $item->status }}'>
+                                            <x-slot name="extra">
+                                                <div class="p-0 tooltip tooltip-top" data-tip="Ver Texto">
 
-            </ul>
-        </div>
-        <div class="col-span-full sm:col-span-2">
-            <div class="justify-start block space-x-2 space-y-2 font-medium duration-200 ">
-                <x-layout.table-options id='{{ $item->id }}' active='{{ $item->status }}'>
-                </x-layout.table-options>
-            </div>
-            @if ($item->solution_date)
-                <div>
-                    <p>Data lançamento SINCOMIL</p>
-                    @livewire('discipline.fault-disciplines.sincomil-date', ['fault_discipline' => $item], key($item->id))
+                                                    @livewire(
+                                                        'discipline.show-read',
+                                                        [
+                                                            'model' => App\Models\Discipline\FaultDiscipline::class,
+                                                            'itemId' => $item->id,
+                                                        ],
+                                                        key('fault-discipline-' . $item->id)
+                                                    )
+                                                </div>
+                                            </x-slot>
+                                        </x-layout.table-options>
+                                    </div>
+                                    @if ($item->solution_date)
+                                        <div>
+                                            <p>Data lançamento SINCOMIL</p>
+                                            @livewire('discipline.fault-disciplines.sincomil-date', ['fault_discipline' => $item], key($item->id))
+                                        </div>
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+                    </h2>
                 </div>
-            @endif
-
+            @endforeach
+            <div class="items-center justify-between py-4">
+                {{ $dataTable->links() }}
+            </div>
         </div>
     </div>
-</div>
-</h2>
-</div>
-@endforeach
-<div class="items-center justify-between py-4">
-    {{ $dataTable->links() }}
-</div>
-</div>
-</div>
 
-{{-- MODAL DELETE --}}
-<x-confirmation-modal wire:model="showJetModal">
-    <x-slot name="title">
-        Excluir registro
-    </x-slot>
+    {{-- MODAL DELETE --}}
+    <x-confirmation-modal wire:model="showJetModal">
+        <x-slot name="title">
+            Excluir registro
+        </x-slot>
 
-    <x-slot name="content">
-        <h2 class="h2">Deseja realmente excluir o registro?</h2>
-        <p>Não será possível reverter esta ação!</p>
-    </x-slot>
+        <x-slot name="content">
+            <h2 class="h2">Deseja realmente excluir o registro?</h2>
+            <p>Não será possível reverter esta ação!</p>
+        </x-slot>
 
-    <x-slot name="footer">
-        <x-secondary-button wire:click="$toggle('showJetModal')" wire:loading.attr="disabled">
-            Cancelar
-        </x-secondary-button>
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$toggle('showJetModal')" wire:loading.attr="disabled">
+                Cancelar
+            </x-secondary-button>
 
-        <x-danger-button class="ml-2" wire:click="delete({{ $id }})" wire:loading.attr="disabled">
-            Apagar registro
-        </x-danger-button>
-    </x-slot>
-</x-confirmation-modal>
+            <x-danger-button class="ml-2" wire:click="delete({{ $id }})" wire:loading.attr="disabled">
+                Apagar registro
+            </x-danger-button>
+        </x-slot>
+    </x-confirmation-modal>
 
-{{-- MODAL READ --}}
-<x-dialog-modal wire:model="showModalForm">
-    <x-slot name="title">Detalhes</x-slot>
-    <x-slot name="content">
-        <dl class="text-gray-900 divide-y divide-gray-200 max-w dark:text-white dark:divide-gray-700">
-            @if ($detail)
-                @foreach ($detail as $item => $value)
-                    @if ($value)
-                        @if ($item == 'Foto')
-                            <figure class="w-48">
-                                <img class="photo" src="{{ $value }}" alt="Movie" />
-                            </figure>
-                        @else
-                            <div class="flex flex-col pb-1">
-                                <dt class="text-gray-500 md:text-lg dark:text-gray-400">{{ $item }}:
-                                </dt>
-                                <dd class="text-lg font-semibold">
-                                    {{ $value }}
-                                </dd>
-                            </div>
-                        @endif
-                    @endif
-                @endforeach
-            @endif
-        </dl>
-    </x-slot>
-    <x-slot name="footer">
-        <x-secondary-button wire:click="$toggle('showModalView')" class="mx-2">
-            Fechar
-        </x-secondary-button>
-    </x-slot>
-</x-dialog-modal>
-{{-- MODAL FORM --}}
 
-<x-dialog-modal wire:model="showModalForm" maxWidth="4xl">
-    <x-slot name="title">{{ $breadcrumb }} </x-slot>
-    <x-slot name="content">
+    {{-- MODAL FORM --}}
 
-        @livewire('discipline.fault-disciplines.fault-discipline-form')
-    </x-slot>
-    <x-slot name="footer">
+    <x-dialog-modal wire:model="showModalForm" maxWidth="4xl">
+        <x-slot name="title">{{ $breadcrumb }} </x-slot>
+        <x-slot name="content">
 
-    </x-slot>
-</x-dialog-modal>
+            @livewire('discipline.fault-disciplines.fault-discipline-form')
+        </x-slot>
+        <x-slot name="footer">
+
+        </x-slot>
+    </x-dialog-modal>
 
 
 </div>

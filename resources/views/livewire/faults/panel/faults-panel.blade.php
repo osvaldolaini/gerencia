@@ -4,6 +4,9 @@
         <div>
             @livewire('faults.charts.faults-by-week')
         </div>
+        <div>
+            @livewire('faults.charts.faults-by-bar')
+        </div>
         <!-- Alunos com Mais Faltas -->
         <div class="p-5 shadow-md bg-base-100 border-base-300 dark:bg-gray-700 dark:text-gray-100 rounded-2xl">
             <h2 class="flex items-center gap-2 mb-4 text-xl font-semibold ">

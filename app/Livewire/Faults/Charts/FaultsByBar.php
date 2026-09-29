@@ -105,12 +105,27 @@ class FaultsByBar extends Component
             'id',
             array_keys($this->faultsByGrade)
         )
-            ->pluck('name', 'id');
+            ->orderBy('nick')
+            ->get();
+
+        $orderedFaults = [];
+
+        foreach ($grades as $grade) {
+
+            if (isset($this->faultsByGrade[$grade->id])) {
+                $orderedFaults[$grade->id] = $this->faultsByGrade[$grade->id];
+            }
+        }
+
+        $this->faultsByGrade = $orderedFaults;
 
         $this->labels = [];
 
-        foreach ($this->faultsByGrade as $gradeId => $data) {
-            $this->labels[] = $grades[$gradeId] ?? 'Série ' . $gradeId;
+        foreach ($grades as $grade) {
+
+            if (isset($this->faultsByGrade[$grade->id])) {
+                $this->labels[] = $grade->name;
+            }
         }
 
         /*

@@ -154,13 +154,44 @@ class FaultDisciplinePanel extends Component
     }
     private function grau()
     {
-        $alunos = Peoples::select('peoples.*', 'school_grades.name as serie_name')
-            ->join('school_classes_students', 'school_classes_students.people_id', '=', 'peoples.id')
-            ->join('school_classes', 'school_classes.id', '=', 'school_classes_students.school_classes_id')
-            ->join('school_grades', 'school_grades.id', '=', 'school_classes.school_grade_id')
+        $schoolYear = SchoolClassesYears::where('active', 1)->first();
+        // $alunos = Peoples::select('peoples.*', 'school_grades.name as serie_name')
+        //     ->join('school_classes_students', 'school_classes_students.people_id', '=', 'peoples.id')
+        //     ->join('school_classes', 'school_classes.id', '=', 'school_classes_students.school_classes_id')
+        //     ->join('school_grades', 'school_grades.id', '=', 'school_classes.school_grade_id')
+        //     ->where('peoples.active', 1)
+        //     ->where('peoples.type', 1)
+        //     ->where('school_classes_students.active', 1)
+        //     ->get();
+        $alunos = Peoples::select(
+            'peoples.*',
+            'school_grades.name as serie_name'
+        )
+            ->join(
+                'school_classes_students',
+                'school_classes_students.people_id',
+                '=',
+                'peoples.id'
+            )
+            ->join(
+                'school_classes',
+                'school_classes.id',
+                '=',
+                'school_classes_students.school_classes_id'
+            )
+            ->join(
+                'school_grades',
+                'school_grades.id',
+                '=',
+                'school_classes.school_grade_id'
+            )
             ->where('peoples.active', 1)
             ->where('peoples.type', 1)
             ->where('school_classes_students.active', 1)
+            ->where(
+                'school_classes_students.school_classes_year_id',
+                $schoolYear->id
+            )
             ->get();
 
         $comportamentoPorSerie = [];

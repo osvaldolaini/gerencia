@@ -79,6 +79,42 @@
                 </div>
             </div>
         </div>
+        <div class="w-full">
+
+            <div class="mt-4 overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-base-300">
+                            <th class="text-left px-3 py-2">
+                                Série
+                            </th>
+
+                            @foreach ($chartDatasets as $dataset)
+                                <th class="text-center px-3 py-2">
+                                    {{ $dataset['label'] }}
+                                </th>
+                            @endforeach
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach ($chartLabels as $index => $label)
+                            <tr class="border-b border-base-200">
+                                <td class="px-3 py-2 font-medium">
+                                    {{ $label }}
+                                </td>
+
+                                @foreach ($chartDatasets as $dataset)
+                                    <td class="text-center px-3 py-2">
+                                        {{ $dataset['data'][$index] ?? 0 }}
+                                    </td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
 

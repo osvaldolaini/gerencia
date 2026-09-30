@@ -137,10 +137,9 @@
                     @if ($fault_discipline->decision == 'retirada_cm')
                         <p>3. Por fim, no uso de minhas atribuições de Comandante de Companhia, deixo de aplicar
                             medida disciplinar de Retirada ao aluno, em cumprimento ao número 29, da letra c, do nº 5,
-                            Anexo
-                            F, das Normas Reguladoras do Regime Disciplinar (NRDD), do Regimento Interno dos Colégios
-                            Militares (RICM 2024), “A 1ª falta do aluno passível de medida mínima de retirada do CM é da
-                            competência do Cmt CM”.</p>
+                            Anexo F, das Normas Reguladoras do Regime Disciplinar (NRDD), do Regimento Interno dos
+                            Colégios
+                            Militares (RICM 2024).</p>
                     @elseif($fault_discipline->decision == 'exclusao_disciplinar')
                         <p>3. Por fim, no uso de minhas atribuições de Comandante de Companhia, deixo de aplicar medida
                             disciplinar por se tratar de falta eliminatória.</p>

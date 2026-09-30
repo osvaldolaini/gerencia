@@ -130,7 +130,7 @@
                 </p>
                 <p>{{ $fault_discipline->fact }}</p>
                 <p>2. {{ $fault_discipline->solution }}</p>
-                @if ($fault_discipline->first)
+                @if ($fault_discipline->first && $fault_discipline->decision == 'retirada_cm')
                     <p>3. Por fim, no uso de minhas atribuições de Comandante de Companhia, deixo de aplicar medida
                         disciplinar de Retirada ao aluno, em cumprimento ao número 29, da letra c, do nº 5, Anexo F, das
                         Normas Reguladoras do Regime Disciplinar (NRDD), do Regimento Interno dos Colégios Militares

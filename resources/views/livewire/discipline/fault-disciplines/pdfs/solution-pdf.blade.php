@@ -117,8 +117,6 @@
                         ANÁLISE E DECISÃO DO CMT CIA SOBRE O FATO OBSERVADO E AS ALEGAÇÕES APRESENTADAS
                     </td>
                 </tr>
-
-
             </table>
             <div style="padding: 5px 5px;">
                 <p>1. Após análise do fato descrito no FAFD Nr
@@ -317,9 +315,6 @@
                         @endif
 
                     @endif
-
-
-
                 </div>
 
                 <table class="identification">
@@ -436,8 +431,6 @@
                             ANÁLISE E DECISÃO DO CMT DO CM SOBRE O FATO OBSERVADO E AS ALEGAÇÕES APRESENTADAS
                         </td>
                     </tr>
-
-
                 </table>
                 <div style="padding: 5px 5px;">
                     <p>1. Após análise do fato descrito no FAFD Nr
@@ -449,12 +442,21 @@
                     </p>
                     <p>{{ $fault_discipline->fact }}</p>
                     <p>2. {{ $fault_discipline->solution }}</p>
-                    <p>
-                        3. Por fim, no uso de minhas atribuições de Comandante do {{ $config->nick }} decido punir o(a)
-                        aluno(a)
-                        com {{ $fault_discipline->dacision_days }} dia
-                        {{ $fault_discipline->dacision_days > 1 ? 's' : '' }} de retirada
-                    </p>
+                    @if ($fault_discipline->decision == 'exclusao_disciplinar')
+                        <p>
+                            3.
+                            {{ Penalty::from($fault_discipline->decision)->sugestion($fault_discipline->dacision_days) }}
+                        </p>
+                    @else
+                        <p>
+                            3. Por fim, no uso de minhas atribuições de Comandante do {{ $config->nick }} decido punir
+                            o(a)
+                            aluno(a)
+                            com {{ $fault_discipline->dacision_days }} dia
+                            {{ $fault_discipline->dacision_days > 1 ? 's' : '' }} de retirada
+                        </p>
+                    @endif
+
                 </div>
 
                 <table class="identification">

@@ -72,7 +72,6 @@ enum Penalty: string
     {
         return match ($this) {
             self::Justificado => 'Justificado',
-
             self::Fo                    => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido registrar um FO',
             self::Advertencia           => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a) com uma advertência publicada em BI',
             self::Repreensao            => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a) com repreenção publicada em BI',

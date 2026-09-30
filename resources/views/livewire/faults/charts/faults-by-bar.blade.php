@@ -63,8 +63,7 @@
                                 legend: {
                                     labels: {
                                         color: document.body.classList.contains('dark') ?
-                                            '#fff' :
-                                            '#000'
+                                            '#fff' : '#000'
                                     }
                                 }
                             },
@@ -75,8 +74,7 @@
                     
                                     ticks: {
                                         color: document.body.classList.contains('dark') ?
-                                            '#fff' :
-                                            '#000'
+                                            '#fff' : '#000'
                                     }
                                 },
                     
@@ -85,9 +83,12 @@
                                     beginAtZero: true,
                     
                                     ticks: {
-                                        color: document.body.classList.contains('dark') ?
-                                            '#fff' :
-                                            '#000'
+                                        stepSize: 1,
+                                        color: document.body.classList.contains('dark') ? '#fff' : '#000'
+                                    },
+                    
+                                    grid: {
+                                        drawTicks: true
                                     }
                                 }
                             }
@@ -98,8 +99,16 @@
 
             </div>
         </div>
-
+        <div class="w-full">
+            <table class="w-full">
+                <tr class="text-center">
+                    <td>DADOS</td>
+                </tr>
+            </table>
+        </div>
     </div>
+
+
 
 
 

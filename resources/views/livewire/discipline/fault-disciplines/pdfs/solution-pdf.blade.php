@@ -284,7 +284,7 @@
                         concluo que o fato ocorreu da seguinte forma:
                     </p>
                     <p>{{ $fault_discipline->fact }}</p>
-                    @if ($fault_discipline->first)
+                    @if ($fault_discipline->first && $fault_discipline->decision == 'retirada_cm')
                         <p>3. Por fim, no uso de minhas atribuições de Comandante do Corpo de Alunos, deixo de aplicar
                             medida
                             disciplinar de Retirada ao aluno, em cumprimento ao número 29, da letra c, do nº 5, Anexo F,

@@ -119,7 +119,7 @@
                     <tbody>
                         @foreach ($labels as $index => $label)
                             <tr class="border-b border-base-200">
-                                <td class="px-3 py-2 font-medium text-xs">
+                                <td class="p-1 font-medium text-xs">
                                     {{ $label }}
                                 </td>
                                 @foreach ($data as $dataset)

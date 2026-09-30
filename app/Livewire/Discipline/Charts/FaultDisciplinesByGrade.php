@@ -46,9 +46,9 @@ class FaultDisciplinesByGrade extends Component
         $decisions = [
             'advertencia' => 'Advertência',
             'repreensao' => 'Repreensão',
-            'atividade_orientacao_educacional' => 'Atividade de Orientação Educacional',
-            'retirada_cm' => 'Retirada do CM',
-            'exclusao_disciplinar' => 'Exclusão Disciplinar',
+            'atividade_orientacao_educacional' => 'AOE',
+            'retirada_cm' => 'Retirada',
+            'exclusao_disciplinar' => 'Exclusão',
         ];
 
         $labels = $rawData->pluck('grade')->unique()->sort()->values()->toArray();

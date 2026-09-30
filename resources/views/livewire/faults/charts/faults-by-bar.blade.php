@@ -102,7 +102,7 @@
         <div class="w-full">
 
             <div class="mt-4 overflow-x-auto">
-                <table class="w-full text-sm">
+                <table class="w-full text-xs">
                     <thead>
                         <tr class="border-b border-base-300">
                             <th class="text-left px-3 py-2">

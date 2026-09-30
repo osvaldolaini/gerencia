@@ -78,7 +78,7 @@ enum Penalty: string
             self::Repreensao            => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a) com repreenção publicada em BI',
             self::AOE                   => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a) com ' . $days . ' dia' . ($days > 1 ? 's' : '') . ' de Atividade de Orientação Educacional (AOE)',
             self::RetiradaCM            => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido punir o(a) aluno(a) com ' . $days . ' dia' . ($days > 1 ? 's' : '') . ' de retirada',
-            self::ExclusaoDisciplinar   => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido excluir o(a) aluno(a) do ...',
+            self::ExclusaoDisciplinar   => 'Por fim, no uso de minhas atribuições de Comandante de Companhia decido excluir o(a) aluno(a).',
         };
     }
     public static function fromDb(string $dbValue): ?self

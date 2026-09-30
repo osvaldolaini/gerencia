@@ -5,6 +5,7 @@
 > Melhorias
 
 -   Grafico de faltas por percentual (painel de faltas)
+-   Texto sobre exclusão na pdf da FAFD
 
 ## Versão Santos Dumont 1.8.14 – 2026-09-22
 

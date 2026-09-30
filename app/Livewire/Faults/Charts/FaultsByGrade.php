@@ -41,7 +41,7 @@ class FaultsByGrade extends Component
 
         // Data: quantidade de faltas por ano escolar
         $this->data = $gradesChartRaw->pluck('total_faults')->map(function ($value) {
-            return number_format($value, 0, '.', '');
+            return number_format($value, 0, '.', '') / 100;
         })->toArray();
         // dd($this->data, $this->labels);
         // $this->labels = $gradesChart['label'];

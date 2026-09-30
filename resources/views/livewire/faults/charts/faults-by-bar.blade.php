@@ -116,14 +116,12 @@
                             @endforeach
                         </tr>
                     </thead>
-
                     <tbody>
                         @foreach ($labels as $index => $label)
                             <tr class="border-b border-base-200">
-                                <td class="px-3 py-2 font-medium">
+                                <td class="px-3 py-2 font-medium text-xs">
                                     {{ $label }}
                                 </td>
-
                                 @foreach ($data as $dataset)
                                     <td class="text-center px-3 py-2">
                                         {{ $dataset['data'][$index] ?? 0 }}

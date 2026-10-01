@@ -691,7 +691,7 @@
                     </table>
                 </div>
             </div>
-        @else
+        @elseif($fault_discipline->decision == 'retirada_cm' or $fault_discipline->decision == 'exclusao_disciplinar')
             {{-- COMANDANTE DO CA --}}
             <div class="break-page"></div>
             <div class="container">

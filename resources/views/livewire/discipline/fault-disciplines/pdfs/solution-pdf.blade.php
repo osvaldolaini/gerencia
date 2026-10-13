@@ -874,7 +874,7 @@
                             @else
                                 <p>3.
                                     {{-- {{ Penalty::from($fault_discipline->decision)->sugestion($fault_discipline->dacision_days) }} --}}
-                                    Decido por abertura de indicância para elucudação do fato.
+                                    Decido por abertura de indicância para elucidação do fato.
                                 </p>
                             @endif
 

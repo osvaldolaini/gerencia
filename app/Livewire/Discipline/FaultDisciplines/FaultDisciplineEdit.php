@@ -302,6 +302,7 @@ class FaultDisciplineEdit extends Component
             } else {
                 $this->grau = Penalty::from($this->decision)->degree();
             }
+            $this->grau = number_format($this->grau, 2);
         }
     }
     public function sugestionText()

@@ -302,10 +302,10 @@
                                 é da
                                 competência do Cmt CM”.</p>
                         @elseif($fault_discipline->decision == 'exclusao_disciplinar')
-                            <p>3. Por fim, no uso de minhas atribuições de Comandante do Corpo de Alunos, deixo de
-                                aplicar
-                                medida
-                                disciplinar por se tratar de falta eliminatória.</p>
+                            <p>
+                                3. Por fim, no uso de minhas atribuições de Comandante do Corpo de Alunos, deixo de
+                                aplicar medida disciplinar por se tratar de falta eliminatória.
+                            </p>
                         @else
                             <p>3.
                                 {{ Penalty::from($fault_discipline->decision)->sugestion($fault_discipline->dacision_days) }}
@@ -442,9 +442,9 @@
                     <p>2. {{ $fault_discipline->solution }}</p>
 
                     <p>
-                        3. Por fim, no uso de minhas atribuições de Comandante do {{ $config->nick }} decido
-                        punir o(a) aluno(a) com {{ $fault_discipline->dacision_days }} dia
-                        {{ $fault_discipline->dacision_days > 1 ? 's' : '' }} de retirada
+                        3. Por fim, no uso de minhas atribuições de Comandante do {{ $config->nick }}
+                        decido punir o(a) aluno(a) com {{ $fault_discipline->dacision_days }}
+                        {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }} de retirada
                     </p>
                 </div>
 
@@ -867,9 +867,8 @@
                             @if ($fault_discipline->decision == 'retirada_cm')
                                 <p>
                                     3. Por fim, no uso de minhas atribuições de Comandante do {{ $config->nick }}
-                                    decido
-                                    punir o(a) aluno(a) com {{ $fault_discipline->dacision_days }} dia
-                                    {{ $fault_discipline->dacision_days > 1 ? 's' : '' }} de retirada
+                                    decido punir o(a) aluno(a) com {{ $fault_discipline->dacision_days }}
+                                    {{ $fault_discipline->dacision_days > 1 ? 'dias' : 'dia' }} de retirada
                                 </p>
                             @else
                                 <p>3.

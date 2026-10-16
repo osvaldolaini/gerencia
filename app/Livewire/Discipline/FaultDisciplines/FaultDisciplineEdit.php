@@ -151,6 +151,7 @@ class FaultDisciplineEdit extends Component
                 } else {
                     $this->grau = Penalty::from($this->decision)->degree();
                 }
+                $this->grau = number_format($this->grau, 2);
             }
 
             if ($this->solution) {
@@ -289,6 +290,7 @@ class FaultDisciplineEdit extends Component
             } else {
                 $this->grau = Penalty::from($this->decision)->degree() * floatval($this->dacision_days);
             }
+            $this->grau = number_format($this->grau, 2);
         }
         if ($property === 'dacision_days') {
             if ($this->dacision_days > 0 and $this->dacision_days) {

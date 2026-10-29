@@ -38,6 +38,7 @@ use App\Livewire\Faults\SchoolFaultJustified;
 use App\Livewire\Faults\SchoolFaultList;
 use App\Livewire\Faults\SchoolFaultListSendMail;
 use App\Livewire\Faults\SecondChance;
+use App\Livewire\Peoples\Birthdays;
 use App\Livewire\Peoples\PeopleForm;
 use App\Livewire\Peoples\PeopleList;
 use App\Livewire\Settings\Companies\CompanyForm;
@@ -153,6 +154,8 @@ Route::middleware([
     RegisterLogging::class,
     'checkAccess:students' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
 ])->group(function () {
+    Route::get('/aniversariantes', Birthdays::class)
+        ->name('birthdays');
     Route::get('/cadastros/alunos', StudentList::class)
         ->name('student-list');
     Route::get('/cadastros/alunos/novo', StudentForm::class)

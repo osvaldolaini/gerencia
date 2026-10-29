@@ -1,4 +1,7 @@
 <div class="pt-3 w-100 sm:rounded-lg">
+    <div>
+        @livewire('peoples.birthdays')
+    </div>
     <div class="grid w-full grid-cols-6 gap-2">
         <span class="col-span-full sm:col-span-2">
             <div class="relative h-32 overflow-hidden bg-blue-500 rounded-lg shadow-md">

@@ -341,6 +341,7 @@ class Peoples extends Model
     {
         return $this->hasMany(StudentActivities::class, 'student_id', 'id');
     }
+
     // public function calculateAdjustedGrau(?Carbon $dataFinal = null)
     // {
     //     $nota = floatval($this->grau);

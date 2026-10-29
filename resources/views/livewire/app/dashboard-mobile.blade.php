@@ -48,6 +48,9 @@
                         </a>
                     </div>
                     <div class="flex items-center justify-center col-span-3 mt-10">
+                        @livewire('peoples.birthdays')
+                    </div>
+                    <div class="flex items-center justify-center col-span-3 mt-10">
                         @livewire('app.classes')
                     </div>
                 </div>

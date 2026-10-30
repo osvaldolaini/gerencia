@@ -167,8 +167,12 @@
 
 
                                     <span class="badge badge-{{ $item->total_faults_color }}">
-                                        Faltas: {{ $item->total_faults }}
+                                        Faltas Totais: {{ $item->total_faults }}
                                         ({{ number_format($item->total_faults_percent, 2, ',', '') }}%)
+                                    </span>
+                                    <span class="badge badge-{{ $item->total_faults_color_justify }}">
+                                        Faltas não justificadas: {{ $item->total_faults_justify }}
+                                        ({{ number_format($item->total_faults_percent_justify, 2, ',', '') }}%)
                                     </span>
 
 

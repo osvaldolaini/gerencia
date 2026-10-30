@@ -241,6 +241,7 @@ class Peoples extends Model
         }
         return false;
     }
+
     public function getTotalFaultsAttribute()
     {
         // return $this->faults->where('active', 1)->where('justified', '!=', 2)->sum('qtd');
@@ -257,11 +258,13 @@ class Peoples extends Model
             })
             ->sum('qtd');
     }
+
     public function getTotalFaultsPercentAttribute()
     {
         return ($this->total_faults ?? 0) / ($this->al_class->classGrade->company?->workload ?? 1200) * 100;
         // return $this->al_class->classGrade->company->id ?? 0;
     }
+
     public function getTotalFaultsColorAttribute()
     {
         $nota = $this->total_faults_percent;
@@ -275,6 +278,43 @@ class Peoples extends Model
             return 'accent';
         }
     }
+
+    public function getTotalFaultsJustifyAttribute()
+    {
+        // return $this->faults->where('active', 1)->where('justified', '!=', 2)->sum('qtd');
+        // $actived = now()->year;
+        $this->actived = now()->year;
+        if (SchoolClassesYears::where("active", 1)->first()) {
+            $this->actived = SchoolClassesYears::where("active", 1)->first()->year;
+        }
+        return $this->faults
+            ->where('active', 1)
+            ->where('justified', 0)
+            ->filter(function ($fault) {
+                return \Carbon\Carbon::parse($fault->date)->year == $this->actived;
+            })
+            ->sum('qtd');
+    }
+    public function getTotalFaultsPercentJustifyAttribute()
+    {
+        return ($this->total_faults_justify ?? 0) / ($this->al_class->classGrade->company?->workload ?? 1200) * 100;
+        // return $this->al_class->classGrade->company->id ?? 0;
+    }
+
+    public function getTotalFaultsColorJustifyAttribute()
+    {
+        $nota = $this->total_faults_percent_justify;
+        if ($nota >= 25) {
+            return 'error';
+        } elseif ($nota >= 7.5) {
+            return 'error';
+        } elseif ($nota >= 6.0) {
+            return 'warning';
+        } else {
+            return 'accent';
+        }
+    }
+
 
     public function getCodeImageAttribute()
     {

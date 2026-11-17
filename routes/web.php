@@ -10,8 +10,6 @@ use App\Livewire\Admin\Users\UserList;
 use App\Livewire\App\Dashboard as App;
 use App\Livewire\App\Discipline\MyFosList;
 use App\Livewire\App\Faults\FaultInsert;
-use App\Livewire\App\Faults\MyFaultsList;
-use App\Livewire\App\StudentPhoto;
 use App\Livewire\Discipline\Compliments\ComplimentEdit;
 use App\Livewire\Discipline\Compliments\ComplimentForm;
 use App\Livewire\Discipline\Compliments\ComplimentList;
@@ -41,12 +39,17 @@ use App\Livewire\Faults\SecondChance;
 use App\Livewire\Peoples\Birthdays;
 use App\Livewire\Peoples\PeopleForm;
 use App\Livewire\Peoples\PeopleList;
+use App\Livewire\Polls\PollForm;
+use App\Livewire\Polls\PollList;
+use App\Livewire\Polls\Questions\Options\OptionList;
+use App\Livewire\Polls\Questions\QuestionsList;
+use App\Livewire\Polls\Questions\QuestionForm;
+use App\Livewire\Polls\Vote;
 use App\Livewire\Settings\Companies\CompanyForm;
 use App\Livewire\Settings\Companies\Companylist;
 use App\Livewire\Settings\SchoolBattalion\SchoolBattalionForm;
 use App\Livewire\Settings\SchoolBattalion\SchoolBattalionList;
 use App\Livewire\Settings\SchoolBattalion\SchoolBattalionView;
-use App\Livewire\Settings\SchoolBattalionStudents\SchoolBattalionStudentForm;
 use App\Livewire\Settings\SchoolBattalionStudents\SchoolBattalionStudentGrade;
 use App\Livewire\Settings\SchoolBattalionStudents\SchoolBattalionStudentList;
 use App\Livewire\Settings\SchoolClasses\SchoolClassesForm;
@@ -56,7 +59,6 @@ use App\Livewire\Settings\SchoolClasses\SchoolClassesView;
 use App\Livewire\Settings\SchoolClassesYears\SchoolClassesYearForm;
 use App\Livewire\Settings\SchoolClassesYears\SchoolClassesYearList;
 use App\Livewire\Settings\SchoolClassroomSeats\SchoolClassroomSeatForm;
-use App\Livewire\Settings\SchoolGrades\SchoolGradeForm;
 use App\Livewire\Settings\SchoolGrades\SchoolGradeList;
 use App\Livewire\Signatures\DocumentSignersForm;
 use App\Livewire\Signatures\DocumentSignersList;
@@ -431,3 +433,49 @@ Route::middleware([
     Route::get('/atividades-extra-classe/atividade/{extra_activity}/alunos', StudentActivityInsert::class)
         ->name('students-activities');
 });
+
+//Enquetes
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:polls' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/enquetes/enquetes-lista', PollList::class)
+        ->name('poll-list');
+    Route::get('/enquetes/enquete/novo', PollForm::class)
+        ->name('poll-create');
+    Route::get('/enquetes/enquete/{polls}/editar', PollForm::class)
+        ->name('poll-edit');
+});
+//Questões
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:polls' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/enquetes/{polls}/questões', QuestionsList::class)
+        ->name('questions-list');
+    Route::get('/enquetes/questoes/novo', QuestionForm::class)
+        ->name('question-create');
+    Route::get('/enquetes/questoes/{questions}/editar', QuestionForm::class)
+        ->name('question-edit');
+});
+
+//Opções
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    RegisterLogging::class,
+    'checkAccess:polls' //MIDDLEWARE QUE DEFINE QUEM ENTRA NA PÁGINA
+])->group(function () {
+    Route::get('/enquetes/questoes/{question}/opcoes', OptionList::class)
+        ->name('option-list');
+});
+
+Route::get('/votacao/{slug}', Vote::class)
+    ->name('polls.vote');

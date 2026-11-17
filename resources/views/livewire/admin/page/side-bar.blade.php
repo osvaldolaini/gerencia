@@ -489,6 +489,15 @@
 
                 </div>
             </div>
+            {{-- ENQUETES --}}
+            <x-layout.side-bar-nav-link url="poll-list" active="*/enquetes" access_page="polls">
+                <x-slot name="svg">
+                    <x-layout.svg.polls class="w-6 h-6  mr-2 text-gray-500 dark:text-gray-300" />
+                </x-slot>
+                <x-slot name="title">
+                    Enquetes
+                </x-slot>
+            </x-layout.side-bar-nav-link>
 
             {{-- ADMINISTRAÇÃO --}}
             <div x-init="if (window.location.href.includes('configurações-gerais')) { openDropdown = 2; }">

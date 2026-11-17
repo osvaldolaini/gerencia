@@ -30,7 +30,7 @@ class PollList extends Component
     public $sorts = ['start_date' => 'asc'];
     public $relationTables; //Relacionamentos ( table , key , foreingKey )
     public $customSearch;  //Colunas personalizadas, customizar no model
-    public $columnsInclude = 'title,start_date,end_date,active as status';
+    public $columnsInclude = 'title,start_date,end_date,slug,active as status';
     public $searchable = 'title'; //Colunas pesquisadas no banco de dados
 
     public $paginate = 15; //Qtd de registros por página

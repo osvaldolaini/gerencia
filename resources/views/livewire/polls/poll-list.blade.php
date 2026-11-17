@@ -33,6 +33,10 @@
                     </th>
                     <th scope="col"
                         class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
+                        Link
+                    </th>
+                    <th scope="col"
+                        class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                         Questões
                     </th>
                     <th scope="col"
@@ -48,6 +52,25 @@
                     <tr>
                         <td class="px-4 py-1 text-sm font-normal text-left text-gray-500 dark:text-gray-400">
                             {{ $item->title }}
+                        </td>
+                        <td class="items-center px-4 py-1 text-sm font-normal text-gray-500 dark:text-gray-400">
+
+                            <div class="flex items-center">
+                                <input type="text" readonly value="{{ route('polls.vote', $item->slug) }}"
+                                    id="poll-link-{{ $item->id }}"
+                                    class="input hidden input-bordered input-sm w-full">
+
+                                <button type="button"
+                                    onclick="navigator.clipboard.writeText(document.getElementById('poll-link-{{ $item->id }}').value)"
+                                    class="btn btn-sm btn-primary" title="Copiar link">
+                                    <svg class="w-6 h-6" viewBox="0 0 24 24">
+                                        <title>link</title>
+                                        <path fill="currentColor"
+                                            d="M11 17H7q-2.075 0-3.537-1.463T2 12t1.463-3.537T7 7h4v2H7q-1.25 0-2.125.875T4 12t.875 2.125T7 15h4zm-3-4v-2h8v2zm5 4v-2h4q1.25 0 2.125-.875T20 12t-.875-2.125T17 9h-4V7h4q2.075 0 3.538 1.463T22 12t-1.463 3.538T17 17z" />
+                                    </svg>
+                                    Copiar link
+                                </button>
+                            </div>
                         </td>
                         <td class="items-center px-4 py-1 text-sm font-normal text-gray-500 dark:text-gray-400">
                             <a href="{{ route('questions-list', $item->id) }}"

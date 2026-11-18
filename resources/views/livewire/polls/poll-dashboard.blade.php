@@ -1,5 +1,5 @@
 <div wire:poll.30s class="space-y-6">
-
+    <x-layout.button-back route="{{ $back }}"></x-layout.button-back>
     {{-- CABEÇALHO --}}
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
@@ -253,7 +253,8 @@
                                     <div class="w-full h-3 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
 
                                         <div class="h-full rounded-full bg-blue-600 transition-all duration-500"
-                                            style="width: {{ min($option['percentage'], 100) }}%"></div>
+                                            style="width: {{ min($option['percentage'], 100) }}%">
+                                        </div>
 
                                     </div>
 
@@ -270,7 +271,8 @@
 
                         @if ($result['type'] === 'multiple_choice')
                             <p class="text-xs text-gray-400 mt-5">
-                                Em perguntas de múltipla escolha, um participante pode selecionar mais de uma
+                                Em perguntas de múltipla escolha, um participante pode selecionar mais
+                                de uma
                                 alternativa. Por isso, a soma dos percentuais pode ultrapassar 100%.
                             </p>
                         @endif
@@ -327,7 +329,8 @@
 
                         <div class="w-full h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                             <div class="h-full bg-purple-500 rounded-full"
-                                style="width: {{ $totalVotes > 0 ? ($class->total / $totalVotes) * 100 : 0 }}%"></div>
+                                style="width: {{ $totalVotes > 0 ? ($class->total / $totalVotes) * 100 : 0 }}%">
+                            </div>
                         </div>
                     </div>
 
@@ -347,5 +350,4 @@
         </div>
 
     </div>
-
 </div>

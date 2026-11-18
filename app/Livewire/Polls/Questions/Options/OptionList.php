@@ -9,13 +9,15 @@ use Livewire\Component;
 
 class OptionList extends Component
 {
-    public $question_id;
+
     public $dataTable;
     public $search;
 
     public $breadcrumb_number;
     public $breadcrumb_question;
-    public $back = 'poll-list';
+    public $back = 'questions-list';
+    public $question_id;
+
     public $route = 'poll';
 
     public function mount(PollQuestion $question)

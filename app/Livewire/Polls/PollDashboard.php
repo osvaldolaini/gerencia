@@ -10,6 +10,7 @@ use App\Models\Polls\PollAnswer;
 class PollDashboard extends Component
 {
     public $pollId;
+    public $back = 'poll-list';
 
     public function mount($polls)
     {

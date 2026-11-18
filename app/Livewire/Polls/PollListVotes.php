@@ -9,11 +9,12 @@ use Livewire\Component;
 class PollListVotes extends Component
 {
     public $breadcrumb = 'Enquete: ';
-    public $back = 'poll-list';
     public $route = 'poll';
 
     public $poll_id;
     public $dataTable;
+
+    public $back = 'poll-dash';
 
     public $selectedVote = false;
 

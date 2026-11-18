@@ -33,6 +33,10 @@
                     </th>
                     <th scope="col"
                         class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
+                        Painel
+                    </th>
+                    <th scope="col"
+                        class="px-4 py-1 text-sm font-normal text-center text-gray-500 dark:text-gray-400">
                         Link
                     </th>
                     <th scope="col"
@@ -54,22 +58,41 @@
                             {{ $item->title }}
                         </td>
                         <td class="items-center px-4 py-1 text-sm font-normal text-gray-500 dark:text-gray-400">
+                            <a href="{{ route('poll-dash', $item->id) }}"
+                                class="flex justify-center px-3 py-2 mx-auto transition-colors duration-200 hover:text-gray-400 whitespace-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-500"
+                                    viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+
+                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                                        sketch:type="MSPage">
+                                        <g id="Icon-Set-Filled" sketch:type="MSLayerGroup"
+                                            transform="translate(-518.000000, -153.000000)" fill="currentColor">
+                                            <path
+                                                d="M533,153 L533,170.3 L548.947,175.084 C549.568,173.543 550,171.688 550,169.571 C550,160.419 541.453,153 533,153 L533,153 Z M531,156 C524.029,156.728 518,163.026 518,170.5 C518,178.508 524.492,185 532.5,185 C538.397,185 543.463,181.474 545.729,176.418 L531,172 L531,156 L531,156 Z"
+                                                id="pie-chart" sketch:type="MSShapeGroup">
+
+                                            </path>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </a>
+                        </td>
+                        <td class="items-center px-4 py-1 text-sm font-normal text-gray-500 dark:text-gray-400">
 
                             <div class="flex items-center">
                                 <input type="text" readonly value="{{ route('polls.vote', $item->slug) }}"
-                                    id="poll-link-{{ $item->id }}"
-                                    class="input hidden input-bordered input-sm w-full">
-
-                                <button type="button"
-                                    onclick="navigator.clipboard.writeText(document.getElementById('poll-link-{{ $item->id }}').value)"
-                                    class="btn btn-sm btn-primary" title="Copiar link">
+                                    id="poll-link-{{ $item->id }}" class="input input-bordered input-xs ">
+                                <a href="{{ route('polls.vote', $item->slug) }}" class="btn btn-sm btn-primary"
+                                    title="Copiar link">
                                     <svg class="w-6 h-6" viewBox="0 0 24 24">
                                         <title>link</title>
                                         <path fill="currentColor"
                                             d="M11 17H7q-2.075 0-3.537-1.463T2 12t1.463-3.537T7 7h4v2H7q-1.25 0-2.125.875T4 12t.875 2.125T7 15h4zm-3-4v-2h8v2zm5 4v-2h4q1.25 0 2.125-.875T20 12t-.875-2.125T17 9h-4V7h4q2.075 0 3.538 1.463T22 12t-1.463 3.538T17 17z" />
                                     </svg>
-                                    Copiar link
-                                </button>
+                                    Link
+                                </a>
                             </div>
                         </td>
                         <td class="items-center px-4 py-1 text-sm font-normal text-gray-500 dark:text-gray-400">

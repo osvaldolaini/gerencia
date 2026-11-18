@@ -39,8 +39,10 @@ use App\Livewire\Faults\SecondChance;
 use App\Livewire\Peoples\Birthdays;
 use App\Livewire\Peoples\PeopleForm;
 use App\Livewire\Peoples\PeopleList;
+use App\Livewire\Polls\PollDashboard;
 use App\Livewire\Polls\PollForm;
 use App\Livewire\Polls\PollList;
+use App\Livewire\Polls\PollListVotes;
 use App\Livewire\Polls\Questions\Options\OptionList;
 use App\Livewire\Polls\Questions\QuestionsList;
 use App\Livewire\Polls\Questions\QuestionForm;
@@ -448,6 +450,10 @@ Route::middleware([
         ->name('poll-create');
     Route::get('/enquetes/enquete/{polls}/editar', PollForm::class)
         ->name('poll-edit');
+    Route::get('/enquetes/enquete/{polls}/painel', PollDashboard::class)
+        ->name('poll-dash');
+    Route::get('/enquetes/enquete/{polls}/votos', PollListVotes::class)
+        ->name('poll-list-votes');
 });
 //Questões
 Route::middleware([

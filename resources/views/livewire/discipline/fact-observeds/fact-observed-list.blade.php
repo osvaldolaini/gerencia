@@ -33,7 +33,7 @@
             <label class="block text-sm font-medium text-gray-900 dark:text-white" for="title">
                 Filtros
             </label>
-            <div class="p-0 tooltip tooltip-top" data-tip="FO+">
+            <div class="p-0 tooltip tooltip-top" data-tip="Negativo">
                 <label
                     class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
                                 rounded-md cursor-pointer {{ $fact_type == 'negativo' ? 'bg-blue-500 text-gray-800' : 'bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900' }}">
@@ -45,7 +45,7 @@
                     </span>
                 </label>
             </div>
-            <div class="p-0 tooltip tooltip-top" data-tip="FO+">
+            <div class="p-0 tooltip tooltip-top" data-tip="Positivo">
                 <label
                     class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
                                 rounded-md cursor-pointer {{ $fact_type == 'positivo' ? 'bg-blue-500 text-gray-800' : 'bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900' }}">
@@ -56,7 +56,7 @@
                     </span>
                 </label>
             </div>
-            <div class="p-0 tooltip tooltip-top" data-tip="FO+">
+            <div class="p-0 tooltip tooltip-top" data-tip="Informativo">
                 <label
                     class="flex flex-col mx-auto justify-center px-3 py-2 transition-colors duration-200
                                 rounded-md cursor-pointer {{ $fact_type == 'informativo' ? 'bg-blue-500 text-gray-800' : 'bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900' }}">

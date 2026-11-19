@@ -5,6 +5,7 @@
 > Melhorias
 
 -   Enquete
+-   Remoção da data de lançamento no SINCOMIL DE FO informativo
 
 ## Versão Santos Dumont 1.8.16 – 2026-10-29
 

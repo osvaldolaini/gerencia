@@ -1,6 +1,7 @@
 <div>
     <x-layout.tabs>
         <x-slot name="nav">
+            <x-layout.button-back route="{{ $back }}"></x-layout.button-back>
             <x-layout.tabs-nav tab="tab1">
                 <x-slot name="svg">
                     <svg class="w-5 h-5 transition duration-75 shrink-0 text-primary-600 dark:text-primary-400"
@@ -12,7 +13,6 @@
                 </x-slot>
                 <x-slot name="title">{{ $activity }} ({{ $modality }})</x-slot>
             </x-layout.tabs-nav>
-
         </x-slot>
         <x-slot name="content">
             <div class="flex justify-end w-full space-x-1">
@@ -96,7 +96,8 @@
 
                                                         <span
                                                             class="{{ $item->sex == 'M' ? 'text-blue-500' : 'text-red-500' }}">
-                                                            {{ $item->student_title }}
+                                                            {{-- {{ $item->student_title }} --}}
+                                                            {{ $item->number . ' - ' . $item->nick }}
                                                         </span>
 
 

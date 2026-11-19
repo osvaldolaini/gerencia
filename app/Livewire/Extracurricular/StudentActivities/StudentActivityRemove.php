@@ -33,6 +33,8 @@ class StudentActivityRemove extends Component
     public $activity_id;
     public $modality;
 
+    public $showJetModal = false;
+
     public function mount(ExtraActivities $extra_activity)
     {
         if ($extra_activity->getAttributes()) {
@@ -99,5 +101,20 @@ class StudentActivityRemove extends Component
     public function openAlert($status, $msg)
     {
         $this->dispatch('openAlert', $status, $msg);
+    }
+
+    //DELETE
+    public function removeAllStudent()
+    {
+        $this->showJetModal = true;
+    }
+    public function delete()
+    {
+        StudentActivities::where('extra_activities_id', $this->activity_id)
+            ->update(['active' => 0]);
+
+        $this->openAlert('success', 'Registro excluido com sucesso.');
+
+        $this->showJetModal = false;
     }
 }

@@ -14,6 +14,7 @@ class StudentActivityInsert extends Component
     public $activity;
     public $activity_id;
     public $modality;
+    public $back = 'extra-activity-list';
 
     public $addSelected = [];
 

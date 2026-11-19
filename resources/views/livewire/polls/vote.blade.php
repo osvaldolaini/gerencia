@@ -17,7 +17,7 @@
 
                 <div>
                     <h1 class="font-bold text-slate-800 dark:text-white leading-tight">
-                        Votação Escolar
+                        Enquete Escolar
                     </h1>
                     <p class="text-xs text-slate-500 dark:text-slate-400">
                         Sua opinião faz a diferença
@@ -27,7 +27,7 @@
 
             <div class="hidden sm:flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                Ambiente de votação
+                Ambiente de enquete
             </div>
 
         </div>
@@ -58,7 +58,7 @@
                 </p>
             @else
                 <p class="max-w-xl mx-auto mt-4 text-slate-500 dark:text-slate-400 leading-relaxed">
-                    Queremos ouvir você! Responda às perguntas abaixo e participe desta votação.
+                    Queremos ouvir você! Responda às perguntas abaixo e participe desta enquete.
                 </p>
             @endif
 
@@ -80,11 +80,11 @@
                 </div>
 
                 <h3 class="text-xl font-bold text-slate-800 dark:text-white">
-                    Votação indisponível
+                    Enquete indisponível
                 </h3>
 
                 <p class="mt-2 text-slate-500 dark:text-slate-400">
-                    Esta votação ainda não começou ou já foi encerrada.
+                    Esta enquete ainda não começou ou já foi encerrada.
                 </p>
 
             </div>
@@ -122,7 +122,7 @@
 
                 <div
                     class="mt-8 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 text-sm text-slate-500 dark:text-slate-400">
-                    Sua participação foi registrada. Você não poderá votar novamente nesta enquete.
+                    Sua participação foi registrada. Você não poderá participar novamente nesta enquete.
                 </div>
 
             </div>
@@ -148,7 +148,7 @@
                                 Identifique-se para continuar
                             </h3>
                             <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                                Precisamos confirmar seus dados antes de liberar a votação.
+                                Precisamos confirmar seus dados antes de liberar a enquete.
                             </p>
                         </div>
                     </div>
@@ -214,7 +214,7 @@
                         <button type="submit" wire:loading.attr="disabled"
                             class="w-full flex items-center justify-center gap-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-5 transition shadow-lg shadow-indigo-600/20 disabled:opacity-60">
                             <span wire:loading.remove wire:target="identifyStudent">
-                                Continuar para votação
+                                Continuar para enquete
                                 <span class="ml-2">→</span>
                             </span>
 
@@ -535,12 +535,12 @@
                                 shadow-sm transition disabled:opacity-50 disabled:cursor-not-allowed">
                             <span wire:loading.remove wire:target="vote">
                                 <i class="fa-solid fa-check"></i>
-                                Confirmar e gravar voto
+                                Confirmar e gravar a participação
                             </span>
 
                             <span wire:loading wire:target="vote">
                                 <i class="fa-solid fa-spinner fa-spin"></i>
-                                Gravando voto...
+                                Gravando participação...
                             </span>
                         </button>
 

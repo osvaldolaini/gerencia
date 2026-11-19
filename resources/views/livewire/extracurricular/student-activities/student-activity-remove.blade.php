@@ -1,25 +1,46 @@
 <div>
     <div class="grid w-full grid-cols-3 px-0 mx-0">
-        <div class="flex justify-center col-span-1 px-0 mx-0 mt-10 items-top">
+        <div class="justify-center col-span-1 px-0 mx-0 mt-10 items-top">
 
-            <button wire:click='removeStudent()'
-                class="
-            btn
-            {{ !empty($removeSelected) ? '' : 'btn-outline' }} btn-error btn-sm">
-                Remover
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="currentColor" viewBox="0 0 512 512"
-                    xml:space="preserve">
-                    <g>
-                        <polygon
-                            points="367.16,7.16 261.176,114.72 367.16,222.28 367.16,176.12 512,176.12 512,53.32 367.16,53.32 	" />
-                        <polygon
-                            points="367.16,289.72 261.176,397.28 367.16,504.84 367.16,458.68 512,458.68 512,335.88 367.16,335.88 	" />
-                        <polygon
-                            points="105.976,148.44 0,256 105.976,363.56 105.976,317.4 250.824,317.4 250.824,194.6 105.976,194.6 	" />
-                    </g>
-                </svg>
+            <div>
+                <button wire:click='removeStudent()'
+                    class="
+btn
+{{ !empty($removeSelected) ? '' : 'btn-outline' }} btn-error btn-sm">
+                    Remover
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="currentColor" viewBox="0 0 512 512"
+                        xml:space="preserve">
+                        <g>
+                            <polygon
+                                points="367.16,7.16 261.176,114.72 367.16,222.28 367.16,176.12 512,176.12 512,53.32 367.16,53.32 	" />
+                            <polygon
+                                points="367.16,289.72 261.176,397.28 367.16,504.84 367.16,458.68 512,458.68 512,335.88 367.16,335.88 	" />
+                            <polygon
+                                points="105.976,148.44 0,256 105.976,363.56 105.976,317.4 250.824,317.4 250.824,194.6 105.976,194.6 	" />
+                        </g>
+                    </svg>
 
-            </button>
+                </button>
+            </div>
+            <div class="mt-3">
+                <button wire:click='removeAllStudent()' class="btn
+    btn-error btn-sm">
+                    Remover todos
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 " fill="currentColor" viewBox="0 0 512 512"
+                        xml:space="preserve">
+                        <g>
+                            <polygon
+                                points="367.16,7.16 261.176,114.72 367.16,222.28 367.16,176.12 512,176.12 512,53.32 367.16,53.32 	" />
+                            <polygon
+                                points="367.16,289.72 261.176,397.28 367.16,504.84 367.16,458.68 512,458.68 512,335.88 367.16,335.88 	" />
+                            <polygon
+                                points="105.976,148.44 0,256 105.976,363.56 105.976,317.4 250.824,317.4 250.824,194.6 105.976,194.6 	" />
+                        </g>
+                    </svg>
+                </button>
+            </div>
+
+
         </div>
         <div class="col-span-2 ">
             <x-layout.search>
@@ -82,5 +103,26 @@
             </x-layout.table>
         </div>
     </div>
+    {{-- MODAL DELETE --}}
+    <x-confirmation-modal wire:model="showJetModal">
+        <x-slot name="title">
+            Remover todos os alunos
+        </x-slot>
+
+        <x-slot name="content">
+            <h2 class="h2">Deseja realmente remover todos os alunos?</h2>
+            <p>Não será possível reverter esta ação!</p>
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$toggle('showJetModal')" wire:loading.attr="disabled">
+                Cancelar
+            </x-secondary-button>
+
+            <x-danger-button class="ml-2" wire:click="delete()" wire:loading.attr="disabled">
+                Apagar registro
+            </x-danger-button>
+        </x-slot>
+    </x-confirmation-modal>
 
 </div>

@@ -91,11 +91,11 @@
                     @foreach ($data->students->where('active', 1)->sortBy('gip') as $student)
                         <tr class="linha-tabela">
                             <td class="text-center border-bottom">
-                                {{ $student->student?->number ? $student->student?->num : 'Sem número' }}
+                                {{ $student->student?->number ? $student->student?->num : 'Aluno/a saiu da escola' }}
                             </td>
                             <td class="text-center border-bottom">
-                                {{ $student->student?->name ?? 'Sem número' }}
-                                ({{ $student->student?->nick ?? 'Sem número' }})
+                                {{ $student->student?->name ?? 'Aluno/a saiu da escola' }}
+                                ({{ $student->student?->nick ?? 'Aluno/a saiu da escola' }})
                             </td>
 
                             <td class="text-center border-bottom">

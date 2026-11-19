@@ -6,6 +6,11 @@
 
 -   Enquete
 -   Remoção da data de lançamento no SINCOMIL DE FO informativo
+-   Inclusão do botão remover "todos" da atividade extra
+
+> Correções
+
+-   Retirada do campo "DATA SINCOMIL" do FO informativo
 
 ## Versão Santos Dumont 1.8.16 – 2026-10-29
 

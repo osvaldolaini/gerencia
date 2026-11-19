@@ -37,12 +37,13 @@ class PollDashboard extends Component
             ->value('voted_at');
 
         // Participação por turma
-        $classes = (clone $votesQuery)
-            ->selectRaw('school_class_name, COUNT(*) as total')
-            ->whereNotNull('school_class_name')
-            ->groupBy('school_class_name')
+        $classes = (clone $votesQuery)->with('schoolClass')
+            ->selectRaw('school_class_id,COUNT(*) as total')
+            ->whereNotNull('school_class_id')
+            ->groupBy('school_class_id')
             ->orderByDesc('total')
             ->get();
+
 
         // Respostas registradas nesta enquete
         $answers = PollAnswer::whereHas('vote', function ($query) use ($poll) {
@@ -108,5 +109,9 @@ class PollDashboard extends Component
             'classes' => $classes,
             'questionResults' => $questionResults,
         ])->layout('layouts.app');
+    }
+    public function seeData($option)
+    {
+        $this->dispatch('seeData', $option);
     }
 }

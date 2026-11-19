@@ -123,6 +123,7 @@
                                         </span>
 
                                         <div>
+
                                             <h3 class="font-semibold text-gray-800 dark:text-white">
                                                 {{ $answer['question'] }}
                                             </h3>

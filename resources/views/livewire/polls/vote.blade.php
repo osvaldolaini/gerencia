@@ -238,7 +238,6 @@
                         Identificação protegida
                     </p>
                 </div>
-
             </div>
             {{-- @livewire('polls.vote.identification') --}}
             {{-- FORMULÁRIO DE VOTAÇÃO --}}

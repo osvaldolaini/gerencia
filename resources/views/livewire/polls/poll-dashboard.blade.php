@@ -237,8 +237,12 @@
 
                                     <div class="flex items-center justify-between gap-3 mb-2">
 
-                                        <span class="text-sm font-medium text-gray-700 dark:text-gray-200">
-                                            {{ $option['description'] }}
+                                        <span
+                                            class="flex space-x-2 text-sm p-2 font-medium text-gray-700 dark:text-gray-200">
+                                            <div>
+                                                {{ $option['description'] }}
+                                            </div>
+                                            @livewire('polls.pdf.poll-data-pdf', ['option' => $option['id']])
                                         </span>
 
                                         <span class="text-sm text-gray-500 whitespace-nowrap">
@@ -314,11 +318,19 @@
 
             @forelse($classes as $class)
                 <div class="flex items-center gap-4 py-3 border-b border-gray-100 dark:border-gray-700 last:border-0">
-
                     <div class="flex-1 min-w-0">
                         <div class="flex justify-between gap-3 mb-2">
-                            <span class="font-medium text-sm text-gray-700 dark:text-gray-200">
-                                {{ $class->school_class_name }}
+                            <span class="flex space-x-2 font-medium text-sm text-gray-700 dark:text-gray-200">
+                                <div>
+                                    {{ $class->schoolClass->title }}
+                                </div>
+                                @livewire('polls.pdf.poll-school-class-pdf', ['class' => $class->school_class_id, 'poll' => $pollId])
+                                {{-- <span wire:click='seeSchoolClass()'
+                                    class="flex text-black m-0 p-0.5 px-2 bg-accent 
+                                            rounded-2xl cursor-pointer">
+                                    Ver dados
+                                    <x-layout.svg.pdf class="w-5 h-5"></x-layout.svg.pdf>
+                                </span> --}}
                             </span>
 
                             <span class="text-sm font-semibold text-gray-800 dark:text-white">
